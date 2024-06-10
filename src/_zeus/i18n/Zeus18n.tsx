@@ -5,10 +5,10 @@ import {WithChildren} from '../helpers'
 const I18N_CONFIG_KEY = import.meta.env.VITE_APP_I18N_CONFIG_KEY || 'i18nConfig'
 
 type Props = {
-  selectedLang: 'de' | 'en' | 'es' | 'fr' | 'ja' | 'zh'
+  selectedLang: 'en' | 'es'
 }
 const initialState: Props = {
-  selectedLang: 'en',
+  selectedLang: 'es',
 }
 
 function getConfig(): Props {

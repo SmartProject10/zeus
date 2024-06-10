@@ -1,7 +1,7 @@
 {
-  "name": "demo1",
+  "name": "zeus",
   "private": true,
-  "version": "8.2.4",
+  "version": "1",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -5,7 +5,7 @@ import {Chart, registerables} from 'chart.js'
 import {QueryClient, QueryClientProvider} from 'react-query'
 import {ReactQueryDevtools} from 'react-query/devtools'
 // Apps
-import {MetronicI18nProvider} from './_zeus/i18n/Metronici18n'
+import {MetronicI18nProvider} from './_zeus/i18n/Zeus18n.tsx'
 import './_zeus/assets/sass/style.react.scss'
 import './_zeus/assets/fonticon/fonticon.css'
 import './_zeus/assets/keenicons/duotone/style.css'
