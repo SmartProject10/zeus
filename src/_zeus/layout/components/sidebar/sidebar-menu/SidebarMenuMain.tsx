@@ -10,17 +10,39 @@ const SidebarMenuMain = () => {
     <>
       <SidebarMenuItem
         to='/dashboard'
-        icon='element-11'
+        icon='home'
         title={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         fontIcon='bi-app-indicator'
       />
-      <SidebarMenuItem to='/builder' icon='switch' title='Layout Builder' fontIcon='bi-layers' />
+      <SidebarMenuItem
+         to='/apps/user-management/users'
+         icon='people'
+         title='Gestion de usuarios'
+         fontIcon='bi-layers'
+      />
+      <SidebarMenuItem to='/builder' icon='bank' title='Gestion de empresas' fontIcon='bi-layers' />
+
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
-          <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>
+          <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Recursos humanos</span>
         </div>
       </div>
-      <SidebarMenuItemWithSub
+
+        <SidebarMenuItemWithSub
+            to='/crafted/pages'
+            title='Empleados'
+            fontIcon='bi-archive'
+            icon='people'
+        >
+
+            <SidebarMenuItem to='' title='Empleados' hasBullet={true} />
+            <SidebarMenuItem to='' title='Cargos' hasBullet={true} />
+
+        </SidebarMenuItemWithSub>
+
+        <SidebarMenuItem to='/builder' icon='bank' title='Gestion de empresas' fontIcon='bi-layers' />
+
+        <SidebarMenuItemWithSub
         to='/crafted/pages'
         title='Pages'
         fontIcon='bi-archive'
@@ -96,12 +118,6 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem to='/apps/chat/group-chat' title='Group Chart' hasBullet={true} />
         <SidebarMenuItem to='/apps/chat/drawer-chat' title='Drawer Chart' hasBullet={true} />
       </SidebarMenuItemWithSub>
-      <SidebarMenuItem
-        to='/apps/user-management/users'
-        icon='abstract-28'
-        title='User management'
-        fontIcon='bi-layers'
-      />
       <div className='menu-item'>
         <a
           target='_blank'

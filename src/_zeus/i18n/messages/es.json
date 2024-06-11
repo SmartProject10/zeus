@@ -33,5 +33,6 @@
   "AUTH.VALIDATION.REQUIRED_FIELD": "Required field",
   "AUTH.VALIDATION.MIN_LENGTH_FIELD": "Minimum field length:",
   "AUTH.VALIDATION.MAX_LENGTH_FIELD": "Maximum field length:",
-  "AUTH.VALIDATION.INVALID_FIELD": "Field is not valid"
+  "AUTH.VALIDATION.INVALID_FIELD": "Field is not valid",
+  "MENU.DASHBOARD": "Inicio"
 }
