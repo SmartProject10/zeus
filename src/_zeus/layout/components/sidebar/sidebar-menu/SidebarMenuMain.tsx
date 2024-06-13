@@ -20,7 +20,7 @@ const SidebarMenuMain = () => {
               title='Gestion de usuarios'
               fontIcon='bi-layers'
           />
-          <SidebarMenuItem to='/builder' icon='bank' title='Gestion de empresas' fontIcon='bi-layers'/>
+          <SidebarMenuItem to='' icon='bank' title='Gestion de empresas' fontIcon='bi-layers'/>
 
           <div className='menu-item'>
               <div className='menu-content pt-8 pb-2'>

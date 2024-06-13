@@ -15,16 +15,17 @@ const MegaMenu: FC = () => {
           {/* begin:Col */}
           <div className='col-lg-6 mb-3'>
             {/* begin:Heading */}
-            <h4 className='fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4'>Layouts</h4>
+            <h4 className='fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4'>Mas usadas...</h4>
             {/* end:Heading */}
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
               {/* begin:Menu link */}
-              <a onClick={() => setLayoutType('light-sidebar')} className='menu-link'>
+              {/*<a onClick={() => setLayoutType('light-sidebar')} className='menu-link'>*/}
+              <a className='menu-link'>
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Light Sidebar</span>
+                <span className='menu-title'>Extintores</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -32,11 +33,11 @@ const MegaMenu: FC = () => {
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
               {/* begin:Menu link */}
-              <a onClick={() => setLayoutType('dark-sidebar')} className='menu-link'>
+              <a className='menu-link'>
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Dark Sidebar</span>
+                <span className='menu-title'>EPP</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -44,11 +45,11 @@ const MegaMenu: FC = () => {
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
               {/* begin:Menu link */}
-              <a onClick={() => setLayoutType('light-header')} className='menu-link'>
+              <a className='menu-link'>
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Light Header</span>
+                <span className='menu-title'>Otra opcion</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -56,11 +57,11 @@ const MegaMenu: FC = () => {
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
               {/* begin:Menu link */}
-              <a onClick={() => setLayoutType('dark-header')} className='menu-link'>
+              <a className='menu-link'>
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Dark Header</span>
+                <span className='menu-title'>Otra opcion</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -70,16 +71,16 @@ const MegaMenu: FC = () => {
           {/* begin:Col */}
           <div className='col-lg-6 mb-3'>
             {/* begin:Heading */}
-            <h4 className='fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4'>Toolbars</h4>
+            <h4 className='fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4'>Acceso directo</h4>
             {/* end:Heading */}
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
               {/* begin:Menu link */}
-              <a onClick={() => setToolbarType('classic')} className='menu-link'>
+              <a className='menu-link'>
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Classic</span>
+                <span className='menu-title'>Ejemplo</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -87,11 +88,11 @@ const MegaMenu: FC = () => {
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
               {/* begin:Menu link */}
-              <a onClick={() => setToolbarType('saas')} className='menu-link'>
+              <a  className='menu-link'>
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>SaaS</span>
+                <span className='menu-title'>Ejemplo</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -99,11 +100,11 @@ const MegaMenu: FC = () => {
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
               {/* begin:Menu link */}
-              <a onClick={() => setToolbarType('accounting')} className='menu-link'>
+              <a className='menu-link'>
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Accounting</span>
+                <span className='menu-title'>Ejemplo</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -111,11 +112,11 @@ const MegaMenu: FC = () => {
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
               {/* begin:Menu link */}
-              <a onClick={() => setToolbarType('extended')} className='menu-link'>
+              <a className='menu-link'>
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Extended</span>
+                <span className='menu-title'>Ejemplo</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -123,11 +124,11 @@ const MegaMenu: FC = () => {
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
               {/* begin:Menu link */}
-              <a onClick={() => setToolbarType('reports')} className='menu-link'>
+              <a className='menu-link'>
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Reports</span>
+                <span className='menu-title'>Ejemplo</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -140,11 +141,11 @@ const MegaMenu: FC = () => {
         {/* begin:Layout Builder */}
         <div className='d-flex flex-stack flex-wrap flex-lg-nowrap gap-2 mb-5 mb-lg-0 mx-lg-5'>
           <div className='d-flex flex-column me-5'>
-            <div className='fs-6 fw-bold text-gray-800'>Layout Builder</div>
-            <div className='fs-7 fw-semibold text-muted'>Customize view</div>
+            <div className='fs-6 fw-bold text-gray-800'>Tienes algun problema?</div>
+            <div className='fs-7 fw-semibold text-muted'>Llamanos..</div>
           </div>
-          <Link to='/builder' className='btn btn-sm btn-primary fw-bold'>
-            Try Builder
+          <Link to='' className='btn btn-sm btn-primary fw-bold'>
+            +1 312 442 2661
           </Link>
         </div>
         {/* end:Layout Builder */}
