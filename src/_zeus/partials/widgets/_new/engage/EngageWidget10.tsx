@@ -18,7 +18,7 @@ const EngageWidget10 = ({className}: Props) => (
       <div className='mb-10'>
         <div className='fs-2hx fw-bold text-gray-800 text-center mb-13'>
           <span className='me-2'>
-            Try our all new Enviroment with
+            Estamos trabajando para darte una
             <br />
             <span className='position-relative d-inline-block text-danger'>
               <Link
@@ -26,27 +26,26 @@ const EngageWidget10 = ({className}: Props) => (
                 className='text-danger
               opacity-75-hover'
               >
-                Pro Plan
+                experiencia
               </Link>
 
               <span className='position-absolute opacity-15 bottom-0 start-0 border-4 border-danger border-bottom w-100'></span>
             </span>
           </span>
-          for Free
+          de primera
         </div>
 
         <div className='text-center'>
-          <a href='#'>Upgrade Now</a>
         </div>
       </div>
       <img
         className='mx-auto h-150px h-lg-200px  theme-light-show'
-        src={toAbsoluteUrl('media/illustrations/misc/upgrade.svg')}
+        src={toAbsoluteUrl('media/illustrations/unitedpalms-1/9-dark.png')}
         alt=''
       />
       <img
         className='mx-auto h-150px h-lg-200px  theme-dark-show'
-        src={toAbsoluteUrl('media/illustrations/misc/upgrade-dark.svg')}
+        src={toAbsoluteUrl('media/illustrations/unitedpalms-1/9.png')}
         alt=''
       />
     </div>

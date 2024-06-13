@@ -10,7 +10,7 @@ const ToggleHelpDrawer: FC = () => (
     data-bs-dismiss='click'
     data-bs-trigger='hover'
   >
-    Help
+    necesitas Ayuda?
   </button>
 )
 
