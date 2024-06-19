@@ -15,7 +15,7 @@ const MegaMenu: FC = () => {
           {/* begin:Col */}
           <div className='col-lg-6 mb-3'>
             {/* begin:Heading */}
-            <h4 className='fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4'>Mas usadas...</h4>
+            <h4 className='fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4'>Herramientas</h4>
             {/* end:Heading */}
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
@@ -25,7 +25,7 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Extintores</span>
+                <span className='menu-title'>Nuevo empleado</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -37,7 +37,7 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>EPP</span>
+                <span className='menu-title'>Nuevo auditor externo</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -80,7 +80,7 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Ejemplo</span>
+                <span className='menu-title'>Mesa de ayuda</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -92,7 +92,7 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Ejemplo</span>
+                <span className='menu-title'>Reporte de accidentes</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -104,7 +104,7 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Ejemplo</span>
+                <span className='menu-title'>Reporte de incidentes</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -116,7 +116,7 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Ejemplo</span>
+                <span className='menu-title'>Reporte de incidentes de soborno</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -128,7 +128,7 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Ejemplo</span>
+                <span className='menu-title'>Reporte de incidentes Ambiental</span>
               </a>
               {/* end:Menu link */}
             </div>

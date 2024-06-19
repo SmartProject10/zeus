@@ -8,9 +8,9 @@ export function MenuInner() {
   return (
     <>
       <MenuItem title={intl.formatMessage({id: 'MENU.DASHBOARD'})} to='/dashboard' />
-      <MenuItem title='Cursos' to='' />
+      <MenuItem title='Calendario' to='' />
       <MenuItem title='Bibioloteca' to='' />
-      <MenuItem title='Mesa de ayuda' to='' />
+      <MenuItem title='Reloj' to='' />
 
       <MenuInnerWithSub
         isMega={true}
