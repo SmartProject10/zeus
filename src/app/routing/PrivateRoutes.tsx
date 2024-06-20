@@ -7,7 +7,7 @@ import {MenuTestPage} from '../pages/MenuTestPage'
 import {getCSSVariableValue} from '../../_zeus/assets/ts/_utils'
 import {WithChildren} from '../../_zeus/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
-
+import AuditFormSSO from '../pages/layout-builder/audit-forms/AuditFormSSO'
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
@@ -25,6 +25,7 @@ const PrivateRoutes = () => {
         <Route path='dashboard' element={<DashboardWrapper />} />
         <Route path='builder' element={<BuilderPageWrapper />} />
         <Route path='menu-test' element={<MenuTestPage />} />
+        <Route path='audit-form-sso' element={<AuditFormSSO />} />
         {/* Lazy Modules */}
         <Route
           path='crafted/pages/profile/*'

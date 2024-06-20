@@ -12,6 +12,9 @@ import {ErrorsPage} from '../modules/errors/ErrorsPage'
 import {Logout, AuthPage, useAuth} from '../modules/auth'
 import {App} from '../App'
 
+//Rutas de Documentos de auditoria, jesus 
+import AuditFormSSO from '../pages/layout-builder/audit-forms/AuditFormSSO';
+
 /**
  * Base URL of the website.
  *
@@ -31,6 +34,7 @@ const AppRoutes: FC = () => {
             <>
               <Route path='/*' element={<PrivateRoutes />} />
               <Route index element={<Navigate to='/dashboard' />} />
+              <Route path="/audit-form-sso" element={<AuditFormSSO />} />
             </>
           ) : (
             <>

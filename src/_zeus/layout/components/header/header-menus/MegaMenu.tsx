@@ -1,4 +1,3 @@
-
 import {FC} from 'react'
 import {Link} from 'react-router-dom'
 import {toAbsoluteUrl} from '../../../../helpers'
@@ -6,6 +5,9 @@ import {useLayout} from '../../../core'
 
 const MegaMenu: FC = () => {
   const {setLayoutType, setToolbarType} = useLayout()
+
+  console.log('MegaMenu rendered');
+  
   return (
     <div className='row'>
       {/* begin:Col */}
@@ -20,7 +22,6 @@ const MegaMenu: FC = () => {
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
               {/* begin:Menu link */}
-              {/*<a onClick={() => setLayoutType('light-sidebar')} className='menu-link'>*/}
               <a className='menu-link'>
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
@@ -76,12 +77,12 @@ const MegaMenu: FC = () => {
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
               {/* begin:Menu link */}
-              <a className='menu-link'>
-                <span className='menu-bullet'>
-                  <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
-                </span>
-                <span className='menu-title'>Ejemplo</span>
-              </a>
+              <a className='menu-link' href='/audit-form-sso'>
+                  <span className='menu-bullet'>
+                    <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
+                  </span>
+                  <span className='menu-title'>NF01 SSO</span>
+                </a>
               {/* end:Menu link */}
             </div>
             {/* end:Menu item */}
