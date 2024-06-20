@@ -18,7 +18,7 @@ import './_zeus/assets/keenicons/solid/style.css'
  **/
 import './_zeus/assets/sass/style.scss'
 import {AppRoutes} from './app/routing/AppRoutes'
-import {AuthProvider, setupAxios} from './app/modules/auth'
+import {AuthProvider, setupAxios} from './app/modules/_auth'
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.
