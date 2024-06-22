@@ -6,6 +6,7 @@ import {DashboardWrapper} from '../pages/dashboard/DashboardWrapper'
 import {MenuTestPage} from '../pages/MenuTestPage'
 import {getCSSVariableValue} from '../../_zeus/assets/ts/_utils'
 import {WithChildren} from '../../_zeus/helpers'
+import HumanResourcesToolsPage from "../modules/human-resources/tools/HumanResourcesToolsPage.tsx";
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -14,6 +15,7 @@ const PrivateRoutes = () => {
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
   const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
+  const HumanResourcesToolsPage = lazy(() => import('../modules/human-resources/tools/HumanResourcesToolsPage'))
 
   return (
     <Routes>
@@ -24,6 +26,14 @@ const PrivateRoutes = () => {
         <Route path='dashboard' element={<DashboardWrapper />} />
         <Route path='menu-test' element={<MenuTestPage />} />
         {/* Lazy Modules */}
+        <Route
+         path='human-resources/tools/*'
+         element={
+           <SuspensedView>
+             <HumanResourcesToolsPage />
+           </SuspensedView>
+            }
+        />
         <Route
           path='crafted/pages/profile/*'
           element={
@@ -72,6 +82,7 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
+
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>
