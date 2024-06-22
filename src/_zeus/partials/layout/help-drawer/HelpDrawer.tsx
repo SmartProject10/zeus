@@ -21,7 +21,7 @@ const HelpDrawer = () => {
       <div className='card shadow-none rounded-0 w-100'>
         {/* begin::Header */}
         <div className='card-header' id='kt_help_header'>
-          <h5 className='card-title fw-bold text-gray-600'>Tu opinion es importante para nosotros</h5>
+          <h5 className='card-title fw-bold text-gray-600'>¿Accidente laboral?</h5>
 
           <div className='card-toolbar'>
             <button
@@ -51,17 +51,18 @@ const HelpDrawer = () => {
             <div className='rounded border border-dashed border-gray-300 p-6 p-lg-8 mb-10'>
               {/* begin::Heading */}
               <h2 className='fw-bolder mb-5'>
-                Texto de ejemplo para{' '}
+                ¿Qué hacer en caso de{' '}
                 <a href='' className=''>
-                  ayuda
+                  accidente laboral
                 </a>
+                ?
               </h2>
               {/* end::Heading */}
 
               {/* begin::Description */}
               <div className='fs-5 fw-bold mb-5'>
                 <span className='text-gray-500'>
-                  Tu opinion es importante para nosotros. Tu opinion es importante para nosotros
+                  Si ha tenido un accidente laboral, debe informar a su empleador y supervisor de inmediato. Si sus lesiones son graves, debe ir a un hospital. También debe acudir al centro médico más cercano para recibir atención. Si es posible, debe ir acompañado de testigos.
                 </span>
                 <a className='explore-link d-none' href=''>
 
@@ -74,7 +75,7 @@ const HelpDrawer = () => {
                 href=''
                 className='btn btn-lg explore-btn-primary w-100'
               >
-                Suguerencia
+                Reportar Accidente Laboral
               </a>
               {/* end::Link */}
             </div>

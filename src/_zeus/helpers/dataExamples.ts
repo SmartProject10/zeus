@@ -10,7 +10,7 @@ const defaultMessages: Array<MessageModel> = [
   {
     user: 4,
     type: 'in',
-    text: 'How likely are you to recommend our company to your friends and family ?',
+    text: 'How likely are you to recommend our company-management to your friends and family ?',
     time: '2 mins',
   },
   {

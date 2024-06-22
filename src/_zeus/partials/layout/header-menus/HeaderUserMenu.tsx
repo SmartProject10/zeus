@@ -1,7 +1,7 @@
 
 import {FC} from 'react'
 import {Link} from 'react-router-dom'
-import {useAuth} from '../../../../app/modules/auth'
+import {useAuth} from '../../../../app/modules/_auth'
 import {Languages} from './Languages'
 import {toAbsoluteUrl} from '../../../helpers'
 
