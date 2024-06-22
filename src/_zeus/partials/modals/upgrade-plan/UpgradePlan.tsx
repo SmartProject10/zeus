@@ -46,7 +46,7 @@ const plans = [
   {
     title: 'Advanced',
     subTitle: 'Best for 100+ team size',
-    description: 'Optimal for 100+ team size and grown company',
+    description: 'Optimal for 100+ team size and grown company-management',
     priceMonth: '339',
     priceAnnual: '3399',
     default: false,

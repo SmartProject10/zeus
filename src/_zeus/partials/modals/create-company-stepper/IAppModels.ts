@@ -1,4 +1,4 @@
- export interface IAppBasic {
+export interface IAppBasic {
   appName: string
   appType: 'Quick Online Courses' | 'Face to Face Discussions' | 'Full Intro Training'
 }
