@@ -1,12 +1,13 @@
-
-import {FC} from 'react'
-import {Link} from 'react-router-dom'
-import {useAuth} from '../../../../app/modules/_auth'
-import {Languages} from './Languages'
-import {toAbsoluteUrl} from '../../../helpers'
+import { FC } from 'react'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../../../app/modules/_auth'
+import { Languages } from './Languages'
+import { toAbsoluteUrl } from '../../../helpers'
+import { useIntl } from 'react-intl'
 
 const HeaderUserMenu: FC = () => {
-  const {currentUser, logout} = useAuth()
+  const { currentUser, logout } = useAuth()
+  const intl = useIntl()
   return (
     <div
       className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px'
@@ -20,7 +21,7 @@ const HeaderUserMenu: FC = () => {
 
           <div className='d-flex flex-column'>
             <div className='fw-bolder d-flex align-items-center fs-5'>
-              {currentUser?.first_name} {currentUser?.first_name}
+              {currentUser?.first_name} {currentUser?.last_name}
               <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>VIP</span>
             </div>
             <a href='#' className='fw-bold text-muted text-hover-primary fs-7'>
@@ -34,13 +35,13 @@ const HeaderUserMenu: FC = () => {
 
       <div className='menu-item px-5'>
         <Link to={'/crafted/pages/profile'} className='menu-link px-5'>
-          Mi Perfil
+          {intl.formatMessage({ id: 'HEADER.MY_PROFILE' })}
         </Link>
       </div>
 
       <div className='menu-item px-5'>
         <a href='#' className='menu-link px-5'>
-          <span className='menu-text'>Pendientes</span>
+          <span className='menu-text'>{intl.formatMessage({ id: 'HEADER.MY_TASKS' })}</span>
           <span className='menu-badge'>
             <span className='badge badge-light-danger badge-circle fw-bolder fs-7'>3</span>
           </span>
@@ -58,7 +59,7 @@ const HeaderUserMenu: FC = () => {
 
       <div className='menu-item px-5'>
         <a href='#' className='menu-link px-5'>
-          Estado
+          {intl.formatMessage({ id: 'HEADER.STATUS' })}
         </a>
       </div>
 
@@ -68,17 +69,17 @@ const HeaderUserMenu: FC = () => {
 
       <div className='menu-item px-5 my-1'>
         <Link to='/crafted/account/settings' className='menu-link px-5'>
-          Configuracion
+          {intl.formatMessage({ id: 'HEADER.SETTINGS' })}
         </Link>
       </div>
 
       <div className='menu-item px-5'>
         <a onClick={logout} className='menu-link px-5'>
-          Salir
+          {intl.formatMessage({ id: 'HEADER.LOGOUT' })}
         </a>
       </div>
     </div>
   )
 }
 
-export {HeaderUserMenu}
+export { HeaderUserMenu }

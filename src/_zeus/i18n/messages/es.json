@@ -101,7 +101,7 @@
   "MENU.LIBRARY": "Biblioteca",
   "MENU.CLOCK": "Reloj",
   "MENU.TOOLS": "Herramientas",
-  
+
   "MENU.NEW_EMPLOYEE": "Nuevo empleado",
   "MENU.NEW_EXTERNAL_AUDITOR": "Nuevo auditor externo",
   "MENU.OTHER_OPTION": "Otra opción",
@@ -112,5 +112,11 @@
   "MENU.BRIBERY_INCIDENT_REPORT": "Reporte de incidentes de soborno",
   "MENU.ENVIRONMENTAL_INCIDENT_REPORT": "Reporte de incidentes ambiental",
   "MENU.PROBLEM": "¿Tienes algún problema?",
-  "MENU.CONTACT_US": "Llámanos.."
+  "MENU.CONTACT_US": "Llámanos..",
+
+  "HEADER.MY_PROFILE": "Mi Perfil",
+  "HEADER.MY_TASKS": "Pendientes",
+  "HEADER.STATUS": "Estado",
+  "HEADER.SETTINGS": "Configuración",
+  "HEADER.LOGOUT": "Salir"
 }
