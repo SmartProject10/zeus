@@ -17,205 +17,167 @@ const SidebarMenuMain = () => {
             <SidebarMenuItem
                 to='/apps/user-management/users'
                 icon='people'
-                title={intl.formatMessage({ id: 'MENU.GESTION_USUARIOS' })}
+                title={intl.formatMessage({ id: 'MENU.USER_MANAGEMENT' })}
                 fontIcon='bi-layers'
             />
-            <SidebarMenuItem to='' icon='bank' title={intl.formatMessage({ id: 'MENU.GESTION_EMPRESAS' })} fontIcon='bi-layers' />
-
-
-
+            <SidebarMenuItem to='' icon='bank' title={intl.formatMessage({ id: 'MENU.COMPANY_MANAGEMENT' })} fontIcon='bi-layers' />
 
             <SidebarMenuItemWithSub
                 to='/crafted/pages'
-                title={intl.formatMessage({ id: 'MENU.RECURSOS_HUMANOS' })}
+                title={intl.formatMessage({ id: 'MENU.HUMAN_RESOURCES' })}
                 fontIcon='bi-archive'
                 icon='people'
             >
-
                 <SidebarMenuItemWithSub
                     to='/crafted/pages'
-                    title={intl.formatMessage({ id: 'MENU.EMPLEADOS' })}
+                    title={intl.formatMessage({ id: 'MENU.EMPLOYEES' })}
                     fontIcon='bi-archive'
                     icon='people'
                 >
-
-
-                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.GESTION_EMPLEADOS' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.GESTION_EMPLEADOS_EXTERNOS' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.PERMISOS_ROLES' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='delivery-time' title={intl.formatMessage({ id: 'MENU.HISTORIAL_LABORAL' })} fontIcon='bi-layers' />
-
+                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.EMPLOYEE_MANAGEMENT' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.EXTERNAL_EMPLOYEE_MANAGEMENT' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.PERMISSIONS_ROLES' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='delivery-time' title={intl.formatMessage({ id: 'MENU.WORK_HISTORY' })} fontIcon='bi-layers' />
                 </SidebarMenuItemWithSub>
 
                 <SidebarMenuItemWithSub
                     to='/crafted/pages'
-                    title={intl.formatMessage({ id: 'MENU.RECLUTAMIENTO_SELECCION' })}
+                    title={intl.formatMessage({ id: 'MENU.RECRUITMENT_SELECTION' })}
                     fontIcon='bi-archive'
                     icon='people'
                 >
-
-
-                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.VACANTES' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.GESTION_CANDIDATOS' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.ARCHIVO_CANDIDATOS' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='delivery-time' title={intl.formatMessage({ id: 'MENU.PROCESO_SELECCION' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='category' title={intl.formatMessage({ id: 'MENU.DOCUMENTACION_CONTRATACION' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.VACANCIES' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.CANDIDATE_MANAGEMENT' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.CANDIDATE_ARCHIVE' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='delivery-time' title={intl.formatMessage({ id: 'MENU.SELECTION_PROCESS' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='category' title={intl.formatMessage({ id: 'MENU.HIRING_DOCUMENTATION' })} fontIcon='bi-layers' />
                 </SidebarMenuItemWithSub>
 
                 <SidebarMenuItemWithSub
                     to='/crafted/pages'
-                    title={intl.formatMessage({ id: 'MENU.DESEMPENO' })}
+                    title={intl.formatMessage({ id: 'MENU.PERFORMANCE' })}
                     fontIcon='bi-archive'
                     icon='people'
                 >
-
-
-                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.EVALUACIONES_DESEMPENO' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.OBJETIVOS_METAS' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.RETROALIMENTACION_REVISIONES' })} fontIcon='bi-layers' />
-
-
+                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.PERFORMANCE_EVALUATIONS' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.GOALS_OBJECTIVES' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.FEEDBACK_REVIEWS' })} fontIcon='bi-layers' />
                 </SidebarMenuItemWithSub>
 
                 <SidebarMenuItemWithSub
                     to='/crafted/pages'
-                    title={intl.formatMessage({ id: 'MENU.FORMACION_DESARROLLO' })}
+                    title={intl.formatMessage({ id: 'MENU.TRAINING_DEVELOPMENT' })}
                     fontIcon='bi-archive'
                     icon='people'
                 >
-
-                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.PROGRAMAS_FORMACION' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.HISTORIAL_CAPACITACIONES' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.EVALUACION_COMPETENCIAS' })} fontIcon='bi-layers' />
-
+                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.TRAINING_PROGRAMS' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.TRAINING_HISTORY' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.SKILL_EVALUATION' })} fontIcon='bi-layers' />
                 </SidebarMenuItemWithSub>
 
                 <SidebarMenuItemWithSub
                     to='/crafted/pages'
-                    title={intl.formatMessage({ id: 'MENU.NOMINA_BENEFICIOS' })}
+                    title={intl.formatMessage({ id: 'MENU.PAYROLL_BENEFITS' })}
                     fontIcon='bi-archive'
                     icon='people'
                 >
-
-                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.GESTION_NOMINA' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.BENEFICIOS_EMPLEADOS' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.DEDUCCIONES_BONIFICACIONES' })} fontIcon='bi-layers' />
-
+                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.PAYROLL_MANAGEMENT' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.EMPLOYEE_BENEFITS' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.DEDUCTIONS_BONUSES' })} fontIcon='bi-layers' />
                 </SidebarMenuItemWithSub>
 
                 <SidebarMenuItemWithSub
                     to='/crafted/pages'
-                    title={intl.formatMessage({ id: 'MENU.AUSENCIAS_TIEMPO' })}
+                    title={intl.formatMessage({ id: 'MENU.ABSENCES_TIME' })}
                     fontIcon='bi-archive'
                     icon='people'
                 >
-
-
-                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.SOLICITUD_VACACIONES_PERMISOS' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.SEGUIMIENTO_AUSENCIAS' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.RELOJ_TIEMPO_NUBE' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.CALENDARIO_LABORAL' })} fontIcon='bi-layers' />
-
+                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.VACATION_REQUESTS' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.ABSENCE_TRACKING' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.CLOUD_TIMECLOCK' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.WORK_CALENDAR' })} fontIcon='bi-layers' />
                 </SidebarMenuItemWithSub>
 
                 <SidebarMenuItemWithSub
                     to='/crafted/pages'
-                    title={intl.formatMessage({ id: 'MENU.REPORTES_ANALISIS' })}
+                    title={intl.formatMessage({ id: 'MENU.REPORTS_ANALYSIS' })}
                     fontIcon='bi-archive'
                     icon='people'
                 >
-
-
-                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.REPORTES_PERSONALIZABLES' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.ANALISIS_DATOS_RRHH' })} fontIcon='bi-layers' />
-                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.METRICAS_RENDIMIENTO' })} fontIcon='bi-layers' />
-
-
+                    <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.CUSTOM_REPORTS' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.HR_DATA_ANALYSIS' })} fontIcon='bi-layers' />
+                    <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.PERFORMANCE_METRICS' })} fontIcon='bi-layers' />
                 </SidebarMenuItemWithSub>
 
-                <SidebarMenuItem to='' icon='graph-3' title={intl.formatMessage({ id: 'MENU.TERMINACION_RELACION_LABORAL' })} fontIcon='bi-layers' />
-
+                <SidebarMenuItem to='' icon='graph-3' title={intl.formatMessage({ id: 'MENU.TERMINATION' })} fontIcon='bi-layers' />
             </SidebarMenuItemWithSub>
 
-
-            <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.GESTION_DOCUMENTOS' })} fontIcon='bi-layers' />
-            <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.PROVEEDORES_CONTRATOS' })} fontIcon='bi-layers' />
+            <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.DOCUMENT_MANAGEMENT' })} fontIcon='bi-layers' />
+            <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.SUPPLIER_CONTRACTS' })} fontIcon='bi-layers' />
 
             <SidebarMenuItemWithSub
                 to='/crafted/pages'
-                title={intl.formatMessage({ id: 'MENU.GESTION_CALIDAD' })}
+                title={intl.formatMessage({ id: 'MENU.QUALITY_MANAGEMENT' })}
                 fontIcon='bi-archive'
                 icon='people'
             >
-
-
-                <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.PLANIFICACION_CALIDAD' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.AUDITORIAS' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.NO_CONFORMIDADES' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.MEJORA_CONTINUA' })} fontIcon='bi-layers' />
-
+                <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.QUALITY_PLANNING' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.AUDITS' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.NON_CONFORMITIES' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.CONTINUOUS_IMPROVEMENT' })} fontIcon='bi-layers' />
             </SidebarMenuItemWithSub>
 
             <SidebarMenuItemWithSub
                 to='/crafted/pages'
-                title={intl.formatMessage({ id: 'MENU.SEGURIDAD_SALUD_TRABAJO' })}
+                title={intl.formatMessage({ id: 'MENU.HEALTH_SAFETY' })}
                 fontIcon='bi-archive'
                 icon='people'
             >
-
-
-                <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.GESTION_RIESGOS_LABORALES' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.CAPACITACION_SEGURIDAD' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.INCIDENTES_ACCIDENTES' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.NORMATIVAS_SEGURIDAD' })} fontIcon='bi-layers' />
-
+                <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.OCCUPATIONAL_RISK_MANAGEMENT' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.SAFETY_TRAINING' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.INCIDENTS_ACCIDENTS' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.SAFETY_REGULATIONS' })} fontIcon='bi-layers' />
             </SidebarMenuItemWithSub>
 
             <SidebarMenuItemWithSub
                 to='/crafted/pages'
-                title={intl.formatMessage({ id: 'MENU.GESTION_ANTISOBORNO' })}
+                title={intl.formatMessage({ id: 'MENU.ANTI_BRIBERY_MANAGEMENT' })}
                 fontIcon='bi-archive'
                 icon='people'
             >
-
-                <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.EVALUACION_RIESGOS_SOBORNO' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.POLITICAS_ANTICORRUPCION' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.AUDITORIAS_ANTICORRUPCION' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.INCIDENTES_SOBORNO' })} fontIcon='bi-layers' />
-
+                <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.BRIBERY_RISK_ASSESSMENT' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.ANTI_CORRUPTION_POLICIES' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.ANTI_CORRUPTION_AUDITS' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.BRIBERY_INCIDENTS' })} fontIcon='bi-layers' />
             </SidebarMenuItemWithSub>
 
             <SidebarMenuItemWithSub
                 to='/crafted/pages'
-                title={intl.formatMessage({ id: 'MENU.GESTION_AMBIENTAL' })}
+                title={intl.formatMessage({ id: 'MENU.ENVIRONMENTAL_MANAGEMENT' })}
                 fontIcon='bi-archive'
                 icon='people'
             >
-
-
-                <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.EVALUACION_IMPACTOS_AMBIENTALES' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.CONTROL_ASPECTOS_AMBIENTALES' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.GESTION_RESIDUOS' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.NORMATIVAS_AMBIENTALES' })} fontIcon='bi-layers' />
-
+                <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.ENVIRONMENTAL_IMPACT_ASSESSMENT' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.ENVIRONMENTAL_ASPECT_CONTROL' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.WASTE_MANAGEMENT' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.ENVIRONMENTAL_REGULATIONS' })} fontIcon='bi-layers' />
             </SidebarMenuItemWithSub>
+
             <SidebarMenuItemWithSub
                 to='/crafted/pages'
-                title={intl.formatMessage({ id: 'MENU.AUDITORIAS' })}
+                title={intl.formatMessage({ id: 'MENU.AUDITS' })}
                 fontIcon='bi-archive'
                 icon='people'
             >
-
-                <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.PROGRAMAR_NUEVA_AUDITORIA' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.PRUEBA_AUDITORIAS' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.EJECUCION_AUDITORIAS' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.NO_CONFORMIDADES' })} fontIcon='bi-layers' />
-                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.REPORTES_ANALISIS' })} fontIcon='bi-layers' />
-
+                <SidebarMenuItem to='' icon='people' title={intl.formatMessage({ id: 'MENU.SCHEDULE_NEW_AUDIT' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.AUDIT_TESTING' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.AUDIT_EXECUTION' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.NON_CONFORMITIES' })} fontIcon='bi-layers' />
+                <SidebarMenuItem to='' icon='profile-circle' title={intl.formatMessage({ id: 'MENU.REPORTS_ANALYSIS' })} fontIcon='bi-layers' />
             </SidebarMenuItemWithSub>
-
         </>
     )
 }
 
 export { SidebarMenuMain }
+

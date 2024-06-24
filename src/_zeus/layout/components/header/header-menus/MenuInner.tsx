@@ -8,13 +8,13 @@ export function MenuInner() {
   return (
     <>
       <MenuItem title={intl.formatMessage({id: 'MENU.DASHBOARD'})} to='/dashboard' />
-      <MenuItem title='Calendario' to='/human-resources/tools/calendar' />
-      <MenuItem title='Bibioloteca' to='/human-resources/tools/library' />
-      <MenuItem title='Reloj' to='/human-resources/tools/clock' />
+      <MenuItem title={intl.formatMessage({id: 'MENU.CALENDAR'})} to='/human-resources/tools/calendar' />
+      <MenuItem title={intl.formatMessage({id: 'MENU.LIBRARY'})} to='/human-resources/tools/library' />
+      <MenuItem title={intl.formatMessage({id: 'MENU.CLOCK'})} to='/human-resources/tools/clock' />
 
       <MenuInnerWithSub
         isMega={true}
-        title='Herramientas'
+        title={intl.formatMessage({id: 'MENU.TOOLS'})}
         to='/mega-menu'
         menuPlacement='bottom-start'
         menuTrigger='click'
