@@ -100,5 +100,17 @@
   "MENU.CALENDAR": "Calendario",
   "MENU.LIBRARY": "Biblioteca",
   "MENU.CLOCK": "Reloj",
-  "MENU.TOOLS": "Herramientas"
+  "MENU.TOOLS": "Herramientas",
+  
+  "MENU.NEW_EMPLOYEE": "Nuevo empleado",
+  "MENU.NEW_EXTERNAL_AUDITOR": "Nuevo auditor externo",
+  "MENU.OTHER_OPTION": "Otra opción",
+  "MENU.QUICK_ACCESS": "Acceso directo",
+  "MENU.HELP_DESK": "Mesa de ayuda",
+  "MENU.ACCIDENT_REPORT": "Reporte de accidentes",
+  "MENU.INCIDENT_REPORT": "Reporte de incidentes",
+  "MENU.BRIBERY_INCIDENT_REPORT": "Reporte de incidentes de soborno",
+  "MENU.ENVIRONMENTAL_INCIDENT_REPORT": "Reporte de incidentes ambiental",
+  "MENU.PROBLEM": "¿Tienes algún problema?",
+  "MENU.CONTACT_US": "Llámanos.."
 }

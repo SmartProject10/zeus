@@ -1,11 +1,13 @@
-
 import {FC} from 'react'
 import {Link} from 'react-router-dom'
+import {useIntl} from 'react-intl'
 import {toAbsoluteUrl} from '../../../../helpers'
 import {useLayout} from '../../../core'
 
 const MegaMenu: FC = () => {
   const {setLayoutType, setToolbarType} = useLayout()
+  const intl = useIntl()
+
   return (
     <div className='row'>
       {/* begin:Col */}
@@ -15,17 +17,18 @@ const MegaMenu: FC = () => {
           {/* begin:Col */}
           <div className='col-lg-6 mb-3'>
             {/* begin:Heading */}
-            <h4 className='fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4'>Herramientas</h4>
+            <h4 className='fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4'>
+              {intl.formatMessage({id: 'MENU.TOOLS'})}
+            </h4>
             {/* end:Heading */}
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
               {/* begin:Menu link */}
-              {/*<a onClick={() => setLayoutType('light-sidebar')} className='menu-link'>*/}
               <a className='menu-link'>
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Nuevo empleado</span>
+                <span className='menu-title'>{intl.formatMessage({id: 'MENU.NEW_EMPLOYEE'})}</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -37,7 +40,7 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Nuevo auditor externo</span>
+                <span className='menu-title'>{intl.formatMessage({id: 'MENU.NEW_EXTERNAL_AUDITOR'})}</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -49,7 +52,7 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Otra opcion</span>
+                <span className='menu-title'>{intl.formatMessage({id: 'MENU.OTHER_OPTION'})}</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -61,7 +64,7 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Otra opcion</span>
+                <span className='menu-title'>{intl.formatMessage({id: 'MENU.OTHER_OPTION'})}</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -71,7 +74,9 @@ const MegaMenu: FC = () => {
           {/* begin:Col */}
           <div className='col-lg-6 mb-3'>
             {/* begin:Heading */}
-            <h4 className='fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4'>Acceso directo</h4>
+            <h4 className='fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4'>
+              {intl.formatMessage({id: 'MENU.QUICK_ACCESS'})}
+            </h4>
             {/* end:Heading */}
             {/* begin:Menu item */}
             <div className='menu-item p-0 m-0'>
@@ -80,19 +85,7 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Mesa de ayuda</span>
-              </a>
-              {/* end:Menu link */}
-            </div>
-            {/* end:Menu item */}
-            {/* begin:Menu item */}
-            <div className='menu-item p-0 m-0'>
-              {/* begin:Menu link */}
-              <a  className='menu-link'>
-                <span className='menu-bullet'>
-                  <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
-                </span>
-                <span className='menu-title'>Reporte de accidentes</span>
+                <span className='menu-title'>{intl.formatMessage({id: 'MENU.HELP_DESK'})}</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -104,7 +97,7 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Reporte de incidentes</span>
+                <span className='menu-title'>{intl.formatMessage({id: 'MENU.ACCIDENT_REPORT'})}</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -116,7 +109,7 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Reporte de incidentes de soborno</span>
+                <span className='menu-title'>{intl.formatMessage({id: 'MENU.INCIDENT_REPORT'})}</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -128,7 +121,19 @@ const MegaMenu: FC = () => {
                 <span className='menu-bullet'>
                   <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
                 </span>
-                <span className='menu-title'>Reporte de incidentes Ambiental</span>
+                <span className='menu-title'>{intl.formatMessage({id: 'MENU.BRIBERY_INCIDENT_REPORT'})}</span>
+              </a>
+              {/* end:Menu link */}
+            </div>
+            {/* end:Menu item */}
+            {/* begin:Menu item */}
+            <div className='menu-item p-0 m-0'>
+              {/* begin:Menu link */}
+              <a className='menu-link'>
+                <span className='menu-bullet'>
+                  <span className='bullet bullet-dot bg-gray-300i h-6px w-6px'></span>
+                </span>
+                <span className='menu-title'>{intl.formatMessage({id: 'MENU.ENVIRONMENTAL_INCIDENT_REPORT'})}</span>
               </a>
               {/* end:Menu link */}
             </div>
@@ -141,8 +146,8 @@ const MegaMenu: FC = () => {
         {/* begin:Layout Builder */}
         <div className='d-flex flex-stack flex-wrap flex-lg-nowrap gap-2 mb-5 mb-lg-0 mx-lg-5'>
           <div className='d-flex flex-column me-5'>
-            <div className='fs-6 fw-bold text-gray-800'>Tienes algun problema?</div>
-            <div className='fs-7 fw-semibold text-muted'>Llamanos..</div>
+            <div className='fs-6 fw-bold text-gray-800'>{intl.formatMessage({id: 'MENU.PROBLEM'})}</div>
+            <div className='fs-7 fw-semibold text-muted'>{intl.formatMessage({id: 'MENU.CONTACT_US'})}</div>
           </div>
           <Link to='' className='btn btn-sm btn-primary fw-bold'>
             +1 312 442 2661
