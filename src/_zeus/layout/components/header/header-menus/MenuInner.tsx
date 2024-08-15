@@ -1,13 +1,13 @@
-import {useIntl} from 'react-intl'
-import {MenuItem} from './MenuItem'
-import {MenuInnerWithSub} from './MenuInnerWithSub'
-import {MegaMenu} from './MegaMenu'
+import { useIntl } from "react-intl";
+import { MenuItem } from "./MenuItem";
+import { MenuInnerWithSub } from "./MenuInnerWithSub";
+import { MegaMenu } from "./MegaMenu";
 
 export function MenuInner() {
-  const intl = useIntl()
+  const intl = useIntl();
   return (
     <>
-      <MenuItem title={intl.formatMessage({id: 'MENU.DASHBOARD'})} to='/dashboard' />
+      {/*<MenuItem title={intl.formatMessage({id: 'MENU.DASHBOARD'})} to='/dashboard' />
       <MenuItem title='Calendario' to='/human-resources/tools/calendar' />
       <MenuItem title='Bibioloteca' to='/human-resources/tools/library' />
       <MenuItem title='Reloj' to='/human-resources/tools/clock' />
@@ -20,7 +20,13 @@ export function MenuInner() {
         menuTrigger='click'
       >
         <MegaMenu />
-      </MenuInnerWithSub>
+      </MenuInnerWithSub>*/}
+      <MenuItem title="Planear" to="/dashboard" />
+      <MenuItem title="Hacer" to="" />
+      <MenuItem title="Verificar" to="" />
+      <MenuItem title="Actuar" to="" />
+      <MenuItem title="Parametrizacion SGSST" to="" />
+      <MenuItem title="Reportes SST" to="" />
     </>
-  )
+  );
 }
