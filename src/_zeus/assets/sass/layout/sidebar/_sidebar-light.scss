@@ -62,11 +62,11 @@
                 );
 
                 @include menu-link-active-state( 
-                    $title-color: var(--#{$prefix}primary), 
-                    $icon-color: var(--#{$prefix}primary), 
-                    $bullet-color: var(--#{$prefix}primary), 
-                    $arrow-color: var(--#{$prefix}primary), 
-                    $bg-color: var(--#{$prefix}app-sidebar-light-menu-link-bg-color-active)
+                    $title-color: var(--#{$prefix}white), 
+                    $icon-color: var(--#{$prefix}white), 
+                    $bullet-color: var(--#{$prefix}white), 
+                    $arrow-color: var(--#{$prefix}white), 
+                    $bg-color: var(--#{$prefix}primary)
                 );
 
                 .menu-sub {
