@@ -22,6 +22,8 @@ const SidebarMenuMain = () => {
         fontIcon="bi-app-indicator"
       />
 
+<SidebarMenuItemWithSub to="" icon="bookmark" title="ISO 45001" fontIcon="">
+
       <SidebarMenuItem
         to=""
         icon="people"
@@ -151,6 +153,15 @@ const SidebarMenuMain = () => {
         title="Estudios Ergonomicos"
         fontIcon="bi-layers"
       />
+      </SidebarMenuItemWithSub>
+
+      <SidebarMenuItemWithSub to="" icon="bookmark" title="ISO 9001" fontIcon=""></SidebarMenuItemWithSub>
+
+      <SidebarMenuItemWithSub to="" icon="bookmark" title="SG RRHH" fontIcon="">
+    
+      <SidebarMenuItem to="" icon="star" title="Registro Trabajadores" fontIcon=""/>
+
+      </SidebarMenuItemWithSub>
     </>
   );
 };
