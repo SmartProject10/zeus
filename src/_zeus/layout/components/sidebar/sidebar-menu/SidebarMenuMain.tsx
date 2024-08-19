@@ -158,9 +158,7 @@ const SidebarMenuMain = () => {
       <SidebarMenuItemWithSub to="" icon="bookmark" title="ISO 9001" fontIcon=""></SidebarMenuItemWithSub>
 
       <SidebarMenuItemWithSub to="" icon="bookmark" title="SG RRHH" fontIcon="">
-    
-      <SidebarMenuItem to="" icon="star" title="Registro Trabajadores" fontIcon=""/>
-
+        <SidebarMenuItem to="/human-resources/main" icon="star" title="Registro Trabajadores" fontIcon=""/>
       </SidebarMenuItemWithSub>
     </>
   );
