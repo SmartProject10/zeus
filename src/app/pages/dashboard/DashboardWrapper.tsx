@@ -60,6 +60,7 @@ const DashboardPage: FC = () => (
     {/* end::Row */}
 
     </Content>
+
   </>
 )
 
