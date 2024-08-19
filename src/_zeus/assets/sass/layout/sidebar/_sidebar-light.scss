@@ -66,7 +66,7 @@
                     $icon-color: var(--#{$prefix}white), 
                     $bullet-color: var(--#{$prefix}white), 
                     $arrow-color: var(--#{$prefix}white), 
-                    $bg-color: var(--#{$prefix}primary)
+                    $bg-color: var(--#{$prefix}primary),
                 );
 
                 .menu-sub {
@@ -78,7 +78,7 @@
 
                             &.active {
                                 .menu-title {
-                                    color: var(--#{$prefix}primary);
+                                    color: var(--#{$prefix}white);
                                 }  
                             }
                         }
