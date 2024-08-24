@@ -15,7 +15,7 @@ const PrivateRoutes = () => {
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
   const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
-  const HumanResourcesToolsPage = lazy(() => import('../modules/human-resources/tools/HumanResourcesToolsPage'))
+  const HumanResourcesPage = lazy(() => import('../modules/human-resources/HumanResourcesPage'))
 
   return (
     <Routes>
@@ -27,10 +27,10 @@ const PrivateRoutes = () => {
         <Route path='menu-test' element={<MenuTestPage />} />
         {/* Lazy Modules */}
         <Route
-         path='human-resources/tools/*'
+         path='human-resources/*'
          element={
            <SuspensedView>
-             <HumanResourcesToolsPage />
+             <HumanResourcesPage />
            </SuspensedView>
             }
         />

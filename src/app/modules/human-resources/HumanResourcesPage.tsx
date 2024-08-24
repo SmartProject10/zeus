@@ -22,25 +22,16 @@ const HumanResourcesPage = () => {
         <Routes>
             <Route element={<Outlet />}>
                 <Route
-                    path='tools/calendar'
+                    path='main'
                     element={
                         <>
-                            <PageTitle breadcrumbs={humanResourceBreadcrumbs}>Calendario Empresarial</PageTitle>
-                            <CalendarWrapper />
-                        </>
-                    }
-                />
-                <Route
-                    path='tools/library'
-                    element={
-                        <>
-                            <PageTitle breadcrumbs={humanResourceBreadcrumbs}>Calendario Empresarial</PageTitle>
+                            <PageTitle breadcrumbs={humanResourceBreadcrumbs}>Trabajadores</PageTitle>
                             <CalendarWrapper />
                         </>
                     }
                 />
             </Route>
-            <Route index element={<Navigate to='/human-resources/tools/calendar' />} />
+            <Route index element={<Navigate to='/human-resources/main' />} />
         </Routes>
     )
 }
