@@ -8,7 +8,38 @@ const CalendarTable = () => {
       </div> */}
       <p>Filtros de busqueda</p>
       <form>
-        <div className="row">
+        <div className="row g-7">
+
+          <div className="col-6">
+            <label htmlFor="areaSelect" className="form-label">Area</label>
+            <select className="form-select" id="areaSelect" aria-label="Nombre del area">
+              <option>Seleccione el area</option>
+              <option>Area 1</option>
+              <option>Area 2</option>
+              <option>Area 3</option>
+            </select>
+          </div>
+
+          <div className="col-6">
+            <label htmlFor="cargoInput" className="form-label">Cargo</label>
+            <select className="form-select" id="cargoInput" aria-label="Nombre del cargo">
+              <option>Seleccione el cargo</option>
+              <option>cargo 1</option>
+              <option>Cargo 2</option>
+              <option>Cargo 3</option>
+            </select>
+          </div>
+
+          <div className="col-6">
+            <label htmlFor="firmaDigitalInput" className="form-label">Firma digital</label>
+            <input type="text" className="form-control" id="firmaDigitalInput" placeholder="Nombre del firmante" />
+          </div>
+
+          <div className="col-6">
+            <label htmlFor="recFacialInput" className="form-label">Reconocimiento facial</label>
+            <input type="file" className="form-control" id="recFacialInput" />
+          </div>
+
           <div className="col-6">
             <label htmlFor="labelselect" className="required form-label">
               Nacionalidad
@@ -24,6 +55,21 @@ const CalendarTable = () => {
               <option value="3">Canadiense</option>
             </select>
           </div>
+
+          <div className="col-6">
+            <label htmlFor="estadoCivilSelect" className="form-label">
+              Estado civil
+            </label>
+            <select className="form-select" id="estadoCivilSelect" aria-label="estado civil select">
+              <option>Seleccione un estado civil</option>
+              <option>Soltero</option>
+              <option>Casado</option>
+              <option>Divorciado</option>
+              <option>Conviviente</option>
+              <option>Viudo/a</option>
+            </select>
+          </div>
+
           <div className="col-6">
             <label htmlFor="labelselect" className=" form-label">
               Genero
@@ -33,7 +79,7 @@ const CalendarTable = () => {
               id="labelselect"
               aria-label="Select example"
             >
-              <option>Seleccione una Genero</option>
+              <option>Seleccione un Genero</option>
               <option value="1">Masculino</option>
               <option value="2">Femenino</option>
             </select>
@@ -54,10 +100,104 @@ const CalendarTable = () => {
             <input
               type="date"
               className="form-control"
-              placeholder="Tu DNI"
               id="inputlabel"
             />
           </div>
+
+          <div className="col-6">
+            <label htmlFor="nombresInput" className="form-label">Nombres</label>
+            <input type="text" className="form-control" id="nombresInput" placeholder="Nombres del trabajador" />
+          </div>
+
+          <div className="col-6">
+            <label htmlFor="aPaternoInput" className="form-label">Apellido Paterno</label>
+            <input type="text" className="form-control" id="aPaternoInput" placeholder="Apellido paterno del trabajador" />
+          </div>
+
+          <div className="col-6">
+            <label htmlFor="aMaternoInput" className="form-label">Apellido Materno</label>
+            <input type="text" className="form-control" id="aMaternoInput" placeholder="Apellido materno del trabajador" />
+          </div>
+
+          <div className="col-6">
+            <label htmlFor="distritoInput" className="form-label">Distrito</label>
+            <input type="text" className="form-control" id="distritoInput" placeholder="Nombre del distrito" />
+          </div>
+
+          <div className="col-6">
+            <label htmlFor="direccionInput" className="form-label">Direccion</label>
+            <input type="text" className="form-control" id="direccionInput" placeholder="Direccion del trabajador" />
+          </div>
+
+          <div className="col-6">
+            <label htmlFor="cEmailInput" className="form-label">Email corporativo</label>
+            <input type="text" className="form-control" id="cEmailInput" placeholder="Email corporativo del trabajador" />
+          </div>
+
+          <div className="col-6">
+            <label htmlFor="pEmailInput" className="form-label">Email personal</label>
+            <input type="text" className="form-control" id="pEmailInput" placeholder="Email personal del trabajador" />
+          </div>
+
+          <div className="col-6">
+            <div className="row">
+              <div className="col-3">
+                <label htmlFor="indicativoInput" className="form-label">Indicativo</label>
+                <input type="number" className="form-control" id="indicativoInput" placeholder="57" />
+              </div>
+              <div className="col-9">
+                <label htmlFor="tPersonalInput" className="form-label">Telefono personal</label>
+                <input type="number" className="form-control" id="tPersonalInput" placeholder="Telefono personal del trabajador" />
+              </div>
+            </div>
+          </div>
+
+          <div className="col-6">
+            <label className="form-label" htmlFor="fechaAreaInput">Fecha de ingreso al area</label>
+            <input
+              type="date"
+              className="form-control"
+              aria-label="Fecha de ingreso area"
+              id="fechaAreaInput"
+            />
+          </div>
+
+          <div className="col-6">
+            <label className="form-label" htmlFor="fechaEmpInput">Fecha de ingreso a la empresa</label>
+            <input
+              type="date"
+              className="form-control"
+              aria-label="Fecha ingreso a la empresa"
+              id="fechaEmpInput"
+            />
+          </div>
+
+          <div className="col-6">
+            <label className="form-label" htmlFor="rolSelect">Tipo de rol</label>
+            <select className="form-select" id="rolSelect" aria-label="rol select">
+              <option>Jefe</option>
+              <option>Asistente</option>
+              <option>Colaborador</option>
+            </select>
+          </div>
+
+          <div className="col-6">
+            <label className="form-label" htmlFor="statusInput">Status</label>
+            <select className="form-select" id="statusInput" aria-label="status select">
+              <option>Activo</option>
+              <option>Inactivo</option>
+            </select>
+          </div>
+
+          <div className="col-6">
+            <label className="form-label" htmlFor="sedeInput">Sede de trabajo</label>
+            <select className="form-select" id="sedeInput" aria-label="Sede de trabajo trabajador">
+              <option>Sede 1</option>
+              <option>Sede 2</option>
+              <option>Sede 3</option>
+            </select>
+          </div>
+
         </div>
       </form>
       <hr />
