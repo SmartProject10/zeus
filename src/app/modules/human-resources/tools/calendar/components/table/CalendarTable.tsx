@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { KTCardBody } from "../../../../../../../_zeus/helpers";
+import { appStateService } from "../../../../../../services/appState.service";
+import { Employee } from "../../core/_models";
 
-export interface EmployeeForm {
+interface EmployeeForm {
   area: string,
   cargo: string,
   firmaDigital: string,
@@ -27,8 +29,18 @@ export interface EmployeeForm {
   sedeTrabajo: string
 }
 
-
 const CalendarTable = () => {
+
+  const [employees, setEmployees] = useState<Employee[]>([]);
+
+  useEffect(() => {
+    const employeesSub = appStateService.getEmployeesSubject().subscribe((employees:Employee[]) => {
+      console.log(employees);
+      setEmployees(employees);
+    })
+    return () => employeesSub.unsubscribe();
+  }, []);
+
   const [formData, setFormData] = useState<EmployeeForm>({
     area: "",
     cargo: "",
@@ -55,46 +67,6 @@ const CalendarTable = () => {
     sedeTrabajo: ""
   });
 
-  const [employees, setEmployees] = useState([
-    {
-      nro: 1,
-      dni: "123456789",
-      trabajador: "b1 c1 k1",
-      cargo: "Gerente",
-      area: "Gerencia",
-      jefeInmediato: "Luis Tellez",
-      correo: "Luis@gmail.com",
-      fechaIngresoEmp: "22/05/2020",
-      fechaNacimiento: "06/05/1998",
-      apellidoPaterno: "perez",
-      apellidoMaterno: "Collante",
-      estado: "Activo",
-      direccion: "casa 1",
-      distrito: "Distrito 1",
-      nacionalidad: "Canadiense",
-      genero: "Femenino",
-      estadoCivil: "Casado"
-    },
-    {
-      nro: 2,
-      dni: "1234567810",
-      trabajador: "A1, B2, C2",
-      cargo: "Jefe",
-      area: "Seguridad Industrial",
-      jefeInmediato: "Carlos Diaz",
-      correo: "Carlos@gmail.com",
-      fechaIngresoEmp: "22/05/2020",
-      fechaNacimiento: "06/05/1998",
-      apellidoPaterno: "lopez",
-      apellidoMaterno: "obregor",
-      estado: "Activo",
-      direccion: "casa 2",
-      distrito: "Distrito 2",
-      nacionalidad: "Peruano",
-      genero: "Masculino",
-      estadoCivil: "Soltero"
-    }
-  ]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -162,6 +134,7 @@ const CalendarTable = () => {
               className="form-control"
               id="dniInput"
               name="dni"
+              placeholder="Número de dni"
               value={formData.dni}
               onChange={handleInputChange}
             />
@@ -174,6 +147,7 @@ const CalendarTable = () => {
               className="form-control"
               id="aPaternoInput"
               name="apellidoPaterno"
+              placeholder="Apellido paterno"
               value={formData.apellidoPaterno}
               onChange={handleInputChange}
             />
@@ -186,6 +160,7 @@ const CalendarTable = () => {
               className="form-control"
               id="aMaternoInput"
               name="apellidoMaterno"
+              placeholder="Apellido materno"
               value={formData.apellidoMaterno}
               onChange={handleInputChange}
             />
@@ -244,7 +219,7 @@ const CalendarTable = () => {
           <div className="col-6">
             <label htmlFor="distritoSelect" className="form-label">Distrito</label>
             <select className="form-select" id="distritoSelect" name="distrito" value={formData.distrito} onChange={handleInputChange} aria-label="Distritos">
-              <option value="">Seleccione la nacionalidad</option>
+              <option value="">Seleccione el distrito</option>
               <option value="Distrito 1">Distrito 1</option>
               <option value="Distrito 2">Distrito 2</option>
               <option value="Distrito 3">Distrito 3</option>
@@ -252,8 +227,8 @@ const CalendarTable = () => {
           </div>
 
           <div className="col-6">
-            <label htmlFor="direccionInput" className="form-label">Direccion</label>
-            <input type="text" className="form-control" id="direccionInput" name="direccion" value={formData.direccion} onChange={handleInputChange} placeholder="" />
+            <label htmlFor="direccionInput" className="form-label">Dirección</label>
+            <input type="text" className="form-control" id="direccionInput" name="direccion" placeholder="Dirección" value={formData.direccion} onChange={handleInputChange} />
           </div>
 
           {/* Otros campos del formulario */}
@@ -268,30 +243,53 @@ const CalendarTable = () => {
             <tr className="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200 text-center">
               <th className="min-w-50px">Nro</th>
               <th className="min-w-200px">DNI</th>
-              <th className="min-w-200px">Trabajador</th>
+              <th className="min-w-200px">Nombres</th>
+              <th className="min-w-200px">Ape. Materno</th>
+              <th className="min-w-200px">Ape. Paterno</th>
+              <th className="min-w-200px">Fecha. Naci</th>
               <th className="min-w-200px">Cargo</th>
-              <th className="min-w-200px">Área</th>
-              <th className="min-w-200px">Jefe Inmediato</th>
-              <th className="min-w-200px">Correo</th>
-              <th className="min-w-200px">Fecha Ingeso Empresa</th>
-              <th className="min-w-200px">Fecha Nacimiento</th>
-              <th className="min-w-200px">Estado</th>
-              <th className="min-w-500px">Acciones</th>
+              <th className="min-w-200px">area</th>
+              <th className="min-w-200px">F. Ingreso Empresa</th>
+              <th className="min-w-200px">F. ingreso Area</th>
+              <th className="min-w-500px">Direccion</th>
+              <th className="min-w-500px">Distrito</th>
+              <th className="min-w-500px">Email Corp</th>
+              <th className="min-w-500px">Email Pers</th>
+              <th className="min-w-500px">Nacionalidad</th>
+              <th className="min-w-500px">Genero</th>
+              <th className="min-w-500px">Estado Civil</th>
+              <th className="min-w-500px">Telefono</th>
+              <th className="min-w-500px">Firma Digital</th>
+              <th className="min-w-500px">Status</th>
+              <th className="min-w-500px">Sede Trabajo</th>
+              <th className="min-w-500px">Tipo De Rol</th>
             </tr>
           </thead>
           <tbody className="text-center">
             {filteredEmployees.map((employee, index) => (
               <tr key={index}>
-                <td>{employee.nro}</td>
+                <td>{index+1}</td>
                 <td>{employee.dni}</td>
-                <td>{employee.trabajador}</td>
+                <td>{employee.nombres}</td>
+                <td>{employee.apellidoMaterno}</td>
+                <td>{employee.apellidoPaterno}</td>
+                <td>{employee.fechaNacimiento}</td>
                 <td>{employee.cargo}</td>
                 <td>{employee.area}</td>
-                <td>{employee.jefeInmediato}</td>
-                <td>{employee.correo}</td>
-                <td>{employee.fechaIngresoEmp}</td>
-                <td>{employee.fechaNacimiento}</td>
-                <td>{employee.estado}</td>
+                <td>{employee.FechaIngresoEmp}</td>
+                <td>{employee.fechaIngresoArea}</td>
+                <td>{employee.direccion}</td>
+                <td>{employee.distrito}</td>
+                <td>{employee.corpEmail}</td>
+                <td>{employee.perEmail}</td>
+                <td>{employee.nacionalidad}</td>
+                <td>{employee.genero}</td>
+                <td>{employee.estadoCivil}</td>
+                <td>{employee.indicativoTel+""+employee.telefono}</td>
+                <td>{employee.firmaDigital}</td>
+                <td>{employee.status}</td>
+                <td>{employee.sedeTrabajo}</td>
+                <td>{employee.tipoRol}</td>
                 <td>
                   <div className="d-grid gap-2 d-md-flex">
                     <button className="btn btn-success btn-sm" type="button">
@@ -302,7 +300,7 @@ const CalendarTable = () => {
                       <i className="bi bi-file-earmark-spreadsheet-fill"></i>
                       Exportar a Excel
                     </button>
-                    <button
+                    {/* <button
                       className="btn btn-primary btn-sm"
                       type="button"
                       data-bs-toggle="modal"
@@ -310,7 +308,7 @@ const CalendarTable = () => {
                     >
                       <i className="bi bi-plus-circle-fill"></i>
                       Nuevo Trabajador
-                    </button>
+                    </button> */}
                   </div>
                 </td>
               </tr>

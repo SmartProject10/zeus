@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { KTCardBody } from "../../../../../../../_zeus/helpers";
 import { registerEmployee } from "../../core/_requests";
-import bootstrap from "bootstrap";
+import { appStateService } from "../../../../../../services/appState.service";
+import Swal from 'sweetalert2';
 
 export interface EmployeeForm {
     area: string,
@@ -69,15 +70,30 @@ const CalendarButton = () => {
 
         event.preventDefault();
 
-        if (!form.area || !form.cargo || !form.firmaDigital || !form.nacionalidad || 
-            !form.estadoCivil || !form.genero || !form.dni || !form.fechaNacimiento || 
-            !form.nombres || !form.apellidoPaterno || !form.apellidoMaterno || 
-            !form.distrito || !form.direccion || !form.corpEmail || !form.perEmail || 
-            !form.telefono || !form.fechaIngresoArea || !form.FechaIngresoEmp || 
+        if (!form.area || !form.cargo || !form.firmaDigital || !form.nacionalidad ||
+            !form.estadoCivil || !form.genero || !form.dni || !form.fechaNacimiento ||
+            !form.nombres || !form.apellidoPaterno || !form.apellidoMaterno ||
+            !form.distrito || !form.direccion || !form.corpEmail || !form.perEmail ||
+            !form.telefono || !form.fechaIngresoArea || !form.FechaIngresoEmp ||
             !form.tipoRol || !form.status || !form.sedeTrabajo) {
-            
-            alert("Campos vacios")
-            return; 
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "warning",
+                title: "Campos vacíos, porfavor rellenar todos los campos"
+            });
+
+            return;
         }
 
         const data = new FormData();
@@ -109,24 +125,40 @@ const CalendarButton = () => {
 
 
         try {
-            alert("Exitoso!")
 
-            // const resp = registerEmployee(data);
+            // const resp = await registerEmployee(data);
 
-            // if (resp.ok) {
-            //     console.log('Formulario enviado con éxito');
-            // } else {
-            //     console.error('Error al enviar el formulario');
-            // }
+            // if (resp) {
+
+            // } 
+
+            appStateService.setEmployeeSubject(form);
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "Trabajador creado correctamente"
+            });
 
             const closeButton = document.getElementById('closeButton');
-            if(closeButton){
+            if (closeButton) {
                 closeButton.click();
             }
-            
+
         } catch (error) {
             console.error('Error en la solicitud:', error);
         }
+
     };
 
     return (
@@ -146,7 +178,6 @@ const CalendarButton = () => {
                     Nuevo Trabajador
                 </button>
             </div>
-
 
             <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -215,9 +246,9 @@ const CalendarButton = () => {
                                                 {/* <input type="text" id="inputtext" className="form-control input-sm"/> */}
                                                 <select className="form-select select-sm" id="selecttext" name="cargo" value={form.cargo} onChange={handleChange} aria-label="Default select example">
                                                     <option selected>Seleccione una opción</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <option value="">Seleccione el cargo</option>
+                                                    <option value="Gerente">Gerente</option>
+                                                    <option value="Jefe">Jefe</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -229,10 +260,9 @@ const CalendarButton = () => {
                                             <div className="col-6">
                                                 {/* <input type="text" id="inputtext" className="form-control input-sm"/> */}
                                                 <select className="form-select select-sm" id="selecttext" name="area" value={form.area} onChange={handleChange} aria-label="Default select example">
-                                                    <option selected>Seleccione una opción</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <option value="">Seleccione el area</option>
+                                                    <option value="Gerencia">Gerencia</option>
+                                                    <option value="Seguridad Industrial">Seguridad Industrial</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -331,8 +361,8 @@ const CalendarButton = () => {
                                                     name="genero" value={form.genero} onChange={handleChange}
                                                 >
                                                     <option>Seleccione un Genero</option>
-                                                    <option value="1">Masculino</option>
-                                                    <option value="2">Femenino</option>
+                                                    <option value="Masculino">Masculino</option>
+                                                    <option value="Femenino">Femenino</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -397,6 +427,62 @@ const CalendarButton = () => {
                                             <div className="col-6">
                                                 <input type="text" className="form-control" id="firmaDigitalInput"
                                                     name="firmaDigital" value={form.firmaDigital} onChange={handleChange} placeholder="" />
+                                            </div>
+                                        </div>
+
+                                        <div className="row g-3 align-items-start justify-content-evenly mt-2">
+                                            <div className="col-6">
+                                                <label htmlFor="statusSelect" className="form-label">
+                                                    Status
+                                                </label>
+                                            </div>
+                                            <div className="col-6">
+                                                <select className="form-select"
+                                                    id="statusSelect"
+                                                    name="status" value={form.status} onChange={handleChange}
+                                                    aria-label="status select">
+                                                    <option>Seleccione un status</option>
+                                                    <option>Activo</option>
+                                                    <option>Inactivo</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div className="row g-3 align-items-start justify-content-evenly mt-2">
+                                            <div className="col-6">
+                                                <label htmlFor="sedeSelect" className="form-label">
+                                                    Sede de trabajo
+                                                </label>
+                                            </div>
+                                            <div className="col-6">
+                                                <select className="form-select"
+                                                    id="sedeSelect"
+                                                    name="sedeTrabajo" value={form.sedeTrabajo} onChange={handleChange}
+                                                    aria-label="sede select">
+                                                    <option>Seleccione una sede</option>
+                                                    <option>Sede 1</option>
+                                                    <option>Sede 2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div className="row g-3 align-items-start justify-content-evenly mt-2">
+                                            <div className="col-6">
+                                                <label htmlFor="rolSelect" className="form-label">
+                                                    Tipo de rol
+                                                </label>
+                                            </div>
+                                            <div className="col-6">
+                                                <select className="form-select"
+                                                    id="rolSelect"
+                                                    name="tipoRol" value={form.tipoRol} onChange={handleChange}
+                                                    aria-label="rol select">
+                                                    <option>Seleccione un rol</option>
+                                                    <option>Jefe</option>
+                                                    <option>Asistente</option>
+                                                    <option>Colaborador</option>
+                                                </select>
                                             </div>
                                         </div>
 
