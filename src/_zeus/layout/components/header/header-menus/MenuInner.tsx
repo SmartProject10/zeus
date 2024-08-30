@@ -21,7 +21,20 @@ export function MenuInner() {
       >
         <MegaMenu />
       </MenuInnerWithSub>*/}
-      <MenuItem title="Planear" to="/dashboard" />
+      <div className="dropdown">
+        <a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Planear
+        </a>
+
+        <ul className="dropdown-menu">
+          <li><a className="dropdown-item" href="#">Evaluación Diagnostico</a></li>
+          <li><a className="dropdown-item" href="#">Matriz de Riesgos</a></li>
+          <li><a className="dropdown-item" href="#">Matriz Legal</a></li>
+          <li><a className="dropdown-item" href="#">Objetivos SG-SST</a></li>
+          <li><a className="dropdown-item" href="#">Plan Anual</a></li>
+        </ul>
+      </div>
+      {/* <MenuItem title="Planear" to="/dashboard" /> */}
       <MenuItem title="Hacer" to="" />
       <MenuItem title="Verificar" to="" />
       <MenuItem title="Actuar" to="" />
