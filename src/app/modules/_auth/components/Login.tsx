@@ -33,6 +33,7 @@ const initialValues = {
 */
 
 export function Login() {
+
   const intl = useIntl()
   const [loading, setLoading] = useState(false)
   const {saveAuth, setCurrentUser} = useAuth()
@@ -44,6 +45,7 @@ export function Login() {
       setLoading(true)
       try {
         const {data: auth} = await login(values.email, values.password)
+        console.log(auth);
         saveAuth(auth)
         const {data: user} = await getUserByToken(auth.api_token)
         setCurrentUser(user)
@@ -172,6 +174,7 @@ export function Login() {
           {intl.formatMessage({id: 'AUTH.GENERAL.SIGNUP_BUTTON'})}
         </Link>
       </div>
+
     </form>
   )
 }
