@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { KTCardBody } from "../../../../../../../_zeus/helpers";
 import { registerEmployee } from "../../core/_requests";
 import { appStateService } from "../../../../../../services/appState.service";
 import Swal from 'sweetalert2';
+import axios from "axios";
 
 export interface EmployeeForm {
     area: string,
@@ -29,6 +30,7 @@ export interface EmployeeForm {
     status: string,
     sedeTrabajo: string
 }
+
 
 const CalendarButton = () => {
 
@@ -89,8 +91,8 @@ const CalendarButton = () => {
                 }
             });
             Toast.fire({
-                icon: "warning",
-                title: "Campos vacíos, porfavor rellenar todos los campos"
+                icon: "error",
+                title: "Porfavor rellenar todos los campos."
             });
 
             return;
@@ -128,8 +130,10 @@ const CalendarButton = () => {
 
             // const resp = await registerEmployee(data);
 
-            // if (resp) {
-
+            // if (resp.status == 200) {
+                // console.log("Respuesta exitosa")
+            // }else{
+                //    console.log("Error en la peticion")
             // } 
 
             appStateService.setEmployeeSubject(form);
@@ -195,56 +199,78 @@ const CalendarButton = () => {
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="inputtext" className="col-form-label">DNI(*)</label>
+                                                <label htmlFor="inputtext" className="required col-form-label">
+                                                    DNI
+                                                </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="text" id="inputtext" name="dni" value={form.dni} onChange={handleChange} className="form-control input-sm" />
-                                            </div>
-                                        </div>
-
-                                        <div className="row g-3 align-items-start justify-content-evenly mt-2">
-                                            <div className="col-6">
-                                                <label htmlFor="inputtext" className="col-form-label">Nombres(*)</label>
-                                            </div>
-                                            <div className="col-6">
-                                                <input type="text" id="inputtext" name="nombres" value={form.nombres} onChange={handleChange} className="form-control input-sm" />
+                                                <input type="text" id="inputtext" name="dni" value={form.dni} 
+                                                onChange={handleChange} className="form-control input-sm" />
                                             </div>
                                         </div>
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="inputtext" className="col-form-label">Ape. Materno(*)</label>
+                                                <label htmlFor="inputtext" className="required col-form-label">
+                                                    Nombres
+                                                </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="text" id="inputtext" name="apellidoMaterno" value={form.apellidoMaterno} onChange={handleChange} className="form-control input-sm" />
-                                            </div>
-                                        </div>
-
-                                        <div className="row g-3 align-items-start justify-content-evenly mt-2">
-                                            <div className="col-6">
-                                                <label htmlFor="inputtext" className="col-form-label">Ape. Paterno(*)</label>
-                                            </div>
-                                            <div className="col-6">
-                                                <input type="text" id="inputtext" name="apellidoPaterno" value={form.apellidoPaterno} onChange={handleChange} className="form-control input-sm" />
+                                                <input type="text" id="inputtext" name="nombres" value={form.nombres}
+                                                 onChange={handleChange} className="form-control input-sm" />
                                             </div>
                                         </div>
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="inputtext" className="col-form-label">Fecha de cumpleaños(*)</label>
+                                                <label htmlFor="inputtext" className="required col-form-label">
+                                                    Ape. Materno
+                                                </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="date" id="inputtext" name="fechaNacimiento" value={form.fechaNacimiento} onChange={handleChange} className="form-control input-sm" />
+                                                <input type="text" id="inputtext" name="apellidoMaterno" 
+                                                value={form.apellidoMaterno} onChange={handleChange} 
+                                                className="form-control input-sm" />
                                             </div>
                                         </div>
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="selecttext" className="col-form-label">Cargo(*)</label>
+                                                <label htmlFor="inputtext" className="required col-form-label">
+                                                    Ape. Paterno
+                                                </label>
+                                            </div>
+                                            <div className="col-6">
+                                                <input type="text" id="inputtext" name="apellidoPaterno" 
+                                                value={form.apellidoPaterno} onChange={handleChange} 
+                                                className="form-control input-sm" />
+                                            </div>
+                                        </div>
+
+                                        <div className="row g-3 align-items-start justify-content-evenly mt-2">
+                                            <div className="col-6">
+                                                <label htmlFor="inputtext" className="required col-form-label">
+                                                    Fecha de cumpleaños
+                                                </label>
+                                            </div>
+                                            <div className="col-6">
+                                                <input type="date" id="inputtext" name="fechaNacimiento" 
+                                                value={form.fechaNacimiento} onChange={handleChange}
+                                                className="form-control input-sm" />
+                                            </div>
+                                        </div>
+
+                                        <div className="row g-3 align-items-start justify-content-evenly mt-2">
+                                            <div className="col-6">
+                                                <label htmlFor="selecttext" className="required col-form-label">
+                                                    Cargo
+                                                </label>
                                             </div>
                                             <div className="col-6">
                                                 {/* <input type="text" id="inputtext" className="form-control input-sm"/> */}
-                                                <select className="form-select select-sm" id="selecttext" name="cargo" value={form.cargo} onChange={handleChange} aria-label="Default select example">
+                                                <select className="form-select select-sm" id="selecttext" 
+                                                name="cargo" value={form.cargo} onChange={handleChange} 
+                                                aria-label="Default select example">
                                                     <option selected>Seleccione una opción</option>
                                                     <option value="">Seleccione el cargo</option>
                                                     <option value="Gerente">Gerente</option>
@@ -255,11 +281,15 @@ const CalendarButton = () => {
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="selecttext" className="col-form-label">Área(*)</label>
+                                                <label htmlFor="selecttext" className="required col-form-label">
+                                                    Área
+                                                </label>
                                             </div>
                                             <div className="col-6">
                                                 {/* <input type="text" id="inputtext" className="form-control input-sm"/> */}
-                                                <select className="form-select select-sm" id="selecttext" name="area" value={form.area} onChange={handleChange} aria-label="Default select example">
+                                                <select className="form-select select-sm" id="selecttext"
+                                                 name="area" value={form.area} onChange={handleChange}
+                                                 aria-label="Default select example">
                                                     <option value="">Seleccione el area</option>
                                                     <option value="Gerencia">Gerencia</option>
                                                     <option value="Seguridad Industrial">Seguridad Industrial</option>
@@ -269,37 +299,53 @@ const CalendarButton = () => {
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="inputtext" className="col-form-label">Fecha de ingreso a la empresa(*)</label>
+                                                <label htmlFor="inputtext" className="required col-form-label">
+                                                    Fecha de ingreso a la empresa
+                                                </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="date" id="inputtext" name="FechaIngresoEmp" value={form.FechaIngresoEmp} onChange={handleChange} className="form-control input-sm" />
-                                            </div>
-                                        </div>
-
-                                        <div className="row g-3 align-items-start justify-content-evenly mt-2">
-                                            <div className="col-6">
-                                                <label htmlFor="inputtext" className="col-form-label">Fecha de ingreso al área(*)</label>
-                                            </div>
-                                            <div className="col-6">
-                                                <input type="date" id="inputtext" name="fechaIngresoArea" value={form.fechaIngresoArea} onChange={handleChange} className="form-control input-sm" />
+                                                <input type="date" id="inputtext" name="FechaIngresoEmp" 
+                                                value={form.FechaIngresoEmp} onChange={handleChange}
+                                                className="form-control input-sm" />
                                             </div>
                                         </div>
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="direccionInput" className="form-label">Direccion</label>
+                                                <label htmlFor="inputtext" className="required col-form-label">
+                                                    Fecha de ingreso al área
+                                                </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="text" className="form-control" id="direccionInput" name="direccion" value={form.direccion} onChange={handleChange} placeholder="" />
+                                                <input type="date" id="inputtext" name="fechaIngresoArea"
+                                                 value={form.fechaIngresoArea} onChange={handleChange} 
+                                                 className="form-control input-sm" />
                                             </div>
                                         </div>
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="distritoSelect" className="form-label">Distrito</label>
+                                                <label htmlFor="direccionInput" className="required form-label">
+                                                    Dirección
+                                                </label>
                                             </div>
                                             <div className="col-6">
-                                                <select className="form-select" id="distritoSelect" name="distrito" value={form.distrito} onChange={handleChange} aria-label="Distritos">
+                                                <input type="text" className="form-control" id="direccionInput"
+                                                 name="direccion" value={form.direccion} onChange={handleChange} 
+                                                 placeholder="" />
+                                            </div>
+                                        </div>
+
+                                        <div className="row g-3 align-items-start justify-content-evenly mt-2">
+                                            <div className="col-6">
+                                                <label htmlFor="distritoSelect" className="required form-label">
+                                                    Distrito
+                                                </label>
+                                            </div>
+                                            <div className="col-6">
+                                                <select className="form-select" id="distritoSelect" 
+                                                name="distrito" value={form.distrito} onChange={handleChange}
+                                                aria-label="Distritos">
                                                     <option>Seleccione un distrito</option>
                                                     <option>Distrito 1</option>
                                                     <option>Distrito 2</option>
@@ -310,19 +356,27 @@ const CalendarButton = () => {
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="cEmailInput" className="form-label">Email corporativo</label>
+                                                <label htmlFor="cEmailInput" className="required form-label">
+                                                    Email corporativo
+                                                </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="text" className="form-control" id="cEmailInput" name="corpEmail" value={form.corpEmail} onChange={handleChange} placeholder="" />
+                                                <input type="text" className="form-control" id="cEmailInput"
+                                                 name="corpEmail" value={form.corpEmail} onChange={handleChange}
+                                                 placeholder="" />
                                             </div>
                                         </div>
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="pEmailInput" className="form-label">Email personal</label>
+                                                <label htmlFor="pEmailInput" className="required form-label">
+                                                    Email personal
+                                                </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="text" className="form-control" id="pEmailInput" name="perEmail" value={form.perEmail} onChange={handleChange} placeholder="" />
+                                                <input type="text" className="form-control" id="pEmailInput"
+                                                 name="perEmail" value={form.perEmail} onChange={handleChange}
+                                                 placeholder="" />
                                             </div>
                                         </div>
 
@@ -340,17 +394,17 @@ const CalendarButton = () => {
                                                     aria-label="Select example"
                                                 >
                                                     <option>Seleccione una nacionalidad</option>
-                                                    <option value="1">Peruano</option>
-                                                    <option value="2">Estado Unidense</option>
-                                                    <option value="3">Canadiense</option>
+                                                    <option value="Peruano">Peruano</option>
+                                                    <option value="Estado Unidense">Estado Unidense</option>
+                                                    <option value="Canadiense">Canadiense</option>
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="labelselect" className=" form-label">
-                                                    Genero
+                                                <label htmlFor="labelselect" className="required form-label">
+                                                    Género
                                                 </label>
                                             </div>
                                             <div className="col-6">
@@ -360,7 +414,7 @@ const CalendarButton = () => {
                                                     aria-label="Select example"
                                                     name="genero" value={form.genero} onChange={handleChange}
                                                 >
-                                                    <option>Seleccione un Genero</option>
+                                                    <option>Seleccione un Género</option>
                                                     <option value="Masculino">Masculino</option>
                                                     <option value="Femenino">Femenino</option>
                                                 </select>
@@ -369,7 +423,7 @@ const CalendarButton = () => {
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="estadoCivilSelect" className="form-label">
+                                                <label htmlFor="estadoCivilSelect" className="required form-label">
                                                     Estado civil
                                                 </label>
                                             </div>
@@ -390,7 +444,7 @@ const CalendarButton = () => {
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="estadoCivilSelect" className="form-label">
+                                                <label htmlFor="estadoCivilSelect" className="required form-label">
                                                     Indicativo y telefono
                                                 </label>
                                             </div>
@@ -412,7 +466,9 @@ const CalendarButton = () => {
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="recFacialInput" className="form-label">Reconocimiento facial</label>
+                                                <label htmlFor="recFacialInput" className="form-label">
+                                                    Reconocimiento facial
+                                                </label>
                                             </div>
                                             <div className="col-6">
                                                 <input type="file" className="form-control" id="recFacialInput"
@@ -422,17 +478,20 @@ const CalendarButton = () => {
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="firmaDigitalInput" className="form-label">Firma digital</label>
+                                                <label htmlFor="firmaDigitalInput" className="required form-label">
+                                                    Firma digital
+                                                </label>
                                             </div>
                                             <div className="col-6">
                                                 <input type="text" className="form-control" id="firmaDigitalInput"
-                                                    name="firmaDigital" value={form.firmaDigital} onChange={handleChange} placeholder="" />
+                                                    name="firmaDigital" value={form.firmaDigital} 
+                                                    onChange={handleChange} placeholder="" />
                                             </div>
                                         </div>
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="statusSelect" className="form-label">
+                                                <label htmlFor="statusSelect" className="required form-label">
                                                     Status
                                                 </label>
                                             </div>
@@ -450,7 +509,7 @@ const CalendarButton = () => {
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="sedeSelect" className="form-label">
+                                                <label htmlFor="sedeSelect" className="required form-label">
                                                     Sede de trabajo
                                                 </label>
                                             </div>
@@ -469,7 +528,7 @@ const CalendarButton = () => {
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
-                                                <label htmlFor="rolSelect" className="form-label">
+                                                <label htmlFor="rolSelect" className="required form-label">
                                                     Tipo de rol
                                                 </label>
                                             </div>
@@ -486,8 +545,11 @@ const CalendarButton = () => {
                                             </div>
                                         </div>
 
-                                        <div className="modal-footer">
-                                            <button type="button" className="btn btn-secondary" id="closeButton" data-bs-dismiss="modal">Cerrar</button>
+                                        <div className="d-flex justify-content-center gap-10 modal-footer">
+                                            <button type="button" className="btn btn-secondary" id="closeButton"
+                                                    data-bs-dismiss="modal">
+                                                Cerrar
+                                            </button>
                                             <button type="submit" className="btn btn-success">Guardar</button>
                                         </div>
                                     </form>

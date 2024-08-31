@@ -4,7 +4,7 @@ const CalendarHeader = () => {
             {/* begin::Card toolbar */}
             <div className='card-toolbar'>
                 {/* begin::Group actions */}
-                <p>Muestra los trabajadores disponibles.</p>
+                <p>Trabajadores disponibles</p>
                 {/* end::Group actions */}
             </div>
             {/* end::Card toolbar */}
