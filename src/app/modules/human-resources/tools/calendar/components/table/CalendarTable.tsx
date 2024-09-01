@@ -3,7 +3,7 @@ import { KTCardBody } from "../../../../../../../_zeus/helpers";
 import { appStateService } from "../../../../../../services/appState.service";
 import { Employee } from "../../core/_models";
 import { getEmployees } from "../../core/_requests";
-import axios from "axios";
+import { dayMonthYear } from "../../../../../../utils/dateFormat";
 
 interface EmployeeForm {
   area: string,
@@ -30,6 +30,7 @@ interface EmployeeForm {
   status: string,
   sedeTrabajo: string
 }
+
 
 const CalendarTable = () => {
 
@@ -62,16 +63,23 @@ const CalendarTable = () => {
 
   useEffect(() => {
 
+    const employeesInit = async () => {
+      try{
+        const response = await getEmployees();
+        if(response.status == 200){
+          const employees: Employee[] = response.data;
+          appStateService.setEmployeesSubject(employees);
+        }
+      }catch(error: any){
+        console.error(error);
+      }
+
+    };
+    employeesInit();
+
     const employeesSub = appStateService.getEmployeesSubject().subscribe((employees: Employee[]) => {
       setEmployees(employees);
     })
-
-    // Get employees by api - !Future Update!
-    // const getEmployees = async () => {
-    //   const resp = await getEmployees();
-    //   setEmployees(resp.data.data);
-    // };
-    // getEmployees();
 
     return () => employeesSub.unsubscribe();
 
@@ -86,18 +94,19 @@ const CalendarTable = () => {
     }));
   };
 
-  const filteredEmployees = employees.filter(employee => {
+  const filteredEmployees = employees.filter((employee:Employee) => {
     return (
-      (!formData.area || employee.area === formData.area) &&
-      (!formData.cargo || employee.cargo === formData.cargo) &&
-      (!formData.dni || employee.dni.includes(formData.dni)) &&
-      (!formData.apellidoPaterno || employee.apellidoPaterno.includes(formData.apellidoPaterno)) &&
-      (!formData.apellidoMaterno || employee.apellidoMaterno.includes(formData.apellidoMaterno)) &&
-      (!formData.direccion || employee.direccion?.includes(formData.direccion)) &&
-      (!formData.distrito || employee.distrito?.includes(formData.distrito)) &&
-      (!formData.nacionalidad || employee.nacionalidad?.includes(formData.nacionalidad)) &&
-      (!formData.genero || employee.genero?.includes(formData.genero)) &&
-      (!formData.estadoCivil || employee.estadoCivil?.includes(formData.estadoCivil))
+      (!formData.area || employee.area.toLocaleLowerCase() === formData.area.toLocaleLowerCase()) &&
+      (!formData.cargo || employee.cargo.toLocaleLowerCase() === formData.cargo.toLocaleLowerCase()) &&
+      (!formData.dni || employee.dni.toLocaleLowerCase().includes(formData.dni.toLocaleLowerCase())) &&
+      (!formData.apellidoPaterno || employee.apellidoPaterno.toLocaleLowerCase().includes(formData.apellidoPaterno.toLocaleLowerCase())) &&
+      (!formData.apellidoMaterno || employee.apellidoMaterno.toLocaleLowerCase().includes(formData.apellidoMaterno.toLocaleLowerCase())) &&
+      (!formData.direccion || employee.direccion?.toLocaleLowerCase().includes(formData.direccion.toLocaleLowerCase())) &&
+      (!formData.distrito || employee.distrito?.toLocaleLowerCase().includes(formData.distrito.toLocaleLowerCase())) &&
+      (!formData.nacionalidad || employee.nacionalidad?.toLocaleLowerCase().includes(formData.nacionalidad.toLocaleLowerCase())) &&
+      (!formData.genero || employee.genero?.toLocaleLowerCase().includes(formData.genero.toLocaleLowerCase())) &&
+      (!formData.estadoCivil || employee.estadoCivil?.toLocaleLowerCase().includes(formData.estadoCivil.toLocaleLowerCase())) &&
+      (!formData.status || employee.status?.toLocaleLowerCase().includes(formData.status.toLocaleLowerCase()))
     );
   });
 
@@ -316,23 +325,23 @@ const CalendarTable = () => {
                 <td>{employee.nombres}</td>
                 <td>{employee.apellidoMaterno}</td>
                 <td>{employee.apellidoPaterno}</td>
-                <td>{employee.fechaNacimiento}</td>
+                <td>{dayMonthYear(employee.fechaNacimiento)}</td>
                 <td>{employee.cargo}</td>
                 <td>{employee.area}</td>
-                <td>{employee.FechaIngresoEmp}</td>
-                <td>{employee.fechaIngresoArea}</td>
+                <td>{dayMonthYear(employee.fechaIngresoEmpresa)}</td>
+                <td>{dayMonthYear(employee.fechaIngresoArea)}</td>
                 <td>{employee.direccion}</td>
                 <td>{employee.distrito}</td>
-                <td>{employee.corpEmail}</td>
-                <td>{employee.perEmail}</td>
+                <td>{employee.correoTrabajo}</td>
+                <td>{employee.correoPersonal}</td>
                 <td>{employee.nacionalidad}</td>
                 <td>{employee.genero}</td>
                 <td>{employee.estadoCivil}</td>
-                <td>{employee.indicativoTel + "" + employee.telefono}</td>
+                <td>{employee.telefonoPersonal}</td>
                 <td>{employee.firmaDigital}</td>
                 <td>{employee.status}</td>
                 <td>{employee.sedeTrabajo}</td>
-                <td>{employee.tipoRol}</td>
+                <td>{employee.rollSistemaDigitalizado}</td>
                 <td>
                   <div className="d-grid gap-2 d-md-flex">
 

@@ -1,25 +1,77 @@
 export interface Employee {
+    apellidoMaterno: string,
+    apellidoPaterno: string,
     area: string,
     cargo: string,
-    firmaDigital: string,
-    recFacial: null,
-    nacionalidad: string,
-    estadoCivil: string,
-    genero: string,
+    correoPersonal: string,
+    correoTrabajo: string,
+    createdAt: string, //TO ISO STRING
+    direccion: string,
+    distrito: string,
     dni: string,
-    fechaNacimiento: string,
+    estadoCivil: string,
+    fechaIngresoArea: string,
+    fechaIngresoEmpresa: string,
+    fechaNacimiento: string, //TO ISO STRING
+    firmaDigital: string,
+    genero: string,
+    nacionalidad: string,
     nombres: string,
+    reconocimientoFacial: string, //Preguntar porque string
+    rollSistemaDigitalizado: string,
+    sedeTrabajo: string,
+    status: string, //Cambiar a boolean
+    telefonoPersonal: string,
+    updatedAt: string;
+}
+
+export interface EmployeeRequest{
+    dni: string,
     apellidoPaterno: string,
     apellidoMaterno: string,
-    distrito: string,
+    nombres: string,
     direccion: string,
-    corpEmail: string,
-    perEmail: string,
-    indicativoTel: number,
-    telefono: number,
+    distrito: string,
+    correoTrabajo: string,
+    correoPersonal: string,
+    nacionalidad: string,
+    genero: string,
+    estadoCivil: string,
+    fechaNacimiento: string,
+    telefonoPersonal: string,
+    reconocimientoFacial: string,
+    firmaDigital: string,
+    area: string,
+    cargo: string,
+    rollSistemaDigitalizado: string,
     fechaIngresoArea: string,
-    FechaIngresoEmp: string,
-    tipoRol: string,
+    fechaIngresoEmpresa: string,
     status: string,
-    sedeTrabajo: string
 }
+
+// export interface EmployeeDb {
+//     apellidoMaterno: string,
+//     apellidoPaterno: string,
+//     area: string,
+//     cargo: string,
+//     correoPersonal: string,
+//     correoTrabajo: string,
+//     createdAt: string, //TO ISO STRING
+//     direccion: string,
+//     distrito: string,
+//     dni: string,
+//     estadoCivil: string,
+//     fechaIngresoArea: string,
+//     fechaIngresoEmpresa: string,
+//     fechaNacimiento: string, //TO ISO STRING
+//     firmaDigital: string,
+//     genero: string,
+//     nacionalidad: string,
+//     nombres: string,
+//     reconocimientoFacial: string, //Preguntar porque string
+//     rollSistemaDigitalizado: string,
+//     sedeTrabajo: string,
+//     status: string, //Cambiar a boolean
+//     telefonoPersonal: string,
+//     updatedAt: string;
+// }

@@ -1,12 +1,14 @@
 import axios from "axios";
+import { EmployeeRequest } from "./_models";
 
-const API_URL = import.meta.env.VITE_APP_API_URL;
-export const REGISTER_EMPLOYEE_URL = `${API_URL}/register_employee`;
-export const GET_EMPLOYEES_URL = `${API_URL}/employees}`
+const BASE_URL = import.meta.env.VITE_API_URL;
 
-export function registerEmployee(data:any){
+export const REGISTER_EMPLOYEE_URL = `${BASE_URL}/api/trabajador`;
+export const GET_EMPLOYEES_URL = `${BASE_URL}/api/trabajadores`
+
+export function registerEmployee(request:EmployeeRequest){
     // console.log(data)
-    return axios.post(REGISTER_EMPLOYEE_URL, data);
+    return axios.post(REGISTER_EMPLOYEE_URL, request);
 }
 
 export function getEmployees(){

@@ -4,6 +4,7 @@ import { registerEmployee } from "../../core/_requests";
 import { appStateService } from "../../../../../../services/appState.service";
 import Swal from 'sweetalert2';
 import axios from "axios";
+import { Employee, EmployeeRequest } from "../../core/_models";
 
 export interface EmployeeForm {
     area: string,
@@ -98,65 +99,88 @@ const CalendarButton = () => {
             return;
         }
 
-        const data = new FormData();
+        // const data = new FormData();
 
-        data.append('area', form.area);
-        data.append('cargo', form.cargo);
-        data.append('firmaDigital', form.firmaDigital);
-        if (form.recFacial) {
-            data.append('recFacial', form.recFacial);
-        }
-        data.append('nacionalidad', form.nacionalidad);
-        data.append('estadoCivil', form.estadoCivil);
-        data.append('genero', form.genero);
-        data.append('dni', form.dni);
-        data.append('fechaNacimiento', form.fechaNacimiento);
-        data.append('nombres', form.nombres);
-        data.append('apellidoPaterno', form.apellidoPaterno);
-        data.append('apellidoMaterno', form.apellidoMaterno);
-        data.append('distrito', form.distrito);
-        data.append('direccion', form.direccion);
-        data.append('corpEmail', form.corpEmail);
-        data.append('perEmail', form.perEmail);
-        data.append('telefono', form.indicativoTel + "" + form.telefono);
-        data.append('fechaIngresoArea', form.fechaIngresoArea);
-        data.append('FechaIngresoEmp', form.FechaIngresoEmp);
-        data.append('tipoRol', form.tipoRol);
-        data.append('status', form.status);
-        data.append('sedeTrabajo', form.sedeTrabajo);
+        // data.append('area', form.area);
+        // data.append('cargo', form.cargo);
+        // data.append('firmaDigital', form.firmaDigital);
+        // if (form.recFacial) {
+        //     data.append('recFacial', form.recFacial);
+        // }
+        // data.append('nacionalidad', form.nacionalidad);
+        // data.append('estadoCivil', form.estadoCivil);
+        // data.append('genero', form.genero);
+        // data.append('dni', form.dni);
+        // data.append('fechaNacimiento', form.fechaNacimiento);
+        // data.append('nombres', form.nombres);
+        // data.append('apellidoPaterno', form.apellidoPaterno);
+        // data.append('apellidoMaterno', form.apellidoMaterno);
+        // data.append('distrito', form.distrito);
+        // data.append('direccion', form.direccion);
+        // data.append('corpEmail', form.corpEmail);
+        // data.append('perEmail', form.perEmail);
+        // data.append('telefono', form.indicativoTel + "" + form.telefono);
+        // data.append('fechaIngresoArea', form.fechaIngresoArea);
+        // data.append('FechaIngresoEmp', form.FechaIngresoEmp);
+        // data.append('tipoRol', form.tipoRol);
+        // data.append('status', form.status);
+        // data.append('sedeTrabajo', form.sedeTrabajo);
 
+        const newEmployee: EmployeeRequest = {
+            dni: form.dni,
+            apellidoPaterno: form.apellidoPaterno,
+            apellidoMaterno: form.apellidoMaterno,
+            nombres: form.nombres,
+            direccion: form.direccion,
+            distrito: form.distrito,
+            correoTrabajo: form.corpEmail,
+            correoPersonal: form.perEmail,
+            nacionalidad: form.nacionalidad,
+            genero: form.genero,
+            estadoCivil: form.estadoCivil,
+            fechaNacimiento: form.fechaNacimiento,
+            telefonoPersonal: form.indicativoTel+" "+ form.telefono,
+            reconocimientoFacial: "",
+            firmaDigital: form.firmaDigital,
+            area: form.area,
+            cargo: form.cargo,
+            rollSistemaDigitalizado: form.tipoRol,
+            fechaIngresoArea: form.fechaIngresoArea,
+            fechaIngresoEmpresa: form.FechaIngresoEmp,
+            status: form.status,
+        };
 
         try {
 
-            // const resp = await registerEmployee(data);
+            const resp = await registerEmployee(newEmployee);
 
-            // if (resp.status == 200) {
-                // console.log("Respuesta exitosa")
-            // }else{
-                //    console.log("Error en la peticion")
-            // } 
+            if (resp.status == 201) {
 
-            appStateService.setEmployeeSubject(form);
+                appStateService.setEmployeeSubject(resp.data);
 
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "Trabajador creado correctamente"
+                });
+
+                const closeButton = document.getElementById('closeButton');
+                if (closeButton) {
+                    closeButton.click();
                 }
-            });
-            Toast.fire({
-                icon: "success",
-                title: "Trabajador creado correctamente"
-            });
 
-            const closeButton = document.getElementById('closeButton');
-            if (closeButton) {
-                closeButton.click();
+            } else {
+                console.log(resp);
             }
 
         } catch (error) {
@@ -204,8 +228,8 @@ const CalendarButton = () => {
                                                 </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="text" id="inputtext" name="dni" value={form.dni} 
-                                                onChange={handleChange} className="form-control input-sm" />
+                                                <input type="text" id="inputtext" name="dni" value={form.dni}
+                                                    onChange={handleChange} placeholder="Identificacion" className="form-control input-sm" />
                                             </div>
                                         </div>
 
@@ -217,33 +241,33 @@ const CalendarButton = () => {
                                             </div>
                                             <div className="col-6">
                                                 <input type="text" id="inputtext" name="nombres" value={form.nombres}
-                                                 onChange={handleChange} className="form-control input-sm" />
+                                                    onChange={handleChange} placeholder="Nombres" className="form-control input-sm" />
                                             </div>
                                         </div>
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
                                                 <label htmlFor="inputtext" className="required col-form-label">
-                                                    Ape. Materno
+                                                    Apellido Materno
                                                 </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="text" id="inputtext" name="apellidoMaterno" 
-                                                value={form.apellidoMaterno} onChange={handleChange} 
-                                                className="form-control input-sm" />
+                                                <input type="text" id="inputtext" name="apellidoMaterno"
+                                                    value={form.apellidoMaterno} onChange={handleChange}
+                                                    placeholder="Apellido" className="form-control input-sm" />
                                             </div>
                                         </div>
 
                                         <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                             <div className="col-6">
                                                 <label htmlFor="inputtext" className="required col-form-label">
-                                                    Ape. Paterno
+                                                    Apellido Paterno
                                                 </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="text" id="inputtext" name="apellidoPaterno" 
-                                                value={form.apellidoPaterno} onChange={handleChange} 
-                                                className="form-control input-sm" />
+                                                <input type="text" id="inputtext" name="apellidoPaterno"
+                                                    value={form.apellidoPaterno} onChange={handleChange}
+                                                    placeholder="Apellido" className="form-control input-sm" />
                                             </div>
                                         </div>
 
@@ -254,9 +278,9 @@ const CalendarButton = () => {
                                                 </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="date" id="inputtext" name="fechaNacimiento" 
-                                                value={form.fechaNacimiento} onChange={handleChange}
-                                                className="form-control input-sm" />
+                                                <input type="date" id="inputtext" name="fechaNacimiento"
+                                                    value={form.fechaNacimiento} onChange={handleChange}
+                                                    className="form-control input-sm" />
                                             </div>
                                         </div>
 
@@ -268,11 +292,10 @@ const CalendarButton = () => {
                                             </div>
                                             <div className="col-6">
                                                 {/* <input type="text" id="inputtext" className="form-control input-sm"/> */}
-                                                <select className="form-select select-sm" id="selecttext" 
-                                                name="cargo" value={form.cargo} onChange={handleChange} 
-                                                aria-label="Default select example">
-                                                    <option selected>Seleccione una opción</option>
-                                                    <option value="">Seleccione el cargo</option>
+                                                <select className="form-select select-sm" id="selecttext"
+                                                    name="cargo" value={form.cargo} onChange={handleChange}
+                                                    aria-label="Default select example">
+                                                    <option value="">Seleccione</option>
                                                     <option value="Gerente">Gerente</option>
                                                     <option value="Jefe">Jefe</option>
                                                 </select>
@@ -288,9 +311,9 @@ const CalendarButton = () => {
                                             <div className="col-6">
                                                 {/* <input type="text" id="inputtext" className="form-control input-sm"/> */}
                                                 <select className="form-select select-sm" id="selecttext"
-                                                 name="area" value={form.area} onChange={handleChange}
-                                                 aria-label="Default select example">
-                                                    <option value="">Seleccione el area</option>
+                                                    name="area" value={form.area} onChange={handleChange}
+                                                    aria-label="Default select example">
+                                                    <option value="">Seleccione</option>
                                                     <option value="Gerencia">Gerencia</option>
                                                     <option value="Seguridad Industrial">Seguridad Industrial</option>
                                                 </select>
@@ -304,9 +327,9 @@ const CalendarButton = () => {
                                                 </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="date" id="inputtext" name="FechaIngresoEmp" 
-                                                value={form.FechaIngresoEmp} onChange={handleChange}
-                                                className="form-control input-sm" />
+                                                <input type="date" id="inputtext" name="FechaIngresoEmp"
+                                                    value={form.FechaIngresoEmp} onChange={handleChange}
+                                                    className="form-control input-sm" />
                                             </div>
                                         </div>
 
@@ -318,8 +341,8 @@ const CalendarButton = () => {
                                             </div>
                                             <div className="col-6">
                                                 <input type="date" id="inputtext" name="fechaIngresoArea"
-                                                 value={form.fechaIngresoArea} onChange={handleChange} 
-                                                 className="form-control input-sm" />
+                                                    value={form.fechaIngresoArea} onChange={handleChange}
+                                                    className="form-control input-sm" />
                                             </div>
                                         </div>
 
@@ -331,8 +354,8 @@ const CalendarButton = () => {
                                             </div>
                                             <div className="col-6">
                                                 <input type="text" className="form-control" id="direccionInput"
-                                                 name="direccion" value={form.direccion} onChange={handleChange} 
-                                                 placeholder="" />
+                                                    name="direccion" value={form.direccion} onChange={handleChange}
+                                                    placeholder="Dirección" />
                                             </div>
                                         </div>
 
@@ -343,10 +366,10 @@ const CalendarButton = () => {
                                                 </label>
                                             </div>
                                             <div className="col-6">
-                                                <select className="form-select" id="distritoSelect" 
-                                                name="distrito" value={form.distrito} onChange={handleChange}
-                                                aria-label="Distritos">
-                                                    <option>Seleccione un distrito</option>
+                                                <select className="form-select" id="distritoSelect"
+                                                    name="distrito" value={form.distrito} onChange={handleChange}
+                                                    aria-label="Distritos">
+                                                    <option>Seleccione</option>
                                                     <option>Distrito 1</option>
                                                     <option>Distrito 2</option>
                                                     <option>Distrito 3</option>
@@ -361,9 +384,9 @@ const CalendarButton = () => {
                                                 </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="text" className="form-control" id="cEmailInput"
-                                                 name="corpEmail" value={form.corpEmail} onChange={handleChange}
-                                                 placeholder="" />
+                                                <input type="email" className="form-control" id="cEmailInput"
+                                                    name="corpEmail" value={form.corpEmail} onChange={handleChange}
+                                                    placeholder="Email" />
                                             </div>
                                         </div>
 
@@ -374,9 +397,9 @@ const CalendarButton = () => {
                                                 </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="text" className="form-control" id="pEmailInput"
-                                                 name="perEmail" value={form.perEmail} onChange={handleChange}
-                                                 placeholder="" />
+                                                <input type="email" className="form-control" id="pEmailInput"
+                                                    name="perEmail" value={form.perEmail} onChange={handleChange}
+                                                    placeholder="Email" />
                                             </div>
                                         </div>
 
@@ -393,7 +416,7 @@ const CalendarButton = () => {
                                                     name="nacionalidad" value={form.nacionalidad} onChange={handleChange}
                                                     aria-label="Select example"
                                                 >
-                                                    <option>Seleccione una nacionalidad</option>
+                                                    <option>Seleccione</option>
                                                     <option value="Peruano">Peruano</option>
                                                     <option value="Estado Unidense">Estado Unidense</option>
                                                     <option value="Canadiense">Canadiense</option>
@@ -414,7 +437,7 @@ const CalendarButton = () => {
                                                     aria-label="Select example"
                                                     name="genero" value={form.genero} onChange={handleChange}
                                                 >
-                                                    <option>Seleccione un Género</option>
+                                                    <option>Seleccione</option>
                                                     <option value="Masculino">Masculino</option>
                                                     <option value="Femenino">Femenino</option>
                                                 </select>
@@ -432,7 +455,7 @@ const CalendarButton = () => {
                                                     id="estadoCivilSelect"
                                                     name="estadoCivil" value={form.estadoCivil} onChange={handleChange}
                                                     aria-label="estado civil select">
-                                                    <option>Seleccione un estado civil</option>
+                                                    <option>Seleccione</option>
                                                     <option>Soltero</option>
                                                     <option>Casado</option>
                                                     <option>Divorciado</option>
@@ -453,12 +476,12 @@ const CalendarButton = () => {
                                                     <div className="col-5">
                                                         <input type="number" className="form-control"
                                                             id="indicativoInput" name="indicativoTel" value={form.indicativoTel}
-                                                            onChange={handleChange} placeholder="50" />
+                                                            onChange={handleChange} placeholder="Ind" />
                                                     </div>
                                                     <div className="col-7">
                                                         <input type="number" className="form-control" id="tPersonalInput"
                                                             name="telefono" value={form.telefono}
-                                                            onChange={handleChange} placeholder="111111" />
+                                                            onChange={handleChange} placeholder="Telefono" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -484,8 +507,8 @@ const CalendarButton = () => {
                                             </div>
                                             <div className="col-6">
                                                 <input type="text" className="form-control" id="firmaDigitalInput"
-                                                    name="firmaDigital" value={form.firmaDigital} 
-                                                    onChange={handleChange} placeholder="" />
+                                                    name="firmaDigital" value={form.firmaDigital}
+                                                    onChange={handleChange} placeholder="Firma.." />
                                             </div>
                                         </div>
 
@@ -500,7 +523,7 @@ const CalendarButton = () => {
                                                     id="statusSelect"
                                                     name="status" value={form.status} onChange={handleChange}
                                                     aria-label="status select">
-                                                    <option>Seleccione un status</option>
+                                                    <option>Seleccione</option>
                                                     <option>Activo</option>
                                                     <option>Inactivo</option>
                                                 </select>
@@ -518,7 +541,7 @@ const CalendarButton = () => {
                                                     id="sedeSelect"
                                                     name="sedeTrabajo" value={form.sedeTrabajo} onChange={handleChange}
                                                     aria-label="sede select">
-                                                    <option>Seleccione una sede</option>
+                                                    <option>Seleccione</option>
                                                     <option>Sede 1</option>
                                                     <option>Sede 2</option>
                                                 </select>
@@ -537,7 +560,7 @@ const CalendarButton = () => {
                                                     id="rolSelect"
                                                     name="tipoRol" value={form.tipoRol} onChange={handleChange}
                                                     aria-label="rol select">
-                                                    <option>Seleccione un rol</option>
+                                                    <option>Seleccione</option>
                                                     <option>Jefe</option>
                                                     <option>Asistente</option>
                                                     <option>Colaborador</option>
@@ -547,7 +570,7 @@ const CalendarButton = () => {
 
                                         <div className="d-flex justify-content-center gap-10 modal-footer">
                                             <button type="button" className="btn btn-secondary" id="closeButton"
-                                                    data-bs-dismiss="modal">
+                                                data-bs-dismiss="modal">
                                                 Cerrar
                                             </button>
                                             <button type="submit" className="btn btn-success">Guardar</button>
