@@ -4,13 +4,13 @@ import { registerEmployee } from "../../core/_requests";
 import { appStateService } from "../../../../../../services/appState.service";
 import Swal from 'sweetalert2';
 import axios from "axios";
-import { Employee, EmployeeRequest } from "../../core/_models";
+import { EmployeeResponse, EmployeeRequest } from "../../core/_models";
 
 export interface EmployeeForm {
     area: string,
     cargo: string,
     firmaDigital: string,
-    recFacial: null,
+    reconocimientoFacial: string,
     nacionalidad: string,
     estadoCivil: string,
     genero: string,
@@ -21,13 +21,13 @@ export interface EmployeeForm {
     apellidoMaterno: string,
     distrito: string,
     direccion: string,
-    corpEmail: string,
-    perEmail: string,
+    correoTrabajo: string,
+    correoPersonal: string,
     indicativoTel: number,
-    telefono: number,
+    telefonoPersonal: number,
     fechaIngresoArea: string,
-    FechaIngresoEmp: string,
-    tipoRol: string,
+    fechaIngresoEmpresa: string,
+    rollSistemaDigitalizado: string,
     status: string,
     sedeTrabajo: string
 }
@@ -39,7 +39,7 @@ const CalendarButton = () => {
         area: "",
         cargo: "",
         firmaDigital: "",
-        recFacial: null,
+        reconocimientoFacial: "",
         nacionalidad: "",
         estadoCivil: "",
         genero: "",
@@ -50,13 +50,13 @@ const CalendarButton = () => {
         apellidoMaterno: "",
         distrito: "",
         direccion: "",
-        corpEmail: "",
-        perEmail: "",
+        correoTrabajo: "",
+        correoPersonal: "",
         indicativoTel: 0,
-        telefono: 0,
+        telefonoPersonal: 0,
         fechaIngresoArea: "",
-        FechaIngresoEmp: "",
-        tipoRol: "",
+        fechaIngresoEmpresa: "",
+        rollSistemaDigitalizado: "",
         status: "",
         sedeTrabajo: ""
     });
@@ -76,9 +76,9 @@ const CalendarButton = () => {
         if (!form.area || !form.cargo || !form.firmaDigital || !form.nacionalidad ||
             !form.estadoCivil || !form.genero || !form.dni || !form.fechaNacimiento ||
             !form.nombres || !form.apellidoPaterno || !form.apellidoMaterno ||
-            !form.distrito || !form.direccion || !form.corpEmail || !form.perEmail ||
-            !form.telefono || !form.fechaIngresoArea || !form.FechaIngresoEmp ||
-            !form.tipoRol || !form.status || !form.sedeTrabajo) {
+            !form.distrito || !form.direccion || !form.correoTrabajo || !form.correoPersonal ||
+            !form.telefonoPersonal || !form.fechaIngresoArea || !form.fechaIngresoEmpresa ||
+            !form.rollSistemaDigitalizado || !form.status || !form.sedeTrabajo) {
 
             const Toast = Swal.mixin({
                 toast: true,
@@ -93,7 +93,7 @@ const CalendarButton = () => {
             });
             Toast.fire({
                 icon: "error",
-                title: "Porfavor rellenar todos los campos."
+                title: "Porfavor rellene todos los campos"
             });
 
             return;
@@ -133,21 +133,22 @@ const CalendarButton = () => {
             nombres: form.nombres,
             direccion: form.direccion,
             distrito: form.distrito,
-            correoTrabajo: form.corpEmail,
-            correoPersonal: form.perEmail,
+            correoTrabajo: form.correoTrabajo,
+            correoPersonal: form.correoPersonal,
             nacionalidad: form.nacionalidad,
             genero: form.genero,
             estadoCivil: form.estadoCivil,
             fechaNacimiento: form.fechaNacimiento,
-            telefonoPersonal: form.indicativoTel+" "+ form.telefono,
+            telefonoPersonal: form.indicativoTel+" "+ form.telefonoPersonal,
             reconocimientoFacial: "",
             firmaDigital: form.firmaDigital,
             area: form.area,
             cargo: form.cargo,
-            rollSistemaDigitalizado: form.tipoRol,
+            rollSistemaDigitalizado: form.rollSistemaDigitalizado,
             fechaIngresoArea: form.fechaIngresoArea,
-            fechaIngresoEmpresa: form.FechaIngresoEmp,
+            fechaIngresoEmpresa: form.fechaIngresoEmpresa,
             status: form.status,
+            sedeTrabajo: form.sedeTrabajo
         };
 
         try {
@@ -193,14 +194,14 @@ const CalendarButton = () => {
         <KTCardBody>
 
             <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button className="btn btn-success btn-sm" type="button">
+                {/* <button className="btn btn-success btn-sm" type="button">
                     <i className="bi bi-file-earmark-spreadsheet-fill"></i>
                     Importar a Excel
                 </button>
                 <button className="btn btn-success btn-sm" type="button">
                     <i className="bi bi-file-earmark-spreadsheet-fill"></i>
                     Exportar a Excel
-                </button>
+                </button> */}
                 <button className="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     <i className="bi bi-plus-circle-fill"></i>
                     Nuevo Trabajador
@@ -291,7 +292,6 @@ const CalendarButton = () => {
                                                 </label>
                                             </div>
                                             <div className="col-6">
-                                                {/* <input type="text" id="inputtext" className="form-control input-sm"/> */}
                                                 <select className="form-select select-sm" id="selecttext"
                                                     name="cargo" value={form.cargo} onChange={handleChange}
                                                     aria-label="Default select example">
@@ -327,8 +327,8 @@ const CalendarButton = () => {
                                                 </label>
                                             </div>
                                             <div className="col-6">
-                                                <input type="date" id="inputtext" name="FechaIngresoEmp"
-                                                    value={form.FechaIngresoEmp} onChange={handleChange}
+                                                <input type="date" id="inputtext" name="fechaIngresoEmpresa"
+                                                    value={form.fechaIngresoEmpresa} onChange={handleChange}
                                                     className="form-control input-sm" />
                                             </div>
                                         </div>
@@ -385,7 +385,7 @@ const CalendarButton = () => {
                                             </div>
                                             <div className="col-6">
                                                 <input type="email" className="form-control" id="cEmailInput"
-                                                    name="corpEmail" value={form.corpEmail} onChange={handleChange}
+                                                    name="correoTrabajo" value={form.correoTrabajo} onChange={handleChange}
                                                     placeholder="Email" />
                                             </div>
                                         </div>
@@ -398,7 +398,7 @@ const CalendarButton = () => {
                                             </div>
                                             <div className="col-6">
                                                 <input type="email" className="form-control" id="pEmailInput"
-                                                    name="perEmail" value={form.perEmail} onChange={handleChange}
+                                                    name="correoPersonal" value={form.correoPersonal} onChange={handleChange}
                                                     placeholder="Email" />
                                             </div>
                                         </div>
@@ -480,7 +480,7 @@ const CalendarButton = () => {
                                                     </div>
                                                     <div className="col-7">
                                                         <input type="number" className="form-control" id="tPersonalInput"
-                                                            name="telefono" value={form.telefono}
+                                                            name="telefonoPersonal" value={form.telefonoPersonal}
                                                             onChange={handleChange} placeholder="Telefono" />
                                                     </div>
                                                 </div>
@@ -558,7 +558,8 @@ const CalendarButton = () => {
                                             <div className="col-6">
                                                 <select className="form-select"
                                                     id="rolSelect"
-                                                    name="tipoRol" value={form.tipoRol} onChange={handleChange}
+                                                    name="rollSistemaDigitalizado" value={form.rollSistemaDigitalizado} 
+                                                    onChange={handleChange}
                                                     aria-label="rol select">
                                                     <option>Seleccione</option>
                                                     <option>Jefe</option>
@@ -573,7 +574,9 @@ const CalendarButton = () => {
                                                 data-bs-dismiss="modal">
                                                 Cerrar
                                             </button>
-                                            <button type="submit" className="btn btn-success">Guardar</button>
+                                            <button type="submit" className="btn btn-success">
+                                                Guardar
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
@@ -584,6 +587,7 @@ const CalendarButton = () => {
                     </div>
                 </div>
             </div>
+            
         </KTCardBody>
     )
 }

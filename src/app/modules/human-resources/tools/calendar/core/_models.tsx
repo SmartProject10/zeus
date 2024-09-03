@@ -1,4 +1,5 @@
-export interface Employee {
+export interface EmployeeResponse {
+    _id: string,
     apellidoMaterno: string,
     apellidoPaterno: string,
     area: string,
@@ -10,19 +11,19 @@ export interface Employee {
     distrito: string,
     dni: string,
     estadoCivil: string,
-    fechaIngresoArea: string,
-    fechaIngresoEmpresa: string,
+    fechaIngresoArea: string, //TO ISO STRING
+    fechaIngresoEmpresa: string, //TO ISO STRING
     fechaNacimiento: string, //TO ISO STRING
     firmaDigital: string,
     genero: string,
     nacionalidad: string,
     nombres: string,
-    reconocimientoFacial: string, //Preguntar porque string
+    reconocimientoFacial: string, 
     rollSistemaDigitalizado: string,
     sedeTrabajo: string,
-    status: string, //Cambiar a boolean
+    status: string, 
     telefonoPersonal: string,
-    updatedAt: string;
+    updatedAt: string; //TO ISO STRING
 }
 
 export interface EmployeeRequest{
@@ -47,6 +48,7 @@ export interface EmployeeRequest{
     fechaIngresoArea: string,
     fechaIngresoEmpresa: string,
     status: string,
+    sedeTrabajo: string
 }
 
 // export interface EmployeeDb {
