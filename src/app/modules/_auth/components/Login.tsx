@@ -8,6 +8,7 @@ import {getUserByToken, login} from '../core/_requests'
 import {toAbsoluteUrl} from '../../../../_zeus/helpers'
 import {useAuth} from '../core/Auth'
 import {useIntl} from 'react-intl'
+import Swal from 'sweetalert2'
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -48,6 +49,52 @@ export function Login() {
         console.log(auth);
         saveAuth(auth)
         const {data: user} = await getUserByToken(auth.api_token)
+
+        const companies: any = {
+          google: 'Google',
+          apple: 'Apple',
+          microsoft: 'Microsoft',
+          amazon: 'Amazon',
+          facebook: 'Facebook'
+        };
+        
+        Swal.fire({
+          title: "Select a company",
+          input: "select",
+          inputOptions: companies,
+          inputPlaceholder: "Select a company",
+          showCancelButton: true,
+          confirmButtonText: "Select",
+          showLoaderOnConfirm: true,
+          inputValidator: (value) => {
+            return new Promise((resolve) => {
+              if (value) {
+                resolve(); // Resuelve la promesa si se seleccionó una opción
+              } else {
+                resolve('You need to select a company'); // Muestra este mensaje si no se seleccionó ninguna opción
+              }
+            });
+          },
+          preConfirm: async (companyKey) => {
+            try {
+              // Realiza alguna acción con la compañía seleccionada
+              return companies[companyKey];
+            } catch (error) {
+              Swal.showValidationMessage(
+                `Request failed: ${error}`
+              );
+            }
+          },
+          allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: `You selected: ${result.value}`,
+            });
+          }
+        });
+        
+
         setCurrentUser(user)
       } catch (error) {
         console.error(error)

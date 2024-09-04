@@ -11,6 +11,7 @@ import {PrivateRoutes} from './PrivateRoutes'
 import {ErrorsPage} from '../modules/errors/ErrorsPage'
 import {Logout, AuthPage, useAuth} from '../modules/_auth'
 import {App} from '../App'
+import { FichaUsuarioPage } from '../modules/fichausuarios/FichaUsuarioPage'
 
 /**
  * Base URL of the website.
@@ -31,6 +32,7 @@ const AppRoutes: FC = () => {
             <>
               <Route path='/*' element={<PrivateRoutes />} />
               <Route index element={<Navigate to='/dashboard' />} />
+              <Route path='/ficha-usuario' element={<FichaUsuarioPage />} />
             </>
           ) : (
             <>
