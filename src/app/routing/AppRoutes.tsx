@@ -12,6 +12,7 @@ import {ErrorsPage} from '../modules/errors/ErrorsPage'
 import {Logout, AuthPage, useAuth} from '../modules/_auth'
 import {App} from '../App'
 import { FichaUsuarioPage } from '../modules/fichausuarios/FichaUsuarioPage'
+import { SgrrhhPage } from '../modules/sgrrhh/SgrrhhPage'
 
 /**
  * Base URL of the website.
@@ -33,6 +34,7 @@ const AppRoutes: FC = () => {
               <Route path='/*' element={<PrivateRoutes />} />
               <Route index element={<Navigate to='/dashboard' />} />
               <Route path='/ficha-usuario' element={<FichaUsuarioPage />} />
+              <Route path='/sistema-rrhh' element={<SgrrhhPage />} />
             </>
           ) : (
             <>
