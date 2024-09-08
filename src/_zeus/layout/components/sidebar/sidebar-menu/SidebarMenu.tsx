@@ -1,6 +1,11 @@
-import {SidebarMenuMain} from './SidebarMenuMain'
+import { useLocation } from 'react-router-dom'
+import { SidebarFichaUsuario } from './sidebars/SidebarFichaUsuario'
+import { SidebarMain } from './sidebars/SidebarMain'
 
-const SidebarMenu = () => {
+export const SidebarMenu = () => {
+  const { pathname } = useLocation()
+  console.log(pathname)
+
   return (
     <div className='app-sidebar-menu overflow-hidden flex-column-fluid'>
       <div
@@ -20,11 +25,11 @@ const SidebarMenu = () => {
           data-kt-menu='true'
           data-kt-menu-expand='false'
         >
-          <SidebarMenuMain />
+          {['/dashboard', '/human-resources'].some(path => pathname.startsWith(path)) && <SidebarMain />}
+
+          {['/ficha-usuario'].some(path => pathname.startsWith(path)) && <SidebarFichaUsuario />}
         </div>
       </div>
     </div>
   )
 }
-
-export {SidebarMenu}
