@@ -1,12 +1,12 @@
-import {FC, useEffect, useRef} from 'react'
-import {useLocation} from 'react-router'
+import { FC, useEffect, useRef } from 'react'
+import { useLocation } from 'react-router'
 import clsx from 'clsx'
-import {checkIsActive, KTIcon, WithChildren} from '../../../../helpers'
+import { checkIsActive, KTIcon, KTIconsNames, WithChildren } from '../../../../helpers'
 
 type Props = {
   to: string
   title: string
-  icon?: string
+  icon?: KTIconsNames
   fontIcon?: string
   menuTrigger?: 'click' | `{default:'click', lg: 'hover'}`
   menuPlacement?: 'right-start' | 'bottom-start' | 'left-start'
@@ -28,7 +28,7 @@ const MenuInnerWithSub: FC<Props & WithChildren> = ({
   isMega = false,
 }) => {
   const menuItemRef = useRef<HTMLDivElement>(null)
-  const {pathname} = useLocation()
+  const { pathname } = useLocation()
 
   useEffect(() => {
     if (menuItemRef.current && menuTrigger && menuPlacement) {
@@ -79,4 +79,4 @@ const MenuInnerWithSub: FC<Props & WithChildren> = ({
   )
 }
 
-export {MenuInnerWithSub}
+export { MenuInnerWithSub }

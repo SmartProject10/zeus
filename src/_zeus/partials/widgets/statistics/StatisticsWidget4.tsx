@@ -1,6 +1,6 @@
 
 import React, {useEffect, useRef} from 'react'
-import {KTIcon} from '../../../helpers'
+import {KTIcon, KTIconsNames} from '../../../helpers'
 import ApexCharts, {ApexOptions} from 'apexcharts'
 import {getCSS, getCSSVariableValue} from '../../../assets/ts/_utils'
 import clsx from 'clsx'
@@ -8,7 +8,7 @@ import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
 
 type Props = {
   className: string
-  svgIcon: string
+  svgIcon: KTIconsNames
   color: string
   change: string
   description: string

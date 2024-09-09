@@ -1,20 +1,20 @@
-import {FC} from 'react'
-import {useLocation} from 'react-router'
-import {Link} from 'react-router-dom'
+import { FC } from 'react'
+import { useLocation } from 'react-router'
+import { Link } from 'react-router-dom'
 import clsx from 'clsx'
-import {checkIsActive, KTIcon} from '../../../../helpers'
+import { checkIsActive, KTIcon, KTIconsNames } from '../../../../helpers'
 
 type Props = {
   to: string
   title: string
-  icon?: string
+  icon?: KTIconsNames
   fontIcon?: string
   hasArrow?: boolean
   hasBullet?: boolean
 }
 
-const MenuItem: FC<Props> = ({to, title, icon, fontIcon, hasArrow = false, hasBullet = false}) => {
-  const {pathname} = useLocation()
+const MenuItem: FC<Props> = ({ to, title, icon, fontIcon, hasArrow = false, hasBullet = false }) => {
+  const { pathname } = useLocation()
 
   return (
     <div className='menu-item me-lg-1'>
@@ -50,4 +50,4 @@ const MenuItem: FC<Props> = ({to, title, icon, fontIcon, hasArrow = false, hasBu
   )
 }
 
-export {MenuItem}
+export { MenuItem }

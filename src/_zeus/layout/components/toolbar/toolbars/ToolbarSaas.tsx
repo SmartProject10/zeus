@@ -86,7 +86,7 @@ const ToolbarSaas: FC = () => {
             data-bs-placement='top'
             title='Add new page'
           >
-            <KTIcon iconName='files' className='fs-2x' />
+            <KTIcon iconName='file' className='fs-2x' />
           </a>
           {/* end::Action */}
 

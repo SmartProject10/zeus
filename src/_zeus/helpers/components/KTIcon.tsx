@@ -5,8 +5,10 @@ import { getLayoutFromLocalStorage } from '../../layout/core'
 type Props = {
   className?: string
   iconType?: 'duotone' | 'solid' | 'outline'
-  iconName: keyof typeof icons
+  iconName: KTIconsNames | undefined
 }
+
+export type KTIconsNames = keyof typeof icons
 
 const KTIcon: FC<Props> = ({ className = '', iconType, iconName }) => {
   if (!iconType) {
@@ -15,7 +17,7 @@ const KTIcon: FC<Props> = ({ className = '', iconType, iconName }) => {
 
   return (
     <i className={`ki-${iconType} ki-${iconName}${className && ' ' + className}`}>
-      {iconType === 'duotone' &&
+      {iconType === 'duotone' && iconName !== undefined &&
         [...Array(icons[iconName])].map((_e, i) => {
           return (
             <span

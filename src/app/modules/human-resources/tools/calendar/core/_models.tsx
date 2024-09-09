@@ -18,10 +18,10 @@ export interface EmployeeResponse {
     genero: string,
     nacionalidad: string,
     nombres: string,
-    reconocimientoFacial: string, 
+    reconocimientoFacial: string,
     rollSistemaDigitalizado: string,
     sedeTrabajo: string,
-    status: string, 
+    status: string,
     telefonoPersonal: string,
     updatedAt: string; //TO ISO STRING
 }
@@ -51,29 +51,30 @@ export interface EmployeeRequest{
     sedeTrabajo: string
 }
 
-// export interface EmployeeDb {
-//     apellidoMaterno: string,
-//     apellidoPaterno: string,
-//     area: string,
-//     cargo: string,
-//     correoPersonal: string,
-//     correoTrabajo: string,
-//     createdAt: string, //TO ISO STRING
-//     direccion: string,
-//     distrito: string,
-//     dni: string,
-//     estadoCivil: string,
-//     fechaIngresoArea: string,
-//     fechaIngresoEmpresa: string,
-//     fechaNacimiento: string, //TO ISO STRING
-//     firmaDigital: string,
-//     genero: string,
-//     nacionalidad: string,
-//     nombres: string,
-//     reconocimientoFacial: string, //Preguntar porque string
-//     rollSistemaDigitalizado: string,
-//     sedeTrabajo: string,
-//     status: string, //Cambiar a boolean
-//     telefonoPersonal: string,
-//     updatedAt: string;
-// }
+export interface Employee {
+    _id: string,
+    apellidoMaterno: string,
+    apellidoPaterno: string,
+    area: string,
+    cargo: string,
+    correoPersonal: string,
+    correoTrabajo: string,
+    createdAt: string, //TO ISO STRING
+    direccion: string,
+    distrito: string,
+    dni: string,
+    estadoCivil: string,
+    fechaIngresoArea: string,
+    fechaIngresoEmpresa: string,
+    fechaNacimiento: string, //TO ISO STRING
+    firmaDigital: string,
+    genero: string,
+    nacionalidad: string,
+    nombres: string,
+    reconocimientoFacial: string, //Preguntar porque string
+    rollSistemaDigitalizado: string,
+    sedeTrabajo: string,
+    status: string, //Cambiar a boolean
+    telefonoPersonal: string,
+    updatedAt: string;
+}

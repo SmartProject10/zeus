@@ -35,7 +35,7 @@ const Item7: FC = () => {
         <div className='overflow-auto pb-5'>
           <div className='notice d-flex bg-light-primary rounded border-primary border border-dashed min-w-lg-600px flex-shrink-0 p-6'>
             <KTIcon
-              iconName='chart-simple-3coding/cod004.svg'
+              iconName='chart-simple-3'
               className='fs-2tx text-primary me-4'
             />
             <div className='d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap'>

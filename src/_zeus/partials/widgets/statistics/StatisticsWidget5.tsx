@@ -1,11 +1,11 @@
 
 import React from 'react'
-import {KTIcon} from '../../../helpers'
+import {KTIcon, KTIconsNames} from '../../../helpers'
 
 type Props = {
   className: string
   color: string
-  svgIcon: string
+  svgIcon: KTIconsNames
   iconColor: string
   title: string
   titleColor?: string
