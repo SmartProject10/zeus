@@ -21,7 +21,7 @@ import { SgrrhhPage } from '../modules/sgrrhh/SgrrhhPage'
  */
 const { BASE_URL } = import.meta.env
 
-const AppRoutes: FC = () => {
+export const AppRoutes: FC = () => {
   const { currentUser } = useAuth()
   return (
     <BrowserRouter basename={BASE_URL}>
@@ -46,5 +46,3 @@ const AppRoutes: FC = () => {
     </BrowserRouter>
   )
 }
-
-export { AppRoutes }

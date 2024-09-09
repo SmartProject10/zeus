@@ -10,7 +10,7 @@ import HumanResourcesToolsPage from "../modules/human-resources/tools/HumanResou
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
 import { FichaUsuarioRoutes } from '../modules/fichausuarios/fichaUsuario.routes.tsx'
 
-const PrivateRoutes = () => {
+export const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
@@ -105,5 +105,3 @@ const SuspensedView: FC<WithChildren> = ({ children }) => {
   })
   return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>
 }
-
-export { PrivateRoutes }
