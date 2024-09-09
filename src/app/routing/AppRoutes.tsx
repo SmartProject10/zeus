@@ -11,7 +11,7 @@ import { PrivateRoutes } from './PrivateRoutes'
 import { ErrorsPage } from '../modules/errors/ErrorsPage'
 import { Logout, AuthPage, useAuth } from '../modules/_auth'
 import { App } from '../App'
-import { FichaUsuarioRoutes } from '../modules/fichausuarios/fichaUsuario.routes'
+import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes'
 import { SgrrhhPage } from '../modules/sgrrhh/SgrrhhPage'
 
 /**

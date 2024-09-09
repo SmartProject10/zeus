@@ -8,7 +8,7 @@ import { getCSSVariableValue } from '../../_zeus/assets/ts/_utils'
 import { WithChildren } from '../../_zeus/helpers'
 import HumanResourcesToolsPage from "../modules/human-resources/tools/HumanResourcesToolsPage.tsx";
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
-import { FichaUsuarioRoutes } from '../modules/fichausuarios/fichaUsuario.routes.tsx'
+import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes.tsx'
 
 export const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))

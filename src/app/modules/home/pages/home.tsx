@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom"
+
 export function Home(): JSX.Element {
+    const navigate = useNavigate()
+
     return (
         <div>
             <div className='d-flex flex-row justify-content-between'>
@@ -8,7 +12,7 @@ export function Home(): JSX.Element {
                 </div>
 
                 <div>
-                    <button className='btn btn-secondary'>Ver ficha de usuario</button>
+                    <button className='btn btn-secondary' onClick={() => navigate('/ficha-usuario')}>Ver ficha de usuario</button>
                 </div>
             </div>
 
