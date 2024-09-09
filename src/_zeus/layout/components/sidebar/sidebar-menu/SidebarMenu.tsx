@@ -1,10 +1,27 @@
 import { useLocation } from 'react-router-dom'
 import { SidebarFichaUsuario } from './sidebars/SidebarFichaUsuario'
 import { SidebarMain } from './sidebars/SidebarMain'
+import { useMemo } from 'react'
 
 export const SidebarMenu = () => {
   const { pathname } = useLocation()
-  console.log(pathname)
+
+  const isSidebarMain = useMemo(() =>
+    [
+      '/dashboard',
+      '/human-resources',
+      '/crafted'
+    ].some(path => pathname.startsWith(path)),
+    [pathname]
+  )
+
+  const isSidebarFichaUsuario = useMemo(() =>
+    [
+      '/home',
+      '/ficha-usuario'
+    ].some(path => pathname.startsWith(path)),
+    [pathname]
+  )
 
   return (
     <div className='app-sidebar-menu overflow-hidden flex-column-fluid'>
@@ -25,9 +42,9 @@ export const SidebarMenu = () => {
           data-kt-menu='true'
           data-kt-menu-expand='false'
         >
-          {['/dashboard', '/human-resources'].some(path => pathname.startsWith(path)) && <SidebarMain />}
+          {isSidebarMain && <SidebarMain />}
 
-          {['/ficha-usuario'].some(path => pathname.startsWith(path)) && <SidebarFichaUsuario />}
+          {isSidebarFichaUsuario && <SidebarFichaUsuario />}
         </div>
       </div>
     </div>

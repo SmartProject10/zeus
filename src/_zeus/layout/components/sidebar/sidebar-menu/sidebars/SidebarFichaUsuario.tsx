@@ -8,6 +8,12 @@ export const SidebarFichaUsuario = () => {
 
     return (
         <>
+            <SidebarMenuItem
+                to="/home"
+                icon="home"
+                title={intl.formatMessage({ id: "MENU.DASHBOARD" })}
+                fontIcon="bi-app-indicator"
+            />
             <SidebarSubtitle label="información personal" />
             <SidebarMenuItem
                 to="/ficha-usuario"

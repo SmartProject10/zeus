@@ -1,13 +1,14 @@
-import {useEffect} from 'react'
-import {Outlet, useLocation} from 'react-router-dom'
-import {HeaderWrapper} from './components/header'
-import {RightToolbar} from '../partials/layout/RightToolbar'
-import {ScrollTop} from './components/scroll-top'
-import {FooterWrapper} from './components/footer'
-import {Sidebar} from './components/sidebar'
-import {ActivityDrawer, DrawerMessenger, InviteUsers, UpgradePlan} from '../partials'
-import {PageDataProvider} from './core'
-import {reInitMenu} from '../helpers'
+import { useEffect } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
+import { HeaderWrapper } from './components/header'
+import { RightToolbar } from '../partials/layout/RightToolbar'
+import { ScrollTop } from './components/scroll-top'
+import { FooterWrapper } from './components/footer'
+import { Sidebar } from './components/sidebar'
+import { ActivityDrawer, DrawerMessenger, InviteUsers, UpgradePlan } from '../partials'
+import { PageDataProvider } from './core'
+import { reInitMenu } from '../helpers'
+import { Content } from './components/content'
 
 const MasterLayout = () => {
   const location = useLocation()
@@ -24,7 +25,9 @@ const MasterLayout = () => {
             <Sidebar />
             <div className='app-main flex-column flex-row-fluid' id='kt_app_main'>
               <div className='d-flex flex-column flex-column-fluid'>
-                <Outlet />
+                <Content>
+                  <Outlet />
+                </Content>
               </div>
               <FooterWrapper />
             </div>
@@ -47,4 +50,4 @@ const MasterLayout = () => {
   )
 }
 
-export {MasterLayout}
+export { MasterLayout }
