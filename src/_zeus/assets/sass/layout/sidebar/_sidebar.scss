@@ -5,13 +5,13 @@
 // Desktop mode
 @include media-breakpoint-up(lg) {
     .app-sidebar-toggle {
-        box-shadow: var(--#{$prefix}app-sidebar-base-toggle-btn-box-shadow) !important; 
-        background-color: var(--#{$prefix}app-sidebar-base-toggle-btn-bg-color) !important; 
+        box-shadow: var(--#{$prefix}app-sidebar-base-toggle-btn-box-shadow) !important;
+        background-color: var(--#{$prefix}app-sidebar-base-toggle-btn-bg-color) !important;
         border: 1px solid var(--#{$prefix}app-sidebar-base-border-color) !important;
 
         .active i {
             transform: rotateZ(0deg) !important;
-        }        
+        }
     }
 
     [dir="rtl"] {
@@ -25,30 +25,30 @@
             }
         }
     }
-        
+
     .app-sidebar-logo {
-        height: calc(var(--#{$prefix}app-header-height) + 1px); 
+        height: 94px; // calc(var(--#{$prefix}app-header-height) + 1px);
         display: flex;
         align-items: center;
-        justify-content: space-between;        
+        justify-content: space-between;
         position: relative;
         flex-shrink: 0;
     }
-        
+
     .app-sidebar-menu {
         .menu  {
             // Root
             > .menu-item {
-                margin-left: 0.115rem;  
+                margin-left: 0.115rem;
 
                 > .menu-link {
                     > .menu-title {
                         font-weight: $font-weight-bold;
                         font-size: 1.1rem;
                     }
-                }    
+                }
             }
-        }    
+        }
     }
 }
 

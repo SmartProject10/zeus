@@ -37,7 +37,7 @@ export function HeaderWrapper() {
         {config.app.sidebar?.display && (
           <>
             {config.layoutType !== "dark-header" &&
-            config.layoutType !== "light-header" ? (
+              config.layoutType !== "light-header" ? (
               <div
                 className="d-flex align-items-center d-lg-none ms-n2 me-2"
                 title="Show sidebar menu"
@@ -66,31 +66,31 @@ export function HeaderWrapper() {
           config.layoutType === "dark-sidebar" ||
           config.layoutType === "light-sidebar"
         ) && (
-          <div className="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
-            <Link to="/dashboard">
-              {config.layoutType === "dark-header" ? (
-                <img
-                  alt="Logo"
-                  src={toAbsoluteUrl("media/logos/default-dark.svg")}
-                  className="h-20px h-lg-30px app-sidebar-logo-default"
-                />
-              ) : (
-                <>
-                  <img
-                    alt="Logo"
-                    src={toAbsoluteUrl("media/logos/default.svg")}
-                    className="h-20px h-lg-30px app-sidebar-logo-default theme-light-show"
-                  />
+            <div className="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
+              <Link to="/dashboard">
+                {config.layoutType === "dark-header" ? (
                   <img
                     alt="Logo"
                     src={toAbsoluteUrl("media/logos/default-dark.svg")}
-                    className="h-20px h-lg-30px app-sidebar-logo-default theme-dark-show"
+                    className="h-20px h-lg-30px app-sidebar-logo-default"
                   />
-                </>
-              )}
-            </Link>
-          </div>
-        )}
+                ) : (
+                  <>
+                    <img
+                      alt="Logo"
+                      src={toAbsoluteUrl("media/logos/default.svg")}
+                      className="h-20px h-lg-30px app-sidebar-logo-default theme-light-show"
+                    />
+                    <img
+                      alt="Logo"
+                      src={toAbsoluteUrl("media/logos/default-dark.svg")}
+                      className="h-20px h-lg-30px app-sidebar-logo-default theme-dark-show"
+                    />
+                  </>
+                )}
+              </Link>
+            </div>
+          )}
 
         <div id="kt_app_header_wrapper" className="w-100">
           <div
@@ -99,7 +99,9 @@ export function HeaderWrapper() {
           >
             <Navbar />
           </div>
-          {config.app.header.default?.content === "menu" &&
+
+          {/* {
+            config.app.header.default?.content === "menu" &&
             config.app.header.default.menu?.display && (
               <div
                 className="app-header-menu app-header-mobile-drawer align-items-stretch"
@@ -116,7 +118,8 @@ export function HeaderWrapper() {
               >
                 <Header />
               </div>
-            )}
+            )
+          } */}
         </div>
       </div>
     </div>

@@ -1,10 +1,9 @@
 import clsx from "clsx";
 import { KTIcon, toAbsoluteUrl } from "../../../helpers";
 import {
-  HeaderNotificationsMenu,
   HeaderUserMenu,
   Search,
-  ThemeModeSwitcher,
+  ThemeModeSwitcher
 } from "../../../partials";
 import { useLayout } from "../../core";
 
@@ -59,6 +58,7 @@ const Navbar = () => {
           </div>
         </div>
       )}
+
       <div className={clsx("app-navbar-item", itemClass)}>
         <img
           alt="Logo"
