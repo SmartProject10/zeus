@@ -5,13 +5,13 @@
  * components (e.g: `src/app/modules/Auth/pages/AuthPage`, `src/app/BasePage`).
  */
 
-import {FC} from 'react'
-import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
-import {PrivateRoutes} from './PrivateRoutes'
-import {ErrorsPage} from '../modules/errors/ErrorsPage'
-import {Logout, AuthPage, useAuth} from '../modules/_auth'
-import {App} from '../App'
-import { FichaUsuarioPage } from '../modules/fichausuarios/FichaUsuarioPage'
+import { FC } from 'react'
+import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
+import { PrivateRoutes } from './PrivateRoutes'
+import { ErrorsPage } from '../modules/errors/ErrorsPage'
+import { Logout, AuthPage, useAuth } from '../modules/_auth'
+import { App } from '../App'
+import { FichaUsuarioRoutes } from '../modules/fichausuarios/fichaUsuario.routes'
 import { SgrrhhPage } from '../modules/sgrrhh/SgrrhhPage'
 
 /**
@@ -19,10 +19,10 @@ import { SgrrhhPage } from '../modules/sgrrhh/SgrrhhPage'
  *
  * @see https://facebook.github.io/create-react-app/docs/using-the-public-folder
  */
-const {BASE_URL} = import.meta.env
+const { BASE_URL } = import.meta.env
 
 const AppRoutes: FC = () => {
-  const {currentUser} = useAuth()
+  const { currentUser } = useAuth()
   return (
     <BrowserRouter basename={BASE_URL}>
       <Routes>
@@ -33,7 +33,6 @@ const AppRoutes: FC = () => {
             <>
               <Route path='/*' element={<PrivateRoutes />} />
               <Route index element={<Navigate to='/dashboard' />} />
-              <Route path='/ficha-usuario' element={<FichaUsuarioPage />} />
               <Route path='/sistema-rrhh' element={<SgrrhhPage />} />
             </>
           ) : (
@@ -48,4 +47,4 @@ const AppRoutes: FC = () => {
   )
 }
 
-export {AppRoutes}
+export { AppRoutes }

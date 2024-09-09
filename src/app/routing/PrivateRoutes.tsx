@@ -1,12 +1,14 @@
-import {lazy, FC, Suspense} from 'react'
-import {Route, Routes, Navigate} from 'react-router-dom'
-import {MasterLayout} from '../../_zeus/layout/MasterLayout'
+import { lazy, FC, Suspense } from 'react'
+import { Route, Routes, Navigate } from 'react-router-dom'
+import { MasterLayout } from '../../_zeus/layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
-import {DashboardWrapper} from '../pages/dashboard/DashboardWrapper'
-import {MenuTestPage} from '../pages/MenuTestPage'
-import {getCSSVariableValue} from '../../_zeus/assets/ts/_utils'
-import {WithChildren} from '../../_zeus/helpers'
+import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
+import { MenuTestPage } from '../pages/MenuTestPage'
+import { getCSSVariableValue } from '../../_zeus/assets/ts/_utils'
+import { WithChildren } from '../../_zeus/helpers'
 import HumanResourcesToolsPage from "../modules/human-resources/tools/HumanResourcesToolsPage.tsx";
+import { HomeRoutes } from '../modules/home/home.routes.tsx'
+import { FichaUsuarioRoutes } from '../modules/fichausuarios/fichaUsuario.routes.tsx'
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -25,14 +27,16 @@ const PrivateRoutes = () => {
         {/* Pages */}
         <Route path='dashboard' element={<DashboardWrapper />} />
         <Route path='menu-test' element={<MenuTestPage />} />
+        <Route path='home/*' element={<HomeRoutes />} />
+        <Route path='ficha-usuario/*' element={<FichaUsuarioRoutes />} />
         {/* Lazy Modules */}
         <Route
-         path='human-resources/*'
-         element={
-           <SuspensedView>
-             <HumanResourcesPage />
-           </SuspensedView>
-            }
+          path='human-resources/*'
+          element={
+            <SuspensedView>
+              <HumanResourcesPage />
+            </SuspensedView>
+          }
         />
         <Route
           path='crafted/pages/profile/*'
@@ -90,7 +94,7 @@ const PrivateRoutes = () => {
   )
 }
 
-const SuspensedView: FC<WithChildren> = ({children}) => {
+const SuspensedView: FC<WithChildren> = ({ children }) => {
   const baseColor = getCSSVariableValue('--bs-primary')
   TopBarProgress.config({
     barColors: {
@@ -102,4 +106,4 @@ const SuspensedView: FC<WithChildren> = ({children}) => {
   return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>
 }
 
-export {PrivateRoutes}
+export { PrivateRoutes }
