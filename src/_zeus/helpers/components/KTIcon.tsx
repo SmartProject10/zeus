@@ -1,14 +1,14 @@
 import { FC } from 'react'
 import icons from '../icons-config/icons'
-import {getLayoutFromLocalStorage} from '../../layout/core'
+import { getLayoutFromLocalStorage } from '../../layout/core'
 
 type Props = {
   className?: string
   iconType?: 'duotone' | 'solid' | 'outline'
-  iconName: string
+  iconName: keyof typeof icons
 }
 
-const KTIcon: FC<Props> = ({className = '', iconType, iconName}) => {
+const KTIcon: FC<Props> = ({ className = '', iconType, iconName }) => {
   if (!iconType) {
     iconType = getLayoutFromLocalStorage().main?.iconType
   }
@@ -28,4 +28,4 @@ const KTIcon: FC<Props> = ({className = '', iconType, iconName}) => {
   )
 }
 
-export {KTIcon}
+export { KTIcon }

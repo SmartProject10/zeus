@@ -1,8 +1,4 @@
-interface IIcons {
-  [key: string]: number
-}
-
-const icons: IIcons = {
+const icons = {
   'abstract-33': 2,
   'abstract-27': 2,
   'abstract-26': 2,
