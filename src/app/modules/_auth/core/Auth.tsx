@@ -1,10 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
-import {FC, useState, useEffect, createContext, useContext, Dispatch, SetStateAction} from 'react'
-import {LayoutSplashScreen} from '../../../../_zeus/layout/core'
-import {AuthModel, UserModel} from './_models'
+import { FC, useState, useEffect, createContext, useContext, Dispatch, SetStateAction } from 'react'
+import { LayoutSplashScreen } from '../../../../_zeus/layout/core'
+import { AuthModel, UserModel } from './_models'
 import * as authHelper from './AuthHelpers'
-import {getUserByToken} from './_requests'
-import {WithChildren} from '../../../../_zeus/helpers'
+import { getUserByToken } from './_requests'
+import { WithChildren } from '../../../../_zeus/helpers'
 
 type AuthContextProps = {
   auth: AuthModel | undefined
@@ -16,19 +16,17 @@ type AuthContextProps = {
 
 const initAuthContextPropsState = {
   auth: authHelper.getAuth(),
-  saveAuth: () => {},
+  saveAuth: () => { },
   currentUser: undefined,
-  setCurrentUser: () => {},
-  logout: () => {},
+  setCurrentUser: () => { },
+  logout: () => { },
 }
 
 const AuthContext = createContext<AuthContextProps>(initAuthContextPropsState)
 
-const useAuth = () => {
-  return useContext(AuthContext)
-}
+export const useAuth = () => useContext(AuthContext)
 
-const AuthProvider: FC<WithChildren> = ({children}) => {
+export const AuthProvider: FC<WithChildren> = ({ children }) => {
   const [auth, setAuth] = useState<AuthModel | undefined>(authHelper.getAuth())
   const [currentUser, setCurrentUser] = useState<UserModel | undefined>()
   const saveAuth = (auth: AuthModel | undefined) => {
@@ -46,14 +44,14 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
   }
 
   return (
-    <AuthContext.Provider value={{auth, saveAuth, currentUser, setCurrentUser, logout}}>
+    <AuthContext.Provider value={{ auth, saveAuth, currentUser, setCurrentUser, logout }}>
       {children}
     </AuthContext.Provider>
   )
 }
 
-const AuthInit: FC<WithChildren> = ({children}) => {
-  const {auth, currentUser, logout, setCurrentUser} = useAuth()
+export const AuthInit: FC<WithChildren> = ({ children }) => {
+  const { auth, currentUser, logout, setCurrentUser } = useAuth()
   const [showSplashScreen, setShowSplashScreen] = useState(true)
 
   // We should request user by authToken (IN OUR EXAMPLE IT'S API_TOKEN) before rendering the application
@@ -61,7 +59,7 @@ const AuthInit: FC<WithChildren> = ({children}) => {
     const requestUser = async (apiToken: string) => {
       try {
         if (!currentUser) {
-          const {data} = await getUserByToken(apiToken)
+          const { data } = await getUserByToken(apiToken)
           if (data) {
             setCurrentUser(data)
           }
@@ -87,5 +85,3 @@ const AuthInit: FC<WithChildren> = ({children}) => {
 
   return showSplashScreen ? <LayoutSplashScreen /> : <>{children}</>
 }
-
-export {AuthProvider, AuthInit, useAuth}

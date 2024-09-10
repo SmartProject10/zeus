@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {AuthModel} from './_models'
+import { AuthModel } from './_models'
 
-const AUTH_LOCAL_STORAGE_KEY = 'kt-auth-react-v'
-const getAuth = (): AuthModel | undefined => {
+export const AUTH_LOCAL_STORAGE_KEY = 'kt-auth-react-v'
+export const getAuth = (): AuthModel | undefined => {
   if (!localStorage) {
     return
   }
@@ -23,7 +23,7 @@ const getAuth = (): AuthModel | undefined => {
   }
 }
 
-const setAuth = (auth: AuthModel) => {
+export const setAuth = (auth: AuthModel) => {
   if (!localStorage) {
     return
   }
@@ -36,7 +36,7 @@ const setAuth = (auth: AuthModel) => {
   }
 }
 
-const removeAuth = () => {
+export const removeAuth = () => {
   if (!localStorage) {
     return
   }
@@ -51,7 +51,7 @@ const removeAuth = () => {
 export function setupAxios(axios: any) {
   axios.defaults.headers.Accept = 'application/json'
   axios.interceptors.request.use(
-    (config: {headers: {Authorization: string}}) => {
+    (config: { headers: { Authorization: string } }) => {
       const auth = getAuth()
       if (auth && auth.api_token) {
         config.headers.Authorization = `Bearer ${auth.api_token}`
@@ -62,5 +62,3 @@ export function setupAxios(axios: any) {
     (err: any) => Promise.reject(err)
   )
 }
-
-export {getAuth, setAuth, removeAuth, AUTH_LOCAL_STORAGE_KEY}
