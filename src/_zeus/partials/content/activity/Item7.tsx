@@ -2,7 +2,7 @@
 import {FC} from 'react'
 import {KTIcon, toAbsoluteUrl} from '../../../helpers'
 
-const Item7: FC = () => {
+export const Item7: FC = () => {
   return (
     <div className='timeline-item'>
       <div className='timeline-line w-40px'></div>
@@ -55,5 +55,3 @@ const Item7: FC = () => {
     </div>
   )
 }
-
-export {Item7}

@@ -1,6 +1,6 @@
 
-import {FC} from 'react'
-import {KTIcon, toAbsoluteUrl} from '../../../helpers'
+import { FC } from 'react'
+import { KTIcon, toAbsoluteUrl } from '../../../helpers'
 
 type Props = {
   color?: string
@@ -12,7 +12,7 @@ type Props = {
   totalEarnings: string
 }
 
-const Card3: FC<Props> = ({
+export const Card3: FC<Props> = ({
   color = '',
   avatar = '',
   online = false,
@@ -65,5 +65,3 @@ const Card3: FC<Props> = ({
     </div>
   )
 }
-
-export {Card3}

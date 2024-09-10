@@ -1,8 +1,8 @@
 
-import {FC} from 'react'
-import {KTIcon} from '../../../helpers'
+import { FC } from 'react'
+import { KTIcon } from '../../../helpers'
 
-const Item8: FC = () => {
+export const Item8: FC = () => {
   return (
     <div className='timeline-item'>
       <div className='timeline-line w-40px'></div>
@@ -35,5 +35,3 @@ const Item8: FC = () => {
     </div>
   )
 }
-
-export {Item8}

@@ -1,6 +1,6 @@
 
-import {FC} from 'react'
-import {toAbsoluteUrl} from '../../../helpers'
+import { FC } from 'react'
+import { toAbsoluteUrl } from '../../../helpers'
 
 type Props = {
   color?: string
@@ -12,7 +12,7 @@ type Props = {
   totalEarnings: string
 }
 
-const Card1: FC<Props> = ({
+export const Card1: FC<Props> = ({
   color = '',
   avatar = '',
   online = false,
@@ -64,5 +64,3 @@ const Card1: FC<Props> = ({
     </div>
   )
 }
-
-export {Card1}

@@ -18,7 +18,7 @@ type Props = {
   users?: Array<IconUserModel>
 }
 
-const Card2: FC<Props> = ({
+export const Card2: FC<Props> = ({
   icon,
   badgeColor,
   status,
@@ -83,5 +83,3 @@ const Card2: FC<Props> = ({
     </Link>
   )
 }
-
-export {Card2}

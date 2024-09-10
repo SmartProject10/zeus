@@ -1,7 +1,7 @@
 
-import {FC} from 'react'
+import { FC } from 'react'
 
-const Dropdown2: FC = () => {
+export const Dropdown2: FC = () => {
   return (
     <div
       className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-200px'
@@ -75,5 +75,3 @@ const Dropdown2: FC = () => {
     </div>
   )
 }
-
-export {Dropdown2}

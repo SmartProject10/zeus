@@ -1,7 +1,7 @@
 
-import {FC} from 'react'
-import {KTIcon, toAbsoluteUrl} from '../../../helpers'
-import {Dropdown1} from '../dropdown/Dropdown1'
+import { FC } from 'react'
+import { KTIcon, toAbsoluteUrl } from '../../../helpers'
+import { Dropdown1 } from '../dropdown/Dropdown1'
 
 type Props = {
   image: string
@@ -14,7 +14,7 @@ type Props = {
   progressType: string
 }
 
-const Card5: FC<Props> = ({
+export const Card5: FC<Props> = ({
   image,
   title,
   description,
@@ -80,5 +80,3 @@ const Card5: FC<Props> = ({
     </div>
   )
 }
-
-export {Card5}
