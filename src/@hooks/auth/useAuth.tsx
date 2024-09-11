@@ -5,7 +5,7 @@ import { backyService } from '@zeus/@services/api'
 import * as authHelper from '@zeus/@services/session'
 import { AuthModel } from '@zeus/@services/api/dtos/AuthModel'
 import { LayoutSplashScreen } from '@zeus/_zeus/layout/core'
-import { UserModel } from '@zeus/app/modules/_auth'
+import { UserModel } from '@zeus/@services/api/dtos/AuthModel'
 
 type AuthContextProps = {
     auth: AuthModel | undefined
@@ -30,8 +30,10 @@ export const useAuth = () => useContext(AuthContext)
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     const [auth, setAuth] = useState<AuthModel | undefined>(authHelper.getAuth())
     const [currentUser, setCurrentUser] = useState<UserModel | undefined>()
+
     const saveAuth = (auth: AuthModel | undefined) => {
         setAuth(auth)
+
         if (auth) {
             authHelper.setAuth(auth)
         } else {
@@ -55,21 +57,16 @@ export const AuthInit: FC<PropsWithChildren> = ({ children }) => {
     const { auth, currentUser, logout, setCurrentUser } = useAuth()
     const [showSplashScreen, setShowSplashScreen] = useState(true)
 
-    // We should request user by authToken (IN OUR EXAMPLE IT'S API_TOKEN) before rendering the application
     useEffect(() => {
         const requestUser = async () => {
             try {
-                if (!currentUser) {
-                    const { data } = await backyService.auth.verifyToken()
-                    if (data) {
-                        setCurrentUser(data)
-                    }
-                }
+                if (currentUser) return
+
+                const { data } = await backyService.auth.verifyToken()
+                if (data) setCurrentUser(data)
             } catch (error) {
                 console.error(error)
-                if (currentUser) {
-                    logout()
-                }
+                if (currentUser) logout()
             } finally {
                 setShowSplashScreen(false)
             }
@@ -77,11 +74,11 @@ export const AuthInit: FC<PropsWithChildren> = ({ children }) => {
 
         if (auth && auth.token) {
             requestUser()
-        } else {
-            logout()
-            setShowSplashScreen(false)
+            return
         }
-        // eslint-disable-next-line
+
+        logout()
+        setShowSplashScreen(false)
     }, [])
 
     return showSplashScreen ? <LayoutSplashScreen /> : <>{children}</>
