@@ -1,17 +1,12 @@
-/**
- * High level router.
- *
- * Note: It's recommended to compose related routes in internal router
- * components (e.g: `src/app/modules/Auth/pages/AuthPage`, `src/app/BasePage`).
- */
-
 import { FC } from 'react'
-import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+
+import { useAuth } from '@zeus/@hooks/auth/useAuth.tsx'
 import { PrivateRoutes } from './PrivateRoutes'
-import { ErrorsPage } from '../modules/errors/ErrorsPage'
-import { Logout, AuthPage, useAuth } from '../modules/_auth'
+
 import { App } from '../App'
-import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes'
+import { AuthPage, Logout } from '../modules/_auth'
+import { ErrorsPage } from '../modules/errors/ErrorsPage'
 import { SgrrhhPage } from '../modules/sgrrhh/SgrrhhPage'
 
 /**

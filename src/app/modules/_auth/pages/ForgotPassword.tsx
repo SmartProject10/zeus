@@ -1,9 +1,9 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import {Link} from 'react-router-dom'
-import {useFormik} from 'formik'
-import {requestPassword} from '../core/_requests'
+import { Link } from 'react-router-dom'
+import { useFormik } from 'formik'
+import { backyService } from '@zeus/@services/api'
 
 const initialValues = {
   email: 'admin@demo.com',
@@ -23,11 +23,11 @@ export function ForgotPassword() {
   const formik = useFormik({
     initialValues,
     validationSchema: forgotPasswordSchema,
-    onSubmit: (values, {setStatus, setSubmitting}) => {
+    onSubmit: (values, { setStatus, setSubmitting }) => {
       setLoading(true)
       setHasErrors(undefined)
       setTimeout(() => {
-        requestPassword(values.email)
+        backyService.auth.resetPassword(values.email)
           .then(() => {
             setHasErrors(false)
             setLoading(false)
@@ -87,7 +87,7 @@ export function ForgotPassword() {
           {...formik.getFieldProps('email')}
           className={clsx(
             'form-control bg-transparent',
-            {'is-invalid': formik.touched.email && formik.errors.email},
+            { 'is-invalid': formik.touched.email && formik.errors.email },
             {
               'is-valid': formik.touched.email && !formik.errors.email,
             }

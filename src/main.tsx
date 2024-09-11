@@ -1,11 +1,10 @@
-import {createRoot} from 'react-dom/client'
-// Axios
-import axios from 'axios'
-import {Chart, registerables} from 'chart.js'
-import {QueryClient, QueryClientProvider} from 'react-query'
-import {ReactQueryDevtools} from 'react-query/devtools'
+import { createRoot } from 'react-dom/client'
+import { Chart, registerables } from 'chart.js'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+
 // Apps
-import {MetronicI18nProvider} from './_zeus/i18n/Zeus18n.tsx'
+import { MetronicI18nProvider } from './_zeus/i18n/Zeus18n.tsx'
 import './_zeus/assets/sass/style.react.scss'
 import './_zeus/assets/fonticon/fonticon.css'
 import './_zeus/assets/keenicons/duotone/style.css'
@@ -17,8 +16,10 @@ import './_zeus/assets/keenicons/solid/style.css'
  * import './_zeus/assets/css/style.rtl.css'
  **/
 import './_zeus/assets/sass/style.scss'
-import {AppRoutes} from './app/routing/AppRoutes'
-import {AuthProvider, setupAxios} from './app/modules/_auth'
+import { AppRoutes } from './app/routing/AppRoutes'
+import { AuthProvider } from '@zeus/@hooks/auth/useAuth.tsx'
+import { enableMocking } from './@services/mockServer/index.ts'
+
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.
@@ -30,20 +31,22 @@ import {AuthProvider, setupAxios} from './app/modules/_auth'
  *
  * @see https://github.com/axios/axios#interceptors
  */
-setupAxios(axios)
 Chart.register(...registerables)
 
 const queryClient = new QueryClient()
 const container = document.getElementById('root')
+
 if (container) {
-  createRoot(container).render(
-    <QueryClientProvider client={queryClient}>
-      <MetronicI18nProvider>
-        <AuthProvider>
-          <AppRoutes />
-        </AuthProvider>
-      </MetronicI18nProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
-  )
+  enableMocking().then(() => {
+    createRoot(container).render(
+      <QueryClientProvider client={queryClient}>
+        <MetronicI18nProvider>
+          <AuthProvider>
+            <AppRoutes />
+          </AuthProvider>
+        </MetronicI18nProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    )
+  })
 }
