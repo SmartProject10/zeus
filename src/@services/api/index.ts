@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from "axios"
 import { getAuth } from "../session"
 import { AuthRequests } from "./requests/auth.requests"
 import { flow } from "./types/flow"
+import { CompaniesRequests } from "./requests/companies.requests"
 
 class BackyServiceConnector {
     http: AxiosInstance
@@ -41,6 +42,7 @@ class BackyServiceConnector {
 
 const mixer = flow(
     AuthRequests,
+    CompaniesRequests,
 )
 
 class BackyService extends mixer(BackyServiceConnector) { }
