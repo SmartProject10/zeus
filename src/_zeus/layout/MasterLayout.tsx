@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { HeaderWrapper } from './components/header'
+import { HeaderWrapper } from './components/header/HeaderWrapper'
 import { RightToolbar } from '../partials/layout/RightToolbar'
 import { ScrollTop } from './components/scroll-top'
 import { FooterWrapper } from './components/footer'
