@@ -6,6 +6,7 @@ import {
   ThemeModeSwitcher
 } from "../../../partials";
 import { useLayout } from "../../core";
+import { NavbarItemModules } from "./navbarItems/itemModules";
 
 const itemClass = "ms-1 ms-md-4";
 const btnClass =
@@ -13,7 +14,7 @@ const btnClass =
 const userAvatarClass = "symbol-35px";
 const btnIconClass = "fs-2";
 
-const Navbar = () => {
+export const Navbar = () => {
   const { config } = useLayout();
   return (
     <div className="app-navbar flex-shrink-0">
@@ -31,6 +32,10 @@ const Navbar = () => {
         <ThemeModeSwitcher
           toggleBtnClass={clsx("btn-active-light-primary btn-custom")}
         />
+      </div>
+
+      <div className={clsx("app-navbar-item", itemClass)}>
+        <NavbarItemModules toggleBtnClass={clsx("btn-active-light-primary btn-custom")} />
       </div>
 
       <div className={clsx("app-navbar-item", itemClass)}>
@@ -69,5 +74,3 @@ const Navbar = () => {
     </div>
   );
 };
-
-export { Navbar };

@@ -1,10 +1,10 @@
 /* eslint-disable no-prototype-builtins */
-import {FC, useEffect} from 'react'
-import {ILayout, useLayout} from '../../core'
-import {MenuInner} from './header-menus'
+import { FC, useEffect } from 'react'
+import { ILayout, useLayout } from '../../core'
+import { MenuInner } from './header-menus'
 
-const Header: FC = () => {
-  const {config} = useLayout()
+export const Header: FC = () => {
+  const { config } = useLayout()
   useEffect(() => {
     updateDOM(config)
   }, [config])
@@ -44,7 +44,7 @@ const updateDOM = (config: ILayout) => {
   }
 
   const appHeaderDefaultStickyEnabled = config.app?.header?.default?.sticky?.enabled
-  let appHeaderDefaultStickyAttributes: {[attrName: string]: string} = {}
+  let appHeaderDefaultStickyAttributes: { [attrName: string]: string } = {}
   if (appHeaderDefaultStickyEnabled) {
     appHeaderDefaultStickyAttributes = config.app?.header?.default?.sticky?.attributes as {
       [attrName: string]: string
@@ -52,7 +52,7 @@ const updateDOM = (config: ILayout) => {
   }
 
   const appHeaderDefaultMinimizeEnabled = config.app?.header?.default?.minimize?.enabled
-  let appHeaderDefaultMinimizeAttributes: {[attrName: string]: string} = {}
+  let appHeaderDefaultMinimizeAttributes: { [attrName: string]: string } = {}
   if (appHeaderDefaultMinimizeEnabled) {
     appHeaderDefaultMinimizeAttributes = config.app?.header?.default?.minimize?.attributes as {
       [attrName: string]: string
@@ -81,5 +81,3 @@ const updateDOM = (config: ILayout) => {
     }
   }, 0)
 }
-
-export {Header}
