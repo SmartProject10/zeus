@@ -20,26 +20,32 @@ const wizardsBreadCrumbs: Array<PageLink> = [
 
 export const WizardsPage = () => (
   <Routes>
-    <Route element={<Outlet />}>
+    <Route
+element={<Outlet />}>
       <Route
-        path='horizontal'
+        path="horizontal"
         element={
           <>
-            <PageTitle breadcrumbs={wizardsBreadCrumbs}>Horizontal</PageTitle>
+            <PageTitle
+breadcrumbs={wizardsBreadCrumbs}>Horizontal</PageTitle>
             <Horizontal />
           </>
         }
       />
       <Route
-        path='vertical'
+        path="vertical"
         element={
           <>
-            <PageTitle breadcrumbs={wizardsBreadCrumbs}>Vertical</PageTitle>
+            <PageTitle
+breadcrumbs={wizardsBreadCrumbs}>Vertical</PageTitle>
             <Vertical />
           </>
         }
       />
-      <Route index element={<Navigate to='/crafted/pages/wizards/horizontal' />} />
+      <Route
+index
+element={<Navigate
+to="/crafted/pages/wizards/horizontal" />} />
     </Route>
   </Routes>
 )

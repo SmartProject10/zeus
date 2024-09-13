@@ -16,13 +16,18 @@ const UsersList: FC<Props> = ({users = undefined}) => {
           return (
             <OverlayTrigger
               key={`${i}-${user.name}`}
-              placement='top'
-              overlay={<Tooltip id='tooltip-user-name'>{user.name}</Tooltip>}
+              placement="top"
+              overlay={<Tooltip
+id="tooltip-user-name">{user.name}</Tooltip>}
             >
-              <div className='symbol symbol-35px symbol-circle'>
-                {user.avatar && <img src={toAbsoluteUrl(user.avatar)} alt='Pic' />}
+              <div
+className="symbol symbol-35px symbol-circle">
+                {user.avatar && <img
+src={toAbsoluteUrl(user.avatar)}
+alt="Pic" />}
                 {user.initials && (
-                  <span className='symbol-label bg-primary text-inverse-primary fw-bolder'>
+                  <span
+className="symbol-label bg-primary text-inverse-primary fw-bolder">
                     {user.initials}
                   </span>
                 )}

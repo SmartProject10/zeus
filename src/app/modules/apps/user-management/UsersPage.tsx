@@ -20,18 +20,23 @@ const usersBreadcrumbs: Array<PageLink> = [
 const UsersPage = () => {
   return (
     <Routes>
-      <Route element={<Outlet />}>
+      <Route
+element={<Outlet />}>
         <Route
-          path='users'
+          path="users"
           element={
             <>
-              <PageTitle breadcrumbs={usersBreadcrumbs}>Users list</PageTitle>
+              <PageTitle
+breadcrumbs={usersBreadcrumbs}>Users list</PageTitle>
               <UsersListWrapper />
             </>
           }
         />
       </Route>
-      <Route index element={<Navigate to='/apps/user-management/users' />} />
+      <Route
+index
+element={<Navigate
+to="/apps/user-management/users" />} />
     </Routes>
   )
 }

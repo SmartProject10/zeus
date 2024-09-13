@@ -39,14 +39,17 @@ const container = document.getElementById('root')
 if (container) {
   enableMocking().then(() => {
     createRoot(container).render(
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider
+        client={queryClient}>
         <MetronicI18nProvider>
           <AuthProvider>
             <AppRoutes />
           </AuthProvider>
         </MetronicI18nProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+
+        <ReactQueryDevtools
+          initialIsOpen={false} />
+      </QueryClientProvider>,
     )
   })
 }

@@ -21,21 +21,38 @@ const { BASE_URL } = import.meta.env
 export const AppRoutes: FC = () => {
   const { currentUser } = useAuth()
   return (
-    <BrowserRouter basename={BASE_URL}>
+    <BrowserRouter
+basename={BASE_URL}>
       <Routes>
-        <Route element={<App />}>
-          <Route path='error/*' element={<ErrorsPage />} />
-          <Route path='logout' element={<Logout />} />
+        <Route
+element={<App />}>
+          <Route
+path="error/*"
+element={<ErrorsPage />} />
+          <Route
+path="logout"
+element={<Logout />} />
           {currentUser ? (
             <>
-              <Route path='/select-company/*' element={<SelectCompanyRoutes />} />
-              <Route path='/sistema-rrhh' element={<SgrrhhPage />} />
-              <Route path='/*' element={<PrivateRoutes />} />
+              <Route
+path="/select-company/*"
+element={<SelectCompanyRoutes />} />
+              <Route
+path="/sistema-rrhh"
+element={<SgrrhhPage />} />
+              <Route
+path="/*"
+element={<PrivateRoutes />} />
             </>
           ) : (
             <>
-              <Route path='auth/*' element={<AuthPage />} />
-              <Route path='*' element={<Navigate to='/auth' />} />
+              <Route
+path="auth/*"
+element={<AuthPage />} />
+              <Route
+path="*"
+element={<Navigate
+to="/auth" />} />
             </>
           )}
         </Route>

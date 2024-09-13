@@ -1,26 +1,43 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from 'react'
 
 interface MyComponentProps {
-    idModal:string
-    children?: ReactNode;
+    idModal: string
 }
 
-const Modal: React.FC<MyComponentProps> = ({ idModal, children }) => {
+// eslint-disable-next-line react/prop-types, @typescript-eslint/no-unused-vars
+export const Modal: React.FC<PropsWithChildren<MyComponentProps>> = ({ idModal, children }) => {
 
     return (
-        <div className="modal fade" id={idModal} data-bs-backdrop="static" 
-            data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="staticBackdropLabel">
+        <div
+            className="modal fade"
+            id={idModal}
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true">
+            <div
+                className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div
+                    className="modal-content">
+                    <div
+                        className="modal-header">
+                        <h1
+                            className="modal-title fs-5"
+                            id="staticBackdropLabel">
                             Modal
                         </h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
-                    <div className="modal-body">
-                        <div className="card">
-                            <div className="card-body">
+                    <div
+                        className="modal-body">
+                        <div
+                            className="card">
+                            <div
+                                className="card-body">
                                 {/* <form onSubmit={handleSubmit}>
 
                                     <div className="row g-3 align-items-start justify-content-evenly mt-2">
@@ -348,7 +365,6 @@ const Modal: React.FC<MyComponentProps> = ({ idModal, children }) => {
                                         </div>
                                     </div>
 
-
                                     <div className="row g-3 align-items-start justify-content-evenly mt-2">
                                         <div className="col-6">
                                             <label htmlFor="rolSelect" className="required form-label">
@@ -385,7 +401,5 @@ const Modal: React.FC<MyComponentProps> = ({ idModal, children }) => {
                 </div>
             </div>
         </div>
-    );
+    )
 }
-
-export default Modal;

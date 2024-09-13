@@ -1,5 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-/* eslint-disable react-hooks/exhaustive-deps */
 import {FC, useContext, useState, useEffect, useMemo} from 'react'
 import {useQuery} from 'react-query'
 import {
@@ -36,11 +34,12 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
     () => {
       return getUsers(query)
     },
-    {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}
+    { cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false },
   )
 
   return (
-    <QueryResponseContext.Provider value={{isLoading: isFetching, refetch, response, query}}>
+    <QueryResponseContext.Provider
+      value={{ isLoading: isFetching, refetch, response, query }}>
       {children}
     </QueryResponseContext.Provider>
   )

@@ -32,24 +32,29 @@ const AccountPage: React.FC = () => {
         }
       >
         <Route
-          path='overview'
+          path="overview"
           element={
             <>
-              <PageTitle breadcrumbs={accountBreadCrumbs}>Overview</PageTitle>
+              <PageTitle
+breadcrumbs={accountBreadCrumbs}>Overview</PageTitle>
               <Overview />
             </>
           }
         />
         <Route
-          path='settings'
+          path="settings"
           element={
             <>
-              <PageTitle breadcrumbs={accountBreadCrumbs}>Settings</PageTitle>
+              <PageTitle
+breadcrumbs={accountBreadCrumbs}>Settings</PageTitle>
               <Settings />
             </>
           }
         />
-        <Route index element={<Navigate to='/crafted/account/overview' />} />
+        <Route
+index
+element={<Navigate
+to="/crafted/account/overview" />} />
       </Route>
     </Routes>
   )

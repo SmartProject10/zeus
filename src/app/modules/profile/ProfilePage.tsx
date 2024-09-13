@@ -33,51 +33,59 @@ const ProfilePage = () => (
       }
     >
       <Route
-        path='overview'
+        path="overview"
         element={
           <>
-            <PageTitle breadcrumbs={profileBreadCrumbs}>Overview</PageTitle>
+            <PageTitle
+breadcrumbs={profileBreadCrumbs}>Overview</PageTitle>
             <Overview />
           </>
         }
       />
       <Route
-        path='projects'
+        path="projects"
         element={
           <>
-            <PageTitle breadcrumbs={profileBreadCrumbs}>Projects</PageTitle>
+            <PageTitle
+breadcrumbs={profileBreadCrumbs}>Projects</PageTitle>
             <Projects />
           </>
         }
       />
       <Route
-        path='campaigns'
+        path="campaigns"
         element={
           <>
-            <PageTitle breadcrumbs={profileBreadCrumbs}>Campaigns</PageTitle>
+            <PageTitle
+breadcrumbs={profileBreadCrumbs}>Campaigns</PageTitle>
             <Campaigns />
           </>
         }
       />
       <Route
-        path='documents'
+        path="documents"
         element={
           <>
-            <PageTitle breadcrumbs={profileBreadCrumbs}>Documents</PageTitle>
+            <PageTitle
+breadcrumbs={profileBreadCrumbs}>Documents</PageTitle>
             <Documents />
           </>
         }
       />
       <Route
-        path='connections'
+        path="connections"
         element={
           <>
-            <PageTitle breadcrumbs={profileBreadCrumbs}>Connections</PageTitle>
+            <PageTitle
+breadcrumbs={profileBreadCrumbs}>Connections</PageTitle>
             <Connections />
           </>
         }
       />
-      <Route index element={<Navigate to='/crafted/pages/profile/overview' />} />
+      <Route
+index
+element={<Navigate
+to="/crafted/pages/profile/overview" />} />
     </Route>
   </Routes>
 )

@@ -1,14 +1,11 @@
-import clsx from 'clsx';
-import { PropsWithChildren } from 'react';
-import './index.scss';
+import clsx from 'clsx'
+import './index.scss'
 
-import { useLayout } from '@zeus/_zeus/layout/core';
 import { Navbar as NavbarItems } from '@zeus/_zeus/layout/components/header/Navbar'
+import { useLayout } from '@zeus/_zeus/layout/core'
 
-interface NavbarProps { }
-
-export function Navbar(props: PropsWithChildren<NavbarProps>): JSX.Element {
-    const { config, classes } = useLayout();
+export function Navbar(): JSX.Element {
+    const { config, classes } = useLayout()
 
     return (
         <div
@@ -24,20 +21,22 @@ export function Navbar(props: PropsWithChildren<NavbarProps>): JSX.Element {
             <div
                 id="kt_app_header_container"
                 className={clsx(
-                    "app-container",
-                    classes.headerContainer.join(" "),
-                    config.app?.header?.default?.containerClass
+                    'app-container',
+                    classes.headerContainer.join(' '),
+                    config.app?.header?.default?.containerClass,
                 )}
             >
-                <div id="kt_app_header_wrapper" className="w-100">
+                <div
+                    id="kt_app_header_wrapper"
+                    className="w-100">
                     <div
                         className="d-flex align-items-stretch justify-content-end mt-2"
-                        style={{ borderBottom: "1px solid #f4f4f4" }}
+                        style={{ borderBottom: '1px solid #f4f4f4' }}
                     >
                         <NavbarItems />
                     </div>
                 </div>
             </div>
         </div>
-    );
+    )
 }

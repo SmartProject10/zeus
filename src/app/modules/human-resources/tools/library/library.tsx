@@ -1,9 +1,8 @@
-import {KTCard} from "../../../../../_zeus/helpers";
-import {Content} from "../../../../../_zeus/layout/components/content";
-import {ToolbarWrapper} from "../../../../../_zeus/layout/components/toolbar";
-import {LibraryHeader} from "./header/LibraryHeader.tsx";
-import {LibraryContent} from "./content/LibraryContent.tsx";
-
+import {KTCard} from '../../../../../_zeus/helpers'
+import {Content} from '../../../../../_zeus/layout/components/content'
+import {ToolbarWrapper} from '../../../../../_zeus/layout/components/toolbar'
+import {LibraryHeader} from './header/LibraryHeader.tsx'
+import {LibraryContent} from './content/LibraryContent.tsx'
 
 const Library = () => {
     return (
@@ -15,7 +14,6 @@ const Library = () => {
         </>
     )
 }
-
 
 const LibraryWrapper = () => (
     <Content>

@@ -1,15 +1,15 @@
 import { http, HttpResponse } from 'msw'
 
-const AUTH_PATH = `${import.meta.env.VITE_APP_API_URL}/auth` as const;
+const AUTH_PATH = `${import.meta.env.VITE_APP_API_URL}/auth` as const
 
 export const AuthHandlers = [
-    http.post<any, { email: string, password: string }>(`${AUTH_PATH}/login`, async ({ request }) => {
+    http.post<any, { email: string; password: string }>(`${AUTH_PATH}/login`, async ({ request }) => {
         const { email, password } = await request.json()
         if (email === 'admin@demo.com' && password === 'demo') {
             return HttpResponse.json({
                 token: 'mock token',
                 refreshToken: 'mock refresh token',
-                message: 'this is a mocking data for login'
+                message: 'this is a mocking data for login',
             })
         }
 
@@ -23,5 +23,5 @@ export const AuthHandlers = [
             username: 'admin',
             email: 'admin@demo.com',
         })
-    })
-];
+    }),
+]

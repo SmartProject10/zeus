@@ -3,5 +3,5 @@ export function Dashboard(): JSX.Element {
         <div>
             <div>Hello World</div>
         </div>
-    );
+    )
 }

@@ -8,7 +8,8 @@ import { ThemeModeProvider } from '../_zeus/partials'
 
 export const App = () => {
   return (
-    <Suspense fallback={<LayoutSplashScreen />}>
+    <Suspense
+      fallback={<LayoutSplashScreen />}>
       <I18nProvider>
         <LayoutProvider>
           <ThemeModeProvider>

@@ -2,7 +2,7 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2017,
+    "ecmaVersion": 2023,
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint", "react", "import"],
@@ -11,7 +11,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended"
   ],
-  "ignorePatterns": ["dist/**", "node_modules/**"],
+  "ignorePatterns": ["dist/**", "node_modules/**", "public/**", "src/_zeus/**"],
   "settings": {
     "react": {
       "version": "detect"

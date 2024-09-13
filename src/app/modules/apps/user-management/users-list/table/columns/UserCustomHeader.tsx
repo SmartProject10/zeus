@@ -48,7 +48,7 @@ const UserCustomHeader: FC<Props> = ({className, title, tableProps}) => {
       {...tableProps.column.getHeaderProps()}
       className={clsx(
         className,
-        isSelectedForSorting && order !== undefined && `table-sort-${order}`
+        isSelectedForSorting && order !== undefined && `table-sort-${order}`,
       )}
       style={{cursor: 'pointer'}}
       onClick={sortColumn}

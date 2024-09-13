@@ -1,10 +1,9 @@
-import { KTCard, KTCardBody } from "../../../../../_zeus/helpers";
-import { CalendarHeader } from './components/header/CalendarHeader';
-import { CalendarTable } from './components/table/CalendarTable';
-import { ToolbarWrapper } from "../../../../../_zeus/layout/components/toolbar";
-import { Content } from "../../../../../_zeus/layout/components/content";
-import { CalendarButton } from "./components/buttons/CalendarButton";
-
+import { KTCard } from '../../../../../_zeus/helpers'
+import { Content } from '../../../../../_zeus/layout/components/content'
+import { ToolbarWrapper } from '../../../../../_zeus/layout/components/toolbar'
+import { CalendarButton } from './components/buttons/CalendarButton'
+import { CalendarHeader } from './components/header/CalendarHeader'
+import { CalendarTable } from './components/table/CalendarTable'
 
 const Calendar = () => {
     return (

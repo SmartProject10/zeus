@@ -1,10 +1,11 @@
-import {KTCardBody} from "../../../../../../_zeus/helpers";
 
 const ClockHeader = () => {
     return (
-        <div className='card-header border-0 pt-6'>
+        <div
+            className="card-header border-0 pt-6">
             {/* begin::Card toolbar */}
-            <div className='card-toolbar'>
+            <div
+                className="card-toolbar">
                 {/* begin::Group actions */}
                 <p>TITULO Clock</p>
                 {/* end::Group actions */}
@@ -14,4 +15,4 @@ const ClockHeader = () => {
     )
 }
 
-export {ClockHeader}
+export { ClockHeader }

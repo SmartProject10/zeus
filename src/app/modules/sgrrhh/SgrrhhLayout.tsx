@@ -1,6 +1,4 @@
-import { Nav, Navbar } from "react-bootstrap";
-import { Outlet, Link } from "react-router-dom";
-import { toAbsoluteUrl } from "../../../_zeus/helpers";
+import { Outlet } from 'react-router-dom'
 
 const SgrrhhLayout = () => {
   return (
@@ -12,7 +10,7 @@ const SgrrhhLayout = () => {
         <Outlet />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export { SgrrhhLayout };
+export { SgrrhhLayout }

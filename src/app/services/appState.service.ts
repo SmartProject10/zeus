@@ -1,3 +1,3 @@
-import AppState from "../core/AppState";
+import AppState from '../core/AppState'
 
-export const appStateService = new AppState();
+export const appStateService = new AppState()

@@ -1,8 +1,9 @@
-import {KTCardBody} from "../../../../../../_zeus/helpers";
+import {KTCardBody} from '../../../../../../_zeus/helpers'
 
 const LibraryContent = () => {
     return (
-        <KTCardBody className='py-4'>
+        <KTCardBody
+className="py-4">
             Content
         </KTCardBody>
     )

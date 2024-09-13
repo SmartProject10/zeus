@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { AuthModel } from './api/dtos/AuthModel'
 
 export const AUTH_LOCAL_STORAGE_KEY = 'USER_SESSION'

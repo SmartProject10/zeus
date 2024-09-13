@@ -1,12 +1,14 @@
 
-export function dayMonthYear(dateToIso: string){
-    const date = new Date(dateToIso);
+export function dayMonthYear(dateToIso: string) {
+    const date = new Date(dateToIso)
 
-    return `${date.getDate()}/${(date.getMonth()+1) < 10 ? 0+""+(date.getMonth()+1) : (date.getMonth()+1)}/${date.getFullYear()}`;
+    // eslint-disable-next-line max-len
+    return `${date.getDate()}/${(date.getMonth() + 1) < 10 ? 0 + '' + (date.getMonth() + 1) : (date.getMonth() + 1)}/${date.getFullYear()}`
 }
 
-export function dateInput(dateToIso: string){
-    const date = new Date(dateToIso);
+export function dateInput(dateToIso: string) {
+    const date = new Date(dateToIso)
 
-    return `${date.getFullYear()}-${(date.getMonth()+1) < 10 ? 0+""+(date.getMonth()+1) : (date.getMonth()+1)}-${(date.getDate()) < 10 ? 0+""+(date.getDate()) : (date.getDate())}`;
+    // eslint-disable-next-line max-len
+    return `${date.getFullYear()}-${(date.getMonth() + 1) < 10 ? 0 + '' + (date.getMonth() + 1) : (date.getMonth() + 1)}-${(date.getDate()) < 10 ? 0 + '' + (date.getDate()) : (date.getDate())}`
 }

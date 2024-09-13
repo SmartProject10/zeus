@@ -3,5 +3,5 @@ import { CompaniesHandlers } from './companies.handlers'
 
 export const handlers = [
     ...AuthHandlers,
-    ...CompaniesHandlers
+    ...CompaniesHandlers,
 ]

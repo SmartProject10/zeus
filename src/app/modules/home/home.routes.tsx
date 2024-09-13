@@ -1,12 +1,12 @@
-import { Route, Routes } from "react-router-dom";
-import { Home } from "./pages/home";
+import { Route, Routes } from 'react-router-dom'
+import { Home } from './pages/home'
 
-interface HomeRoutesProps { }
-
-export function HomeRoutes(props: HomeRoutesProps): JSX.Element {
+export function HomeRoutes(): JSX.Element {
     return (
         <Routes>
-            <Route index element={<Home />} />
+            <Route
+                index
+                element={<Home />} />
         </Routes>
-    );
+    )
 }

@@ -1,6 +1,5 @@
 import { Dispatch, FC, PropsWithChildren, SetStateAction, createContext, useContext, useEffect, useState } from 'react'
 
-/* eslint-disable react-refresh/only-export-components */
 import { backyService } from '@zeus/@services/api'
 import * as authHelper from '@zeus/@services/session'
 import { AuthModel } from '@zeus/@services/api/dtos/AuthModel'
@@ -17,10 +16,10 @@ type AuthContextProps = {
 
 const initAuthContextPropsState = {
     auth: authHelper.getAuth(),
-    saveAuth: () => { },
+    saveAuth: () => void 0,
     currentUser: undefined,
-    setCurrentUser: () => { },
-    logout: () => { },
+    setCurrentUser: () => void 0,
+    logout: () => void 0,
 }
 
 const AuthContext = createContext<AuthContextProps>(initAuthContextPropsState)
@@ -47,7 +46,8 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ auth, saveAuth, currentUser, setCurrentUser, logout }}>
+        <AuthContext.Provider
+            value={{ auth, saveAuth, currentUser, setCurrentUser, logout }}>
             {children}
         </AuthContext.Provider>
     )

@@ -1,8 +1,8 @@
-import {KTCard, KTCardBody} from "../../../../../_zeus/helpers";
-import {ToolbarWrapper} from "../../../../../_zeus/layout/components/toolbar";
-import {Content} from "../../../../../_zeus/layout/components/content";
-import {ClockHeader} from "./content/ClockHeader.tsx";
-import {ClockContent} from "./header/ClockContent.tsx";
+import { KTCard } from '../../../../../_zeus/helpers'
+import { Content } from '../../../../../_zeus/layout/components/content'
+import { ToolbarWrapper } from '../../../../../_zeus/layout/components/toolbar'
+import { ClockHeader } from './content/ClockHeader.tsx'
+import { ClockContent } from './header/ClockContent.tsx'
 
 const Clock  = () => {
     return (
@@ -23,4 +23,4 @@ const ClockWrapper = () => (
                 </Content>
 )
 
-export {ClockWrapper}
+export { ClockWrapper }

@@ -22,35 +22,42 @@ const chatBreadCrumbs: Array<PageLink> = [
 const ChatPage = () => {
   return (
     <Routes>
-      <Route element={<Outlet />}>
+      <Route
+element={<Outlet />}>
         <Route
-          path='private-chat'
+          path="private-chat"
           element={
             <>
-              <PageTitle breadcrumbs={chatBreadCrumbs}>Private chat</PageTitle>
+              <PageTitle
+breadcrumbs={chatBreadCrumbs}>Private chat</PageTitle>
               <Private />
             </>
           }
         />
         <Route
-          path='group-chat'
+          path="group-chat"
           element={
             <>
-              <PageTitle breadcrumbs={chatBreadCrumbs}>Group chat</PageTitle>
+              <PageTitle
+breadcrumbs={chatBreadCrumbs}>Group chat</PageTitle>
               <Group />
             </>
           }
         />
         <Route
-          path='drawer-chat'
+          path="drawer-chat"
           element={
             <>
-              <PageTitle breadcrumbs={chatBreadCrumbs}>Drawer chat</PageTitle>
+              <PageTitle
+breadcrumbs={chatBreadCrumbs}>Drawer chat</PageTitle>
               <Drawer />
             </>
           }
         />
-        <Route index element={<Navigate to='/apps/chat/private-chat' />} />
+        <Route
+index
+element={<Navigate
+to="/apps/chat/private-chat" />} />
       </Route>
     </Routes>
   )

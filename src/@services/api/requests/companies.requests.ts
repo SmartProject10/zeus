@@ -1,6 +1,4 @@
-import { verify } from "crypto"
-import { AuthModel } from "../dtos/AuthModel"
-import { IService, SConstructor } from "../types/apiService.types"
+import { IService, SConstructor } from '../types/apiService.types'
 
 export const CompaniesRequests = <TClass extends SConstructor<IService>>(Base: TClass) => {
     return class extends Base {

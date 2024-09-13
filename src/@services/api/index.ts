@@ -1,8 +1,8 @@
-import axios, { AxiosInstance } from "axios"
-import { getAuth } from "../session"
-import { AuthRequests } from "./requests/auth.requests"
-import { flow } from "./types/flow"
-import { CompaniesRequests } from "./requests/companies.requests"
+import axios, { AxiosInstance } from 'axios'
+import { getAuth } from '../session'
+import { AuthRequests } from './requests/auth.requests'
+import { flow } from './types/flow'
+import { CompaniesRequests } from './requests/companies.requests'
 
 class BackyServiceConnector {
     http: AxiosInstance

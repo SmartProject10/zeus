@@ -1,5 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
-import {FC, useState, createContext, useContext, useMemo} from 'react'
+import { FC, useState, createContext, useContext, useMemo } from 'react'
 import {
   ID,
   calculatedGroupingIsDisabled,
@@ -10,14 +9,14 @@ import {
   groupingOnSelectAll,
   WithChildren,
 } from '../../../../../../_zeus/helpers'
-import {useQueryResponse, useQueryResponseData} from './QueryResponseProvider'
+import { useQueryResponse, useQueryResponseData } from './QueryResponseProvider'
 
 const ListViewContext = createContext<ListViewContextProps>(initialListView)
 
-const ListViewProvider: FC<WithChildren> = ({children}) => {
+const ListViewProvider: FC<WithChildren> = ({ children }) => {
   const [selected, setSelected] = useState<Array<ID>>(initialListView.selected)
   const [itemIdForUpdate, setItemIdForUpdate] = useState<ID>(initialListView.itemIdForUpdate)
-  const {isLoading} = useQueryResponse()
+  const { isLoading } = useQueryResponse()
   const data = useQueryResponseData()
   const disabled = useMemo(() => calculatedGroupingIsDisabled(isLoading, data), [isLoading, data])
   const isAllSelected = useMemo(() => calculateIsAllDataSelected(data, selected), [data, selected])
@@ -48,4 +47,4 @@ const ListViewProvider: FC<WithChildren> = ({children}) => {
 
 const useListView = () => useContext(ListViewContext)
 
-export {ListViewProvider, useListView}
+export { ListViewProvider, useListView }

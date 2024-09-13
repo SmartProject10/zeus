@@ -5,19 +5,23 @@ const UserEditModalHeader = () => {
   const {setItemIdForUpdate} = useListView()
 
   return (
-    <div className='modal-header'>
+    <div
+className="modal-header">
       {/* begin::Modal title */}
-      <h2 className='fw-bolder'>Add User</h2>
+      <h2
+className="fw-bolder">Add User</h2>
       {/* end::Modal title */}
 
       {/* begin::Close */}
       <div
-        className='btn btn-icon btn-sm btn-active-icon-primary'
-        data-kt-users-modal-action='close'
+        className="btn btn-icon btn-sm btn-active-icon-primary"
+        data-kt-users-modal-action="close"
         onClick={() => setItemIdForUpdate(undefined)}
         style={{cursor: 'pointer'}}
       >
-        <KTIcon iconName='cross' className='fs-1' />
+        <KTIcon
+iconName="cross"
+className="fs-1" />
       </div>
       {/* end::Close */}
     </div>

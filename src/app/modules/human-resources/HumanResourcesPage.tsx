@@ -20,18 +20,23 @@ const humanResourceBreadcrumbs: Array<PageLink> = [
 const HumanResourcesPage = () => {
     return (
         <Routes>
-            <Route element={<Outlet />}>
+            <Route
+element={<Outlet />}>
                 <Route
-                    path='main'
+                    path="main"
                     element={
                         <>
-                            <PageTitle breadcrumbs={humanResourceBreadcrumbs}>Trabajadores</PageTitle>
+                            <PageTitle
+breadcrumbs={humanResourceBreadcrumbs}>Trabajadores</PageTitle>
                             <CalendarWrapper />
                         </>
                     }
                 />
             </Route>
-            <Route index element={<Navigate to='/human-resources/main' />} />
+            <Route
+index
+element={<Navigate
+to="/human-resources/main" />} />
         </Routes>
     )
 }

@@ -25,62 +25,72 @@ const widgetsBreadCrumbs: Array<PageLink> = [
 export const WidgetsPage = () => {
   return (
     <Routes>
-      <Route element={<Outlet />}>
+      <Route
+element={<Outlet />}>
         <Route
-          path='charts'
+          path="charts"
           element={
             <>
-              <PageTitle breadcrumbs={widgetsBreadCrumbs}>Charts</PageTitle>
+              <PageTitle
+breadcrumbs={widgetsBreadCrumbs}>Charts</PageTitle>
               <Charts />
             </>
           }
         />
         <Route
-          path='feeds'
+          path="feeds"
           element={
             <>
-              <PageTitle breadcrumbs={widgetsBreadCrumbs}>Feeds</PageTitle>
+              <PageTitle
+breadcrumbs={widgetsBreadCrumbs}>Feeds</PageTitle>
               <Feeds />
             </>
           }
         />
         <Route
-          path='lists'
+          path="lists"
           element={
             <>
-              <PageTitle breadcrumbs={widgetsBreadCrumbs}>Lists</PageTitle>
+              <PageTitle
+breadcrumbs={widgetsBreadCrumbs}>Lists</PageTitle>
               <Lists />
             </>
           }
         />
         <Route
-          path='mixed'
+          path="mixed"
           element={
             <>
-              <PageTitle breadcrumbs={widgetsBreadCrumbs}>Mixed</PageTitle>
+              <PageTitle
+breadcrumbs={widgetsBreadCrumbs}>Mixed</PageTitle>
               <Mixed />
             </>
           }
         />
         <Route
-          path='tables'
+          path="tables"
           element={
             <>
-              <PageTitle breadcrumbs={widgetsBreadCrumbs}>Tables</PageTitle>
+              <PageTitle
+breadcrumbs={widgetsBreadCrumbs}>Tables</PageTitle>
               <Tables />
             </>
           }
         />
         <Route
-          path='statistics'
+          path="statistics"
           element={
             <>
-              <PageTitle breadcrumbs={widgetsBreadCrumbs}>Statiscics</PageTitle>
+              <PageTitle
+breadcrumbs={widgetsBreadCrumbs}>Statiscics</PageTitle>
               <Statistics />
             </>
           }
         />
-        <Route index element={<Navigate to='/crafted/widgets/lists' />} />
+        <Route
+index
+element={<Navigate
+to="/crafted/widgets/lists" />} />
       </Route>
     </Routes>
   )

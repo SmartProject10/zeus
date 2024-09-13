@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import {FC, useState, createContext, useContext} from 'react'
 import {
   QueryState,
@@ -18,7 +17,8 @@ const QueryRequestProvider: FC<WithChildren> = ({children}) => {
   }
 
   return (
-    <QueryRequestContext.Provider value={{state, updateState}}>
+    <QueryRequestContext.Provider
+      value={{ state, updateState }}>
       {children}
     </QueryRequestContext.Provider>
   )

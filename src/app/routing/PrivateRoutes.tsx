@@ -1,16 +1,15 @@
-import { lazy, FC, Suspense } from 'react'
-import { Route, Routes, Navigate } from 'react-router-dom'
-import { MasterLayout } from '../../_zeus/layout/MasterLayout'
+import { FC, lazy, Suspense } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import TopBarProgress from 'react-topbar-progress-indicator'
-import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
-import { MenuTestPage } from '../pages/MenuTestPage'
 import { getCSSVariableValue } from '../../_zeus/assets/ts/_utils'
 import { WithChildren } from '../../_zeus/helpers'
-import HumanResourcesToolsPage from "../modules/human-resources/tools/HumanResourcesToolsPage.tsx";
-import { HomeRoutes } from '../modules/home/home.routes.tsx'
+import { MasterLayout } from '../../_zeus/layout/MasterLayout'
 import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes.tsx'
+import { HomeRoutes } from '../modules/home/home.routes.tsx'
 import { ISO45001Routes } from '../modules/iso45001/iso45001.routes.tsx'
 import { ISO9001Routes } from '../modules/iso9001/iso9001.routes.tsx'
+import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
+import { MenuTestPage } from '../pages/MenuTestPage'
 
 const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage').then((module) => ({ default: module.WizardsPage })))
 const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage').then((module) => ({ default: module.WidgetsPage })))
@@ -23,22 +22,38 @@ const HumanResourcesPage = lazy(() => import('../modules/human-resources/HumanRe
 export const PrivateRoutes = () => {
   return (
     <Routes>
-      <Route element={<MasterLayout />}>
+      <Route
+        element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        <Route path='auth/*' element={<Navigate to='/select-company' />} />
+        <Route
+          path="auth/*"
+          element={<Navigate
+            to="/select-company" />} />
         {/* Pages */}
-        <Route path='dashboard' element={<DashboardWrapper />} />
-        <Route path='menu-test' element={<MenuTestPage />} />
-        <Route path='home/*' element={<HomeRoutes />} />
-        <Route path='ficha-usuario/*' element={<FichaUsuarioRoutes />} />
+        <Route
+          path="dashboard"
+          element={<DashboardWrapper />} />
+        <Route
+          path="menu-test"
+          element={<MenuTestPage />} />
+        <Route
+          path="home/*"
+          element={<HomeRoutes />} />
+        <Route
+          path="ficha-usuario/*"
+          element={<FichaUsuarioRoutes />} />
 
         {/* ISO SOFTWARE MODULES */}
-        <Route path='iso9001/*' element={<ISO9001Routes />} />
-        <Route path="iso45001/*" element={<ISO45001Routes />} />
+        <Route
+          path="iso9001/*"
+          element={<ISO9001Routes />} />
+        <Route
+          path="iso45001/*"
+          element={<ISO45001Routes />} />
 
         {/* Lazy Modules */}
         <Route
-          path='human-resources/*'
+          path="human-resources/*"
           element={
             <SuspensedView>
               <HumanResourcesPage />
@@ -46,7 +61,7 @@ export const PrivateRoutes = () => {
           }
         />
         <Route
-          path='crafted/pages/profile/*'
+          path="crafted/pages/profile/*"
           element={
             <SuspensedView>
               <ProfilePage />
@@ -54,7 +69,7 @@ export const PrivateRoutes = () => {
           }
         />
         <Route
-          path='crafted/pages/wizards/*'
+          path="crafted/pages/wizards/*"
           element={
             <SuspensedView>
               <WizardsPage />
@@ -62,7 +77,7 @@ export const PrivateRoutes = () => {
           }
         />
         <Route
-          path='crafted/widgets/*'
+          path="crafted/widgets/*"
           element={
             <SuspensedView>
               <WidgetsPage />
@@ -70,7 +85,7 @@ export const PrivateRoutes = () => {
           }
         />
         <Route
-          path='crafted/account/*'
+          path="crafted/account/*"
           element={
             <SuspensedView>
               <AccountPage />
@@ -78,7 +93,7 @@ export const PrivateRoutes = () => {
           }
         />
         <Route
-          path='apps/chat/*'
+          path="apps/chat/*"
           element={
             <SuspensedView>
               <ChatPage />
@@ -86,7 +101,7 @@ export const PrivateRoutes = () => {
           }
         />
         <Route
-          path='apps/user-management/*'
+          path="apps/user-management/*"
           element={
             <SuspensedView>
               <UsersPage />
@@ -95,7 +110,10 @@ export const PrivateRoutes = () => {
         />
 
         {/* Page Not Found */}
-        <Route path='*' element={<Navigate to='/error/404' />} />
+        <Route
+          path="*"
+          element={<Navigate
+            to="/error/404" />} />
       </Route>
     </Routes>
   )
@@ -110,5 +128,6 @@ const SuspensedView: FC<WithChildren> = ({ children }) => {
     barThickness: 1,
     shadowBlur: 5,
   })
-  return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>
+  return <Suspense
+    fallback={<TopBarProgress />}>{children}</Suspense>
 }
