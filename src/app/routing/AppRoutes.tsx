@@ -5,9 +5,11 @@ import { useAuth } from '@zeus/@hooks/auth/useAuth.tsx'
 import { PrivateRoutes } from './PrivateRoutes'
 
 import { App } from '../App'
-import { AuthPage, Logout } from '../modules/_auth'
+import { AuthPage } from '../modules/_auth/AuthPage'
+import { Logout } from '../modules/_auth/pages/Logout'
 import { ErrorsPage } from '../modules/errors/ErrorsPage'
 import { SgrrhhPage } from '../modules/sgrrhh/SgrrhhPage'
+import { SelectCompanyRoutes } from '../modules/selectCompany/selecCompany.routes'
 
 /**
  * Base URL of the website.
@@ -26,9 +28,9 @@ export const AppRoutes: FC = () => {
           <Route path='logout' element={<Logout />} />
           {currentUser ? (
             <>
-              <Route path='/*' element={<PrivateRoutes />} />
-              <Route index element={<Navigate to='/home' />} />
+              <Route path='/select-company/*' element={<SelectCompanyRoutes />} />
               <Route path='/sistema-rrhh' element={<SgrrhhPage />} />
+              <Route path='/*' element={<PrivateRoutes />} />
             </>
           ) : (
             <>

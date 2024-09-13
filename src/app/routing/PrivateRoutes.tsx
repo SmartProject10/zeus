@@ -9,6 +9,8 @@ import { WithChildren } from '../../_zeus/helpers'
 import HumanResourcesToolsPage from "../modules/human-resources/tools/HumanResourcesToolsPage.tsx";
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
 import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes.tsx'
+import { ISO45001Routes } from '../modules/iso45001/iso45001.routes.tsx'
+import { ISO9001Routes } from '../modules/iso9001/iso9001.routes.tsx'
 
 export const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -23,12 +25,17 @@ export const PrivateRoutes = () => {
     <Routes>
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        <Route path='auth/*' element={<Navigate to='/home' />} />
+        <Route path='auth/*' element={<Navigate to='/select-company' />} />
         {/* Pages */}
         <Route path='dashboard' element={<DashboardWrapper />} />
         <Route path='menu-test' element={<MenuTestPage />} />
         <Route path='home/*' element={<HomeRoutes />} />
         <Route path='ficha-usuario/*' element={<FichaUsuarioRoutes />} />
+
+        {/* ISO SOFTWARE MODULES */}
+        <Route path='iso9001/*' element={<ISO9001Routes />} />
+        <Route path="iso45001/*" element={<ISO45001Routes />} />
+
         {/* Lazy Modules */}
         <Route
           path='human-resources/*'
