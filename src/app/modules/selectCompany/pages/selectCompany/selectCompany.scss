@@ -1,0 +1,23 @@
+.select-company {
+    margin-bottom: 5em;
+
+    .company-grid {
+        display              : grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-gap             : 20px;
+        row-gap              : 100px;
+        justify-items        : center;
+    }
+
+    .welcome {
+        .user-icon {
+            font-size: 35px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .company-grid {
+            row-gap: 50px;
+        }
+    }
+}
