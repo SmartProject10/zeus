@@ -10,7 +10,7 @@ import {
 import { ToolbarWrapper } from '../../../../_zeus/layout/components/toolbar'
 import { Content } from '../../../../_zeus/layout/components/content'
 
-const Statistics: FC = () => {
+export const Statistics: FC = () => {
   return (
     <>
       <ToolbarWrapper />
@@ -282,5 +282,3 @@ const Statistics: FC = () => {
     </>
   )
 }
-
-export {Statistics}

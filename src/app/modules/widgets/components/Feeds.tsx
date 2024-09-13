@@ -9,7 +9,7 @@ import {
 import { ToolbarWrapper } from '../../../../_zeus/layout/components/toolbar'
 import { Content } from '../../../../_zeus/layout/components/content'
 
-const Feeds: FC = () => {
+export const Feeds: FC = () => {
   return (
     <>
       <ToolbarWrapper />
@@ -37,5 +37,3 @@ const Feeds: FC = () => {
     </>
   )
 }
-
-export {Feeds}

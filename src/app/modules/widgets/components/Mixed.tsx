@@ -15,7 +15,7 @@ import {
 import { ToolbarWrapper } from '../../../../_zeus/layout/components/toolbar'
 import { Content } from '../../../../_zeus/layout/components/content'
 
-const Mixed: FC = () => {
+export const Mixed: FC = () => {
   return (
     <>
       <ToolbarWrapper />
@@ -400,5 +400,3 @@ const Mixed: FC = () => {
     </>
   )
 }
-
-export {Mixed}

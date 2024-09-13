@@ -12,7 +12,7 @@ import {
 import { ToolbarWrapper } from '../../../../_zeus/layout/components/toolbar'
 import { Content } from '../../../../_zeus/layout/components/content'
 
-const Lists: FC = () => {
+export const Lists: FC = () => {
   return (
     <>
       <ToolbarWrapper />
@@ -59,5 +59,3 @@ const Lists: FC = () => {
     </>
   )
 }
-
-export {Lists}

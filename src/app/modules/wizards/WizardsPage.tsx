@@ -18,7 +18,7 @@ const wizardsBreadCrumbs: Array<PageLink> = [
   },
 ]
 
-const WizardsPage = () => (
+export const WizardsPage = () => (
   <Routes>
     <Route element={<Outlet />}>
       <Route
@@ -43,5 +43,3 @@ const WizardsPage = () => (
     </Route>
   </Routes>
 )
-
-export default WizardsPage

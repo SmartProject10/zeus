@@ -22,7 +22,7 @@ const widgetsBreadCrumbs: Array<PageLink> = [
   },
 ]
 
-const WidgetsPage = () => {
+export const WidgetsPage = () => {
   return (
     <Routes>
       <Route element={<Outlet />}>
@@ -85,5 +85,3 @@ const WidgetsPage = () => {
     </Routes>
   )
 }
-
-export default WidgetsPage

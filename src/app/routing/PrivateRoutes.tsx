@@ -12,15 +12,15 @@ import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes.
 import { ISO45001Routes } from '../modules/iso45001/iso45001.routes.tsx'
 import { ISO9001Routes } from '../modules/iso9001/iso9001.routes.tsx'
 
-export const PrivateRoutes = () => {
-  const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
-  const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
-  const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
-  const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
-  const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
-  const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
-  const HumanResourcesPage = lazy(() => import('../modules/human-resources/HumanResourcesPage'))
+const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage').then((module) => ({ default: module.WizardsPage })))
+const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage').then((module) => ({ default: module.WidgetsPage })))
+const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
+const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
+const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
+const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
+const HumanResourcesPage = lazy(() => import('../modules/human-resources/HumanResourcesPage'))
 
+export const PrivateRoutes = () => {
   return (
     <Routes>
       <Route element={<MasterLayout />}>

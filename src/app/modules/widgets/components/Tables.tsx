@@ -17,7 +17,7 @@ import {
 import { ToolbarWrapper } from '../../../../_zeus/layout/components/toolbar'
 import { Content } from '../../../../_zeus/layout/components/content'
 
-const Tables: FC = () => {
+export const Tables: FC = () => {
   return (
     <>
       <ToolbarWrapper />
@@ -99,5 +99,3 @@ const Tables: FC = () => {
     </>
   )
 }
-
-export {Tables}
