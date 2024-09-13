@@ -1,15 +1,22 @@
+import { useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
+
 import { SidebarFichaUsuario } from './sidebars/SidebarFichaUsuario'
 import { SidebarMain } from './sidebars/SidebarMain'
-import { useMemo } from 'react'
+import { SidebarISO45001 } from './sidebars/SidebarISO45001'
+import { SidebarISO9001 } from './sidebars/SidebarISO9001'
+import { SidebarSGRRHH } from './sidebars/SidebarSGRRHH'
 
 export const SidebarMenu = () => {
   const { pathname } = useLocation()
 
+  const isISO45001 = useMemo(() => pathname.startsWith('/iso45001'), [pathname])
+  const isISO9001 = useMemo(() => pathname.startsWith('/iso9001'), [pathname])
+  const isSGRHH = useMemo(() => pathname.startsWith('/human-resources'), [pathname])
+
   const isSidebarMain = useMemo(() =>
     [
       '/dashboard',
-      '/human-resources',
       '/crafted'
     ].some(path => pathname.startsWith(path)),
     [pathname]
@@ -43,8 +50,10 @@ export const SidebarMenu = () => {
           data-kt-menu-expand='false'
         >
           {isSidebarMain && <SidebarMain />}
-
           {isSidebarFichaUsuario && <SidebarFichaUsuario />}
+          {isSGRHH && <SidebarSGRRHH />}
+          {isISO45001 && <SidebarISO45001 />}
+          {isISO9001 && <SidebarISO9001 />}
         </div>
       </div>
     </div>
