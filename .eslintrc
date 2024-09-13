@@ -11,7 +11,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended"
   ],
-  "ignorePatterns": ["dist/**", "node_modules/**", "queries/**"],
+  "ignorePatterns": ["dist/**", "node_modules/**"],
   "settings": {
     "react": {
       "version": "detect"
@@ -106,14 +106,6 @@
       }
     ],
     "react/no-children-prop": "off"
-    // "camelcase": [
-    // 	"error",
-    // 	{
-    // 		"allow": [
-    // 			"^UNSAFE_"
-    // 		]
-    // 	}
-    // ],
   },
   "overrides": [
     {
