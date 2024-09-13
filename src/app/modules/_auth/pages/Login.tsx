@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { useAuth } from '@zeus/@hooks/auth/useAuth.tsx'
 import { useIntl } from 'react-intl'
-import Swal from 'sweetalert2'
 import { backyService } from '@zeus/@services/api'
 
 const loginSchema = Yup.object().shape({
@@ -48,49 +47,49 @@ export function Login() {
         saveAuth(auth)
         const { data: user } = await backyService.auth.verifyToken()
 
-        const companies: any = {
-          google: 'Google',
-          apple: 'Apple',
-          microsoft: 'Microsoft',
-          amazon: 'Amazon',
-          facebook: 'Facebook'
-        };
+        // const companies: any = {
+        //   google: 'Google',
+        //   apple: 'Apple',
+        //   microsoft: 'Microsoft',
+        //   amazon: 'Amazon',
+        //   facebook: 'Facebook'
+        // };
 
-        Swal.fire({
-          title: "Select a company",
-          input: "select",
-          inputOptions: companies,
-          inputPlaceholder: "Select a company",
-          showCancelButton: true,
-          confirmButtonText: "Select",
-          showLoaderOnConfirm: true,
-          inputValidator: (value) => {
-            return new Promise((resolve) => {
-              if (value) {
-                resolve(); // Resuelve la promesa si se seleccionó una opción
-              } else {
-                resolve('You need to select a company'); // Muestra este mensaje si no se seleccionó ninguna opción
-              }
-            });
-          },
-          preConfirm: async (companyKey) => {
-            try {
-              // Realiza alguna acción con la compañía seleccionada
-              return companies[companyKey];
-            } catch (error) {
-              Swal.showValidationMessage(
-                `Request failed: ${error}`
-              );
-            }
-          },
-          allowOutsideClick: () => !Swal.isLoading()
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: `You selected: ${result.value}`,
-            });
-          }
-        });
+        // Swal.fire({
+        //   title: "Select a company",
+        //   input: "select",
+        //   inputOptions: companies,
+        //   inputPlaceholder: "Select a company",
+        //   showCancelButton: true,
+        //   confirmButtonText: "Select",
+        //   showLoaderOnConfirm: true,
+        //   inputValidator: (value) => {
+        //     return new Promise((resolve) => {
+        //       if (value) {
+        //         resolve(); // Resuelve la promesa si se seleccionó una opción
+        //       } else {
+        //         resolve('You need to select a company'); // Muestra este mensaje si no se seleccionó ninguna opción
+        //       }
+        //     });
+        //   },
+        //   preConfirm: async (companyKey) => {
+        //     try {
+        //       // Realiza alguna acción con la compañía seleccionada
+        //       return companies[companyKey];
+        //     } catch (error) {
+        //       Swal.showValidationMessage(
+        //         `Request failed: ${error}`
+        //       );
+        //     }
+        //   },
+        //   allowOutsideClick: () => !Swal.isLoading()
+        // }).then((result) => {
+        //   if (result.isConfirmed) {
+        //     Swal.fire({
+        //       title: `You selected: ${result.value}`,
+        //     });
+        //   }
+        // });
 
 
         setCurrentUser(user)
