@@ -9,9 +9,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescript][typescriptreact]": {
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.detectIndentation": true,
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
     "editor.linkedEditing": true,
@@ -21,6 +18,5 @@
       "source.fixAll.eslint": "explicit"
     }
   },
-  "files.insertFinalNewline": true,
   "typescript.tsdk": "node_modules/typescript/lib"
 }

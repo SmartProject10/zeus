@@ -95,13 +95,13 @@
     "class-methods-use-this": 0,
     "jsx-quotes": ["error", "prefer-double"],
     "react/react-in-jsx-scope": "off",
-    "react/jsx-first-prop-new-line": ["warn", "always"],
+    "react/jsx-first-prop-new-line": ["warn", "multiline"],
     "react/jsx-max-props-per-line": [
       "warn",
       {
         "maximum": {
-          "single": 1,
-          "multi": 1
+          "single": 2,
+          "multi": 2
         }
       }
     ],
