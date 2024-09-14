@@ -8,7 +8,6 @@ import { App } from '../App'
 import { AuthPage } from '../modules/_auth/AuthPage'
 import { Logout } from '../modules/_auth/pages/Logout'
 import { ErrorsPage } from '../modules/errors/ErrorsPage'
-import { SgrrhhPage } from '../modules/sgrrhh/SgrrhhPage'
 import { SelectCompanyRoutes } from '../modules/selectCompany/selecCompany.routes'
 
 /**
@@ -19,44 +18,27 @@ import { SelectCompanyRoutes } from '../modules/selectCompany/selecCompany.route
 const { BASE_URL } = import.meta.env
 
 export const AppRoutes: FC = () => {
-  const { currentUser } = useAuth()
-  return (
-    <BrowserRouter
-basename={BASE_URL}>
-      <Routes>
-        <Route
-element={<App />}>
-          <Route
-path="error/*"
-element={<ErrorsPage />} />
-          <Route
-path="logout"
-element={<Logout />} />
-          {currentUser ? (
-            <>
-              <Route
-path="/select-company/*"
-element={<SelectCompanyRoutes />} />
-              <Route
-path="/sistema-rrhh"
-element={<SgrrhhPage />} />
-              <Route
-path="/*"
-element={<PrivateRoutes />} />
-            </>
-          ) : (
-            <>
-              <Route
-path="auth/*"
-element={<AuthPage />} />
-              <Route
-path="*"
-element={<Navigate
-to="/auth" />} />
-            </>
-          )}
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  )
+	const { currentUser } = useAuth()
+	return (
+		<BrowserRouter basename={BASE_URL}>
+			<Routes>
+				<Route element={<App />}>
+					<Route path="logout" element={<Logout />} />
+					<Route path="error/*" element={<ErrorsPage />} />
+
+					{currentUser ? (
+						<>
+							<Route path="/select-company/*" element={<SelectCompanyRoutes />} />
+							<Route path="*" element={<PrivateRoutes />} />
+						</>
+					) : (
+						<>
+							<Route path="auth/*" element={<AuthPage />} />
+							<Route path="*" element={<Navigate to="/auth" />} />
+						</>
+					)}
+				</Route>
+			</Routes>
+		</BrowserRouter>
+	)
 }

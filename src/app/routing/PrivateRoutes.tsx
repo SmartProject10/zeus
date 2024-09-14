@@ -1,8 +1,5 @@
-import { FC, lazy, Suspense } from 'react'
+import { lazy } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import TopBarProgress from 'react-topbar-progress-indicator'
-import { getCSSVariableValue } from '../../_zeus/assets/ts/_utils'
-import { WithChildren } from '../../_zeus/helpers'
 import { MasterLayout } from '../../_zeus/layout/MasterLayout'
 import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes.tsx'
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
@@ -20,114 +17,35 @@ const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage')
 const HumanResourcesPage = lazy(() => import('../modules/human-resources/HumanResourcesPage'))
 
 export const PrivateRoutes = () => {
-  return (
-    <Routes>
-      <Route
-        element={<MasterLayout />}>
-        {/* Redirect to Dashboard after success login/registartion */}
-        <Route
-          path="auth/*"
-          element={<Navigate
-            to="/select-company" />} />
-        {/* Pages */}
-        <Route
-          path="dashboard"
-          element={<DashboardWrapper />} />
-        <Route
-          path="menu-test"
-          element={<MenuTestPage />} />
-        <Route
-          path="home/*"
-          element={<HomeRoutes />} />
-        <Route
-          path="ficha-usuario/*"
-          element={<FichaUsuarioRoutes />} />
+	const RedirectTo = () => <Navigate to="/select-company" />
+	return (
+		<Routes>
+			<Route element={<MasterLayout />}>
+				<Route index element={<RedirectTo />} />
+				<Route path="auth/*" element={<RedirectTo />} />
 
-        {/* ISO SOFTWARE MODULES */}
-        <Route
-          path="iso9001/*"
-          element={<ISO9001Routes />} />
-        <Route
-          path="iso45001/*"
-          element={<ISO45001Routes />} />
+				{/* Pages */}
+				<Route path="home/*" element={<HomeRoutes />} />
+				<Route path="dashboard" element={<DashboardWrapper />} />
+				<Route path="menu-test" element={<MenuTestPage />} />
+				<Route path="ficha-usuario/*" element={<FichaUsuarioRoutes />} />
 
-        {/* Lazy Modules */}
-        <Route
-          path="human-resources/*"
-          element={
-            <SuspensedView>
-              <HumanResourcesPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path="crafted/pages/profile/*"
-          element={
-            <SuspensedView>
-              <ProfilePage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path="crafted/pages/wizards/*"
-          element={
-            <SuspensedView>
-              <WizardsPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path="crafted/widgets/*"
-          element={
-            <SuspensedView>
-              <WidgetsPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path="crafted/account/*"
-          element={
-            <SuspensedView>
-              <AccountPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path="apps/chat/*"
-          element={
-            <SuspensedView>
-              <ChatPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path="apps/user-management/*"
-          element={
-            <SuspensedView>
-              <UsersPage />
-            </SuspensedView>
-          }
-        />
+				{/* ISO SOFTWARE MODULES */}
+				<Route path="iso9001/*" element={<ISO9001Routes />} />
+				<Route path="iso45001/*" element={<ISO45001Routes />} />
+				<Route path="sgrrhh/*" element={<HumanResourcesPage />} />
 
-        {/* Page Not Found */}
-        <Route
-          path="*"
-          element={<Navigate
-            to="/error/404" />} />
-      </Route>
-    </Routes>
-  )
-}
+				{/* Lazy Modules */}
+				<Route path="crafted/pages/profile/*" element={<ProfilePage />} />
+				<Route path="crafted/pages/wizards/*" element={<WizardsPage />} />
+				<Route path="crafted/widgets/*" element={<WidgetsPage />} />
+				<Route path="crafted/account/*" element={<AccountPage />} />
+				<Route path="apps/chat/*" element={<ChatPage />} />
+				<Route path="apps/user-management/*" element={<UsersPage />} />
 
-const SuspensedView: FC<WithChildren> = ({ children }) => {
-  const baseColor = getCSSVariableValue('--bs-primary')
-  TopBarProgress.config({
-    barColors: {
-      '0': baseColor,
-    },
-    barThickness: 1,
-    shadowBlur: 5,
-  })
-  return <Suspense
-    fallback={<TopBarProgress />}>{children}</Suspense>
+				{/* Page Not Found */}
+				<Route path="/*" element={<Navigate to="/error/404" />} />
+			</Route>
+		</Routes>
+	)
 }

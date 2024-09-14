@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { FC, PropsWithChildren, Suspense, useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { HeaderWrapper } from './components/header/HeaderWrapper'
 import { RightToolbar } from '../partials/layout/RightToolbar'
@@ -9,45 +9,59 @@ import { ActivityDrawer, DrawerMessenger, InviteUsers, UpgradePlan } from '../pa
 import { PageDataProvider } from './core'
 import { reInitMenu } from '../helpers'
 import { Content } from './components/content'
+import TopBarProgress from 'react-topbar-progress-indicator'
+import { getCSSVariableValue } from '../assets/ts/_utils'
 
-const MasterLayout = () => {
-  const location = useLocation()
-  useEffect(() => {
-    reInitMenu()
-  }, [location.key])
+export const MasterLayout = () => {
+	const location = useLocation()
+	useEffect(() => {
+		reInitMenu()
+	}, [location.key])
 
-  return (
-    <PageDataProvider>
-      <div className='d-flex flex-column flex-root app-root' id='kt_app_root'>
-        <div className='app-page flex-column flex-column-fluid' id='kt_app_page'>
-          <HeaderWrapper />
-          <div className='app-wrapper flex-column flex-row-fluid' id='kt_app_wrapper'>
-            <Sidebar />
-            <div className='app-main flex-column flex-row-fluid' id='kt_app_main'>
-              <div className='d-flex flex-column flex-column-fluid'>
-                <Content>
-                  <Outlet />
-                </Content>
-              </div>
-              <FooterWrapper />
-            </div>
-          </div>
-        </div>
-      </div>
+	return (
+		<PageDataProvider>
+			<div className='d-flex flex-column flex-root app-root' id='kt_app_root'>
+				<div className='app-page flex-column flex-column-fluid' id='kt_app_page'>
+					<HeaderWrapper />
+					<div className='app-wrapper flex-column flex-row-fluid' id='kt_app_wrapper'>
+						<Sidebar />
+						<div className='app-main flex-column flex-row-fluid' id='kt_app_main'>
+							<div className='d-flex flex-column flex-column-fluid'>
+								<Content>
+									<SuspensedView>
+										<Outlet />
+									</SuspensedView>
+								</Content>
+							</div>
+							<FooterWrapper />
+						</div>
+					</div>
+				</div>
+			</div>
 
-      {/* begin:: Drawers */}
-      <ActivityDrawer />
-      <RightToolbar />
-      <DrawerMessenger />
-      {/* end:: Drawers */}
+			{/* begin:: Drawers */}
+			<ActivityDrawer />
+			<RightToolbar />
+			<DrawerMessenger />
+			{/* end:: Drawers */}
 
-      {/* begin:: Modals */}
-      <InviteUsers />
-      <UpgradePlan />
-      {/* end:: Modals */}
-      <ScrollTop />
-    </PageDataProvider>
-  )
+			{/* begin:: Modals */}
+			<InviteUsers />
+			<UpgradePlan />
+			{/* end:: Modals */}
+			<ScrollTop />
+		</PageDataProvider>
+	)
 }
 
-export { MasterLayout }
+const SuspensedView: FC<PropsWithChildren> = ({ children }) => {
+	const baseColor = getCSSVariableValue('--bs-primary')
+	TopBarProgress.config({
+		barColors: {
+			'0': baseColor,
+		},
+		barThickness: 1,
+		shadowBlur: 5,
+	})
+	return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>
+}
