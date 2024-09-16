@@ -1,0 +1,22 @@
+{
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow": "/.githhub/workflows/**/*.yml"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript][typescriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.linkedEditing": true,
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
