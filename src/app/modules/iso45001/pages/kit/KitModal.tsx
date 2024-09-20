@@ -1,143 +1,146 @@
-import * as Yup from 'yup'
-import { useFormik } from 'formik'
-import Swal from 'sweetalert2'
-import clsx from 'clsx'
-import { useState } from 'react'
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { dateInput } from "@zeus/app/utils/dateFormat";
+import Swal from "sweetalert2";
+import clsx from "clsx";
+import { useState } from "react";
 
 const kitSchema = Yup.object().shape({
-	codigo: Yup.string().required('Código requerido'),
+	codigo: Yup.string().required("Código requerido"),
 	numero: Yup.number()
-		.min(1, 'Número debe ser mayor a 1')
-		.required('Número requerido'),
-	sede: Yup.string().required('Sede requerido'),
-	area: Yup.string().required('Área requerida'),
-	tipo: Yup.string().required('Tipo requerido'),
-	ubicacion: Yup.string().required('Úbicación requerida'),
-})
+		.min(1, "Número debe ser mayor a 1")
+		.required("Número requerido"),
+	sede: Yup.string().required("Sede requerido"),
+	area: Yup.string().required("Área requerida"),
+	tipo: Yup.string().required("Tipo requerido"),
+	ubicacion: Yup.string().required("Úbicación requerida"),
+});
 
 const initialValues = {
-	codigo: '',
+	codigo: "",
 	numero: 0,
-	ubicacion: '',
-	area: '',
-	sede: '',
-	tipo: '',
-}
+	ubicacion: "",
+	area: "",
+	sede: "",
+	tipo: "",
+};
 
-function KitModal({ setNewData }: any) {
+function KitModal({ setNewData }) {
 	const {
 		handleSubmit,
 		getFieldProps,
 		touched,
 		errors,
+		isValid,
+		isSubmitting,
 	} = useFormik({
 		initialValues,
 		validationSchema: kitSchema,
 		onSubmit: (values) => {
-			setNewData(values)
+			setNewData(values);
 
 			const Toast = Swal.mixin({
 				toast: true,
-				position: 'top-end',
+				position: "top-end",
 				showConfirmButton: false,
 				timer: 3000,
 				timerProgressBar: true,
 				didOpen: (toast) => {
-					toast.onmouseenter = Swal.stopTimer
-					toast.onmouseleave = Swal.resumeTimer
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
 				},
-			})
+			});
 			Toast.fire({
-				icon: 'success',
-				title: '¡Kit antiderrame creado correctamente!',
-			})
+				icon: "success",
+				title: "¡Kit antiderrame creado correctamente!",
+			});
 
-			const closeButton = document.getElementById('closeButton')
+			const closeButton = document.getElementById("closeButton");
 			if (closeButton) {
-				closeButton.click()
+				closeButton.click();
 			}
 		},
-	})
+	});
 
 	//#region Formulario y Contenido tabla
-	const [tableData, setTableData] = useState<any>([])
-	const [nombre, setNombre] = useState('')
-	const [tipo, setTipo] = useState('')
-	const [unidad, setUnidad] = useState('')
-	const [cantidad, setCantidad] = useState(1)
+	const [tableData, setTableData] = useState([]);
+	const [nombre, setNombre] = useState("");
+	const [tipo, setTipo] = useState("");
+	const [unidad, setUnidad] = useState("");
+	const [cantidad, setCantidad] = useState(1);
 	const [isEditTableData, setIsEditTableData] = useState({
 		index: undefined,
 		edit: false,
-	})
+	});
 
-	const handleAddEditTableData = () => {
+	const handleAddEditTableData = (event: any) => {
 		if (!nombre || !unidad || !cantidad || !tipo) {
 			const Toast = Swal.mixin({
 				toast: true,
-				position: 'top-end',
+				position: "top-end",
 				showConfirmButton: false,
 				timer: 3000,
 				timerProgressBar: true,
 				didOpen: (toast) => {
-					toast.onmouseenter = Swal.stopTimer
-					toast.onmouseleave = Swal.resumeTimer
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
 				},
-			})
+			});
 			Toast.fire({
-				icon: 'error',
-				title: 'Por favor rellene todos los campos',
-			})
+				icon: "error",
+				title: "Por favor rellene todos los campos",
+			});
 
-			return
+			return;
 		}
 
-		const data = Object.assign({ nombre, tipo, unidad, cantidad })
+		const data = Object.assign({ nombre, tipo, unidad, cantidad });
 		if (!isEditTableData.edit) {
-			setTableData((currData: any) => [...currData, data])
-			console.log(data)
+			setTableData((currData) => [...currData, data]);
+			console.log(data);
 		} else {
-			const indice = isEditTableData.index
-			setTableData((currData: any) =>
-				currData.map((row: any, index: any) =>
-					index === indice ? { ...row, ...data } : row,
-				),
-			)
+			const indice = isEditTableData.index;
+			setTableData((currData) =>
+				currData.map((row, index) =>
+					index === indice ? { ...row, ...data } : row
+				)
+			);
 		}
 
-		setNombre('')
-		setUnidad('')
-		setCantidad(1)
-		setTipo('')
-		setIsEditTableData({ index: undefined, edit: false })
-	}
+		setNombre("");
+		setUnidad("");
+		setCantidad(1);
+		setTipo("");
+		setIsEditTableData({ index: undefined, edit: false });
+	};
 
-	// const handleEditData = (indice: number, data: object) => {
-	// 	setNombre(data.nombre)
-	// 	setUnidad(data.unidad)
-	// 	setCantidad(data.cantidad)
-	// 	setTipo(data.tipo)
-	//
-	// 	setIsEditTableData({ index: indice, edit: true })
-	// }
+	const handleEditData = (indice: number, data: object) => {
+		setNombre(data.nombre);
+		setUnidad(data.unidad);
+		setCantidad(data.cantidad);
+		setTipo(data.tipo);
+
+		setIsEditTableData({ index: indice, edit: true });
+	};
 
 	const handleDeleteData = (indice: number) => {
 		Swal.fire({
-			title: '¿Estás seguro?',
-			text: 'No podrá revertir esta acción!',
-			icon: 'warning',
+			title: "¿Estás seguro?",
+			text: "No podrá revertir esta acción!",
+			icon: "warning",
 			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Si, eliminar',
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Si, eliminar",
 		}).then((result) => {
 			if (result.isConfirmed) {
-				console.log(typeof indice)
-				const newArr = tableData.filter((data: any, index: any) => index !== indice)
-				setTableData(newArr)
-				Swal.fire('Eliminado!', 'El elemento ha sido eliminado.', 'success')
+				console.log(typeof indice);
+				const newArr = tableData.filter((data, index) => index !== indice);
+				setTableData(newArr);
+				Swal.fire("Eliminado!", "El elemento ha sido eliminado.", "success");
 			}
-		})
-	}
+		});
+	};
 	//#endregion
 
 	return (
@@ -174,15 +177,15 @@ function KitModal({ setNewData }: any) {
 										<input
 											type="text"
 											className={clsx(
-												'form-control ',
-												{ 'is-invalid': touched.codigo && errors.codigo },
+												"form-control ",
+												{ "is-invalid": touched.codigo && errors.codigo },
 												{
-													'is-valid': touched.codigo && !errors.codigo,
-												},
+													"is-valid": touched.codigo && !errors.codigo,
+												}
 											)}
 											placeholder="Código"
 											id="codigo"
-											{...getFieldProps('codigo')}
+											{...getFieldProps("codigo")}
 										/>
 										{touched.codigo && errors.codigo && (
 											<div className="text-danger small">
@@ -198,15 +201,15 @@ function KitModal({ setNewData }: any) {
 											type="number"
 											min={1}
 											className={clsx(
-												'form-control ',
-												{ 'is-invalid': touched.numero && errors.numero },
+												"form-control ",
+												{ "is-invalid": touched.numero && errors.numero },
 												{
-													'is-valid': touched.numero && !errors.numero,
-												},
+													"is-valid": touched.numero && !errors.numero,
+												}
 											)}
 											placeholder="Número"
 											id="numero"
-											{...getFieldProps('numero')}
+											{...getFieldProps("numero")}
 										/>
 										{touched.numero && errors.numero && (
 											<div className="text-danger small">
@@ -221,14 +224,14 @@ function KitModal({ setNewData }: any) {
 										<select
 											id="sede"
 											className={clsx(
-												'form-select ',
-												{ 'is-invalid': touched.area && errors.area },
+												"form-select ",
+												{ "is-invalid": touched.area && errors.area },
 												{
-													'is-valid': touched.area && !errors.area,
-												},
+													"is-valid": touched.area && !errors.area,
+												}
 											)}
 											aria-label="Select example"
-											{...getFieldProps('sede')}
+											{...getFieldProps("sede")}
 										>
 											<option>Seleccione</option>
 											<option value="Norte">Norte</option>
@@ -248,14 +251,14 @@ function KitModal({ setNewData }: any) {
 										<select
 											id="area"
 											className={clsx(
-												'form-select ',
-												{ 'is-invalid': touched.area && errors.area },
+												"form-select ",
+												{ "is-invalid": touched.area && errors.area },
 												{
-													'is-valid': touched.area && !errors.area,
-												},
+													"is-valid": touched.area && !errors.area,
+												}
 											)}
 											aria-label="Select example"
-											{...getFieldProps('area')}
+											{...getFieldProps("area")}
 										>
 											<option>Seleccione</option>
 											<option value="Gerencia">Gerencia</option>
@@ -275,15 +278,15 @@ function KitModal({ setNewData }: any) {
 										</label>
 										<textarea
 											className={clsx(
-												'form-control ',
-												{ 'is-invalid': touched.ubicacion && errors.ubicacion },
+												"form-control ",
+												{ "is-invalid": touched.ubicacion && errors.ubicacion },
 												{
-													'is-valid': touched.ubicacion && !errors.ubicacion,
-												},
+													"is-valid": touched.ubicacion && !errors.ubicacion,
+												}
 											)}
 											placeholder="Ubicación"
 											id="ubicacion"
-											{...getFieldProps('ubicacion')}
+											{...getFieldProps("ubicacion")}
 										/>
 										{touched.ubicacion && errors.ubicacion && (
 											<div className="text-danger small">
@@ -335,7 +338,7 @@ function KitModal({ setNewData }: any) {
 											id="cantidad"
 											min={0}
 											value={cantidad}
-											onChange={(e) => setCantidad(Number(e.target.value))}
+											onChange={(e) => setCantidad(e.target.value)}
 										/>
 									</div>
 									<div className="col-sm-6">
@@ -345,16 +348,16 @@ function KitModal({ setNewData }: any) {
 										<select
 											id="tipo"
 											className={clsx(
-												'form-select',
-												{ 'is-invalid': touched.tipo && errors.tipo },
-												{ 'is-valid': touched.tipo && !errors.tipo },
+												"form-select",
+												{ "is-invalid": touched.tipo && errors.tipo },
+												{ "is-valid": touched.tipo && !errors.tipo }
 											)}
 											aria-label="Select example"
-											{...getFieldProps('tipo')} // Usa solo esto para manejar el valor
+											{...getFieldProps("tipo")} // Usa solo esto para manejar el valor
 											onChange={(e) => {
-												const value = e.target.value // Obtén el valor
-												setTipo(value) // Actualiza el estado local si es necesario
-												getFieldProps('tipo').onChange(e) // Actualiza Formik
+												const value = e.target.value; // Obtén el valor
+												setTipo(value); // Actualiza el estado local si es necesario
+												getFieldProps("tipo").onChange(e); // Actualiza Formik
 											}}
 										>
 											<option value="">Seleccione</option>
@@ -373,7 +376,7 @@ function KitModal({ setNewData }: any) {
 											onClick={handleAddEditTableData}
 											className="btn btn-sm btn-primary"
 										>
-											{isEditTableData.edit ? 'Guardar' : 'Agregar'}
+											{isEditTableData.edit ? "Guardar" : "Agregar"}
 										</button>
 									</div>
 								</div>
@@ -392,7 +395,7 @@ function KitModal({ setNewData }: any) {
 										<tbody>
 											{tableData.length > 0 ? (
 												<>
-													{tableData.map((data: any, index: any) => (
+													{tableData.map((data, index) => (
 														<tr key={index}>
 															<td>{data.nombre}</td>
 															<td>{data.tipo}</td>
@@ -448,7 +451,7 @@ function KitModal({ setNewData }: any) {
 				</form>
 			</div>
 		</div>
-	)
+	);
 }
 
-export default KitModal
+export default KitModal;
