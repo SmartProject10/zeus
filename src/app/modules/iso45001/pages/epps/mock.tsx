@@ -189,6 +189,10 @@ export const items: PersonalProtectiveEquipment[] = [
 		workerJob: 'Empleado',
 		workerSite: 'Sede',
 		typeOfWorker: 'Tipo',
+		code: '1234567890',
+		provider: 'Proveedor',
+		distribution: 'Distribuidor',
+		numberOfDotation: '100',
 	},
 ]
 

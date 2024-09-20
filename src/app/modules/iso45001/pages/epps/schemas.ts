@@ -16,4 +16,8 @@ export const schema = z.object({
 	amount: z.string().trim().min(1),
 	typeOfMoney: z.string().trim().min(1),
 	unitaryCost: z.string().trim().min(1),
+	code: z.string().trim().min(1),
+	provider: z.string().trim().min(1),
+	distribution: z.string().trim().min(1),
+	numberOfDotation: z.string().trim().min(1),
 })
