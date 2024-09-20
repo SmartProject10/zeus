@@ -13,6 +13,13 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
                 icon="people"
             >
                 <SidebarMenuItem
+                    to="/iso45001/epps"
+                    icon="graph-3"
+                    title="Equipos de proteccion personal"
+                    fontIcon="bi-layers"
+                />
+
+                <SidebarMenuItem
                     to=""
                     icon="graph-3"
                     title="Luces de emergencia"
@@ -23,13 +30,6 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
                     to=""
                     icon="graph-3"
                     title="Kit antiderrames"
-                    fontIcon="bi-layers"
-                />
-
-                <SidebarMenuItem
-                    to="/iso45001/botiquin"
-                    icon="graph-3"
-                    title="Botiquin"
                     fontIcon="bi-layers"
                 />
 
