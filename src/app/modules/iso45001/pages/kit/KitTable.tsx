@@ -1,31 +1,31 @@
-import { KTCard, KTCardBody } from "@zeus/_zeus/helpers";
-import { saveAs } from "file-saver";
-import * as XLSX from "xlsx";
-import { useState } from "react";
+import { KTCard, KTCardBody } from '@zeus/_zeus/helpers'
+import { saveAs } from 'file-saver'
+import * as XLSX from 'xlsx'
+import { useState } from 'react'
 
-function KitTable({ dataSource, handleDeleteData }) {
-	const [totalPages, setTotalPages] = useState<number>(1);
-	const [currentPage, setCurrentPage] = useState<number>(1);
+function KitTable({ dataSource, handleDeleteData }: any) {
+	const [totalPages] = useState<number>(1)
+	const [currentPage] = useState<number>(1)
 
 	const exportToExcel = () => {
 		// Crear una hoja de trabajo a partir de los datos
-		const worksheet = XLSX.utils.json_to_sheet(dataSource);
+		const worksheet = XLSX.utils.json_to_sheet(dataSource)
 
 		// Crear un libro de trabajo y agregar la hoja de trabajo
-		const workbook = XLSX.utils.book_new();
-		XLSX.utils.book_append_sheet(workbook, worksheet, "Botiquines");
+		const workbook = XLSX.utils.book_new()
+		XLSX.utils.book_append_sheet(workbook, worksheet, 'Botiquines')
 
 		// Generar un archivo de Excel
 		const excelBuffer = XLSX.write(workbook, {
-			bookType: "xlsx",
-			type: "array",
-		});
+			bookType: 'xlsx',
+			type: 'array',
+		})
 
 		// Guardar el archivo usando file-saver
-		const data = new Blob([excelBuffer], { type: "application/octet-stream" });
+		const data = new Blob([excelBuffer], { type: 'application/octet-stream' })
 
-		saveAs(data, "Kit.xlsx");
-	};
+		saveAs(data, 'Kit.xlsx')
+	}
 
 	return (
 		<KTCard>
@@ -57,7 +57,7 @@ function KitTable({ dataSource, handleDeleteData }) {
 						<tbody>
 							{dataSource.length > 0 ? (
 								<>
-									{dataSource.map((kit, index) => (
+									{dataSource.map((kit: any, index: any) => (
 										<tr key={index}>
 											<td>{kit.codigo}</td>
 											<td>{kit.sede}</td>
@@ -110,22 +110,22 @@ function KitTable({ dataSource, handleDeleteData }) {
 							<li
 								className={
 									currentPage == 1
-										? "page-item previous disabled"
-										: "page-item previous"
+										? 'page-item previous disabled'
+										: 'page-item previous'
 								}
 							>
 								<button
-									onClick={() => navigatePage("previous")}
+									// onClick={() => navigatePage('previous')}
 									className="page-link"
 								>
 									<i className="previous"></i>
 								</button>
 							</li>
-							{[...Array(totalPages)].map((page, i) => (
+							{[...Array(totalPages)].map((_, i) => (
 								<li
 									key={i}
 									className={
-										currentPage == i + 1 ? "page-item active" : "page-item"
+										currentPage == i + 1 ? 'page-item active' : 'page-item'
 									}
 								>
 									<button
@@ -139,12 +139,12 @@ function KitTable({ dataSource, handleDeleteData }) {
 							<li
 								className={
 									currentPage == totalPages
-										? "page-item next disabled"
-										: "page-item next"
+										? 'page-item next disabled'
+										: 'page-item next'
 								}
 							>
 								<button
-									onClick={() => navigatePage("next")}
+									// onClick={() => navigatePage('next')}
 									className="page-link"
 								>
 									<i className="next"></i>
@@ -155,7 +155,7 @@ function KitTable({ dataSource, handleDeleteData }) {
 				)}
 			</KTCardBody>
 		</KTCard>
-	);
+	)
 }
 
-export default KitTable;
+export default KitTable
