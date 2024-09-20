@@ -11,7 +11,7 @@ function KitButton() {
 				Nuevo Kit Antiderrame
 			</button>
 		</div>
-	)
+	);
 }
 
-export default KitButton
+export default KitButton;
