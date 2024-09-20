@@ -7,18 +7,32 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
     return (
         <>
             <SidebarMenuItemWithSub
+                to=""
+                title="Epps"
+                fontIcon=""
+                icon="people"
+            ></SidebarMenuItemWithSub>
+
+            <SidebarMenuItemWithSub
+                to=""
+                title="Passt"
+                fontIcon=""
+                icon="people"
+            ></SidebarMenuItemWithSub>
+
+            <SidebarMenuItemWithSub
+                to=""
+                title="Linea Base"
+                fontIcon=""
+                icon="people"
+            ></SidebarMenuItemWithSub>
+
+            <SidebarMenuItemWithSub
                 to="/crafted/pages"
                 title="Registro"
                 fontIcon="bi-archive"
                 icon="people"
             >
-                <SidebarMenuItem
-                    to="/iso45001/epps"
-                    icon="graph-3"
-                    title="Equipos de proteccion personal"
-                    fontIcon="bi-layers"
-                />
-
                 <SidebarMenuItem
                     to=""
                     icon="graph-3"
@@ -30,6 +44,13 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
                     to=""
                     icon="graph-3"
                     title="Kit antiderrames"
+                    fontIcon="bi-layers"
+                />
+
+                <SidebarMenuItem
+                    to="/iso45001/botiquin"
+                    icon="graph-3"
+                    title="Botiquin"
                     fontIcon="bi-layers"
                 />
 
