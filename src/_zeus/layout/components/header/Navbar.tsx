@@ -37,8 +37,8 @@ export const Navbar = () => {
         />
       </div>
 
-      {/*Mostramos el ícono de la lista de isos si estamos en "/home" y en las rutas que comiencen con "/iso..."*/}
-      {(location.pathname === "/home" || location.pathname.startsWith("/iso")) && (
+      {/*Mostramos el ícono de la lista solo si el usuario ya eligió una compañia */}
+      {(!location.pathname.startsWith("/select-company")) && (
         <div className={clsx("app-navbar-item", itemClass)}>
             <NavbarItemModules toggleBtnClass={clsx("btn-active-light-primary btn-custom")} />
         </div>
