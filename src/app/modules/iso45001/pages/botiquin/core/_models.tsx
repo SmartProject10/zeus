@@ -1,6 +1,5 @@
 export interface BotiquinResponse {
     _id: string
-    codigo: string
     sede: string
     numero: number
     area: string

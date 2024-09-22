@@ -3,7 +3,7 @@ import { saveAs } from 'file-saver'
 import * as XLSX from 'xlsx'
 import { useState } from 'react'
 
-function BotiquinTable({ dataSource, handleDeleteData }) {
+function BotiquinTable({ dataSource, handleDeleteData }: any) {
     const [totalPages, setTotalPages] = useState<number>(1)
     const [currentPage, setCurrentPage] = useState<number>(1)
 
@@ -30,7 +30,8 @@ function BotiquinTable({ dataSource, handleDeleteData }) {
                 className="py-4 card card-grid min-w-full">
                 <div
                     className="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button onClick={exportToExcel}
+                    <button
+                        onClick={exportToExcel}
                         className="btn btn-success btn-sm"
                         type="button">
                         <i
@@ -48,7 +49,6 @@ function BotiquinTable({ dataSource, handleDeleteData }) {
                             <tr
                                 className="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                                 <th>Nro</th>
-                                <th>Código</th>
                                 <th>Sede</th>
                                 <th>Número</th>
                                 <th>Área</th>
@@ -61,12 +61,18 @@ function BotiquinTable({ dataSource, handleDeleteData }) {
                                 <>
                                     {dataSource.map((botiquin, index) =>
                                         <tr key={index}>
+                                            {/* 
                                             <td>{index + 1}</td>
-                                            <td>{botiquin.codigo}</td>
                                             <td>{botiquin.sede}</td>
                                             <td>{botiquin.numero}</td>
                                             <td>{botiquin.area}</td>
                                             <td>{botiquin.ubicacion}</td>
+                                            */}
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
                                             <td>
                                                 <div className="d-flex gap-2">
                                                     {/* <button type="button"
@@ -78,14 +84,28 @@ function BotiquinTable({ dataSource, handleDeleteData }) {
                                                         className="btn  btn-sm btn-icon btn-active-icon-primary btn-active-light-primary"
                                                         type="button"
                                                         data-bs-toggle="modal"
-                                                        title='Editar'
+                                                        title="Editar"
                                                         data-bs-target="#staticBackdrop">
                                                         <i className="fas fa-edit fs-4"></i>
                                                     </button>
 
-                                                    <button type="button" onClick={() => handleDeleteData(index)} className="btn btn-sm btn-icon btn-active-icon-danger btn-active-light-danger" data-bs-toggle='tooltip' title='Eliminar'>
+                                                    <button
+                                                        type="button" onClick={() => handleDeleteData(index)}
+                                                        className="btn btn-sm btn-icon btn-active-icon-danger btn-active-light-danger" data-bs-toggle="tooltip"
+                                                        title="Eliminar">
                                                         <i className="fas fa-trash fs-4"></i>
                                                     </button>
+
+                                                    <button
+                                                        className="btn  btn-sm btn-icon btn-active-icon-primary btn-active-light-primary"
+                                                        type="button"
+                                                        data-bs-toggle="modal"
+                                                        title="Mostrar datos del botiquin"
+                                                        data-bs-target="#staticBackdrop"
+                                                        data-uneditable>
+                                                        <i className="fas fa-eye fs-4"></i>
+                                                    </button>
+
                                                 </div>
                                             </td>
                                         </tr>)}
