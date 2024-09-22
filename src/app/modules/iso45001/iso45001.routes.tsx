@@ -1,39 +1,39 @@
-import { Route, Routes } from "react-router-dom";
-import { InspeccionesInternasSeguridad } from "./pages/inspeccionesInternasSeguridad";
-import { CompromisosAltaGenerencia } from "./pages/compromisosAltaGerencia";
-import { Botiquin } from "./pages/botiquin/Botiquin";
-import { PageLink, PageTitle } from "@zeus/_zeus/layout/core";
-import { Kit } from "./pages/kit/Kit";
+import { Route, Routes } from 'react-router-dom'
+import { InspeccionesInternasSeguridad } from './pages/inspeccionesInternasSeguridad'
+import { CompromisosAltaGenerencia } from './pages/compromisosAltaGerencia'
+import { Botiquin } from './pages/botiquin/Botiquin'
+import { PageLink, PageTitle } from '@zeus/_zeus/layout/core'
+import { Kit } from './pages/kit/Kit'
 
 const registrosBreadcrumbs: Array<PageLink> = [
 	{
-		title: "Registro",
-		path: "/iso45001",
+		title: 'Registro',
+		path: '/iso45001',
 		isSeparator: false,
 		isActive: false,
 	},
 	{
-		title: "",
-		path: "",
+		title: '',
+		path: '',
 		isSeparator: true,
 		isActive: false,
 	},
-];
+]
 
 const registroAntiderrame: Array<PageLink> = [
 	{
-		title: "Kit",
-		path: "/iso45001/kit",
+		title: 'Kit',
+		path: '/iso45001/kit',
 		isSeparator: false,
 		isActive: false,
 	},
 	{
-		title: "",
-		path: "",
+		title: '',
+		path: '',
 		isSeparator: true,
 		isActive: false,
 	},
-];
+]
 
 export function ISO45001Routes(): JSX.Element {
 	return (
@@ -67,5 +67,5 @@ export function ISO45001Routes(): JSX.Element {
 				element={<CompromisosAltaGenerencia />}
 			/>
 		</Routes>
-	);
+	)
 }

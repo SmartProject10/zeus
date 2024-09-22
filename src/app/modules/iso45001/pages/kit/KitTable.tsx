@@ -90,6 +90,16 @@ function KitTable({ dataSource, handleDeleteData }) {
 													>
 														<i className="fas fa-trash fs-4"></i>
 													</button>
+													<button
+														className="btn  btn-sm btn-icon btn-active-icon-primary btn-active-light-primary"
+														type="button"
+														data-bs-toggle="modal"
+														title="Mostrar datos del kit de antiderrame"
+														data-bs-target="#staticBackdrop"
+														data-uneditable
+													>
+														<i className="fas fa-eye fs-4"></i>
+													</button>
 												</div>
 											</td>
 										</tr>
