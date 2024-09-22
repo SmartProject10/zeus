@@ -16,6 +16,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+.vscode/
 
 # Distribution directories
 dist/
@@ -37,5 +38,3 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
-
-.env
