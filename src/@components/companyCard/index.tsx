@@ -1,17 +1,22 @@
-import { memo, useCallback } from 'react'
+import { memo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './index.scss'
 
 interface CompanyCardProps {
     companyName: string
     companyDetails: string
-    onClick?: () => void
+    companyId: string
 }
 
 export const CompanyCard = memo(
     (props: CompanyCardProps) => {
-        const { companyName, companyDetails, onClick } = props
+        const navigate = useNavigate()
 
-        const handlePress = useCallback(() => onClick?.(), [])
+        const handlePress = () => {
+            navigate('/home')
+        }
+
+        const { companyName, companyDetails, companyId } = props
 
         return (
             <div

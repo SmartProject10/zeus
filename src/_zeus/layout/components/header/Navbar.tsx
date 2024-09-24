@@ -2,12 +2,12 @@ import clsx from "clsx";
 import { KTIcon, toAbsoluteUrl } from "../../../helpers";
 import {
   HeaderUserMenu,
-  Search,
   ThemeModeSwitcher
 } from "../../../partials";
 import { useLayout } from "../../core";
 import { NavbarItemModules } from "./navbarItems/itemModules";
 import { useLocation } from "react-router-dom";
+import { useEffect, useRef } from "react";
 
 const itemClass = "ms-1 ms-md-4";
 const btnClass =
@@ -18,15 +18,24 @@ const btnIconClass = "fs-2";
 export const Navbar = () => {
   const { config } = useLayout();
   const location = useLocation();
-  
+  const ktActivitiesToggleRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (ktActivitiesToggleRef.current) {
+        ktActivitiesToggleRef.current.click();
+      }
+    }, 500);
+
+    //(limpieza del timeout cuando el componente se desmonta)
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="app-navbar flex-shrink-0">
-      <div className={clsx("app-navbar-item align-items-stretch", itemClass)}>
-        <Search />
-      </div>
 
       <div className={clsx("app-navbar-item", itemClass)}>
-        <div id="kt_activities_toggle" className={btnClass}>
+        <div id="kt_activities_toggle" className={btnClass} ref={ktActivitiesToggleRef}>
           <KTIcon iconName="eye" className={btnIconClass} />
         </div>
       </div>

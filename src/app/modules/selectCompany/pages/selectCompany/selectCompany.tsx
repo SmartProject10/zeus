@@ -2,11 +2,9 @@ import { CompanyCard } from '@zeus/@components/companyCard'
 import { backyService } from '@zeus/@services/api'
 import { KTIcon } from '@zeus/_zeus/helpers'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import './selectCompany.scss'
 
 export function SelectCompany(): JSX.Element {
-    const navigate = useNavigate()
     const [companies, setcompanies] = useState<Array<{ id: string; companyName: string; details: string }>>([])
 
     useEffect(() => {
@@ -14,10 +12,6 @@ export function SelectCompany(): JSX.Element {
             setcompanies(response.data)
         })
     }, [])
-
-    const handleOnPress = (idCompany: string) => {
-        navigate(`/select-company/${idCompany}`)
-    }
 
     return (
         <div
@@ -46,7 +40,7 @@ export function SelectCompany(): JSX.Element {
                             key={index}
                             companyName={company.companyName}
                             companyDetails={company.details}
-                            onClick={() => handleOnPress(company.id)} />
+                            companyId = {company.id} />
                     ))}
                 </div>
             </div>
