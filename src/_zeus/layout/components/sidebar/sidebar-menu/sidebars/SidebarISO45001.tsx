@@ -8,10 +8,23 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 		<>
 			<SidebarMenuItemWithSub
 				to=""
-				title="Epps"
+				title="EPPS"
 				fontIcon=""
 				icon="people"
-			></SidebarMenuItemWithSub>
+			>
+				<SidebarMenuItem
+					to="iso45001/entrega-epps"
+					icon="graph-3"
+					title="Entrega de EPPS"
+					fontIcon="bi-layers"
+				/>
+				<SidebarMenuItem
+					to="iso45001/base-de-datos-epps"
+					icon="graph-3"
+					title="Base de datos de EPPS"
+					fontIcon="bi-layers"
+				/>
+			</SidebarMenuItemWithSub>
 
 			<SidebarMenuItemWithSub
 				to=""
