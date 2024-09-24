@@ -4,6 +4,8 @@ import { CompromisosAltaGenerencia } from './pages/compromisosAltaGerencia'
 import { Botiquin } from './pages/botiquin/Botiquin'
 import { PageLink, PageTitle } from '@zeus/_zeus/layout/core'
 import { Kit } from './pages/kit/Kit'
+import { EPPS } from './pages/epps/delivery'
+import { DatabasePage } from './pages/epps/database'
 
 const registrosBreadcrumbs: Array<PageLink> = [
 	{
@@ -38,6 +40,22 @@ const registroAntiderrame: Array<PageLink> = [
 export function ISO45001Routes(): JSX.Element {
 	return (
 		<Routes>
+			<Route
+				path="entrega-epps"
+				element={
+					<>
+						<EPPS />
+					</>
+				}
+			/>
+			<Route
+				path="base-de-datos-epps"
+				element={
+					<>
+						<DatabasePage />
+					</>
+				}
+			/>
 			<Route
 				path="botiquin"
 				element={
