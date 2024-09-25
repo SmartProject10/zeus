@@ -7,7 +7,6 @@ import {
 } from "../../../partials";
 import { useLayout } from "../../core";
 import { NavbarItemModules } from "./navbarItems/itemModules";
-import { useLocation } from "react-router-dom";
 
 const itemClass = "ms-1 ms-md-4";
 const btnClass =
@@ -17,8 +16,7 @@ const btnIconClass = "fs-2";
 
 export const Navbar = () => {
   const { config } = useLayout();
-  const location = useLocation();
-  
+
   return (
     <div className="app-navbar flex-shrink-0">
       <div className={clsx("app-navbar-item align-items-stretch", itemClass)}>
@@ -38,9 +36,9 @@ export const Navbar = () => {
       </div>
 
       {/*Mostramos el ícono de la lista solo si el usuario ya eligió una compañia */}
-      {(!location.pathname.startsWith("/select-company")) && (
+      {(!window.location.pathname.startsWith("/select-company")) && (
         <div className={clsx("app-navbar-item", itemClass)}>
-            <NavbarItemModules toggleBtnClass={clsx("btn-active-light-primary btn-custom")} />
+          <NavbarItemModules toggleBtnClass={clsx("btn-active-light-primary btn-custom")} />
         </div>
       )}
 
