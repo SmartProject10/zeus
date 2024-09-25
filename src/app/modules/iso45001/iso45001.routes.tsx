@@ -4,6 +4,7 @@ import { CompromisosAltaGenerencia } from './pages/compromisosAltaGerencia'
 import { Botiquin } from './pages/botiquin/Botiquin'
 import { PageLink, PageTitle } from '@zeus/_zeus/layout/core'
 import { Kit } from './pages/kit/Kit'
+import { ExtintoresPage } from './pages/extintores/extintoresPage'
 
 const registrosBreadcrumbs: Array<PageLink> = [
 	{
@@ -57,6 +58,10 @@ export function ISO45001Routes(): JSX.Element {
 						<Kit />
 					</>
 				}
+			/>
+			<Route
+				path="inspeccion-extintores"
+				element={< ExtintoresPage />}
 			/>
 			<Route
 				path="inspecciones-internas-seguridad"
