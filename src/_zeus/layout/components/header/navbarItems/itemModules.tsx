@@ -2,37 +2,6 @@ import { KTIcon } from '@zeus/_zeus/helpers'
 import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 
-
-const MODULES = [
-	{ module: '⁠9001-20152', url: '/iso9001' },
-	{ module: '45001-20183', url: '/iso45001' },
-	{ module: '14001-2018', url: '#' },
-	{ module: '27001-2022', url: '#' },
-	{ module: '19601-2017', url: '#' },
-	{ module: '20121-2024', url: '#' },
-	{ module: '30301-2019', url: '#' },
-	{ module: '39001-2018', url: '#' },
-	{ module: '13485-2018', url: '#' },
-	{ module: '22001-2018', url: '#' },
-	{ module: '50001-2018', url: '#' },
-	{ module: '21001-2018', url: '#' },
-	{ module: '28001-2018', url: '#' },
-	{ module: '37001-2018', url: '#' },
-	{ module: '17020-2018 EMA', url: '#' },
-	{ module: '29001-2020', url: '#' },
-	{ module: '26001-2019', url: '#' },
-	{ module: '15189-2023', url: '#' },
-	{ module: '27701-2019', url: '#' },
-	{ module: '16949-2016', url: '#' },
-	{ module: '17025-2017', url: '#' },
-	{ module: '22716-2008', url: '#' },
-	{ module: '22301-2019', url: '#' },
-	{ module: '24001-2015', url: '#' },
-	{ module: '17021-2015', url: '#' },
-	{ module: 'SGRRHH', url: '/sgrrhh' },
-]
-
-
 type Props = {
 	toggleBtnClass?: string
 	toggleBtnIconClass?: string
@@ -46,6 +15,36 @@ export const NavbarItemModules = ({
 	menuPlacement = 'bottom-end',
 	menuTrigger = "{default: 'click', lg: 'hover'}",
 }: Props) => {
+
+	const MODULES = [
+		{ module: '⁠9001-20152', url: '/iso9001' },
+		{ module: '45001-20183', url: '/iso45001' },
+		{ module: '14001-2018', url: '#' },
+		{ module: '27001-2022', url: '#' },
+		{ module: '19601-2017', url: '#' },
+		{ module: '20121-2024', url: '#' },
+		{ module: '30301-2019', url: '#' },
+		{ module: '39001-2018', url: '#' },
+		{ module: '13485-2018', url: '#' },
+		{ module: '22001-2018', url: '#' },
+		{ module: '50001-2018', url: '#' },
+		{ module: '21001-2018', url: '#' },
+		{ module: '28001-2018', url: '#' },
+		{ module: '37001-2018', url: '#' },
+		{ module: '17020-2018 EMA', url: '#' },
+		{ module: '29001-2020', url: '#' },
+		{ module: '26001-2019', url: '#' },
+		{ module: '15189-2023', url: '#' },
+		{ module: '27701-2019', url: '#' },
+		{ module: '16949-2016', url: '#' },
+		{ module: '17025-2017', url: '#' },
+		{ module: '22716-2008', url: '#' },
+		{ module: '22301-2019', url: '#' },
+		{ module: '24001-2015', url: '#' },
+		{ module: '17021-2015', url: '#' },
+		{ module: 'SGRRHH', url: '/sgrrhh' },
+	].filter(module => module.url !== window.location.pathname);
+
 	return (
 		<>
 			{/* begin::Menu toggle */}
