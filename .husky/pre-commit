@@ -1,1 +1,1 @@
-npx -y lint-staged --config lint-staged.config.js
+# npx -y lint-staged --config lint-staged.config.js

@@ -1,7 +1,7 @@
 import { SidebarMenuItem } from "../components/SidebarMenuItem";
 import { SidebarMenuItemWithSub } from "../components/SidebarMenuItemWithSub";
 
-interface SidebarIso45001Props {}
+interface SidebarIso45001Props { }
 
 export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 	return (
@@ -28,7 +28,7 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 
 			<SidebarMenuItemWithSub
 				to=""
-				title="Passt"
+				title="PASST"
 				fontIcon=""
 				icon="people"
 			></SidebarMenuItemWithSub>

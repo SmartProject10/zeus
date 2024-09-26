@@ -1,22 +1,29 @@
-/* eslint-disable no-prototype-builtins */
-import clsx from 'clsx'
-import {useEffect, useRef} from 'react'
-import {ILayout, useLayout} from '../../core'
-import {SidebarMenu} from './sidebar-menu/SidebarMenu'
-import {SidebarFooter} from './SidebarFooter'
-import {SidebarLogo} from './SidebarLogo'
+import clsx from 'clsx';
+import { useEffect, useRef, useState } from 'react';
+import { ILayout, useLayout } from '../../core';
+import { SidebarMenu } from './sidebar-menu/SidebarMenu';
+import { SidebarFooter } from './SidebarFooter';
+import { SidebarLogo } from './SidebarLogo';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
-  const {config} = useLayout()
-  const sidebarRef = useRef<HTMLDivElement>(null)
+  const { config } = useLayout();
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const rute = window.location.pathname;
+  const [menuKey, setMenuKey] = useState(0);
 
   useEffect(() => {
-    updateDOM(config)
-  }, [config])
+    updateDOM(config);
+  }, [config]);
 
   if (!config.app?.sidebar?.display) {
-    return null
+    return null;
   }
+
+  const reloadMenu = () => {
+    //(se cambia el valor del key del componente SidebarMenu para que se vuelva a instanciar cuando se clickea en el texto del iso para que los menus del sidebar con submenus vuelvan a aparecer cerrados en la vista de la iso)
+    setMenuKey(prevKey => prevKey + 1);
+  };
 
   return (
     <>
@@ -26,14 +33,31 @@ const Sidebar = () => {
           id='kt_app_sidebar'
           className={clsx('app-sidebar', config.app?.sidebar?.default?.class)}
         >
-          <SidebarLogo sidebarRef={sidebarRef} />
-          <SidebarMenu />
+          {rute.startsWith("/iso") ? (
+            <Link
+              to={`/${rute.split("/")[1]}`}
+              style={{
+                textAlign: 'center',
+                fontSize: '25px',
+                fontFamily: 'Arial Rounded MT Bold, sans-serif',
+                cursor: 'pointer',
+                textDecoration: 'none',
+                color: 'inherit'
+              }}
+              onClick={reloadMenu}
+            >
+              {rute.split("/")[1].replace("iso", "iso ")}
+            </Link>
+          ) : (
+            <SidebarLogo sidebarRef={sidebarRef} />
+          )}
+          <SidebarMenu key={menuKey} />
           <SidebarFooter />
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
 const updateDOM = (config: ILayout) => {
   if (config.layoutType === 'dark-sidebar' || config.layoutType === 'light-sidebar') {
@@ -94,7 +118,7 @@ const updateDOM = (config: ILayout) => {
     )
 
     const appSidebarDefaultDrawerEnabled = config.app?.sidebar?.default?.drawer?.enabled
-    let appSidebarDefaultDrawerAttributes: {[attrName: string]: string} = {}
+    let appSidebarDefaultDrawerAttributes: { [attrName: string]: string } = {}
     if (appSidebarDefaultDrawerEnabled) {
       appSidebarDefaultDrawerAttributes = config.app?.sidebar?.default?.drawer?.attributes as {
         [attrName: string]: string
@@ -102,7 +126,7 @@ const updateDOM = (config: ILayout) => {
     }
 
     const appSidebarDefaultStickyEnabled = config.app?.sidebar?.default?.sticky?.enabled
-    let appSidebarDefaultStickyAttributes: {[attrName: string]: string} = {}
+    let appSidebarDefaultStickyAttributes: { [attrName: string]: string } = {}
     if (appSidebarDefaultStickyEnabled) {
       appSidebarDefaultStickyAttributes = config.app?.sidebar?.default?.sticky?.attributes as {
         [attrName: string]: string
@@ -138,4 +162,4 @@ const updateDOM = (config: ILayout) => {
   }
 }
 
-export {Sidebar}
+export { Sidebar }
