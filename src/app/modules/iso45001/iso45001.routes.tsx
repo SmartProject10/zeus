@@ -5,6 +5,8 @@ import Iso45001Cards from './pages/iso45001/Iso45001Cards'
 import { Botiquin } from './pages/botiquin/Botiquin'
 import { PageLink, PageTitle } from '@zeus/_zeus/layout/core'
 import { Kit } from './pages/kit/Kit'
+import { EPPS } from './pages/epps/delivery'
+import { DatabasePage } from './pages/epps/database'
 import { ExtintoresPage } from './pages/extintores/extintoresPage'
 
 const indexIso45001: Array<PageLink> = [
@@ -56,6 +58,22 @@ export function ISO45001Routes(): JSX.Element {
 	return (
 		<Routes>
 			<Route
+				path="entrega-epps"
+				element={
+					<>
+						<EPPS />
+					</>
+				}
+			/>
+			<Route
+				path="base-de-datos-epps"
+				element={
+					<>
+						<DatabasePage />
+					</>
+				}
+			/>
+      <Route
 				path=""
 				element={
 					<>
