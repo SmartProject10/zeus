@@ -1,23 +1,23 @@
 import { Content } from '../../../../_zeus/layout/components/content'
-import {Card2} from '../../../../_zeus/partials/content/cards/Card2'
-import {IconUserModel} from '../ProfileModels'
+import { Card2 } from '../../../../_zeus/partials/content/cards/Card2'
+import { IconUserModel } from '../ProfileModels'
 
 export function Projects() {
   return (
     <Content>
       <div
-className="d-flex flex-wrap flex-stack mb-6">
+        className="d-flex flex-wrap flex-stack mb-6">
         <h3
-className="fw-bolder my-2">
+          className="fw-bolder my-2">
           My Projects
           <span
-className="fs-6 text-gray-500 fw-bold ms-1">Active</span>
+            className="fs-6 text-gray-500 fw-bold ms-1">Active</span>
         </h3>
 
         <div
-className="d-flex flex-wrap my-2">
+          className="d-flex flex-wrap my-2">
           <div
-className="me-4">
+            className="me-4">
             <select
               name="status"
               data-control="select2"
@@ -26,13 +26,13 @@ className="me-4">
               defaultValue="Active"
             >
               <option
-value="Active">Active</option>
+                value="Active">Active</option>
               <option
-value="Approved">In Progress</option>
+                value="Approved">In Progress</option>
               <option
-value="Declined">To Do</option>
+                value="Declined">To Do</option>
               <option
-value="In Progress">Completed</option>
+                value="In Progress">Completed</option>
             </select>
           </div>
           <a
@@ -47,9 +47,9 @@ value="In Progress">Completed</option>
       </div>
 
       <div
-className="row g-6 g-xl-9">
+        className="row g-6 g-xl-9">
         <div
-className="col-md-6 col-xl-4">
+          className="col-md-6 col-xl-4">
           <Card2
             icon="media/svg/brand-logos/plurk.svg"
             badgeColor="primary"
@@ -65,7 +65,7 @@ className="col-md-6 col-xl-4">
         </div>
 
         <div
-className="col-md-6 col-xl-4">
+          className="col-md-6 col-xl-4">
           <Card2
             icon="media/svg/brand-logos/disqus.svg"
             badgeColor="info"
@@ -81,7 +81,7 @@ className="col-md-6 col-xl-4">
         </div>
 
         <div
-className="col-md-6 col-xl-4">
+          className="col-md-6 col-xl-4">
           <Card2
             icon="media/svg/brand-logos/figma-1.svg"
             badgeColor="success"
@@ -97,7 +97,7 @@ className="col-md-6 col-xl-4">
         </div>
 
         <div
-className="col-md-6 col-xl-4">
+          className="col-md-6 col-xl-4">
           <Card2
             icon="media/svg/brand-logos/sentry-3.svg"
             badgeColor="info"
@@ -113,7 +113,7 @@ className="col-md-6 col-xl-4">
         </div>
 
         <div
-className="col-md-6 col-xl-4">
+          className="col-md-6 col-xl-4">
           <Card2
             icon="media/svg/brand-logos/xing-icon.svg"
             badgeColor="primary"
@@ -129,7 +129,7 @@ className="col-md-6 col-xl-4">
         </div>
 
         <div
-className="col-md-6 col-xl-4">
+          className="col-md-6 col-xl-4">
           <Card2
             icon="media/svg/brand-logos/tvit.svg"
             badgeColor="primary"
@@ -145,7 +145,7 @@ className="col-md-6 col-xl-4">
         </div>
 
         <div
-className="col-md-6 col-xl-4">
+          className="col-md-6 col-xl-4">
           <Card2
             icon="media/svg/brand-logos/aven.svg"
             badgeColor="primary"
@@ -161,7 +161,7 @@ className="col-md-6 col-xl-4">
         </div>
 
         <div
-className="col-md-6 col-xl-4">
+          className="col-md-6 col-xl-4">
           <Card2
             icon="media/svg/brand-logos/treva.svg"
             badgeColor="danger"
@@ -177,7 +177,7 @@ className="col-md-6 col-xl-4">
         </div>
 
         <div
-className="col-md-6 col-xl-4">
+          className="col-md-6 col-xl-4">
           <Card2
             icon="media/svg/brand-logos/kanba.svg"
             badgeColor="success"
@@ -194,83 +194,83 @@ className="col-md-6 col-xl-4">
       </div>
 
       <div
-className="d-flex flex-stack flex-wrap pt-10">
+        className="d-flex flex-stack flex-wrap pt-10">
         <div
-className="fs-6 fw-bold text-gray-700">Showing 1 to 10 of 50 entries</div>
+          className="fs-6 fw-bold text-gray-700">Showing 1 to 10 of 50 entries</div>
 
         <ul
-className="pagination">
+          className="pagination">
           <li
-className="page-item previous">
+            className="page-item previous">
             <a
-href="#"
-className="page-link">
+              href="#"
+              className="page-link">
               <i
-className="previous"></i>
+                className="previous"></i>
             </a>
           </li>
 
           <li
-className="page-item active">
+            className="page-item active">
             <a
-href="#"
-className="page-link">
+              href="#"
+              className="page-link">
               1
             </a>
           </li>
 
           <li
-className="page-item">
+            className="page-item">
             <a
-href="#"
-className="page-link">
+              href="#"
+              className="page-link">
               2
             </a>
           </li>
 
           <li
-className="page-item">
+            className="page-item">
             <a
-href="#"
-className="page-link">
+              href="#"
+              className="page-link">
               3
             </a>
           </li>
 
           <li
-className="page-item">
+            className="page-item">
             <a
-href="#"
-className="page-link">
+              href="#"
+              className="page-link">
               4
             </a>
           </li>
 
           <li
-className="page-item">
+            className="page-item">
             <a
-href="#"
-className="page-link">
+              href="#"
+              className="page-link">
               5
             </a>
           </li>
 
           <li
-className="page-item">
+            className="page-item">
             <a
-href="#"
-className="page-link">
+              href="#"
+              className="page-link">
               6
             </a>
           </li>
 
           <li
-className="page-item next">
+            className="page-item next">
             <a
-href="#"
-className="page-link">
+              href="#"
+              className="page-link">
               <i
-className="next"></i>
+                className="next"></i>
             </a>
           </li>
         </ul>
@@ -280,51 +280,51 @@ className="next"></i>
 }
 
 const users1: Array<IconUserModel> = [
-  {name: 'Emma Smith', avatar: 'media/avatars/300-6.jpg'},
-  {name: 'Rudy Stone', avatar: 'media/avatars/300-1.jpg'},
-  {name: 'Susan Redwood', initials: 'S', color: 'primary'},
+  { name: 'Emma Smith', avatar: 'media/avatars/300-6.jpg' },
+  { name: 'Rudy Stone', avatar: 'media/avatars/300-1.jpg' },
+  { name: 'Susan Redwood', initials: 'S', color: 'primary' },
 ]
 
 const users2 = [
-  {name: 'Alan Warden', initials: 'A', color: 'warning'},
-  {name: 'Brian Cox', avatar: 'media/avatars/300-5.jpg'},
+  { name: 'Alan Warden', initials: 'A', color: 'warning' },
+  { name: 'Brian Cox', avatar: 'media/avatars/300-5.jpg' },
 ]
 
 const users3 = [
-  {name: 'Mad Masy', avatar: 'media/avatars/300-6.jpg'},
-  {name: 'Cris Willson', avatar: 'media/avatars/300-1.jpg'},
-  {name: 'Mike Garcie', initials: 'M', color: 'info'},
+  { name: 'Mad Masy', avatar: 'media/avatars/300-6.jpg' },
+  { name: 'Cris Willson', avatar: 'media/avatars/300-1.jpg' },
+  { name: 'Mike Garcie', initials: 'M', color: 'info' },
 ]
 
 const users4 = [
-  {name: 'Nich Warden', initials: 'N', color: 'warning'},
-  {name: 'Rob Otto', initials: 'R', color: 'success'},
+  { name: 'Nich Warden', initials: 'N', color: 'warning' },
+  { name: 'Rob Otto', initials: 'R', color: 'success' },
 ]
 
 const users5 = [
-  {name: 'Francis Mitcham', avatar: 'media/avatars/300-20.jpg'},
-  {name: 'Michelle Swanston', avatar: 'media/avatars/300-7.jpg'},
-  {name: 'Susan Redwood', initials: 'S', color: 'primary'},
+  { name: 'Francis Mitcham', avatar: 'media/avatars/300-20.jpg' },
+  { name: 'Michelle Swanston', avatar: 'media/avatars/300-7.jpg' },
+  { name: 'Susan Redwood', initials: 'S', color: 'primary' },
 ]
 
 const users6 = [
-  {name: 'Emma Smith', avatar: 'media/avatars/300-6.jpg'},
-  {name: 'Rudy Stone', avatar: 'media/avatars/300-1.jpg'},
-  {name: 'Susan Redwood', initials: 'S', color: 'primary'},
+  { name: 'Emma Smith', avatar: 'media/avatars/300-6.jpg' },
+  { name: 'Rudy Stone', avatar: 'media/avatars/300-1.jpg' },
+  { name: 'Susan Redwood', initials: 'S', color: 'primary' },
 ]
 
 const users7 = [
-  {name: 'Meloday Macy', avatar: 'media/avatars/300-2.jpg'},
-  {name: 'Rabbin Watterman', initials: 'S', color: 'success'},
+  { name: 'Meloday Macy', avatar: 'media/avatars/300-2.jpg' },
+  { name: 'Rabbin Watterman', initials: 'S', color: 'success' },
 ]
 
 const users8 = [
-  {name: 'Emma Smith', avatar: 'media/avatars/300-6.jpg'},
-  {name: 'Rudy Stone', avatar: 'media/avatars/300-1.jpg'},
-  {name: 'Susan Redwood', initials: 'S', color: 'primary'},
+  { name: 'Emma Smith', avatar: 'media/avatars/300-6.jpg' },
+  { name: 'Rudy Stone', avatar: 'media/avatars/300-1.jpg' },
+  { name: 'Susan Redwood', initials: 'S', color: 'primary' },
 ]
 
 const users9 = [
-  {name: 'Meloday Macy', avatar: 'media/avatars/300-2.jpg'},
-  {name: 'Rabbin Watterman', initials: 'S', color: 'danger'},
+  { name: 'Meloday Macy', avatar: 'media/avatars/300-2.jpg' },
+  { name: 'Rabbin Watterman', initials: 'S', color: 'danger' },
 ]
