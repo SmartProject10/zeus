@@ -189,13 +189,15 @@ function SecondTable() {
 				<h2 className="card-title">Datos de la base de datos</h2>
 			</div>
 			<div className="card-body">
-				<div className="card-content">
+				<div className="card-content overflow-auto">
 					<table className="table table-bordered table-row-gray-300 align-middle gs-7">
 						<thead>
 							<tr>
-								<th className="text-left fw-bold text-gray-800 border-bottom-2 border-gray-200">Nombre</th>
+								<th className="text-left fw-bold text-gray-800 border-bottom-2 border-gray-200 w-100px">Nombre</th>
 								<th className="text-left fw-bold text-gray-800 border-bottom-2 border-gray-200">Stock</th>
 								<th className="text-left fw-bold text-gray-800 border-bottom-2 border-gray-200">Tipo</th>
+								<th className="text-left fw-bold text-gray-800 border-bottom-2 border-gray-200">Marca</th>
+								<th className="text-left fw-bold text-gray-800 border-bottom-2 border-gray-200">Cantidad</th>
 								<th className="text-left fw-bold text-gray-800 border-bottom-2 border-gray-200">Acciones</th>
 							</tr>
 						</thead>
@@ -205,12 +207,21 @@ function SecondTable() {
 								<td>Unidad</td>
 								<td>Cantidad</td>
 								<td>
+									<select className="form-select" name="brand">
+										<option value="">Seleccione un marca</option>
+										<option value="hello">Hello world</option>
+									</select>
+								</td>
+								<td>
+									<select className="form-select" name="quantity">
+										<option value="">Seleccione una cantidad</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+									</select>
+								</td>
+								<td>
 									<div className="d-flex gap-2">
-{/* 										<button */}
-{/* type="button" className="btn btn-sm btn-icon btn-active-icon-primary btn-active-light-primary" */}
-{/* data-bs-toggle="tooltip" title="Editar"> */}
-{/* 											<i className="fas fa-edit fs-4"></i> */}
-{/* 										</button> */}
 										<button
 											type="button" 
 											className="btn btn-sm btn-icon btn-active-icon-danger btn-active-light-danger"
@@ -279,6 +290,16 @@ function AditionalInfo() {
 							placeholder="Observaciones"
 							name="description"
 						/>
+
+						<div className="input-group my-3 px-0">
+							<label className="input-group-text" htmlFor="inputGroupFile01">Upload</label>
+							<input 
+								type="file" 
+								className="form-control" 
+								id="inputGroupFile01" 
+							/>
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -293,7 +314,7 @@ export const Modal = forwardRef<HTMLFormElement, ModalProps>((props, ref) => {
 
 	return (
 		<div id={props.id} className="modal fade">
-			<div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 				<form
 					className="modal-content"
 					ref={ref}
