@@ -4,14 +4,6 @@ interface TableProps {
 	items: PersonalProtectiveEquipment[]
 }
 
-		// brand: 'Nike',
-		// size: 'Talla',
-		// gender: 'Masculino',
-		// dateOfEntry: '2022-01-01',
-		// dateOfExit: '2022-01-01',
-		// areaOfStorage: 'Sede',
-		// storageSite: 'Proveedor',
-		// unitaryCost: '100',
 const tableHeaders = [
 	'#',
 	'Marca',
