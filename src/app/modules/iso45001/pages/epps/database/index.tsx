@@ -1,16 +1,12 @@
 import { useId } from 'react'
 
 import { Content } from '@zeus/_zeus/layout/components/content'
-import { z } from 'zod'
 import { Modal } from './modal'
-// import { Table } from '../table'
 
 export const DatabasePage = (): JSX.Element => {
 	const modalId = useId()
-	// const [items, setItems] = useState([])
 
 	const handleSuccess = () => {}
-
 	const handleError = () => {}
 
 	return (
@@ -36,7 +32,6 @@ export const DatabasePage = (): JSX.Element => {
 					</div>
 				</div>
 				<div className="card-body">
-					{/* <Table items={items} /> */}
 					<Modal
 						id={modalId} 
 						onSuccess={handleSuccess} 
