@@ -1,12 +1,28 @@
 import { Route, Routes } from 'react-router-dom'
 import { InspeccionesInternasSeguridad } from './pages/inspeccionesInternasSeguridad'
 import { CompromisosAltaGenerencia } from './pages/compromisosAltaGerencia'
+import Iso45001Cards from './pages/iso45001/Iso45001Cards'
 import { Botiquin } from './pages/botiquin/Botiquin'
 import { PageLink, PageTitle } from '@zeus/_zeus/layout/core'
 import { Kit } from './pages/kit/Kit'
 import { EPPS } from './pages/epps/delivery'
 import { DatabasePage } from './pages/epps/database'
 import { ExtintoresPage } from './pages/extintores/extintoresPage'
+
+const indexIso45001: Array<PageLink> = [
+	{
+		title: 'Iso45001',
+		path: '/iso45001',
+		isSeparator: false,
+		isActive: false,
+	},
+	{
+		title: '',
+		path: '',
+		isSeparator: true,
+		isActive: false,
+	},
+]
 
 const registrosBreadcrumbs: Array<PageLink> = [
 	{
@@ -54,6 +70,15 @@ export function ISO45001Routes(): JSX.Element {
 				element={
 					<>
 						<DatabasePage />
+					</>
+				}
+			/>
+      <Route
+				path=""
+				element={
+					<>
+						<PageTitle breadcrumbs={indexIso45001}>Iso 45001</PageTitle>
+						<Iso45001Cards />
 					</>
 				}
 			/>

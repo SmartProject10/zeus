@@ -10,7 +10,6 @@ import { MenuTestPage } from '../pages/MenuTestPage'
 
 const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage').then((module) => ({ default: module.WizardsPage })))
 const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage').then((module) => ({ default: module.WidgetsPage })))
-const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
 const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
 const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
 const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
@@ -36,7 +35,6 @@ export const PrivateRoutes = () => {
 				<Route path="sgrrhh/*" element={<HumanResourcesPage />} />
 
 				{/* Lazy Modules */}
-				<Route path="crafted/pages/profile/*" element={<ProfilePage />} />
 				<Route path="crafted/pages/wizards/*" element={<WizardsPage />} />
 				<Route path="crafted/widgets/*" element={<WidgetsPage />} />
 				<Route path="crafted/account/*" element={<AccountPage />} />
