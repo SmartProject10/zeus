@@ -11,6 +11,7 @@ type Props = {
   icon?: KTIconsNames
   fontIcon?: string
   hasBullet?: boolean
+  handleReloadMenu?: any
 }
 
 const SidebarMenuItem: FC<Props & WithChildren> = ({
@@ -20,6 +21,7 @@ const SidebarMenuItem: FC<Props & WithChildren> = ({
   icon,
   fontIcon,
   hasBullet = false,
+  handleReloadMenu
 }) => {
   const { pathname } = useLocation()
   const isActive = checkIsActive(pathname, to)
@@ -28,7 +30,7 @@ const SidebarMenuItem: FC<Props & WithChildren> = ({
 
   return (
     <div className='menu-item'>
-      <Link className={clsx('menu-link without-sub', { active: isActive })} to={to}>
+      <Link className={clsx('menu-link without-sub', { active: isActive })} to={to} onClick={handleReloadMenu ? handleReloadMenu : (() => { })}>
         {hasBullet && (
           <span className='menu-bullet'>
             <span className='bullet bullet-dot'></span>

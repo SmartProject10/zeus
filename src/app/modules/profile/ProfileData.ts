@@ -1,36 +1,36 @@
-import {PageLink} from '../../../_zeus/layout/core'
+import { PageLink } from '../../../_zeus/layout/core'
 
 export const profileSubmenu: Array<PageLink> = [
   {
     title: 'Overview',
-    path: '/crafted/pages/profile/overview',
+    path: '/home',
     isActive: true,
   },
   {
     title: 'Separator',
-    path: '/crafted/pages/profile/overview',
+    path: '/home',
     isActive: true,
     isSeparator: true,
   },
   {
     title: 'Account',
-    path: '/crafted/pages/profile/account',
+    path: '/home',
     isActive: false,
   },
   {
     title: 'Account',
-    path: '/crafted/pages/profile/account',
+    path: '/home',
     isActive: false,
     isSeparator: true,
   },
   {
     title: 'Settings',
-    path: '/crafted/pages/profile/settings',
+    path: '/home',
     isActive: false,
   },
   {
     title: 'Settings',
-    path: '/crafted/pages/profile/settings',
+    path: '/home',
     isActive: false,
     isSeparator: true,
   },
