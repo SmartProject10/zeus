@@ -178,6 +178,31 @@ function SearchWorker () {
 					Buscar
 				</button>
 			</div>
+
+			<Field
+				label="Razon"
+				type="select"
+				placeholder="Seleccione una razón"
+				name="reason"
+				options={[
+					{
+						value: 'wear',
+						content: 'Desgaste',
+					},
+					{
+						content: 'Perdida',
+						value: 'loss',
+					},
+					{
+						content: 'Robo',
+						value: 'robbery',
+					},
+					{
+						content: 'Nueva dotación',
+						value: 'new-bond',
+					},
+				]}
+			/>
 		</>
 	)
 }
@@ -186,11 +211,18 @@ function SecondTable() {
 	return (
 		<div className="card my-6">
 			<div className="card-header">
-				<h2 className="card-title">Datos de la base de datos</h2>
+				<h2 className="card-title">EPPS disponibles</h2>
 			</div>
 			<div className="card-body">
 				<div className="card-content overflow-auto">
-					<table className="table table-bordered table-row-gray-300 align-middle gs-7">
+					<Field
+						label="Buscar producto"
+						type="text"
+						placeholder="Codigo del producto"
+						name="productCode"
+					/>
+
+					<table className="table table-bordered table-row-gray-300 align-middle gs-7 my-6">
 						<thead>
 							<tr>
 								<th className="text-left fw-bold text-gray-800 border-bottom-2 border-gray-200 w-100px">Nombre</th>
@@ -250,38 +282,7 @@ function AditionalInfo() {
 			</div>
 			<div className="card-body">
 				<div className="card-content">
-					<Field
-						label="Codigo del producto"
-						type="text"
-						placeholder="Codigo del producto"
-						name="productCode"
-					/>
-
-					<Field
-						label="Razon"
-						type="select"
-						placeholder="Seleccione una razón"
-						name="reason"
-						options={[
-							{
-								value: 'wear',
-								content: 'Desgaste',
-							},
-							{
-								content: 'Perdida',
-								value: 'loss',
-							},
-							{
-								content: 'Robo',
-								value: 'robbery',
-							},
-							{
-								content: 'Nueva dotación',
-								value: 'new-bond',
-							},
-						]}
-					/>
-					<div className="form-group row my-4">
+					<div className="form-group row">
 						<label className="col-form-label required">
 							Observaciones
 						</label>
