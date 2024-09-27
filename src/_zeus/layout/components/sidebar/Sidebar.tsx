@@ -4,12 +4,11 @@ import { ILayout, useLayout } from '../../core';
 import { SidebarMenu } from './sidebar-menu/SidebarMenu';
 import { SidebarFooter } from './SidebarFooter';
 import { SidebarLogo } from './SidebarLogo';
-import { Link } from 'react-router-dom';
+import { toAbsoluteUrl } from '../../../helpers'
 
 const Sidebar = () => {
   const { config } = useLayout();
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const rute = window.location.pathname;
   const [menuKey, setMenuKey] = useState(0);
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const Sidebar = () => {
   }
 
   const reloadMenu = () => {
-    //(se cambia el valor del key del componente SidebarMenu para que se vuelva a instanciar cuando se clickea en el texto del iso para que los menus del sidebar con submenus vuelvan a aparecer cerrados en la vista de la iso)
+    //(se cambia el valor del key del componente SidebarMenu para que se vuelva a instanciar cuando se clickea en el menú item del iso para que los menus del sidebar con submenus vuelvan a aparecer cerrados en la vista de la iso)
     setMenuKey(prevKey => prevKey + 1);
   };
 
@@ -33,25 +32,21 @@ const Sidebar = () => {
           id='kt_app_sidebar'
           className={clsx('app-sidebar', config.app?.sidebar?.default?.class)}
         >
-          {rute.startsWith("/iso") ? (
-            <Link
-              to={`/${rute.split("/")[1]}`}
-              style={{
-                textAlign: 'center',
-                fontSize: '25px',
-                fontFamily: 'Arial Rounded MT Bold, sans-serif',
-                cursor: 'pointer',
-                textDecoration: 'none',
-                color: 'inherit'
-              }}
-              onClick={reloadMenu}
-            >
-              {rute.split("/")[1].replace("iso", "iso ")}
-            </Link>
+          {window.location.pathname.startsWith("/iso") ? (
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <img
+                alt='Logo'
+                src={toAbsoluteUrl('media/logos/default-small.svg')}
+                style={{ height: '45px', width: '200px', alignSelf: 'center', paddingTop: '10px' }}
+              />
+              <p style={{
+                textAlign: 'center', fontWeight: 'bold', fontSize: '15px', color: '#503494'
+              }}>ISO AND ISO</p>
+            </div>
           ) : (
             <SidebarLogo sidebarRef={sidebarRef} />
           )}
-          <SidebarMenu key={menuKey} />
+          <SidebarMenu key={menuKey} handleReloadMenu={reloadMenu} />
           <SidebarFooter />
         </div>
       )}

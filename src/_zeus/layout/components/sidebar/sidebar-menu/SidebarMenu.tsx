@@ -7,12 +7,12 @@ import { SidebarISO45001 } from './sidebars/SidebarISO45001'
 import { SidebarISO9001 } from './sidebars/SidebarISO9001'
 import { SidebarSGRRHH } from './sidebars/SidebarSGRRHH'
 
-export const SidebarMenu = () => {
+export const SidebarMenu = ({ handleReloadMenu }) => {
   const { pathname } = useLocation()
 
   const isISO45001 = useMemo(() => pathname.startsWith('/iso45001'), [pathname])
   const isISO9001 = useMemo(() => pathname.startsWith('/iso9001'), [pathname])
-	const isSGRHH = useMemo(() => pathname.startsWith('/sgrrhh'), [pathname])
+  const isSGRHH = useMemo(() => pathname.startsWith('/sgrrhh'), [pathname])
 
   const isSidebarMain = useMemo(() =>
     [
@@ -52,7 +52,7 @@ export const SidebarMenu = () => {
           {isSidebarMain && <SidebarMain />}
           {isSidebarFichaUsuario && <SidebarFichaUsuario />}
           {isSGRHH && <SidebarSGRRHH />}
-          {isISO45001 && <SidebarISO45001 />}
+          {isISO45001 && <SidebarISO45001 handleReloadMenu={handleReloadMenu} />}
           {isISO9001 && <SidebarISO9001 />}
         </div>
       </div>
