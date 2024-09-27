@@ -143,9 +143,6 @@ const options: FieldProps[] = [
 
 function SearchWorker () {
 	const [isAdvancedSearch, setIsAdvancedSearch] = useState(false)
-	const [data, setData] = useState<>({
-		dni: '',
-	})
 
 	const handleClick = () => {
 		console.log('submit')
