@@ -7,6 +7,8 @@ import { toAbsoluteUrl } from '../../../helpers'
 
 const HeaderUserMenu: FC = () => {
 	const { currentUser, logout } = useAuth()
+	const location = window.location
+
 	return (
 		<div
 			className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px'
@@ -32,37 +34,47 @@ const HeaderUserMenu: FC = () => {
 
 			<div className='separator my-2'></div>
 
-			<div className='menu-item px-5'>
-				<Link to={'/crafted/pages/profile'} className='menu-link px-5'>
-					Mi Perfil
-				</Link>
-			</div>
+			{
 
-			<div className='menu-item px-5'>
-				<a href='#' className='menu-link px-5'>
-					<span className='menu-text'>Pendientes</span>
-					<span className='menu-badge'>
-						<span className='badge badge-light-danger badge-circle fw-bolder fs-7'>3</span>
-					</span>
-				</a>
-			</div>
+				!(location.pathname === "/select-company")
 
-			<div
-				className='menu-item px-5'
-				data-kt-menu-trigger='hover'
-				data-kt-menu-placement='left-start'
-				data-kt-menu-flip='bottom'
-			>
+				&&
 
-			</div>
+				<>
+					<div className='menu-item px-5'>
+						<Link to={'/home'} className='menu-link px-5'>
+							Mi Perfil
+						</Link>
+					</div>
 
-			<div className='menu-item px-5'>
-				<a href='#' className='menu-link px-5'>
-					Estado
-				</a>
-			</div>
+					<div className='menu-item px-5'>
+						<a href='#' className='menu-link px-5'>
+							<span className='menu-text'>Pendientes</span>
+							<span className='menu-badge'>
+								<span className='badge badge-light-danger badge-circle fw-bolder fs-7'>3</span>
+							</span>
+						</a>
+					</div>
 
-			<div className='separator my-2'></div>
+					<div
+						className='menu-item px-5'
+						data-kt-menu-trigger='hover'
+						data-kt-menu-placement='left-start'
+						data-kt-menu-flip='bottom'
+					>
+
+					</div>
+
+					<div className='menu-item px-5'>
+						<a href='#' className='menu-link px-5'>
+							Estado
+						</a>
+					</div>
+
+					<div className='separator my-2'></div>
+				</>
+
+			}
 
 			{/*<Languages />*/}
 
