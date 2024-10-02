@@ -8,6 +8,7 @@ import { Kit } from './pages/kit/Kit'
 import { EPPS } from './pages/epps/delivery'
 import { DatabasePage } from './pages/epps/database'
 import { ExtintoresPage } from './pages/extintores/extintoresPage'
+import { EmergencyLightsPage } from './pages/registro/luces-de-emergncia/EmergencyLightsPage'
 
 const indexIso45001: Array<PageLink> = [
 	{
@@ -58,6 +59,14 @@ export function ISO45001Routes(): JSX.Element {
 	return (
 		<Routes>
 			<Route
+				path="luces-de-emergencia"
+				element={
+					<>
+						<EmergencyLightsPage />
+					</>
+				}
+			/>
+			<Route
 				path="entrega-epps"
 				element={
 					<>
@@ -73,7 +82,7 @@ export function ISO45001Routes(): JSX.Element {
 					</>
 				}
 			/>
-      <Route
+			<Route
 				path=""
 				element={
 					<>
@@ -102,10 +111,7 @@ export function ISO45001Routes(): JSX.Element {
 					</>
 				}
 			/>
-			<Route
-				path="inspeccion-extintores"
-				element={< ExtintoresPage />}
-			/>
+			<Route path="inspeccion-extintores" element={<ExtintoresPage />} />
 			<Route
 				path="inspecciones-internas-seguridad"
 				element={<InspeccionesInternasSeguridad />}
@@ -115,5 +121,5 @@ export function ISO45001Routes(): JSX.Element {
 				element={<CompromisosAltaGenerencia />}
 			/>
 		</Routes>
-	)
+	);
 }
