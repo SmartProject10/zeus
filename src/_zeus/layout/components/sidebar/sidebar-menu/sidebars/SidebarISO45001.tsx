@@ -6,7 +6,6 @@ interface SidebarIso45001Props { handleReloadMenu }
 export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 	return (
 		<>
-
 			<SidebarMenuItem
 				to="/iso45001"
 				icon="empty"
@@ -15,12 +14,7 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 				handleReloadMenu={props.handleReloadMenu}
 			/>
 
-			<SidebarMenuItemWithSub
-				to=""
-				title="EPPS"
-				fontIcon=""
-				icon="people"
-			>
+			<SidebarMenuItemWithSub to="" title="EPPS" fontIcon="" icon="people">
 				<SidebarMenuItem
 					to="iso45001/entrega-epps"
 					icon="graph-3"
@@ -56,7 +50,7 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 				icon="people"
 			>
 				<SidebarMenuItem
-					to=""
+					to="/iso45001/luces-de-emergencia"
 					icon="graph-3"
 					title="Luces de emergencia"
 					fontIcon="bi-layers"
