@@ -2,6 +2,127 @@ import { KTIcon } from '@zeus/_zeus/helpers'
 
 import './FichaUsuario.scss'
 
+function Pagination () {
+	return (
+		<ul className="pagination">
+			<li className="page-item previous disabled">
+				<a href="#" className="page-link">
+					<i className="previous"></i>
+				</a>
+			</li>
+
+			<li className="page-item "><a href="#" className="page-link">1</a></li>
+			<li className="page-item active"><a href="#" className="page-link">2</a></li>
+			<li className="page-item "><a href="#" className="page-link">3</a></li>
+			<li className="page-item "><a href="#" className="page-link">4</a></li>
+			<li className="page-item "><a href="#" className="page-link">5</a></li>
+			<li className="page-item "><a href="#" className="page-link">6</a></li>
+
+			<li className="page-item next">
+				<a href="#" className="page-link">
+					<i className="next"></i>
+				</a>
+			</li>
+		</ul>
+	)
+}
+
+const data = [
+	{
+		id: 1,
+		course: 'Curso de Ingeniería Informática',
+		program: 'Programa de Ingeniería Informática',
+		duration: '2 años',
+		status: 'Completado',
+		assistance: 'Asistencia',
+		note: '4.0',
+		certificate: 'Certificado',
+	},
+]
+
+function CourseHistoryTable () {
+	return (
+		<div className="table-response my-16">
+			<table className="table table-bordered">
+				<thead>
+					<tr>
+						<th>Curso</th>
+						<th>Programa</th>
+						<th>Duración</th>
+						<th>Estado</th>
+						<th>Asistencia</th>
+						<th>Nota</th>
+						<th>Certificado</th>
+					</tr>
+				</thead>
+				<tbody>
+					{
+						data.map((item) => {
+							return (
+								<tr key={item.id}>
+									<td>{item.course}</td>
+									<td>{item.program}</td>
+									<td>{item.duration}</td>
+									<td>{item.status}</td>
+									<td>{item.assistance}</td>
+									<td>{item.note}</td>
+									<td>{item.certificate}</td>
+								</tr>
+							)
+						})
+					}
+				</tbody>
+			</table>
+		</div>
+	)
+}
+
+function CourseHistory () {
+	return (
+		<div className="card">
+			<div className="card-header align-items-center">
+				<h5 className="card-title flex-1 align-items-center">Historial</h5>
+				<button className="btn btn-primary btn-sm">
+					<KTIcon
+						iconName="add-item"
+						iconType="duotone" 
+					/>
+					Exportar
+				</button>
+			</div>
+			<div className="card-body">
+				<div className="card-content">
+					<p>
+						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique ea quis eum voluptatibus, quisquam dolor perferendis recusandae laudantium aliquid temporibus impedit placeat dolorum, fugit illum quidem maiores, sint blanditiis unde.
+					</p>
+				</div>
+				<CourseHistoryTable />
+				<div className="d-flex justify-content-end mt-16">
+					<div className="flex-1"></div>
+					<Pagination />
+				</div>
+			</div>
+		</div>
+	)
+}
+
+function PersonalInformation () {
+	return (
+		<div className="row">
+			<div className="col-3">
+				<p>
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis odio asperiores neque animi laborum expedita repudiandae explicabo, modi eos ad, tempore ipsa fugiat autem reprehenderit harum excepturi inventore doloremque facere!
+				</p>
+			</div>
+			<div className="col-9">
+				<p>
+					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis debitis id sequi repellat nihil? Error distinctio maiores laudantium! Ipsa commodi consequatur sequi similique doloremque tempore alias, neque quasi fugit cumque.
+				</p>
+			</div>
+		</div>
+	)
+}
+
 export function FichaUsuario() {
   return (
     <div className="ficha-usuario w-100">
@@ -73,29 +194,15 @@ export function FichaUsuario() {
           id="kt_tab_pane_1"
           role="tabpanel"
         >
-          Et et consectetur ipsum labore excepteur est proident excepteur
-          ad velit occaecat qui minim occaecat veniam. Fugiat veniam
-          incididunt anim aliqua enim pariatur veniam sunt est aute sit
-          dolor anim. Velit non irure adipisicing aliqua ullamco irure
-          incididunt irure non esse consectetur nostrud minim non minim
-          occaecat. Amet duis do nisi duis veniam non est eiusmod tempor
-          incididunt tempor dolor ipsum in qui sit.
-        </div>
+					<PersonalInformation />
+				</div>
         <div
 					className="tab-pane fade"
 					id="kt_tab_pane_2"
 					role="tabpanel"
 				>
-          Nulla est ullamco ut irure incididunt nulla Lorem Lorem minim
-          irure officia enim reprehenderit. Magna duis labore cillum sint
-          adipisicing exercitation ipsum. Nostrud ut anim non exercitation
-          velit laboris fugiat cupidatat. Commodo esse dolore fugiat sint
-          velit ullamco magna consequat voluptate minim amet aliquip ipsum
-          aute laboris nisi. Labore labore veniam irure irure ipsum
-          pariatur mollit magna in cupidatat dolore magna irure esse
-          tempor ad mollit. Dolore commodo nulla minim amet ipsum officia
-          consectetur amet ullamco voluptate nisi commodo ea sit eu.
-        </div>
+					<CourseHistory />
+				</div>
         <div
 					className="tab-pane fade"
 					id="kt_tab_pane_3"
