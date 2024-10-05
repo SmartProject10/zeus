@@ -32,7 +32,7 @@ export const EmergencyLightsPage = (): JSX.Element => {
 	return (
 		<>
 			<PageTitle breadcrumbs={emergencyLightsBreadcrumbs}>
-				Luces de emergencia
+				Registro luces de emergencia
 			</PageTitle>
 			<EmergencyLightsWrapper />
 		</>
