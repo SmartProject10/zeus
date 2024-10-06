@@ -9,6 +9,7 @@ import { EPPS } from './pages/epps/delivery'
 import { DatabasePage } from './pages/epps/database'
 import { ExtintoresPage } from './pages/extintores/extintoresPage'
 import { EmergencyLightsPage } from './pages/registro/luces-de-emergncia/EmergencyLightsPage'
+import { InspectionEmergencyLightsPage } from './pages/registro/inspeccion-luces-de-emergncia/InspectionEmergencyLightsPage'
 
 const indexIso45001: Array<PageLink> = [
 	{
@@ -63,6 +64,14 @@ export function ISO45001Routes(): JSX.Element {
 				element={
 					<>
 						<EmergencyLightsPage />
+					</>
+				}
+			/>
+			<Route
+				path="inspeccion-luces-de-emergencia"
+				element={
+					<>
+						<InspectionEmergencyLightsPage />
 					</>
 				}
 			/>
