@@ -49,12 +49,25 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 				fontIcon="bi-archive"
 				icon="people"
 			>
-				<SidebarMenuItem
-					to="/iso45001/luces-de-emergencia"
-					icon="graph-3"
+				<SidebarMenuItemWithSub
+					to="/crafted/pages"
 					title="Luces de emergencia"
-					fontIcon="bi-layers"
-				/>
+					fontIcon="bi-archive"
+					icon="people"
+				>
+					<SidebarMenuItem
+						to="/iso45001/luces-de-emergencia"
+						icon="graph-3"
+						title="Registro luces de emergencia"
+						fontIcon="bi-layers"
+					/>
+					<SidebarMenuItem
+						to="/iso45001/inspeccion-luces-de-emergencia"
+						icon="graph-3"
+						title="Inspección luces de emergencia"
+						fontIcon="bi-layers"
+					/>
+				</SidebarMenuItemWithSub>
 
 				<SidebarMenuItem
 					to="/iso45001/kit"
