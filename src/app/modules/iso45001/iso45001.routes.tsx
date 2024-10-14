@@ -10,6 +10,7 @@ import { DatabasePage } from './pages/epps/database'
 import { ExtintoresPage } from './pages/extintores/extintoresPage'
 import { EmergencyLightsPage } from './pages/registro/luces-de-emergncia/EmergencyLightsPage'
 import { InspectionEmergencyLightsPage } from './pages/registro/inspeccion-luces-de-emergncia/InspectionEmergencyLightsPage'
+import { Asistencia } from './pages/asistencia/Asistencia'
 
 const indexIso45001: Array<PageLink> = [
 	{
@@ -106,6 +107,15 @@ export function ISO45001Routes(): JSX.Element {
 					<>
 						<PageTitle breadcrumbs={registrosBreadcrumbs}>Botiquin</PageTitle>
 						<Botiquin />
+					</>
+				}
+			/>
+			<Route
+				path="asistencia"
+				element={
+					<>
+						<PageTitle breadcrumbs={registrosBreadcrumbs}>Asistencia</PageTitle>
+						<Asistencia />
 					</>
 				}
 			/>
