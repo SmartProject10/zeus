@@ -1,9 +1,29 @@
 import { useFormik } from 'formik' // Asegúrate de importar useFormik si lo estás usando para manejar formularios
 import clsx from 'clsx' // Asegúrate de que clsx esté instalado para manejar clases condicionalmente
+import * as Yup from 'yup' // Asegúrate de importar Yup si lo estás usando para validación
+
+const estadisticaValidation = Yup.object().shape({
+	sede: Yup.string().required('Sede requerido'),
+	objetivoGeneral: Yup.string().required('Objetivo General requerido'),
+	objetivoEspecifico: Yup.string().required('Objetivo Especifico requerido'),
+	actividad: Yup.string().required('Actividad requerida'),
+	programaCapacitacion: Yup.string().required('Programa Capacitación requerido'),
+	programaCharla: Yup.string().required('Programa Charla requerido'),
+	otro: Yup.string().required('Otro requerido'),
+	capacitador: Yup.string().required('Capacitador requerido'),
+	cargo: Yup.string().required('Cargo requerido'),
+	trabajadores: Yup.string().required('Trabajadores requerido'),
+	fecha: Yup.string().required('Fecha requerida'),
+	horaInicio: Yup.string().required('Hora Inicio requerida'),
+	horaFinal: Yup.string().required('Hora Final requerida'),
+	area: Yup.string().required('Área requerida'),
+	ubicacion: Yup.string().required('Úbicación requerida'),
+})
 
 function AsistenciaModal({ item }: any) {
 	// Puedes utilizar `item` para mostrar los datos en el modal
 	const { getFieldProps, touched, errors, handleSubmit } = useFormik({
+		validationSchema: estadisticaValidation,
 		initialValues: {
 			objetivoGeneral: '',
 			objetivoEspecifico: '',
@@ -22,6 +42,7 @@ function AsistenciaModal({ item }: any) {
 		},
 		// Aquí van tus validaciones y onSubmit
 	})
+
 
 	return (
 		<div className="modal-body">
