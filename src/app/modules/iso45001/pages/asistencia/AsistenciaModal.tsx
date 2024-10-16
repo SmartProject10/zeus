@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useFormik } from 'formik'
 import clsx from 'clsx'
 import * as Yup from 'yup'
@@ -21,9 +22,9 @@ const estadisticaValidation = Yup.object().shape({
 // Opciones para los select
 const optionsData = {
 	opcion1: [
-		{ value: 'OBJETIVO GENERAL', label: 'OBJETIVO GENERAL' },
-		{ value: 'OBJETIVO ESPECIFICO', label: 'OBJETIVO ESPECIFICO' },
-		{ value: 'ACTIVIDAD', label: 'ACTIVIDAD' },
+		{ value: 'Opcion 1', label: 'Opcion 1' },
+		{ value: 'Opcion 2', label: 'Opcion 2' },
+		{ value: 'Opcion 3', label: 'Opcion 3' },
 	],
 	opcion2: [
 		{ value: 'PROGRAMA CAPACITACION', label: 'PROGRAMA CAPACITACION' },
