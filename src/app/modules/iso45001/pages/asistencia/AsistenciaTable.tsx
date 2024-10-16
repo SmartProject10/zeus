@@ -80,7 +80,7 @@ function AsistenciaTable({ dataSource, handleSeeData }: any) {
 			{/* Modal de edición */}
 			{isModalOpen && (
 				<div className="modal show d-block" tabIndex={-1} role="dialog">
-					<div className="modal-dialog">
+					<div className="modal-dialog modal-xl">
 						<div className="modal-content">
 							<div className="modal-header">
 								<h5 className="modal-title">Editar Asistencia</h5>

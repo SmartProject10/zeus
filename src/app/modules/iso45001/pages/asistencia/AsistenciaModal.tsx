@@ -1,14 +1,21 @@
-import { useFormik } from 'formik' // Asegúrate de importar useFormik si lo estás usando para manejar formularios
-import clsx from 'clsx' // Asegúrate de que clsx esté instalado para manejar clases condicionalmente
-import * as Yup from 'yup' // Asegúrate de importar Yup si lo estás usando para validación
+/* eslint-disable max-len */
+import { useFormik } from 'formik'
+import clsx from 'clsx'
+import * as Yup from 'yup'
 
 const estadisticaValidation = Yup.object().shape({
-	sede: Yup.string().required('Sede requerido'),
-	objetivoGeneral: Yup.string().required('Objetivo General requerido'),
-	objetivoEspecifico: Yup.string().required('Objetivo Especifico requerido'),
-	actividad: Yup.string().required('Actividad requerida'),
-	programaCapacitacion: Yup.string().required('Programa Capacitación requerido'),
-	programaCharla: Yup.string().required('Programa Charla requerido'),
+	sede: Yup.string().required('Sede requerida'),
+	opcion1: Yup.string(),
+	opcion2: Yup.string(),
+	opcion3: Yup.string(),
+	opcion: Yup.string().test(
+		'opcion-check',
+		'Debes seleccionar al menos una opción',
+		function () {
+			const { opcion1, opcion2, opcion3 } = this.parent
+			return opcion1 || opcion2 || opcion3
+		},
+	),
 	otro: Yup.string().required('Otro requerido'),
 	capacitador: Yup.string().required('Capacitador requerido'),
 	cargo: Yup.string().required('Cargo requerido'),
@@ -17,21 +24,45 @@ const estadisticaValidation = Yup.object().shape({
 	horaInicio: Yup.string().required('Hora Inicio requerida'),
 	horaFinal: Yup.string().required('Hora Final requerida'),
 	area: Yup.string().required('Área requerida'),
-	ubicacion: Yup.string().required('Úbicación requerida'),
 })
 
+const optionsData = {
+	opcion1: [
+		{ value: 'Objetivo General 1', label: 'Objetivo General 1' },
+		{ value: 'Objetivo General 2', label: 'Objetivo General 2' },
+	],
+	opcion2: [
+		{ value: 'Programa Capacitación 1', label: 'Programa Capacitación 1' },
+		{ value: 'Programa Capacitación 2', label: 'Programa Capacitación 2' },
+	],
+	opcion3: [
+		{ value: 'Programa Charla 1', label: 'Programa Charla 1' },
+		{ value: 'Programa Charla 2', label: 'Programa Charla 2' },
+	],
+	sede: [
+		{ value: 'Sede 1 ', label: 'Sede 1' },
+		{ value: 'Sede 2', label: 'Sede 2' },
+	],
+	area: [
+		{ value: 'Area 1 ', label: 'Area 1' },
+		{ value: 'Area 2 ', label: 'Area 2' },
+	],
+	cargo: [
+		{ value: 'Cargo 1 ', label: 'Cargo 1' },
+		{ value: 'Cargo 2 ', label: 'Cargo 2' },
+	],
+}
+
 function AsistenciaModal({ item }: any) {
-	// Puedes utilizar `item` para mostrar los datos en el modal
-	const { getFieldProps, touched, errors, handleSubmit } = useFormik({
+	const formik = useFormik({
 		validationSchema: estadisticaValidation,
 		initialValues: {
-			objetivoGeneral: '',
-			objetivoEspecifico: '',
-			actividad: '',
-			programaCapacitacion: '',
-			programaCharla: '',
-			otro: '',
 			sede: '',
+			opcion: '',
+			opcion1: '',
+			opcion2: '',
+			opcion3: '',
+			otro: '',
 			capacitador: '',
 			area: '',
 			cargo: '',
@@ -40,318 +71,153 @@ function AsistenciaModal({ item }: any) {
 			horaInicio: '',
 			horaFinal: '',
 		},
-		// Aquí van tus validaciones y onSubmit
+		onSubmit: (values) => {
+			console.log(values)
+		},
 	})
 
+	const handleSelectChange = (e) => {
+		const { id, value } = e.target
+
+		// Limpiar las otras opciones cuando una es seleccionada
+		formik.setValues({
+			...formik.values,
+			opcion1: id === 'opcion1' ? value : '' ,
+			opcion2: id === 'opcion2' ? value : '',
+			opcion3: id === 'opcion3' ? value : '',
+		})
+	}
+	const renderSelect = (id, label, options, touched, errors, getFieldProps) => (
+		<div className="col-sm-6">
+			<label htmlFor={id} className="required form-label">{label}</label>
+			<select
+				id={id}
+				className={clsx(
+					'form-select',
+					{ 'is-invalid': touched && errors },
+					{ 'is-valid': touched && !errors },
+				)}
+				{...getFieldProps(id)}
+				onChange={handleSelectChange}
+			>
+				<option value="">Seleccione</option>
+				{options.map(option => (
+					<option key={option.value} value={option.value}>{option.label}</option>
+				))}
+			</select>
+			{touched && errors && (
+				<div className="text-danger small"><span role="alert">{errors}</span></div>
+			)}
+		</div>
+	)
 
 	return (
 		<div className="modal-body">
-			<div className="card shadow-none mb-10">
-				<div className="card-body bg-secondary card-blank">
-					<div className="row gy-4">
-						{/* Campos del formulario */}
-						<div className="col-sm-6">
-							<label htmlFor="objetivoGeneral" className="required form-label">Objetivo General</label>
-							<select
-								id="objetivoGeneral"
-								className={clsx(
-									'form-select',
-									{ 'is-invalid': touched.objetivoGeneral && errors.objetivoGeneral },
-									{ 'is-valid': touched.objetivoGeneral && !errors.objetivoGeneral },
-								)}
-								{...getFieldProps('objetivoGeneral')}
-							>
-								<option value="">Seleccione</option>
-								<option value="Objetivo 1">Objetivo 1</option>
-								<option value="Objetivo 2">Objetivo 2</option>
-							</select>
-							{touched.objetivoGeneral && errors.objetivoGeneral && (
-								<div className="text-danger small">
-									<span role="alert">{errors.objetivoGeneral}</span>
-								</div>
-							)}
-						</div>
+			<form onSubmit={formik.handleSubmit}>
+				<div className="card shadow-none mb-10">
+					<div className="card-body bg-secondary card-blank">
+						<div className="row gy-4">
+							{renderSelect('opcion1', 'Opción 1', optionsData.opcion1, formik.touched.opcion, formik.errors.opcion, formik.getFieldProps)}
+							{renderSelect('opcion2', 'Opción 2', optionsData.opcion2, formik.touched.opcion, formik.errors.opcion, formik.getFieldProps)}
+							{renderSelect('opcion3', 'Opción 3', optionsData.opcion3, formik.touched.opcion, formik.errors.opcion, formik.getFieldProps)}
+							{renderSelect('sede', 'Sede', optionsData.sede, formik.touched.sede, formik.errors.sede, formik.getFieldProps)}
+							{renderSelect('area', 'Área', optionsData.area, formik.touched.area, formik.errors.area, formik.getFieldProps)}
+							{renderSelect('cargo', 'Cargo', optionsData.cargo, formik.touched.cargo, formik.errors.cargo, formik.getFieldProps)}
 
-						<div className="col-sm-6">
-							<label htmlFor="objetivoEspecifico" className="required form-label">Objetivo Específico</label>
-							<select
-								id="objetivoEspecifico"
-								className={clsx(
-									'form-select',
-									{ 'is-invalid': touched.objetivoEspecifico && errors.objetivoEspecifico },
-									{ 'is-valid': touched.objetivoEspecifico && !errors.objetivoEspecifico },
-								)}
-								{...getFieldProps('objetivoEspecifico')}
-							>
-								<option value="">Seleccione</option>
-								<option value="Especifico 1">Especifico 1</option>
-								<option value="Especifico 2">Especifico 2</option>
-							</select>
-							{touched.objetivoEspecifico && errors.objetivoEspecifico && (
-								<div className="text-danger small">
-									<span role="alert">{errors.objetivoEspecifico}</span>
+							{/* Input fields */}
+							{['otro', 'capacitador'].map(field => (
+								<div className="col-sm-6" key={field}>
+									<label htmlFor={field} className="required form-label">{field.charAt(0).toUpperCase() + field.slice(1)}</label>
+									<input
+										type="text"
+										className={clsx(
+											'form-control',
+											{ 'is-invalid': formik.touched[field] && formik.errors[field] },
+											{ 'is-valid': formik.touched[field] && !formik.errors[field] },
+										)}
+										id={field}
+										{...formik.getFieldProps(field)}
+									/>
+									{formik.touched[field] && formik.errors[field] && (
+										<div className="text-danger small"><span role="alert">{formik.errors[field]}</span></div>
+									)}
 								</div>
-							)}
-						</div>
+							))}
 
-						<div className="col-sm-6">
-							<label htmlFor="actividad" className="required form-label">Actividad</label>
-							<select
-								id="actividad"
-								className={clsx(
-									'form-select',
-									{ 'is-invalid': touched.actividad && errors.actividad },
-									{ 'is-valid': touched.actividad && !errors.actividad },
+							<div className="col-sm-6">
+								<label htmlFor="trabajadores" className="required form-label">Trabajadores</label>
+								<input
+									type="number"
+									placeholder="Cantidad de Trabajadores"
+									id="trabajadores"
+									{...formik.getFieldProps('trabajadores')}
+									className={clsx(
+										'form-control',
+										{ 'is-invalid': formik.touched.trabajadores && formik.errors.trabajadores },
+										{ 'is-valid': formik.touched.trabajadores && !formik.errors.trabajadores },
+									)}
+								/>
+							</div>
+
+							<div className="col-sm-6">
+								<label htmlFor="fecha" className="required form-label">Fecha</label>
+								<input
+									type="date"
+									className={clsx(
+										'form-control',
+										{ 'is-invalid': formik.touched.fecha && formik.errors.fecha },
+										{ 'is-valid': formik.touched.fecha && !formik.errors.fecha },
+									)}
+									id="fecha"
+									{...formik.getFieldProps('fecha')}
+								/>
+								{formik.touched.fecha && formik.errors.fecha && (
+									<div className="text-danger small"><span role="alert">{formik.errors.fecha}</span></div>
 								)}
-								{...getFieldProps('actividad')}
-							>
-								<option value="">Seleccione</option>
-								<option value="Actividad 1">Actividad 1</option>
-								<option value="Actividad 2">Actividad 2</option>
-							</select>
-							{touched.actividad && errors.actividad && (
-								<div className="text-danger small">
-									<span role="alert">{errors.actividad}</span>
-								</div>
-							)}
-						</div>
+							</div>
 
-						<div className="col-sm-6">
-							<label htmlFor="programaCapacitacion" className="required form-label">Programa Capacitación</label>
-							<select
-								id="programaCapacitacion"
-								className={clsx(
-									'form-select',
-									{ 'is-invalid': touched.programaCapacitacion && errors.programaCapacitacion },
-									{ 'is-valid': touched.programaCapacitacion && !errors.programaCapacitacion },
+							<div className="col-sm-6">
+								<label htmlFor="horaInicio" className="required form-label">Hora de Inicio</label>
+								<input
+									type="time"
+									className={clsx(
+										'form-control',
+										{ 'is-invalid': formik.touched.horaInicio && formik.errors.horaInicio },
+										{ 'is-valid': formik.touched.horaInicio && !formik.errors.horaInicio },
+									)}
+									id="horaInicio"
+									{...formik.getFieldProps('horaInicio')}
+								/>
+								{formik.touched.horaInicio && formik.errors.horaInicio && (
+									<div className="text-danger small"><span role="alert">{formik.errors.horaInicio}</span></div>
 								)}
-								{...getFieldProps('programaCapacitacion')}
-							>
-								<option value="">Seleccione</option>
-								<option value="Programa 1">Programa 1</option>
-								<option value="Programa 2">Programa 2</option>
-							</select>
-							{touched.programaCapacitacion && errors.programaCapacitacion && (
-								<div className="text-danger small">
-									<span role="alert">{errors.programaCapacitacion}</span>
-								</div>
-							)}
-						</div>
+							</div>
 
-						<div className="col-sm-6">
-							<label htmlFor="programaCharla" className="required form-label">Programa Charla</label>
-							<select
-								id="programaCharla"
-								className={clsx(
-									'form-select',
-									{ 'is-invalid': touched.programaCharla && errors.programaCharla },
-									{ 'is-valid': touched.programaCharla && !errors.programaCharla },
+							<div className="col-sm-6">
+								<label htmlFor="horaFinal" className="required form-label">Hora Final</label>
+								<input
+									type="time"
+									className={clsx(
+										'form-control',
+										{ 'is-invalid': formik.touched.horaFinal && formik.errors.horaFinal },
+										{ 'is-valid': formik.touched.horaFinal && !formik.errors.horaFinal },
+									)}
+									id="horaFinal"
+									{...formik.getFieldProps('horaFinal')}
+								/>
+								{formik.touched.horaFinal && formik.errors.horaFinal && (
+									<div className="text-danger small"><span role="alert">{formik.errors.horaFinal}</span></div>
 								)}
-								{...getFieldProps('programaCharla')}
-							>
-								<option value="">Seleccione</option>
-								<option value="Charla 1">Charla 1</option>
-								<option value="Charla 2">Charla 2</option>
-							</select>
-							{touched.programaCharla && errors.programaCharla && (
-								<div className="text-danger small">
-									<span role="alert">{errors.programaCharla}</span>
-								</div>
-							)}
-						</div>
+							</div>
 
-						<div className="col-sm-6">
-							<label htmlFor="otro" className="required form-label">Otro</label>
-							<input
-								type="text"
-								className={clsx(
-									'form-control',
-									{ 'is-invalid': touched.otro && errors.otro },
-									{ 'is-valid': touched.otro && !errors.otro },
-								)}
-								placeholder="Otro"
-								id="otro"
-								{...getFieldProps('otro')}
-							/>
-							{touched.otro && errors.otro && (
-								<div className="text-danger small">
-									<span role="alert">{errors.otro}</span>
-								</div>
-							)}
-						</div>
-
-						<div className="col-sm-6">
-							<label htmlFor="sede" className="required form-label">Sede</label>
-							<select
-								id="sede"
-								className={clsx(
-									'form-select',
-									{ 'is-invalid': touched.sede && errors.sede },
-									{ 'is-valid': touched.sede && !errors.sede },
-								)}
-								{...getFieldProps('sede')}
-							>
-								<option value="">Seleccione</option>
-								<option value="Sede 1">Sede 1</option>
-								<option value="Sede 2">Sede 2</option>
-							</select>
-							{touched.sede && errors.sede && (
-								<div className="text-danger small">
-									<span role="alert">{errors.sede}</span>
-								</div>
-							)}
-						</div>
-
-						<div className="col-sm-6">
-							<label htmlFor="capacitador" className="required form-label">Capacitador</label>
-							<input
-								type="text"
-								className={clsx(
-									'form-control',
-									{ 'is-invalid': touched.capacitador && errors.capacitador },
-									{ 'is-valid': touched.capacitador && !errors.capacitador },
-								)}
-								placeholder="Capacitador"
-								id="capacitador"
-								{...getFieldProps('capacitador')}
-							/>
-							{touched.capacitador && errors.capacitador && (
-								<div className="text-danger small">
-									<span role="alert">{errors.capacitador}</span>
-								</div>
-							)}
-						</div>
-
-						<div className="col-sm-6">
-							<label htmlFor="area" className="required form-label">Área</label>
-							<select
-								id="area"
-								className={clsx(
-									'form-select',
-									{ 'is-invalid': touched.area && errors.area },
-									{ 'is-valid': touched.area && !errors.area },
-								)}
-								{...getFieldProps('area')}
-							>
-								<option value="">Seleccione</option>
-								<option value="Área 1">Área 1</option>
-								<option value="Área 2">Área 2</option>
-							</select>
-							{touched.area && errors.area && (
-								<div className="text-danger small">
-									<span role="alert">{errors.area}</span>
-								</div>
-							)}
-						</div>
-
-						<div className="col-sm-6">
-							<label htmlFor="cargo" className="required form-label">Cargo</label>
-							<input
-								type="text"
-								className={clsx(
-									'form-control',
-									{ 'is-invalid': touched.cargo && errors.cargo },
-									{ 'is-valid': touched.cargo && !errors.cargo },
-								)}
-								placeholder="Cargo"
-								id="cargo"
-								{...getFieldProps('cargo')}
-							/>
-							{touched.cargo && errors.cargo && (
-								<div className="text-danger small">
-									<span role="alert">{errors.cargo}</span>
-								</div>
-							)}
-						</div>
-
-						<div className="col-sm-6">
-							<label htmlFor="trabajadores" className="required form-label">Trabajadores</label>
-							<input
-								type="number"
-								className={clsx(
-									'form-control',
-									{ 'is-invalid': touched.trabajadores && errors.trabajadores },
-									{ 'is-valid': touched.trabajadores && !errors.trabajadores },
-								)}
-								placeholder="Cantidad de Trabajadores"
-								id="trabajadores"
-								{...getFieldProps('trabajadores')}
-							/>
-							{touched.trabajadores && errors.trabajadores && (
-								<div className="text-danger small">
-									<span role="alert">{errors.trabajadores}</span>
-								</div>
-							)}
-						</div>
-
-						<div className="col-sm-6">
-							<label htmlFor="fecha" className="required form-label">Fecha</label>
-							<input
-								type="date"
-								className={clsx(
-									'form-control',
-									{ 'is-invalid': touched.fecha && errors.fecha },
-									{ 'is-valid': touched.fecha && !errors.fecha },
-								)}
-								id="fecha"
-								{...getFieldProps('fecha')}
-							/>
-							{touched.fecha && errors.fecha && (
-								<div className="text-danger small">
-									<span role="alert">{errors.fecha}</span>
-								</div>
-							)}
-						</div>
-
-						<div className="col-sm-6">
-							<label htmlFor="horaInicio" className="required form-label">Hora de Inicio</label>
-							<input
-								type="time"
-								className={clsx(
-									'form-control',
-									{ 'is-invalid': touched.horaInicio && errors.horaInicio },
-									{ 'is-valid': touched.horaInicio && !errors.horaInicio },
-								)}
-								id="horaInicio"
-								{...getFieldProps('horaInicio')}
-							/>
-							{touched.horaInicio && errors.horaInicio && (
-								<div className="text-danger small">
-									<span role="alert">{errors.horaInicio}</span>
-								</div>
-							)}
-						</div>
-
-						<div className="col-sm-6">
-							<label htmlFor="horaFinal" className="required form-label">Hora Final</label>
-							<input
-								type="time"
-								className={clsx(
-									'form-control',
-									{ 'is-invalid': touched.horaFinal && errors.horaFinal },
-									{ 'is-valid': touched.horaFinal && !errors.horaFinal },
-								)}
-								id="horaFinal"
-								{...getFieldProps('horaFinal')}
-							/>
-							{touched.horaFinal && errors.horaFinal && (
-								<div className="text-danger small">
-									<span role="alert">{errors.horaFinal}</span>
-								</div>
-							)}
-						</div>
-
-						{/* Botón para enviar el formulario */}
-						<div className="col-12">
-							<button
-type="button" className="btn btn-primary"
-onClick={handleSubmit}>
-								Enviar
-							</button>
+							{/* Submit button */}
+							<div className="col-sm-12">
+								<button type="submit" className="btn btn-primary">Guardar</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	)
 }
