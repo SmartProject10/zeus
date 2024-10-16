@@ -1,22 +1,14 @@
-/* eslint-disable max-len */
 import { useFormik } from 'formik'
 import clsx from 'clsx'
 import * as Yup from 'yup'
 
+// Validación con Yup
 const estadisticaValidation = Yup.object().shape({
 	sede: Yup.string().required('Sede requerida'),
-	opcion1: Yup.string(),
+	opcion1: Yup.object(),
 	opcion2: Yup.string(),
 	opcion3: Yup.string(),
-	opcion: Yup.string().test(
-		'opcion-check',
-		'Debes seleccionar al menos una opción',
-		function () {
-			const { opcion1, opcion2, opcion3 } = this.parent
-			return opcion1 || opcion2 || opcion3
-		},
-	),
-	otro: Yup.string().required('Otro requerido'),
+	otro: Yup.string(),
 	capacitador: Yup.string().required('Capacitador requerido'),
 	cargo: Yup.string().required('Cargo requerido'),
 	trabajadores: Yup.string().required('Trabajadores requerido'),
@@ -26,22 +18,22 @@ const estadisticaValidation = Yup.object().shape({
 	area: Yup.string().required('Área requerida'),
 })
 
+// Opciones para los select
 const optionsData = {
 	opcion1: [
-		{ value: 'Objetivo General 1', label: 'Objetivo General 1' },
-		{ value: 'Objetivo General 2', label: 'Objetivo General 2' },
+		{ value: 'OBJETIVO GENERAL', label: 'OBJETIVO GENERAL' },
+		{ value: 'OBJETIVO ESPECIFICO', label: 'OBJETIVO ESPECIFICO' },
+		{ value: 'ACTIVIDAD', label: 'ACTIVIDAD' },
 	],
 	opcion2: [
-		{ value: 'Programa Capacitación 1', label: 'Programa Capacitación 1' },
-		{ value: 'Programa Capacitación 2', label: 'Programa Capacitación 2' },
+		{ value: 'PROGRAMA CAPACITACION', label: 'PROGRAMA CAPACITACION' },
 	],
 	opcion3: [
-		{ value: 'Programa Charla 1', label: 'Programa Charla 1' },
-		{ value: 'Programa Charla 2', label: 'Programa Charla 2' },
+		{ value: 'PROGRAMA CHARLA', label: 'PROGRAMA CHARLA' },
 	],
 	sede: [
 		{ value: 'Sede 1 ', label: 'Sede 1' },
-		{ value: 'Sede 2', label: 'Sede 2' },
+		{ value: 'Sede 2 ', label: 'Sede 2' },
 	],
 	area: [
 		{ value: 'Area 1 ', label: 'Area 1' },
@@ -58,8 +50,7 @@ function AsistenciaModal({ item }: any) {
 		validationSchema: estadisticaValidation,
 		initialValues: {
 			sede: '',
-			opcion: '',
-			opcion1: '',
+			opcion1: { general: '', especifico: '', actividad: '' },
 			opcion2: '',
 			opcion3: '',
 			otro: '',
@@ -77,36 +68,50 @@ function AsistenciaModal({ item }: any) {
 	})
 
 	const handleSelectChange = (e) => {
-		const { id, value } = e.target
+		const { id, value } = e.target;
 
-		// Limpiar las otras opciones cuando una es seleccionada
-		formik.setValues({
-			...formik.values,
-			opcion1: id === 'opcion1' ? value : '' ,
-			opcion2: id === 'opcion2' ? value : '',
-			opcion3: id === 'opcion3' ? value : '',
-		})
-	}
-	const renderSelect = (id, label, options, touched, errors, getFieldProps) => (
+		// Marca el campo como tocado
+		formik.setFieldTouched(id, true);
+
+		// Resetear las demás opciones cuando se elige una
+		if (['opcion1.general', 'opcion1.especifico', 'opcion1.actividad', 'opcion2', 'opcion3', 'otro'].includes(id)) {
+			formik.setValues({
+				...formik.values,
+				opcion1: id.startsWith('opcion1') ? { ...formik.values.opcion1, [id.split('.')[1]]: value } : { general: '', especifico: '', actividad: '' },
+				opcion2: id === 'opcion2' ? value : '',
+				opcion3: id === 'opcion3' ? value : '',
+				otro: id === 'otro' ? value : '',
+			});
+		} else {
+			formik.setFieldValue(id, value);
+		}
+	};
+
+	// Deshabilitar las opciones si alguna otra opción está seleccionada
+	const isDisabled = (field) => formik.values.opcion1.general || formik.values.opcion1.especifico || formik.values.opcion1.actividad || formik.values.opcion2 || formik.values.opcion3 || formik.values.otro;
+
+	// Renderizar los desplegables
+	const renderSelect = (id, label, options, disabled) => (
 		<div className="col-sm-6">
 			<label htmlFor={id} className="required form-label">{label}</label>
 			<select
 				id={id}
 				className={clsx(
 					'form-select',
-					{ 'is-invalid': touched && errors },
-					{ 'is-valid': touched && !errors },
+					{ 'is-invalid': formik.touched[id] && formik.errors[id] },
+					{ 'is-valid': formik.touched[id] && !formik.errors[id] }
 				)}
-				{...getFieldProps(id)}
+				{...formik.getFieldProps(id)}
 				onChange={handleSelectChange}
+				disabled={disabled}
 			>
 				<option value="">Seleccione</option>
 				{options.map(option => (
 					<option key={option.value} value={option.value}>{option.label}</option>
 				))}
 			</select>
-			{touched && errors && (
-				<div className="text-danger small"><span role="alert">{errors}</span></div>
+			{formik.touched[id] && formik.errors[id] && (
+				<div className="text-danger small"><span role="alert">{formik.errors[id]}</span></div>
 			)}
 		</div>
 	)
@@ -117,32 +122,45 @@ function AsistenciaModal({ item }: any) {
 				<div className="card shadow-none mb-10">
 					<div className="card-body bg-secondary card-blank">
 						<div className="row gy-4">
-							{renderSelect('opcion1', 'Opción 1', optionsData.opcion1, formik.touched.opcion, formik.errors.opcion, formik.getFieldProps)}
-							{renderSelect('opcion2', 'Opción 2', optionsData.opcion2, formik.touched.opcion, formik.errors.opcion, formik.getFieldProps)}
-							{renderSelect('opcion3', 'Opción 3', optionsData.opcion3, formik.touched.opcion, formik.errors.opcion, formik.getFieldProps)}
-							{renderSelect('sede', 'Sede', optionsData.sede, formik.touched.sede, formik.errors.sede, formik.getFieldProps)}
-							{renderSelect('area', 'Área', optionsData.area, formik.touched.area, formik.errors.area, formik.getFieldProps)}
-							{renderSelect('cargo', 'Cargo', optionsData.cargo, formik.touched.cargo, formik.errors.cargo, formik.getFieldProps)}
+							{/* Opción 1 */}
+							<h5 className="mb-3">Opción 1</h5>
+							{renderSelect('opcion1.general', 'Objetivo General', optionsData.opcion1, isDisabled('opcion1.general'))}
+							{renderSelect('opcion1.especifico', 'Objetivo Específico', optionsData.opcion1, isDisabled('opcion1.especifico'))}
+							{renderSelect('opcion1.actividad', 'Actividad', optionsData.opcion1, isDisabled('opcion1.actividad'))}
 
-							{/* Input fields */}
-							{['otro', 'capacitador'].map(field => (
-								<div className="col-sm-6" key={field}>
-									<label htmlFor={field} className="required form-label">{field.charAt(0).toUpperCase() + field.slice(1)}</label>
-									<input
-										type="text"
-										className={clsx(
-											'form-control',
-											{ 'is-invalid': formik.touched[field] && formik.errors[field] },
-											{ 'is-valid': formik.touched[field] && !formik.errors[field] },
-										)}
-										id={field}
-										{...formik.getFieldProps(field)}
-									/>
-									{formik.touched[field] && formik.errors[field] && (
-										<div className="text-danger small"><span role="alert">{formik.errors[field]}</span></div>
+							{/* Opción 2 */}
+							<h5 className="mb-3">Opción 2</h5>
+							{renderSelect('opcion2', 'Programa Capacitación', optionsData.opcion2, isDisabled('opcion2'))}
+
+							{/* Opción 3 */}
+							<h5 className="mb-3">Opción 3</h5>
+							{renderSelect('opcion3', 'Programa Charla', optionsData.opcion3, isDisabled('opcion3'))}
+
+							{/* Opción 4 - Otros */}
+							<h5 className="mb-3">Opción 4</h5>
+							<div className="col-sm-6">
+								<label htmlFor="otro" className="required form-label">Otros</label>
+								<input
+									type="text"
+									className={clsx(
+										'form-control',
+										{ 'is-invalid': formik.touched.otro && formik.errors.otro },
+										{ 'is-valid': formik.touched.otro && !formik.errors.otro }
 									)}
-								</div>
-							))}
+									id="otro"
+									{...formik.getFieldProps('otro')}
+									onChange={handleSelectChange}
+									disabled={isDisabled('otro')}
+								/>
+								{formik.touched.otro && formik.errors.otro && (
+									<div className="text-danger small"><span role="alert">{formik.errors.otro}</span></div>
+								)}
+							</div>
+
+							{/* Otros campos */}
+							{renderSelect('sede', 'Sede', optionsData.sede, false)}
+							{renderSelect('area', 'Área', optionsData.area, false)}
+							{renderSelect('cargo', 'Cargo', optionsData.cargo, false)}
 
 							<div className="col-sm-6">
 								<label htmlFor="trabajadores" className="required form-label">Trabajadores</label>
@@ -159,6 +177,7 @@ function AsistenciaModal({ item }: any) {
 								/>
 							</div>
 
+							{/* Fecha y Hora */}
 							<div className="col-sm-6">
 								<label htmlFor="fecha" className="required form-label">Fecha</label>
 								<input
@@ -171,9 +190,6 @@ function AsistenciaModal({ item }: any) {
 									id="fecha"
 									{...formik.getFieldProps('fecha')}
 								/>
-								{formik.touched.fecha && formik.errors.fecha && (
-									<div className="text-danger small"><span role="alert">{formik.errors.fecha}</span></div>
-								)}
 							</div>
 
 							<div className="col-sm-6">
@@ -188,9 +204,6 @@ function AsistenciaModal({ item }: any) {
 									id="horaInicio"
 									{...formik.getFieldProps('horaInicio')}
 								/>
-								{formik.touched.horaInicio && formik.errors.horaInicio && (
-									<div className="text-danger small"><span role="alert">{formik.errors.horaInicio}</span></div>
-								)}
 							</div>
 
 							<div className="col-sm-6">
@@ -205,12 +218,9 @@ function AsistenciaModal({ item }: any) {
 									id="horaFinal"
 									{...formik.getFieldProps('horaFinal')}
 								/>
-								{formik.touched.horaFinal && formik.errors.horaFinal && (
-									<div className="text-danger small"><span role="alert">{formik.errors.horaFinal}</span></div>
-								)}
 							</div>
 
-							{/* Submit button */}
+							{/* Botón de enviar */}
 							<div className="col-sm-12">
 								<button type="submit" className="btn btn-primary">Guardar</button>
 							</div>
