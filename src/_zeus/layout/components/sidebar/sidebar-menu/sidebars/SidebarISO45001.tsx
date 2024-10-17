@@ -112,9 +112,9 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 				/>
 
 				<SidebarMenuItem
-					to=""
+					to="/iso45001/asistencia"
 					icon="graph-3"
-					title="Estadisticas SST"
+					title="Asistencia"
 					fontIcon="bi-layers"
 				/>
 
