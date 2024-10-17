@@ -1,10 +1,11 @@
 import { AuthModel } from './api/dtos/AuthModel'
 
+
 export const AUTH_LOCAL_STORAGE_KEY = 'USER_SESSION'
 
 export const getAuth = (): AuthModel | undefined => {
     if (!localStorage) {
-        return
+        return 
     }
 
     const lsValue: string | null = localStorage.getItem(AUTH_LOCAL_STORAGE_KEY)
