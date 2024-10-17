@@ -17,6 +17,7 @@ const estadisticaValidation = Yup.object().shape({
 	horaInicio: Yup.string().required('Hora Inicio requerida'),
 	horaFinal: Yup.string().required('Hora Final requerida'),
 	area: Yup.string().required('Área requerida'),
+	observacion : Yup.string(),
 })
 
 // Opciones para los select
@@ -62,6 +63,7 @@ function AsistenciaModal({ item }: any) {
 			fecha: '',
 			horaInicio: '',
 			horaFinal: '',
+			observacion: '',
 		},
 		onSubmit: (values) => {
 			console.log(values)
@@ -219,6 +221,22 @@ function AsistenciaModal({ item }: any) {
 									id="horaFinal"
 									{...formik.getFieldProps('horaFinal')}
 								/>
+							</div>
+							<div className="col-sm-6">
+								<label htmlFor="observacion" className="required form-label">Observaciones</label>
+								<input
+									type="text"
+									className={clsx(
+										'form-control',
+										{ 'is-invalid': formik.touched.otro && formik.errors.otro },
+										{ 'is-valid': formik.touched.otro && !formik.errors.otro }
+									)}
+									id="observacion"
+									{...formik.getFieldProps('observacion')}
+								/>
+								{formik.touched.observacion && formik.errors.observacion && (
+									<div className="text-danger small"><span role="alert">{formik.errors.observacion}</span></div>
+								)}
 							</div>
 
 							{/* Botón de enviar */}
