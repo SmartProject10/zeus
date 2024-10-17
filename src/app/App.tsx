@@ -7,19 +7,19 @@ import { AuthInit } from '@zeus/@hooks/auth/useAuth.tsx'
 import { ThemeModeProvider } from '../_zeus/partials'
 
 export const App = () => {
-  return (
-    <Suspense
-      fallback={<LayoutSplashScreen />}>
-      <I18nProvider>
-        <LayoutProvider>
-          <ThemeModeProvider>
-            <AuthInit>
-              <Outlet />
-              <MasterInit />
-            </AuthInit>
-          </ThemeModeProvider>
-        </LayoutProvider>
-      </I18nProvider>
-    </Suspense>
-  )
+	return (
+		<Suspense
+			fallback={<LayoutSplashScreen />}>
+			<I18nProvider>
+				<LayoutProvider>
+					<ThemeModeProvider>
+						<AuthInit>
+							<Outlet />
+							<MasterInit />
+						</AuthInit>
+					</ThemeModeProvider>
+				</LayoutProvider>
+			</I18nProvider>
+		</Suspense>
+	)
 }
