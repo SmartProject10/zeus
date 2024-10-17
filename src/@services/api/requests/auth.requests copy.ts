@@ -18,8 +18,8 @@ export const AuthRequests = <TClass extends SConstructor<IService>>(Base: TClass
 			register: (email: string, firstname: string, lastname: string, password: string) => {
 				return this.http.post('/auth/register', {
 					email,
-					firstname: firstname,
-					lastname: lastname,
+					first_name: firstname,
+					last_name: lastname,
 					password,
 				})
 			},
