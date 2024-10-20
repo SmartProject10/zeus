@@ -7,7 +7,7 @@ import { SidebarISO45001 } from './sidebars/SidebarISO45001'
 import { SidebarISO9001 } from './sidebars/SidebarISO9001'
 import { SidebarSGRRHH } from './sidebars/SidebarSGRRHH'
 
-export const SidebarMenu = ({ handleReloadMenu }) => {
+export const SidebarMenu = ({ handleReloadMenu }: any) => {
   const { pathname } = useLocation()
 
   const isISO45001 = useMemo(() => pathname.startsWith('/iso45001'), [pathname])

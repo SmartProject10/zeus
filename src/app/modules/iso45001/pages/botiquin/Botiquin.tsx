@@ -9,7 +9,7 @@ import Swal from 'sweetalert2'
 
 export function Botiquin(): JSX.Element {
     const [dataSource, setDataSource] = useState<BotiquinResponse[]>([])
-    const [newData, setNewData] = useState<object>({})
+    const [newData, setNewData] = useState<any>({})
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const fetchBotiquin = () => {
@@ -37,7 +37,7 @@ export function Botiquin(): JSX.Element {
             confirmButtonText: 'Eliminar',
         }).then((result) => {
             if (result.isConfirmed) {
-                const newArr = dataSource.filter((data, index) => index !== indice)
+                const newArr = dataSource.filter((_, index) => index !== indice)
                 setIsLoading(true)
                 setDataSource(newArr)
             }
