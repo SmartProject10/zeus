@@ -98,7 +98,7 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 				/>
 
 				<SidebarMenuItem
-					to=""
+					to="/iso45001/accidentes-enfermedades-trabajo"
 					icon="graph-3"
 					title="Accidentes/Enfermedades de trabajo"
 					fontIcon="bi-layers"

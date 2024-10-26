@@ -11,6 +11,7 @@ import { ExtintoresPage } from './pages/extintores/extintoresPage'
 import { EmergencyLightsPage } from './pages/registro/luces-de-emergncia/EmergencyLightsPage'
 import { InspectionEmergencyLightsPage } from './pages/registro/inspeccion-luces-de-emergncia/InspectionEmergencyLightsPage'
 import { Asistencia } from './pages/asistencia/Asistencia'
+import { AccidentesEnfermedadesTrabajo } from './pages/accidentes/AccidentesEnfermedadesTrabajo'
 
 const indexIso45001: Array<PageLink> = [
 	{
@@ -138,6 +139,15 @@ export function ISO45001Routes(): JSX.Element {
 			<Route
 				path="compromisos-alta-generencia"
 				element={<CompromisosAltaGenerencia />}
+			/>
+			<Route
+				path="accidentes-enfermedades-trabajo"
+				element={
+					<>
+						<PageTitle breadcrumbs={registrosBreadcrumbs}>Accidentes/Enfermedades de trabajo</PageTitle>
+						<AccidentesEnfermedadesTrabajo />
+					</>
+				}
 			/>
 		</Routes>
 	);
