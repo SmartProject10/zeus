@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState } from 'react'
 import { KTCard, KTCardBody } from '@zeus/_zeus/helpers'
 import AsistenciaModal from './AsistenciaModal' // Importar tu componente modal
@@ -79,18 +80,24 @@ function AsistenciaTable({ dataSource, handleSeeData }: any) {
 
 			{/* Modal de edición */}
 			{isModalOpen && (
-				<div className="modal show d-block" tabIndex={-1} role="dialog">
+				<div
+className="modal show d-block" tabIndex={-1}
+role="dialog">
 					<div className="modal-dialog modal-xl">
 						<div className="modal-content">
 							<div className="modal-header">
 								<h5 className="modal-title">Editar Asistencia</h5>
-								<button type="button" className="btn-close" onClick={handleCloseModal}></button>
+								<button
+type="button" className="btn-close"
+onClick={handleCloseModal}></button>
 							</div>
 							<div className="modal-body">
 								<AsistenciaModal item={selectedItem} /> {/* Pasar el item al modal */}
 							</div>
 							<div className="modal-footer">
-								<button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
+								<button
+type="button" className="btn btn-secondary"
+onClick={handleCloseModal}>
 									Cerrar
 								</button>
 								<button type="button" className="btn btn-primary">

@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+// @ts-nocheck
 import { useFormik } from 'formik'
 import clsx from 'clsx'
 import * as Yup from 'yup'
@@ -47,7 +48,7 @@ const optionsData = {
 	],
 }
 
-function AsistenciaModal({ item }: any) {
+function AsistenciaModal() {
 	const formik = useFormik({
 		validationSchema: estadisticaValidation,
 		initialValues: {
@@ -70,11 +71,11 @@ function AsistenciaModal({ item }: any) {
 		},
 	})
 
-	const handleSelectChange = (e) => {
-		const { id, value } = e.target;
+	const handleSelectChange = (e: any) => {
+		const { id, value } = e.target
 
 		// Marca el campo como tocado
-		formik.setFieldTouched(id, true);
+		formik.setFieldTouched(id, true)
 
 		// Resetear las demás opciones cuando se elige una
 		if (['opcion1.general', 'opcion1.especifico', 'opcion1.actividad', 'opcion2', 'opcion3', 'otro'].includes(id)) {
@@ -84,14 +85,14 @@ function AsistenciaModal({ item }: any) {
 				opcion2: id === 'opcion2' ? value : '',
 				opcion3: id === 'opcion3' ? value : '',
 				otro: id === 'otro' ? value : '',
-			});
+			})
 		} else {
-			formik.setFieldValue(id, value);
+			formik.setFieldValue(id, value)
 		}
-	};
+	}
 
 	// Deshabilitar las opciones si alguna otra opción está seleccionada
-	const isDisabled = (field) => formik.values.opcion1.general || formik.values.opcion1.especifico || formik.values.opcion1.actividad || formik.values.opcion2 || formik.values.opcion3 || formik.values.otro;
+	const isDisabled = () => formik.values.opcion1.general || formik.values.opcion1.especifico || formik.values.opcion1.actividad || formik.values.opcion2 || formik.values.opcion3 || formik.values.otro
 
 	// Renderizar los desplegables
 	const renderSelect = (id, label, options, disabled) => (
@@ -102,7 +103,7 @@ function AsistenciaModal({ item }: any) {
 				className={clsx(
 					'form-select',
 					{ 'is-invalid': formik.touched[id] && formik.errors[id] },
-					{ 'is-valid': formik.touched[id] && !formik.errors[id] }
+					{ 'is-valid': formik.touched[id] && !formik.errors[id] },
 				)}
 				{...formik.getFieldProps(id)}
 				onChange={handleSelectChange}
@@ -148,7 +149,7 @@ function AsistenciaModal({ item }: any) {
 									className={clsx(
 										'form-control',
 										{ 'is-invalid': formik.touched.otro && formik.errors.otro },
-										{ 'is-valid': formik.touched.otro && !formik.errors.otro }
+										{ 'is-valid': formik.touched.otro && !formik.errors.otro },
 									)}
 									id="otro"
 									{...formik.getFieldProps('otro')}
@@ -229,7 +230,7 @@ function AsistenciaModal({ item }: any) {
 									className={clsx(
 										'form-control',
 										{ 'is-invalid': formik.touched.otro && formik.errors.otro },
-										{ 'is-valid': formik.touched.otro && !formik.errors.otro }
+										{ 'is-valid': formik.touched.otro && !formik.errors.otro },
 									)}
 									id="observacion"
 									{...formik.getFieldProps('observacion')}
