@@ -61,7 +61,7 @@ export function Login() {
 			} catch (error) {
 				console.error(error)
 				saveAuth(undefined)
-				setStatus('The login details are incorrect. Error Details: ' + error.response.data.message)
+				setStatus('The login details are incorrect.')
 				setSubmitting(false)
 				setLoading(false)
 			}
