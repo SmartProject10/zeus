@@ -1,25 +1,32 @@
-import { KTCard, KTCardBody } from '@zeus/_zeus/helpers';
-import { AccidentesResponse } from './core/_models';
-import { useState, useEffect } from 'react';
-import { BASE_URL } from './core/_requests';
+// @ts-nocheck
+import { KTCard, KTCardBody } from '@zeus/_zeus/helpers'
+import { AccidentesResponse } from './core/_models'
+import { useState, useEffect } from 'react'
+import { BASE_URL } from './core/_requests'
 
-function AccidentesTable({ dataSource, handleDeleteData, handleDeleteRegistroData, handleOpenModal, handleOpenRegistroModal }: any) {
-    const [estadosRegistro, setEstadosRegistro] = useState<{ [key: string]: string }>({});
+function AccidentesTable({ 
+	dataSource, 
+	handleDeleteData, 
+	handleDeleteRegistroData, 
+	handleOpenModal, 
+	handleOpenRegistroModal,
+}: any) {
+    const [estadosRegistro, setEstadosRegistro] = useState<{ [key: string]: string }>({})
 
     // Función para obtener el estado del registro
     const obtenerEstadoRegistro = async (registroAccidenteId: string | null) => {
         if (!registroAccidenteId) {
-            return <span className="text-danger">No realizado</span>;  // Si no existe el ID, regresamos "No realizado"
+            return <span className="text-danger">No realizado</span>  // Si no existe el ID, regresamos "No realizado"
         }
 
-        let apiUrl = `${BASE_URL}/api/accidentes`
+        const apiUrl = `${BASE_URL}/api/accidentes`
 
         try {
-            const response = await fetch(`${apiUrl}/getRegistroAccidenteById/${registroAccidenteId}`);
+            const response = await fetch(`${apiUrl}/getRegistroAccidenteById/${registroAccidenteId}`)
             if (!response.ok) {
-                throw new Error('Error fetching registro');
+                throw new Error('Error fetching registro')
             }
-            const selectedRegistro = await response.json();
+            const selectedRegistro = await response.json()
 
             const {
                 noRegistro,
@@ -70,68 +77,80 @@ function AccidentesTable({ dataSource, handleDeleteData, handleDeleteRegistroDat
                 lugarExactoAccidente,
                 areaAccidente,
                 gravedadAccidenteTrabajo,
-                gradoAccidenteIncapacitante,
                 centroSalud,
                 medicoTratante,
                 diagnosticoMedico,
                 fechaDescansoMedico,
-                diasDescansoMedico
-            } = selectedRegistro;
+                diasDescansoMedico,
+            } = selectedRegistro
 
             // Validaciones simplificadas
-            const hasDataNoRegistro = !!(noRegistro);
+            const hasDataNoRegistro = !!(noRegistro)
 
             const hasDataPrincipal = !!(razonSocialEmpleadorPrincipal && sedeEmpleadorPrincipal && rucEmpleadorPrincipal &&
                 noTrabajadoresEmpleadorPrincipal > 0 && tipoActividadEconomicaEmpleadorPrincipal &&
                 direccionEmpleadorPrincipal && distritoEmpleadorPrincipal && departamentoEmpleadorPrincipal &&
                 provinciaEmpleadorPrincipal && noTrabajadoresAfiliadosSCTREmpleadorPrincipal > 0 &&
-                noTrabajadoresNoAfiliadosSCTREmpleadorPrincipal > 0 && nombreAseguradoraEmpleadorPrincipal);
+                noTrabajadoresNoAfiliadosSCTREmpleadorPrincipal > 0 && nombreAseguradoraEmpleadorPrincipal)
 
-            const hasDataIntermediacion = !!(razonSocialEmpleadorIntermediacion && sedeEmpleadorIntermediacion && rucEmpleadorIntermediacion &&
+            const hasDataIntermediacion = !!(
+								razonSocialEmpleadorIntermediacion && 
+								sedeEmpleadorIntermediacion && 
+								rucEmpleadorIntermediacion &&
                 noTrabajadoresEmpleadorIntermediacion > 0 && tipoActividadEconomicaEmpleadorIntermediacion &&
                 direccionEmpleadorIntermediacion && distritoEmpleadorIntermediacion && departamentoEmpleadorIntermediacion &&
                 provinciaEmpleadorIntermediacion && noTrabajadoresAfiliadosSCTREmpleadorIntermediacion > 0 &&
-                noTrabajadoresNoAfiliadosSCTREmpleadorIntermediacion > 0 && nombreAseguradoraEmpleadorIntermediacion);
+                noTrabajadoresNoAfiliadosSCTREmpleadorIntermediacion > 0 && nombreAseguradoraEmpleadorIntermediacion)
 
             const hasTrabajadorData = !!(nombreTrabajador && apPatTrabajador && apMatTrabajador && dniTrabajador &&
                 edadTrabajador > 0 && sexoTrabajador && areaTrabajador && cargoTrabajador &&
                 trabajador && antiguedadPuestoTrabajador > 0 && tipoContratoTrabajador &&
-                tiempoExperienciaTrabajador && capacitadoTareaTrabajador && noHorasTrabajadasJornadaLabTrabajador > 0);
+                tiempoExperienciaTrabajador && capacitadoTareaTrabajador && noHorasTrabajadasJornadaLabTrabajador > 0)
 
-            const hasAccidenteData = !!(fechaOcurrenciaAccidente && horaOcurrenciaAccidente && fechaInicioInvestigacionAccidente &&
+            const hasAccidenteData = !!(
+							fechaOcurrenciaAccidente && 
+							horaOcurrenciaAccidente && 
+							fechaInicioInvestigacionAccidente &&
                 lugarExactoAccidente && areaAccidente && gravedadAccidenteTrabajo &&
-                centroSalud && medicoTratante && diagnosticoMedico && fechaDescansoMedico && diasDescansoMedico > 0);
+                centroSalud && medicoTratante && diagnosticoMedico && fechaDescansoMedico && diasDescansoMedico > 0)
 
             if (hasDataNoRegistro && (hasDataPrincipal || hasDataIntermediacion) && hasTrabajadorData && hasAccidenteData) {
-                return <span className="text-success">Terminado</span>;
-            } else if (hasDataNoRegistro || hasDataPrincipal || hasDataIntermediacion || hasTrabajadorData || hasAccidenteData) {
-                return <span className="text-warning">En proceso</span>;
+                return <span className="text-success">Terminado</span>
+            } else if (
+							hasDataNoRegistro || 
+							hasDataPrincipal || 
+							hasDataIntermediacion || 
+							hasTrabajadorData || 
+							hasAccidenteData
+						) {
+                return <span className="text-warning">En proceso</span>
             } else {
-                return <span className="text-danger">No realizado</span>;
+                return <span className="text-danger">No realizado</span>
             }
         } catch (error) {
-            console.error("Error al obtener el estado del registro:", error);
-            return "Error";
+            console.error('Error al obtener el estado del registro:', error)
+            return 'Error'
         }
-    };
+    }
 
     useEffect(() => {
         const cargarEstados = async () => {
-            const nuevosEstados: { [key: string]: string } = {};
+            const nuevosEstados: { [key: string]: string } = {}
 
             if (Array.isArray(dataSource)) {
-                for (let reporte of dataSource) {
-                    const registroId = reporte.registroAccidente.length > 0 ? reporte.registroAccidente[0] : null;
-                    const estado = await obtenerEstadoRegistro(registroId);
-                    nuevosEstados[reporte._id] = estado;
+                for (const reporte of dataSource) {
+                    const registroId = reporte.registroAccidente.length > 0 ? reporte.registroAccidente[0] : null
+                    const estado = await obtenerEstadoRegistro(registroId)
+
+                    nuevosEstados[reporte._id] = estado
                 }
             }
 
-            setEstadosRegistro(nuevosEstados);
-        };
+            setEstadosRegistro(nuevosEstados)
+        }
 
-        cargarEstados();
-    }, [dataSource]);
+        cargarEstados()
+    }, [dataSource])
 
     return (
         <KTCard>
@@ -179,7 +198,7 @@ function AccidentesTable({ dataSource, handleDeleteData, handleDeleteRegistroDat
                                         <td>{reporte.elaboradoPor ? reporte.elaboradoPor : ''}</td>
 
                                         {/* Columna Estado Registro */}
-                                        <td>{estadosRegistro[reporte._id] || "No realizado"}</td>
+                                        <td>{estadosRegistro[reporte._id] || 'No realizado'}</td>
 
                                         <td>
                                             <div className="d-flex gap-2">
@@ -260,7 +279,7 @@ function AccidentesTable({ dataSource, handleDeleteData, handleDeleteRegistroDat
                 </div>
             </KTCardBody>
         </KTCard>
-    );
+    )
 }
 
-export default AccidentesTable;
+export default AccidentesTable

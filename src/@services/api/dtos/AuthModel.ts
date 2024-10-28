@@ -48,8 +48,8 @@ export interface UserAddressModel {
     username: string
     password: string | undefined
     email: string
-    first_name: string
-    last_name: string
+    firstname: string
+    lastname: string
     fullname?: string
     occupation?: string
     companyName?: string
