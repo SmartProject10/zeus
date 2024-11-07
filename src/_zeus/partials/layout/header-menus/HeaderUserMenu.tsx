@@ -84,9 +84,20 @@ const HeaderUserMenu: FC = () => {
 				</Link>
 			</div>
 
+			{!(location.pathname === "/select-company")
+
+				&&
+				<div className='menu-item px-5 my-1'>
+					<Link to={'/select-company'} className='menu-link px-5'>
+						Salir
+					</Link>
+				</div>
+
+			}
+
 			<div className='menu-item px-5'>
 				<a onClick={logout} className='menu-link px-5'>
-					Salir
+					Cerrar Sesión
 				</a>
 			</div>
 		</div>
