@@ -1,8 +1,8 @@
-export interface AccidentesResponse {
+export interface InspeccionResponse {
     _id?: string
     fecha: string
     hora: string
-    area: string
+    inspeccionadoPor: string
     cargo: string
     trabajador: string
     fotoTrabajador: string

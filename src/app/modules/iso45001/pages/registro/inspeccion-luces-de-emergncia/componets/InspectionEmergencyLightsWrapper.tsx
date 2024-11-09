@@ -7,7 +7,7 @@ import { ToolbarWrapper } from "@zeus/_zeus/layout/components/toolbar";
 
 export const InspectionEmergencyLightsWrapper = () => (
 	<Content>
-		{/* <EmergencyLightsButton /> */}
+		<InspectionEmergencyLightsButton />
 		<ToolbarWrapper />
 		<KTCard>
 			<InspectionEmergencyLightsHeader />

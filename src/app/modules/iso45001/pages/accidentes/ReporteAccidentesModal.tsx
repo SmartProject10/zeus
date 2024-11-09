@@ -10,6 +10,7 @@ const initialValues: AccidentesResponse = {
     cargo: '',
     trabajador: '',
     dni: '',
+    name: '',
     descripcion: '',
     imagenes: [],
     fotoTrabajador: '',

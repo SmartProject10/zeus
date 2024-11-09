@@ -22,25 +22,128 @@ import {
 	EmployeeRequest,
 	EmployeeResponse,
 } from "@zeus/app/modules/human-resources/tools/calendar/core/_models";
+import './InspectionEmergencyStyle.scss';
+import { InspeccionResponse } from '../core/_models';
+import CheckboxSwitch from './CheckboxSwitch';
+import ConditionalFields from './ConditionalFields';
 
 interface MyComponentProps {
 	idEmployee: string;
+	onClose: () => void;
 	children?: ReactNode;
 }
+
+//Variable titulo del modal
+const tituloModal = 'Luz de emergencia';
+
+//Variable titulos campos formulario
+const fechaInspeccion = 'Fecha de inspección';
+const inspeccionadoPor = 'Inspeccionado por';
+const sede = 'Sede';
+
+//Variables titulos campos numeral
+const numeral1 = '1. Se encunetra enumerado';
+const numeral2 = '2. Tiene ubicación adecuada';
+const numeral3 = '3. Se encuentra en su lugar';
+const numeral4 = '4. Se encuentra libre de obstáculos';
+const numeral5 = '5. Conectado al tomacorriente';
+const numeral6 = '6. Enciende con el swich de prueba';
+const numeral7 = '7. Tiene buena iluminación';
+const numeral8 = '8. Se encuentra en buen estado';
+const numeral9 = '9. Se mantiene encendida mas de 15 minutos';
+
+//Variables campos adicionales
+const areaResponsable = 'Área responsable';
+const recomendacion = 'Recomendación';
+const observacion = 'Observación';
+
+//Se reutiliza response de accidentes
+const initialValues: InspeccionResponse = {
+	_id: '',
+	fecha: '',
+	hora: '',
+	inspeccionadoPor: '',
+	cargo: '',
+	trabajador: '',
+	dni: '',
+	name: '',
+	descripcion: '',
+	imagenes: [],
+	fotoTrabajador: '',
+	reportadoPor: '',
+	elaboradoPor: '',
+	estadoRegistro: '',
+	registroAccidente: [],
+	createdAt: '',
+	updatedAt: ''
+};
+
+// Opciones fake de áreas, cargos y trabajadores
+const inspeccionadoPorOptions = [
+	{ id: "1", name: 'Gerencia' },
+	{ id: "2", name: 'Seguridad industrial' }
+];
+
+const cargoOptions = [
+	{ id: "1", name: 'Gerente', area: "1" },
+	{ id: "2", name: 'Jefe', area: "2" }
+];
+
+const trabajadorOptions = [
+	{ id: 1, name: 'Juan Pérez', cargo: '1', dni: '12345678', foto: '/man1.jpg' },
+	{ id: 2, name: 'María Gómez', cargo: '2', dni: '87654321', foto: '/woman1.jpg' },
+	{ id: 3, name: 'Carlos Rodriguez', cargo: '2', dni: '11223344', foto: '/man2.jpg' },
+];
 
 export interface EmergencyLightsForm {
 	fechaInspeccion: string;
 	sede: string;
-	area: string;
+	//enumerado
 	enumerado: boolean;
+	areaEnumerado: string;
+	observacionEnumerado: string;
+	recomendacionEnumerado: string;
+	//ubicacionAdecuada
 	ubicacionAdecuada: boolean;
+	areaUbicacionAdecuada: string;
+	observacionUbicacionAdecuada: string;
+	recomendacionUbicacionAdecuada: string;
+	//enSuLugar
 	enSuLugar: boolean;
+	areaEnSuLugar: string;
+	observacionEnSuLugar: string;
+	recomendacionEnSuLugar: string;
+	//libreDeObstaculos
 	libreDeObstaculos: boolean;
+	areaLibreDeObstaculos: string;
+	observacionLibreDeObstaculos: string;
+	recomendacionLibreDeObstaculos: string;
+	//conectadoTomacorriente
 	conectadoTomacorriente: boolean;
+	areaConectadoTomacorriente: string;
+	observacionConectadoTomacorriente: string;
+	recomendacionConectadoTomacorriente: string;
+	//enciendeSwitchPrueba
 	enciendeSwitchPrueba: boolean;
+	areaEnciendeSwitchPrueba: string;
+	observacionEnciendeSwitchPrueba: string;
+	recomendacionEnciendeSwitchPrueba: string;
+	//buenaIluminacion
 	buenaIluminacion: boolean;
+	areaBuenaIluminacion: string;
+	observacionBuenaIluminacion: string;
+	recomendacionBuenaIluminacion: string;
+	//buenaEstado
 	buenaEstado: boolean;
+	areaBuenaEstado: string;
+	observacionBuenaEstado: string;
+	recomendacionBuenaEstado: string;
+	//encendidoQuinceMin
 	encendidoQuinceMin: boolean;
+	areaEncendidoQuinceMin: string;
+	observacionEncendidoQuinceMin: string;
+	recomendacionEncendidoQuinceMin: string;
+
 	observacion: string;
 	recomendacion: string;
 	foto: string;
@@ -51,21 +154,69 @@ export interface EmergencyLightsForm {
 // eslint-disable-next-line react/prop-types, @typescript-eslint/no-unused-vars
 export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 	idEmployee,
+	onClose,
 	children,
 }) => {
+
+
+	const [formData, setFormData] = useState(
+		initialValues
+	);
+
+	// Filtrar cargos según el área seleccionada
+	const filteredCargos = cargoOptions.filter((cargo) => cargo.area === formData.inspeccionadoPor);
+	// Filtrar trabajadores según el cargo seleccionado
+	const filteredTrabajadores = trabajadorOptions.filter((trabajador) => trabajador.cargo === formData.cargo);
+
 	const [form, setForm] = useState<EmergencyLightsForm>({
 		fechaInspeccion: "",
 		sede: "",
-		area: "",
+		//Enumerado
 		enumerado: false,
+		areaEnumerado: "",
+		observacionEnumerado: "",
+		recomendacionEnumerado: "",
+		//UbicacionAdecuada
 		ubicacionAdecuada: false,
+		areaUbicacionAdecuada: "",
+		observacionUbicacionAdecuada: "",
+		recomendacionUbicacionAdecuada: "",
+		//EnSuLugar
 		enSuLugar: false,
+		areaEnSuLugar: "",
+		observacionEnSuLugar: "",
+		recomendacionEnSuLugar: "",
+		//LibreDeObstaculos
 		libreDeObstaculos: false,
+		areaLibreDeObstaculos: "",
+		observacionLibreDeObstaculos: "",
+		recomendacionLibreDeObstaculos: "",
+		//ConectadoTomacorriente
 		conectadoTomacorriente: false,
+		areaConectadoTomacorriente: "",
+		observacionConectadoTomacorriente: "",
+		recomendacionConectadoTomacorriente: "",
+		//EnciendeSwitchPrueba
 		enciendeSwitchPrueba: false,
+		areaEnciendeSwitchPrueba: "",
+		observacionEnciendeSwitchPrueba: "",
+		recomendacionEnciendeSwitchPrueba: "",
+		//BuenaIluminacion
 		buenaIluminacion: false,
+		areaBuenaIluminacion: "",
+		observacionBuenaIluminacion: "",
+		recomendacionBuenaIluminacion: "",
+		//BuenaEstado
 		buenaEstado: false,
+		areaBuenaEstado: "",
+		observacionBuenaEstado: "",
+		recomendacionBuenaEstado: "",
+		//EncendidoQuinceMin
 		encendidoQuinceMin: false,
+		areaEncendidoQuinceMin: "",
+		observacionEncendidoQuinceMin: "",
+		recomendacionEncendidoQuinceMin: "",
+
 		observacion: "",
 		recomendacion: "",
 		foto: "",
@@ -77,7 +228,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 		const initEmployee = async () => {
 			try {
 				const response = await getEmergencyLightById(idEmployee);
-
+				setFormData({ ...initialValues, _id: undefined });
 				if (response.status == 200) {
 					const employee: EmergencyLightsResponse = response.data;
 
@@ -99,12 +250,62 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 		initEmployee();
 	}, []);
 
-	const handleChange = (event: any) => {
+	const handleFieldChange = (field: string, value: any) => {
+		setFormData({
+			...formData,
+			[field]: value,
+		});
+	};
+
+	const handleSwitchChange = (fieldName: string, checked: boolean) => {
+		setForm({
+			...form,
+			[fieldName]: checked, // Actualiza solo el campo especificado
+		});
+	};
+
+
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
 		const { name, value } = event.target;
 		setForm({
 			...form,
 			[name]: value,
 		});
+		setFormData({ ...formData, [name]: value });
+
+		// Manejo de selects en cascada
+		if (name === 'inspeccionadoPor') {
+			setFormData({ ...formData, inspeccionadoPor: value, cargo: '', trabajador: '', name: '' });
+		}
+
+		if (name === 'cargo') {
+			setFormData({ ...formData, cargo: value, trabajador: '' });
+		}
+
+		// Manejo de trabajador seleccionado
+		if (name === 'trabajador') {
+			const trabajador = trabajadorOptions.find(t => t.id.toString() === value);
+			setFormData({ ...formData, trabajador: value, name: trabajador?.name || '' });
+		}
+
+		// Manejo del campo name seleccionado
+		if (name === 'name') {
+			const trabajador = trabajadorOptions.find(t => t.name === value);
+			if (trabajador) {
+				const cargo = cargoOptions.find(c => c.id.toString() === trabajador.cargo);
+				const area = inspeccionadoPorOptions.find(a => a.id === cargo?.area);
+
+				setFormData({
+					...formData,
+					name: value,
+					inspeccionadoPor: area?.id || '',
+					cargo: cargo?.id || '',
+					trabajador: trabajador.id.toString(),
+				});
+			} else {
+				setFormData({ ...formData, name: value, inspeccionadoPor: '', cargo: '', trabajador: '' });
+			}
+		}
 	};
 
 	function deleteEmployee(id: string) {
@@ -158,7 +359,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 		if (
 			!form.fechaInspeccion ||
 			!form.sede ||
-			!form.area ||
+			!form.areaEnumerado ||
 			!form.enumerado ||
 			!form.buenaEstado ||
 			!form.buenaIluminacion ||
@@ -244,10 +445,6 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 		});
 	}
 
-	function closeModal() {
-		appStateService.setActiveModalSubject();
-	}
-
 	return (
 		<div
 			className="modal fade show"
@@ -264,144 +461,215 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 		>
 			<div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
 				<div className="modal-content">
+					{/* Titulo modal */}
 					<div className="modal-header">
 						<h1 className="modal-title fs-5" id="staticBackdropLabel">
-							Luz de emergencia
+							{tituloModal}
 						</h1>
 						<button
 							type="button"
-							onClick={closeModal}
+							onClick={onClose}
 							className="btn-close"
 						></button>
 					</div>
+					{/* Formulario */}
 					<div className="modal-body">
-						<div className="card">
-							<div className="card-body">
-								<form className="row g-6">
-									<div className="col-12">
-										<div className="row g-3 align-items-start justify-content-evenly mt-2">
-											<div className="col-6">
-												<label
-													htmlFor="fechaIngresoInput"
-													className="required col-form-label"
-												>
-													1. Fecha de inspección
-												</label>
-											</div>
-											<div className="col-6">
-												<input
-													type="date"
-													id="fechaIngresoInput"
-													name="fechaIngreso"
-													value={form.fechaInspeccion}
+						<form className="row g-6">
+							<div className="col-12 sombreado-fondo">
+								<div className="d-flex row">
+									<div className="col-6 p-1">
+										<label htmlFor="sedeInput" className="form-label required">
+											{sede}
+										</label>
+										<select
+											className="form-select select-sm"
+											id="sedeInput"
+											name="sede"
+											value={form.sede}
+											onChange={handleChange}
+											aria-label="Default select example"
+										>
+											<option value="">Seleccione</option>
+											<option value="Sede 1">Sede 1</option>
+											<option value="Sede 2">Sede 2</option>
+										</select>
+									</div>
+									<div className="col-6 p-1">
+										<label htmlFor="fechaInspeccionInput" className="form-label required">
+											{fechaInspeccion}
+										</label>
+										<input
+											type="date"
+											id="fechaInspeccionInput"
+											name="fechaInspeccion"
+											value={form.fechaInspeccion}
+											onChange={handleChange}
+											className="form-control input-sm"
+										/>
+									</div>
+								</div>
+								{/* Select cascada */}
+								<div className="col-12 mt-4">
+									<div className="row">
+										<div className="col-6 p-1">
+											<label className="required form-label">{inspeccionadoPor}</label>
+											<select
+												name="inspeccionadoPor"
+												className="form-select"
+												value={formData.inspeccionadoPor}
+												onChange={handleChange}
+											>
+												<option value="">Seleccione</option>
+												{inspeccionadoPorOptions.map((inspeccionadoPor) => (
+													<option key={inspeccionadoPor.id} value={inspeccionadoPor.id}>{inspeccionadoPor.name}</option>
+												))}
+											</select>
+										</div>
+										{formData.inspeccionadoPor && (
+											<div className="col-6 p-1 mt-2">
+												<label className="form-label">{/*Cargo*/}</label>
+												<select
+													name="cargo"
+													className="form-select"
+													value={formData.cargo}
 													onChange={handleChange}
-													className="form-control input-sm"
+												>
+													<option value="">Seleccione</option>
+													{filteredCargos.map((cargo) => (
+														<option key={cargo.id} value={cargo.id}>{cargo.name}</option>
+													))}
+												</select>
+											</div>
+										)}
+									</div>
+								</div>
+								<div className="col-12">
+									<div className="row">
+										{formData.cargo && (
+											<div className="col-6 p-1">
+												<label className="form-label">{/*Trabajador*/}</label>
+												<select
+													name="trabajador"
+													className="form-select"
+													value={formData.trabajador}
+													onChange={handleChange}
+												>
+													<option value="">Seleccione</option>
+													{filteredTrabajadores.map((trabajador) => (
+														<option key={trabajador.id} value={trabajador.id.toString()}>{trabajador.name}</option>
+													))}
+												</select>
+											</div>
+										)}
+									</div>
+								</div>
+							</div>
+
+							{/* Card select numéricos */}
+							<div className="card">
+								<div className="card-body">
+									{/* Enumerado */}
+									<div className="col-12 row">
+										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+											<div className="col-4">
+												<label htmlFor="" className="col-form-label">{numeral1}</label>
+											</div>
+											<div className="col-2">
+												<CheckboxSwitch
+													label="Enumerado"
+													checked={form.enumerado}
+													onChange={(checked) => handleSwitchChange('enumerado', checked)}
 												/>
 											</div>
-										</div>
-
-										<div className="row g-3 align-items-start justify-content-evenly mt-2">
 											<div className="col-6">
-												<label
-													htmlFor="areaInput"
-													className="required col-form-label"
-												>
-													2. Área
-												</label>
-											</div>
-											<div className="col-6">
-												<select
-													className="form-select select-sm"
-													id="areaInput"
-													name="area"
-													value={form.area}
-													onChange={handleChange}
-													aria-label="Default select example"
-												>
-													<option value="">Seleccione</option>
-													<option value="Área 1">Área 1</option>
-													<option value="Área 2">Área 2</option>
-												</select>
-											</div>
-										</div>
-
-										<div className="row g-3 align-items-start justify-content-evenly mt-2">
-											<div className="col-6">
-												<label
-													htmlFor="sedeInput"
-													className="required col-form-label"
-												>
-													3. Sede
-												</label>
-											</div>
-											<div className="col-6">
-												<select
-													className="form-select select-sm"
-													id="sedeInput"
-													name="sede"
-													value={form.sede}
-													onChange={handleChange}
-													aria-label="Default select example"
-												>
-													<option value="">Seleccione</option>
-													<option value="Sede 1">Sede 1</option>
-													<option value="Sede 2">Sede 2</option>
-												</select>
+												<ConditionalFields visible={!form.enumerado}>
+													<div className="row g-3 align-items-start justify-content-evenly">
+														<div className="col-4">
+															<label htmlFor="areaEnumeradoInput" className="required col-form-label">
+																{areaResponsable}
+															</label>
+														</div>
+														<div className="col-8">
+															<select
+																className="form-select select-sm"
+																id="areaEnumeradoInput"
+																name="areaEnumerado"
+																value={form.areaEnumerado}
+																onChange={handleChange}
+															>
+																<option value="">Seleccione</option>
+																<option value="Área 1">Área 1</option>
+																<option value="Área 2">Área 2</option>
+															</select>
+														</div>
+													</div>
+												</ConditionalFields>
 											</div>
 										</div>
+										<ConditionalFields visible={form.enumerado === false && form.areaEnumerado !== ''}>
+											<div className="row g-3 align-items-start justify-content-evenly mt-2">
+												<div className="col-6">
+													<label htmlFor="observacionEnumeradoInput" className="required col-form-label">
+														{observacion}
+													</label>
+													<textarea
+														id="observacionEnumeradoInput"
+														name="observacionEnumerado"
+														value={form.observacionEnumerado}
+														onChange={handleChange}
+														placeholder="Observación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
+												</div>
+												<div className="col-6">
+													<label htmlFor="recomendacionEnumeradoInput" className="required col-form-label">
+														{recomendacion}
+													</label>
+													<textarea
+														id="recomendacionEnumeradoInput"
+														name="recomendacionEnumerado"
+														value={form.recomendacionEnumerado}
+														onChange={handleChange}
+														placeholder="Recomendación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
+												</div>
+											</div>
+										</ConditionalFields>
 									</div>
 
+									{/* UbicacionAdecuada */}
 									<div className="col-12 row">
-										<div className="col-md-6 col-12">
-											<div className="row g-3 align-items-center justify-content-evenly mt-2">
-												<div className="col-6">
-													<label htmlFor="" className="col-form-label">
-														4. Se encunetra enumerado
-													</label>
-												</div>
-												<div className="col-6">
-													<div className="form-check form-switch form-check-custom form-check-solid">
-														<input
-															className="form-check-input h-20px w-30px"
-															type="checkbox"
-															value=""
-															id="statusSwitch1"
-															onChange={(e: any) =>
-																setForm({
-																	...form,
-																	enumerado: e.target.checked,
-																})
-															}
-															checked={form.enumerado}
-														/>
-														<label
-															className="form-label-sm ms-2"
-															htmlFor="statusSwitch1"
-														>
-															{form.enumerado ? "Si" : "No"}
-														</label>
-													</div>
-												</div>
+										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+											<div className="col-4">
+												<label htmlFor="" className="col-form-label"> {numeral2} </label>
 											</div>
-											{!form.enumerado && (
-												<>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="areaInput"
-																className="required col-form-label"
-															>
-																Área responsable
+											<div className="col-2">
+												<CheckboxSwitch
+													label="Ubicación adecuada"
+													checked={form.ubicacionAdecuada}
+													onChange={(checked) => handleSwitchChange('ubicacionAdecuada', checked)}
+												/>
+											</div>
+											<div className="col-6">
+												<ConditionalFields visible={!form.ubicacionAdecuada}>
+													<div className="row g-3 align-items-start justify-content-evenly">
+														<div className="col-4">
+															<label htmlFor="areaUbicacionAdecuadaInput" className="required col-form-label">
+																{areaResponsable}
 															</label>
 														</div>
-														<div className="col-6">
+														<div className="col-8">
 															<select
 																className="form-select select-sm"
-																id="areaInput"
-																name="area"
-																value={""}
+																id="areaUbicacionAdecuadaInput"
+																name="areaUbicacionAdecuada"
+																value={form.areaUbicacionAdecuada}
 																onChange={handleChange}
-																aria-label="Default select example"
 															>
 																<option value="">Seleccione</option>
 																<option value="Área 1">Área 1</option>
@@ -409,206 +677,73 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 															</select>
 														</div>
 													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="observacionInput"
-																className="required col-form-label"
-															>
-																Observación
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="observacionInput"
-																name="observacion"
-																value={form.observacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="recomendacionInput"
-																className="required col-form-label"
-															>
-																recomendacion
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="recomendacionInput"
-																name="recomendacion"
-																value={form.recomendacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-												</>
-											)}
+												</ConditionalFields>
+											</div>
 										</div>
-										<div className="col-md-6 col-12">
-											<div className="row g-3 align-items-center justify-content-evenly mt-2">
+										<ConditionalFields visible={form.ubicacionAdecuada === false && form.areaUbicacionAdecuada !== ''}>
+											<div className="row g-3 align-items-start justify-content-evenly mt-2">
 												<div className="col-6">
-													<label htmlFor="" className="col-form-label">
-														5. Tiene ubicación adecuada
+													<label htmlFor="observacionUbicacionAdecuadaInput" className="required col-form-label">
+														{observacion}
 													</label>
+													<textarea
+														id="observacionUbicacionAdecuadaInput"
+														name="observacionUbicacionAdecuada"
+														value={form.observacionUbicacionAdecuada}
+														onChange={handleChange}
+														placeholder="Ubicación específica"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
 												</div>
 												<div className="col-6">
-													<div className="form-check form-switch form-check-custom form-check-solid">
-														<input
-															className="form-check-input h-20px w-30px"
-															type="checkbox"
-															value=""
-															id="statusSwitch2"
-															onChange={(e: any) =>
-																setForm({
-																	...form,
-																	ubicacionAdecuada: e.target.checked,
-																})
-															}
-															checked={form.ubicacionAdecuada}
-														/>
-														<label
-															className="form-label-sm ms-2"
-															htmlFor="statusSwitch2"
-														>
-															{form.ubicacionAdecuada ? "Si" : "No"}
-														</label>
-													</div>
+													<label htmlFor="recomendacionUbicacionAdecuadaInput" className="required col-form-label">
+														{recomendacion}
+													</label>
+													<textarea
+														id="recomendacionUbicacionAdecuadaInput"
+														name="recomendacionUbicacionAdecuada"
+														value={form.recomendacionUbicacionAdecuada}
+														onChange={handleChange}
+														placeholder="Ubicación específica"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
 												</div>
 											</div>
-											{!form.ubicacionAdecuada && (
-												<>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="areaInput"
-																className="required col-form-label"
-															>
-																Área responsable
-															</label>
-														</div>
-														<div className="col-6">
-															<select
-																className="form-select select-sm"
-																id="areaInput"
-																name="area"
-																value={""}
-																onChange={handleChange}
-																aria-label="Default select example"
-															>
-																<option value="">Seleccione</option>
-																<option value="Área 1">Área 1</option>
-																<option value="Área 2">Área 2</option>
-															</select>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="observacionInput"
-																className="required col-form-label"
-															>
-																Observación
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="observacionInput"
-																name="observacion"
-																value={form.observacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="recomendacionInput"
-																className="required col-form-label"
-															>
-																recomendacion
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="recomendacionInput"
-																name="recomendacion"
-																value={form.recomendacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-												</>
-											)}
-										</div>
+										</ConditionalFields>
 									</div>
 
+									{/* EnSuLugar */}
 									<div className="col-12 row">
-										<div className="col-md-6 col-12">
-											<div className="row g-3 align-items-center justify-content-evenly mt-2">
-												<div className="col-6">
-													<label htmlFor="" className="col-form-label">
-														6. Se encuentra en su lugar
-													</label>
-												</div>
-												<div className="col-6">
-													<div className="form-check form-switch form-check-custom form-check-solid">
-														<input
-															className="form-check-input h-20px w-30px"
-															type="checkbox"
-															value=""
-															id="statusSwitch3"
-															onChange={(e: any) =>
-																setForm({
-																	...form,
-																	enSuLugar: e.target.checked,
-																})
-															}
-															checked={form.enSuLugar}
-														/>
-														<label
-															className="form-label-sm ms-2"
-															htmlFor="statusSwitch3"
-														>
-															{form.enSuLugar ? "Si" : "No"}
-														</label>
-													</div>
-												</div>
+										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+											<div className="col-4">
+												<label htmlFor="" className="col-form-label"> {numeral3} </label>
 											</div>
-											{!form.enSuLugar && (
-												<>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="areaInput"
-																className="required col-form-label"
-															>
-																Área responsable
+											<div className="col-2">
+												<CheckboxSwitch
+													label="En su lugar"
+													checked={form.enSuLugar}
+													onChange={(checked) => handleSwitchChange('enSuLugar', checked)}
+												/>
+											</div>
+											<div className="col-6">
+												<ConditionalFields visible={!form.enSuLugar}>
+													<div className="row g-3 align-items-start justify-content-evenly">
+														<div className="col-4">
+															<label htmlFor="areaEnSuLugarInput" className="required col-form-label">
+																{areaResponsable}
 															</label>
 														</div>
-														<div className="col-6">
+														<div className="col-8">
 															<select
 																className="form-select select-sm"
-																id="areaInput"
-																name="area"
-																value={""}
+																id="areaEnSuLugarInput"
+																name="areaEnSuLugar"
+																value={form.areaEnSuLugar}
 																onChange={handleChange}
-																aria-label="Default select example"
 															>
 																<option value="">Seleccione</option>
 																<option value="Área 1">Área 1</option>
@@ -616,227 +751,73 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 															</select>
 														</div>
 													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="observacionInput"
-																className="required col-form-label"
-															>
-																Observación
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="observacionInput"
-																name="observacion"
-																value={form.observacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="recomendacionInput"
-																className="required col-form-label"
-															>
-																recomendacion
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="recomendacionInput"
-																name="recomendacion"
-																value={form.recomendacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-												</>
-											)}
+												</ConditionalFields>
+											</div>
 										</div>
-										<div className="col-md-6 col-12">
-											<div className="row g-3 align-items-center justify-content-evenly mt-2">
+										<ConditionalFields visible={form.enSuLugar === false && form.areaEnSuLugar !== ''}>
+											<div className="row g-3 align-items-start justify-content-evenly mt-2">
 												<div className="col-6">
-													<label htmlFor="" className="col-form-label">
-														7. Se encuentra libre de obstáculos
+													<label htmlFor="observacionEnSuLugarInput" className="required col-form-label">
+														{observacion}
 													</label>
+													<textarea
+														id="observacionEnSuLugarInput"
+														name="observacionEnSuLugar"
+														value={form.observacionEnSuLugar}
+														onChange={handleChange}
+														placeholder="Observación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
 												</div>
 												<div className="col-6">
-													<div className="form-check form-switch form-check-custom form-check-solid">
-														<input
-															className="form-check-input h-20px w-30px"
-															type="checkbox"
-															value=""
-															id="statusSwitch4"
-															onChange={(e: any) =>
-																setForm({
-																	...form,
-																	libreDeObstaculos: e.target.checked,
-																})
-															}
-															checked={form.libreDeObstaculos}
-														/>
-														<label
-															className="form-label-sm ms-2"
-															htmlFor="statusSwitch4"
-														>
-															{form.libreDeObstaculos ? "Si" : "No"}
-														</label>
-													</div>
+													<label htmlFor="recomendacionEnSuLugarInput" className="required col-form-label">
+														{recomendacion}
+													</label>
+													<textarea
+														id="recomendacionEnSuLugarInput"
+														name="recomendacionEnSuLugar"
+														value={form.recomendacionEnSuLugar}
+														onChange={handleChange}
+														placeholder="Recomendación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
 												</div>
 											</div>
-											{!form.libreDeObstaculos && (
-												<>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="areaInput"
-																className="required col-form-label"
-															>
-																Área responsable
-															</label>
-														</div>
-														<div className="col-6">
-															<select
-																className="form-select select-sm"
-																id="areaInput"
-																name="area"
-																value={""}
-																onChange={handleChange}
-																aria-label="Default select example"
-															>
-																<option value="">Seleccione</option>
-																<option value="Área 1">Área 1</option>
-																<option value="Área 2">Área 2</option>
-															</select>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="observacionInput"
-																className="required col-form-label"
-															>
-																Observación
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="observacionInput"
-																name="observacion"
-																value={form.observacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="recomendacionInput"
-																className="required col-form-label"
-															>
-																recomendacion
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="recomendacionInput"
-																name="recomendacion"
-																value={form.recomendacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="fotoInput"
-																className="required col-form-label"
-															>
-																Foto
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="file"
-																id="fotoInput"
-																name="foto"
-																value={form.foto}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-												</>
-											)}
-										</div>
+										</ConditionalFields>
 									</div>
 
+									{/* LibreDeObstaculos */}
 									<div className="col-12 row">
-										<div className="col-md-6 col-12">
-											<div className="row g-3 align-items-center justify-content-evenly mt-2">
-												<div className="col-6">
-													<label htmlFor="" className="col-form-label">
-														8. Conectado al tomacorriente
-													</label>
-												</div>
-												<div className="col-6">
-													<div className="form-check form-switch form-check-custom form-check-solid">
-														<input
-															className="form-check-input h-20px w-30px"
-															type="checkbox"
-															value=""
-															id="statusSwitch5"
-															onChange={(e: any) =>
-																setForm({
-																	...form,
-																	conectadoTomacorriente: e.target.checked,
-																})
-															}
-															checked={form.conectadoTomacorriente}
-														/>
-														<label
-															className="form-label-sm ms-2"
-															htmlFor="statusSwitch5"
-														>
-															{form.conectadoTomacorriente ? "Si" : "No"}
-														</label>
-													</div>
-												</div>
+										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+											<div className="col-4">
+												<label htmlFor="" className="col-form-label"> {numeral4} </label>
 											</div>
-											{!form.conectadoTomacorriente && (
-												<>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="areaInput"
-																className="required col-form-label"
-															>
-																Área responsable
+											<div className="col-2">
+												<CheckboxSwitch
+													label="Libre de obstaculos"
+													checked={form.libreDeObstaculos}
+													onChange={(checked) => handleSwitchChange('libreDeObstaculos', checked)}
+												/>
+											</div>
+											<div className="col-6">
+												<ConditionalFields visible={!form.libreDeObstaculos}>
+													<div className="row g-3 align-items-start justify-content-evenly">
+														<div className="col-4">
+															<label htmlFor="areaLibreDeObstaculos" className="required col-form-label">
+																{areaResponsable}
 															</label>
 														</div>
-														<div className="col-6">
+														<div className="col-8">
 															<select
 																className="form-select select-sm"
-																id="areaInput"
-																name="area"
-																value={""}
+																id="areaLibreDeObstaculosInput"
+																name="areaLibreDeObstaculos"
+																value={form.areaLibreDeObstaculos}
 																onChange={handleChange}
-																aria-label="Default select example"
 															>
 																<option value="">Seleccione</option>
 																<option value="Área 1">Área 1</option>
@@ -844,205 +825,94 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 															</select>
 														</div>
 													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="observacionInput"
-																className="required col-form-label"
-															>
-																Observación
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="observacionInput"
-																name="observacion"
-																value={form.observacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="recomendacionInput"
-																className="required col-form-label"
-															>
-																recomendacion
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="recomendacionInput"
-																name="recomendacion"
-																value={form.recomendacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-												</>
-											)}
+												</ConditionalFields>
+											</div>
 										</div>
-										<div className="col-md-6 col-12">
-											<div className="row g-3 align-items-center justify-content-evenly mt-2">
+										<ConditionalFields visible={form.libreDeObstaculos === false && form.areaLibreDeObstaculos !== ''}>
+											<div className="row g-3 align-items-start justify-content-evenly mt-2">
 												<div className="col-6">
-													<label htmlFor="" className="col-form-label">
-														9. Enciende con el swich de prueba
+													<label htmlFor="observacionLibreDeObstaculosInput" className="required col-form-label">
+														{observacion}
 													</label>
+													<textarea
+														id="observacionLibreDeObstaculosInput"
+														name="observacionLibreDeObstaculos"
+														value={form.observacionLibreDeObstaculos}
+														onChange={handleChange}
+														placeholder="Observación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
 												</div>
 												<div className="col-6">
-													<div className="form-check form-switch form-check-custom form-check-solid">
-														<input
-															className="form-check-input h-20px w-30px"
-															type="checkbox"
-															value=""
-															id="statusSwitch6"
-															onChange={(e: any) =>
-																setForm({
-																	...form,
-																	enciendeSwitchPrueba: e.target.checked,
-																})
-															}
-															checked={form.enciendeSwitchPrueba}
-														/>
+													<label htmlFor="recomendacionLibreDeObstaculosInput" className="required col-form-label">
+														{recomendacion}
+													</label>
+													<textarea
+														id="recomendacionLibreDeObstaculosInput"
+														name="recomendacionLibreDeObstaculos"
+														value={form.recomendacionLibreDeObstaculos}
+														onChange={handleChange}
+														placeholder="Recomendación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
+												</div>
+												<div className="row g-3 align-items-start justify-content-evenly mt-2">
+													<div className="col-6">
 														<label
-															className="form-label-sm ms-2"
-															htmlFor="statusSwitch6"
+															htmlFor="fotoInput"
+															className="required col-form-label"
 														>
-															{form.enciendeSwitchPrueba ? "Si" : "No"}
+															Foto
 														</label>
+													</div>
+													<div className="col-6">
+														<input
+															type="file"
+															id="fotoInput"
+															name="foto"
+															value={form.foto}
+															onChange={handleChange}
+															placeholder="Ubicación especifica"
+															className="form-control input-sm"
+														/>
 													</div>
 												</div>
 											</div>
-											{!form.enciendeSwitchPrueba && (
-												<>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="areaInput"
-																className="required col-form-label"
-															>
-																Área responsable
-															</label>
-														</div>
-														<div className="col-6">
-															<select
-																className="form-select select-sm"
-																id="areaInput"
-																name="area"
-																value={""}
-																onChange={handleChange}
-																aria-label="Default select example"
-															>
-																<option value="">Seleccione</option>
-																<option value="Área 1">Área 1</option>
-																<option value="Área 2">Área 2</option>
-															</select>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="observacionInput"
-																className="required col-form-label"
-															>
-																Observación
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="observacionInput"
-																name="observacion"
-																value={form.observacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="recomendacionInput"
-																className="required col-form-label"
-															>
-																recomendacion
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="recomendacionInput"
-																name="recomendacion"
-																value={form.recomendacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-												</>
-											)}
-										</div>
+										</ConditionalFields>
 									</div>
+
+									{/* ConectadoTomacorriente */}
 									<div className="col-12 row">
-										<div className="col-md-6 col-12">
-											<div className="row g-3 align-items-center justify-content-evenly mt-2">
-												<div className="col-6">
-													<label htmlFor="" className="col-form-label">
-														10. Tiene buena iluminación
-													</label>
-												</div>
-												<div className="col-6">
-													<div className="form-check form-switch form-check-custom form-check-solid">
-														<input
-															className="form-check-input h-20px w-30px"
-															type="checkbox"
-															value=""
-															id="statusSwitch7"
-															onChange={(e: any) =>
-																setForm({
-																	...form,
-																	buenaIluminacion: e.target.checked,
-																})
-															}
-															checked={form.buenaIluminacion}
-														/>
-														<label
-															className="form-label-sm ms-2"
-															htmlFor="statusSwitch7"
-														>
-															{form.buenaIluminacion ? "Si" : "No"}
-														</label>
-													</div>
-												</div>
+										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+											<div className="col-4">
+												<label htmlFor="" className="col-form-label"> {numeral5} </label>
 											</div>
-											{!form.buenaIluminacion && (
-												<>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="areaInput"
-																className="required col-form-label"
-															>
-																Área responsable
+											<div className="col-2">
+												<CheckboxSwitch
+													label="Conectado a toma corriente"
+													checked={form.conectadoTomacorriente}
+													onChange={(checked) => handleSwitchChange('conectadoTomacorriente', checked)}
+												/>
+											</div>
+											<div className="col-6">
+												<ConditionalFields visible={!form.conectadoTomacorriente}>
+													<div className="row g-3 align-items-start justify-content-evenly">
+														<div className="col-4">
+															<label htmlFor="areaConectadoTomacorriente" className="required col-form-label">
+																{areaResponsable}
 															</label>
 														</div>
-														<div className="col-6">
+														<div className="col-8">
 															<select
 																className="form-select select-sm"
-																id="areaInput"
-																name="area"
-																value={""}
+																id="areaConectadoTomacorrienteInput"
+																name="areaConectadoTomacorriente"
+																value={form.areaConectadoTomacorriente}
 																onChange={handleChange}
-																aria-label="Default select example"
 															>
 																<option value="">Seleccione</option>
 																<option value="Área 1">Área 1</option>
@@ -1050,101 +920,73 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 															</select>
 														</div>
 													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="observacionInput"
-																className="required col-form-label"
-															>
-																Observación
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="observacionInput"
-																name="observacion"
-																value={form.observacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="recomendacionInput"
-																className="required col-form-label"
-															>
-																recomendacion
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="recomendacionInput"
-																name="recomendacion"
-																value={form.recomendacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-												</>
-											)}
+												</ConditionalFields>
+											</div>
 										</div>
-										<div className="col-md-6 col-12">
-											<div className="row g-3 align-items-center justify-content-evenly mt-2">
+										<ConditionalFields visible={form.conectadoTomacorriente === false && form.areaConectadoTomacorriente !== ''}>
+											<div className="row g-3 align-items-start justify-content-evenly mt-2">
 												<div className="col-6">
-													<label htmlFor="" className="col-form-label">
-														11. Se encuentra en buen estado
+													<label htmlFor="observacionConectadoTomacorrienteInput" className="required col-form-label">
+														{observacion}
 													</label>
+													<textarea
+														id="observacionConectadoTomacorrienteInput"
+														name="observacionConectadoTomacorriente"
+														value={form.observacionConectadoTomacorriente}
+														onChange={handleChange}
+														placeholder="Observación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
 												</div>
 												<div className="col-6">
-													<div className="form-check form-switch form-check-custom form-check-solid">
-														<input
-															className="form-check-input h-20px w-30px"
-															type="checkbox"
-															value=""
-															id="statusSwitch8"
-															onChange={(e: any) =>
-																setForm({
-																	...form,
-																	buenaEstado: e.target.checked,
-																})
-															}
-															checked={form.buenaEstado}
-														/>
-														<label
-															className="form-label-sm ms-2"
-															htmlFor="statusSwitch8"
-														>
-															{form.buenaEstado ? "Si" : "No"}
-														</label>
-													</div>
+													<label htmlFor="recomendacionConectadoTomacorrienteInput" className="required col-form-label">
+														{recomendacion}
+													</label>
+													<textarea
+														id="recomendacionConectadoTomacorrienteInput"
+														name="recomendacionConectadoTomacorriente"
+														value={form.recomendacionConectadoTomacorriente}
+														onChange={handleChange}
+														placeholder="Recomendación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
 												</div>
 											</div>
-											{!form.buenaEstado && (
-												<>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="areaInput"
-																className="required col-form-label"
-															>
-																Área responsable
+										</ConditionalFields>
+									</div>
+
+									{/* EnciendeSwitchPrueba */}
+									<div className="col-12 row">
+										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+											<div className="col-4">
+												<label htmlFor="" className="col-form-label"> {numeral6} </label>
+											</div>
+											<div className="col-2">
+												<CheckboxSwitch
+													label="Enciende switch prueba"
+													checked={form.enciendeSwitchPrueba}
+													onChange={(checked) => handleSwitchChange('enciendeSwitchPrueba', checked)}
+												/>
+											</div>
+											<div className="col-6">
+												<ConditionalFields visible={!form.enciendeSwitchPrueba}>
+													<div className="row g-3 align-items-start justify-content-evenly">
+														<div className="col-4">
+															<label htmlFor="areaEnciendeSwitchPrueba" className="required col-form-label">
+																{areaResponsable}
 															</label>
 														</div>
-														<div className="col-6">
+														<div className="col-8">
 															<select
 																className="form-select select-sm"
-																id="areaInput"
-																name="area"
-																value={""}
+																id="areaEnciendeSwitchPruebaInput"
+																name="areaEnciendeSwitchPrueba"
+																value={form.areaEnciendeSwitchPrueba}
 																onChange={handleChange}
-																aria-label="Default select example"
 															>
 																<option value="">Seleccione</option>
 																<option value="Área 1">Área 1</option>
@@ -1152,129 +994,214 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 															</select>
 														</div>
 													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="observacionInput"
-																className="required col-form-label"
-															>
-																Observación
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="observacionInput"
-																name="observacion"
-																value={form.observacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="recomendacionInput"
-																className="required col-form-label"
-															>
-																recomendacion
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="text"
-																id="recomendacionInput"
-																name="recomendacion"
-																value={form.recomendacion}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="fotoInput"
-																className="col-form-label"
-															>
-																Foto
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="file"
-																id="fotoInput"
-																name="foto"
-																value={form.foto}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-													<div className="row g-3 align-items-center justify-content-evenly mt-2">
-														<div className="col-6">
-															<label htmlFor="" className="col-form-label">
-																Solicitar nuevo equipo
-															</label>
-														</div>
-														<div className="col-6">
-															<div className="form-check form-switch form-check-custom form-check-solid">
-																<input
-																	className="form-check-input h-20px w-30px"
-																	type="checkbox"
-																	value=""
-																	id="statusSwitch9"
-																	onChange={(e: any) =>
-																		setForm({
-																			...form,
-																			nuevoEquipo: e.target.checked,
-																		})
-																	}
-																	checked={form.nuevoEquipo}
-																/>
-																<label
-																	className="form-label-sm ms-2"
-																	htmlFor="statusSwitch9"
-																>
-																	{form.nuevoEquipo ? "Si" : "No"}
-																</label>
-															</div>
-														</div>
-													</div>
-													<div className="row g-3 align-items-start justify-content-evenly mt-2">
-														<div className="col-6">
-															<label
-																htmlFor="PDFInput"
-																className="col-form-label"
-															>
-																Subir PDF
-															</label>
-														</div>
-														<div className="col-6">
-															<input
-																type="file"
-																id="PDFInput"
-																name="PDF"
-																value={form.PDF}
-																onChange={handleChange}
-																placeholder="Ubicación especifica"
-																className="form-control input-sm"
-															/>
-														</div>
-													</div>
-												</>
-											)}
+												</ConditionalFields>
+											</div>
 										</div>
-										<div className="col-12 row">
-											<div className="col-md-6 col-12">
+										<ConditionalFields visible={form.enciendeSwitchPrueba === false && form.areaEnciendeSwitchPrueba !== ''}>
+											<div className="row g-3 align-items-start justify-content-evenly mt-2">
+												<div className="col-6">
+													<label htmlFor="observacionEnciendeSwitchPruebaInput" className="required col-form-label">
+														{observacion}
+													</label>
+													<textarea
+														id="observacionEnciendeSwitchPruebaInput"
+														name="observacionEnciendeSwitchPrueba"
+														value={form.observacionEnciendeSwitchPrueba}
+														onChange={handleChange}
+														placeholder="Observación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
+												</div>
+												<div className="col-6">
+													<label htmlFor="recomendacionEnciendeSwitchPruebaInput" className="required col-form-label">
+														{recomendacion}
+													</label>
+													<textarea
+														id="recomendacionEnciendeSwitchPruebaInput"
+														name="recomendacionEnciendeSwitchPrueba"
+														value={form.recomendacionEnciendeSwitchPrueba}
+														onChange={handleChange}
+														placeholder="Recomendación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
+												</div>
+											</div>
+										</ConditionalFields>
+									</div>
+
+									{/* BuenaIluminacion */}
+									<div className="col-12 row">
+										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+											<div className="col-4">
+												<label htmlFor="" className="col-form-label"> {numeral7} </label>
+											</div>
+											<div className="col-2">
+												<CheckboxSwitch
+													label="Buena iluminación"
+													checked={form.buenaIluminacion}
+													onChange={(checked) => handleSwitchChange('buenaIluminacion', checked)}
+												/>
+											</div>
+											<div className="col-6">
+												<ConditionalFields visible={!form.buenaIluminacion}>
+													<div className="row g-3 align-items-start justify-content-evenly">
+														<div className="col-4">
+															<label htmlFor="areaBuenaIluminacion" className="required col-form-label">
+																{areaResponsable}
+															</label>
+														</div>
+														<div className="col-8">
+															<select
+																className="form-select select-sm"
+																id="areaBuenaIluminacionInput"
+																name="areaBuenaIluminacion"
+																value={form.areaBuenaIluminacion}
+																onChange={handleChange}
+															>
+																<option value="">Seleccione</option>
+																<option value="Área 1">Área 1</option>
+																<option value="Área 2">Área 2</option>
+															</select>
+														</div>
+													</div>
+												</ConditionalFields>
+											</div>
+										</div>
+										<ConditionalFields visible={form.buenaIluminacion === false && form.areaBuenaIluminacion !== ''}>
+											<div className="row g-3 align-items-start justify-content-evenly mt-2">
+												<div className="col-6">
+													<label htmlFor="observacionBuenaIluminacionInput" className="required col-form-label">
+														{observacion}
+													</label>
+													<textarea
+														id="observacionBuenaIluminacionInput"
+														name="observacionBuenaIluminacion"
+														value={form.observacionBuenaIluminacion}
+														onChange={handleChange}
+														placeholder="Observación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
+												</div>
+												<div className="col-6">
+													<label htmlFor="recomendacionBuenaIluminacionInput" className="required col-form-label">
+														{recomendacion}
+													</label>
+													<textarea
+														id="recomendacionBuenaIluminacionInput"
+														name="recomendacionBuenaIluminacion"
+														value={form.recomendacionBuenaIluminacion}
+														onChange={handleChange}
+														placeholder="Recomendación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
+												</div>
+											</div>
+										</ConditionalFields>
+									</div>
+
+									{/* BuenaEstado */}
+									<div className="col-12 row">
+										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+											<div className="col-4">
+												<label htmlFor="" className="col-form-label"> {numeral8} </label>
+											</div>
+											<div className="col-2">
+												<CheckboxSwitch
+													label="Buena iluminación"
+													checked={form.buenaIluminacion}
+													onChange={(checked) => handleSwitchChange('buenaIluminacion', checked)}
+												/>
+											</div>
+											<div className="col-6">
+												<ConditionalFields visible={!form.buenaIluminacion}>
+													<div className="row g-3 align-items-start justify-content-evenly">
+														<div className="col-4">
+															<label htmlFor="areaBuenaIluminacion" className="required col-form-label">
+																{areaResponsable}
+															</label>
+														</div>
+														<div className="col-8">
+															<select
+																className="form-select select-sm"
+																id="areaBuenaIluminacionInput"
+																name="areaBuenaIluminacion"
+																value={form.areaBuenaIluminacion}
+																onChange={handleChange}
+															>
+																<option value="">Seleccione</option>
+																<option value="Área 1">Área 1</option>
+																<option value="Área 2">Área 2</option>
+															</select>
+														</div>
+													</div>
+												</ConditionalFields>
+											</div>
+										</div>
+										<ConditionalFields visible={form.buenaEstado === false && form.areaBuenaEstado !== ''}>
+											<div className="row g-3 align-items-start justify-content-evenly mt-2">
+												<div className="col-6">
+													<label htmlFor="observacionBuenaEstadoInput" className="required col-form-label">
+														{observacion}
+													</label>
+													<textarea
+														id="observacionBuenaEstadoInput"
+														name="observacionBuenaEstado"
+														value={form.observacionBuenaEstado}
+														onChange={handleChange}
+														placeholder="Observación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
+												</div>
+												<div className="col-6">
+													<label htmlFor="recomendacionBuenaEstadoInput" className="required col-form-label">
+														{recomendacion}
+													</label>
+													<textarea
+														id="recomendacionBuenaEstadoInput"
+														name="recomendacionBuenaEstado"
+														value={form.recomendacionBuenaEstado}
+														onChange={handleChange}
+														placeholder="Recomendación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
+												</div>
+												<div className="row g-3 align-items-start justify-content-evenly mt-2">
+													<div className="col-6">
+														<label
+															htmlFor="fotoInput"
+															className="required col-form-label"
+														>
+															Foto
+														</label>
+													</div>
+													<div className="col-6">
+														<input
+															type="file"
+															id="fotoInput"
+															name="foto"
+															value={form.foto}
+															onChange={handleChange}
+															placeholder="Ubicación especifica"
+															className="form-control input-sm"
+														/>
+													</div>
+												</div>
 												<div className="row g-3 align-items-center justify-content-evenly mt-2">
 													<div className="col-6">
 														<label htmlFor="" className="col-form-label">
-															12. Se mantiene encendida mas de 15 minutos
+															Solicitar nuevo equipo
 														</label>
 													</div>
 													<div className="col-6">
@@ -1283,99 +1210,126 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 																className="form-check-input h-20px w-30px"
 																type="checkbox"
 																value=""
-																id="statusSwitch"
+																id="statusSwitch9"
 																onChange={(e: any) =>
 																	setForm({
 																		...form,
-																		encendidoQuinceMin: e.target.checked,
+																		nuevoEquipo: e.target.checked,
 																	})
 																}
-																checked={form.encendidoQuinceMin}
+																checked={form.nuevoEquipo}
 															/>
 															<label
 																className="form-label-sm ms-2"
-																htmlFor="statusSwitch"
+																htmlFor="statusSwitch9"
 															>
-																{form.encendidoQuinceMin ? "Si" : "No"}
+																{form.nuevoEquipo ? "Si" : "No"}
 															</label>
 														</div>
 													</div>
 												</div>
-												{!form.encendidoQuinceMin && (
-													<>
-														<div className="row g-3 align-items-start justify-content-evenly mt-2">
-															<div className="col-6">
-																<label
-																	htmlFor="areaInput"
-																	className="required col-form-label"
-																>
-																	Área responsable
-																</label>
-															</div>
-															<div className="col-6">
-																<select
-																	className="form-select select-sm"
-																	id="areaInput"
-																	name="area"
-																	value={""}
-																	onChange={handleChange}
-																	aria-label="Default select example"
-																>
-																	<option value="">Seleccione</option>
-																	<option value="Área 1">Área 1</option>
-																	<option value="Área 2">Área 2</option>
-																</select>
-															</div>
-														</div>
-														<div className="row g-3 align-items-start justify-content-evenly mt-2">
-															<div className="col-6">
-																<label
-																	htmlFor="observacionInput"
-																	className="required col-form-label"
-																>
-																	Observación
-																</label>
-															</div>
-															<div className="col-6">
-																<input
-																	type="text"
-																	id="observacionInput"
-																	name="observacion"
-																	value={form.observacion}
-																	onChange={handleChange}
-																	placeholder="Ubicación especifica"
-																	className="form-control input-sm"
-																/>
-															</div>
-														</div>
-														<div className="row g-3 align-items-start justify-content-evenly mt-2">
-															<div className="col-6">
-																<label
-																	htmlFor="recomendacionInput"
-																	className="required col-form-label"
-																>
-																	recomendacion
-																</label>
-															</div>
-															<div className="col-6">
-																<input
-																	type="text"
-																	id="recomendacionInput"
-																	name="recomendacion"
-																	value={form.recomendacion}
-																	onChange={handleChange}
-																	placeholder="Ubicación especifica"
-																	className="form-control input-sm"
-																/>
-															</div>
-														</div>
-													</>
-												)}
+												<div className="row g-3 align-items-start justify-content-evenly mt-2">
+													<div className="col-6">
+														<label
+															htmlFor="PDFInput"
+															className="col-form-label"
+														>
+															Subir PDF
+														</label>
+													</div>
+													<div className="col-6">
+														<input
+															type="file"
+															id="PDFInput"
+															name="PDF"
+															value={form.PDF}
+															onChange={handleChange}
+															placeholder="Ubicación especifica"
+															className="form-control input-sm"
+														/>
+													</div>
+												</div>
 											</div>
-										</div>
+										</ConditionalFields>
 									</div>
 
-									{/* <div className="form-check form-switch form-check-custom form-check-solid">
+									{/* EncendidoQuinceMin */}
+									<div className="col-12 row">
+										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+											<div className="col-4">
+												<label htmlFor="" className="col-form-label"> {numeral9} </label>
+											</div>
+											<div className="col-2">
+												<CheckboxSwitch
+													label="Encendido quince minutos"
+													checked={form.encendidoQuinceMin}
+													onChange={(checked) => handleSwitchChange('encendidoQuinceMin', checked)}
+												/>
+											</div>
+											<div className="col-6">
+												<ConditionalFields visible={!form.encendidoQuinceMin}>
+													<div className="row g-3 align-items-start justify-content-evenly">
+														<div className="col-4">
+															<label htmlFor="areaEncendidoQuinceMin" className="required col-form-label">
+																{areaResponsable}
+															</label>
+														</div>
+														<div className="col-8">
+															<select
+																className="form-select select-sm"
+																id="areaEncendidoQuinceMinInput"
+																name="areaEncendidoQuinceMin"
+																value={form.areaEncendidoQuinceMin}
+																onChange={handleChange}
+															>
+																<option value="">Seleccione</option>
+																<option value="Área 1">Área 1</option>
+																<option value="Área 2">Área 2</option>
+															</select>
+														</div>
+													</div>
+												</ConditionalFields>
+											</div>
+										</div>
+										<ConditionalFields visible={form.encendidoQuinceMin === false && form.areaEncendidoQuinceMin !== ''}>
+											<div className="row g-3 align-items-start justify-content-evenly mt-2">
+												<div className="col-6">
+													<label htmlFor="observacionEncendidoQuinceMinInput" className="required col-form-label">
+														{observacion}
+													</label>
+													<textarea
+														id="observacionEncendidoQuinceMinInput"
+														name="observacionEncendidoQuinceMin"
+														value={form.observacionEncendidoQuinceMin}
+														onChange={handleChange}
+														placeholder="Observación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
+												</div>
+												<div className="col-6">
+													<label htmlFor="recomendacionEncendidoQuinceMinInput" className="required col-form-label">
+														{recomendacion}
+													</label>
+													<textarea
+														id="recomendacionEncendidoQuinceMinInput"
+														name="recomendacionEncendidoQuinceMin"
+														value={form.recomendacionEncendidoQuinceMin}
+														onChange={handleChange}
+														placeholder="Recomendación"
+														className="form-control input-sm"
+														maxLength={500}
+														rows={3}
+													/>
+												</div>
+											</div>
+										</ConditionalFields>
+									</div>
+								</div>
+							</div>
+
+							{/* <div className="form-check form-switch form-check-custom form-check-solid">
 										<input
 											className="form-check-input h-20px w-30px"
 											type="checkbox"
@@ -1392,28 +1346,26 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 										</label>
 									</div> */}
 
-									<div className="d-flex justify-content-center gap-10 modal-footer">
-										<button
-											type="button"
-											onClick={() => putEmployee(idEmployee)}
-											className="btn btn-primary"
-										>
-											Editar
-										</button>
-										<button
-											type="button"
-											onClick={() => deleteEmployee(idEmployee)}
-											className="btn btn-danger"
-										>
-											Eliminar
-										</button>
-									</div>
-								</form>
+							<div className="d-flex justify-content-center gap-10 modal-footer">
+								<button
+									type="button"
+									onClick={() => putEmployee(idEmployee)}
+									className="btn btn-primary"
+								>
+									Guardar
+								</button>
+								<button
+									type="button"
+									onClick={() => deleteEmployee(idEmployee)}
+									className="btn btn-danger"
+								>
+									Eliminar
+								</button>
 							</div>
-						</div>
+						</form>
 					</div>
 				</div>
-			</div>
-		</div>
+			</div >
+		</div >
 	);
 };
