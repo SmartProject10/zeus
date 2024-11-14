@@ -11,4 +11,19 @@
     justify-content: space-between;
     gap: 20px;
   }
-  
+
+  //separadores con bordes o lineas
+//   .modal-body .row {
+//     border-bottom: 1px solid #ddd; /* Línea divisoria sutil */
+//     margin-bottom: 10px; /* Espacio entre el borde y el siguiente punto */
+//     padding-bottom: 10px;
+// }
+
+//Usar colores para destacar secciones - filas pares
+.modal-body .row:nth-child(even) {
+  background-color: #f9f9f9;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+

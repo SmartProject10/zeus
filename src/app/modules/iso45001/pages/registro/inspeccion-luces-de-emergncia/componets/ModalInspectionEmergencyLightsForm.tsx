@@ -16,22 +16,21 @@ import {
 	putEmergencyLightService,
 	putEmployeeService,
 } from "@zeus/app/modules/human-resources/tools/calendar/core/_requests";
-import {
-	EmergencyLightsRequest,
-	EmergencyLightsResponse,
-	EmployeeRequest,
-	EmployeeResponse,
-} from "@zeus/app/modules/human-resources/tools/calendar/core/_models";
 import './InspectionEmergencyStyle.scss';
-import { InspeccionResponse } from '../core/_models';
+import { InspeccionResponse, EmergencyLightsForm, EmergencyLightsResponse, Sede, AreaResponsable, LuzEmergencia, InspeccionadoPor, Cargo, Trabajador, Inspection, validateForm } from '../core/_models';
 import CheckboxSwitch from './CheckboxSwitch';
 import ConditionalFields from './ConditionalFields';
+import { getAreaResponsable, getCargo, getInspeccionadoPor, getLuzEmergencia, getSede, getTrabajador } from "../core/_requests";
 
 interface MyComponentProps {
 	idEmployee: string;
 	onClose: () => void;
 	children?: ReactNode;
+	onSubmit: (newData: EmergencyLightsForm) => void;  // Asegúrate de que sea el tipo correcto
+	mode: 'create' | 'edit' | 'view' | "delete";
+	formData: EmergencyLightsForm;
 }
+
 
 //Variable titulo del modal
 const tituloModal = 'Luz de emergencia';
@@ -40,6 +39,7 @@ const tituloModal = 'Luz de emergencia';
 const fechaInspeccion = 'Fecha de inspección';
 const inspeccionadoPor = 'Inspeccionado por';
 const sede = 'Sede';
+const luzEmergencia = 'Número luz de emergencia';
 
 //Variables titulos campos numeral
 const numeral1 = '1. Se encunetra enumerado';
@@ -56,211 +56,242 @@ const numeral9 = '9. Se mantiene encendida mas de 15 minutos';
 const areaResponsable = 'Área responsable';
 const recomendacion = 'Recomendación';
 const observacion = 'Observación';
+const fechaVencimiento = 'Fecha vencimiento';
 
-//Se reutiliza response de accidentes
-const initialValues: InspeccionResponse = {
-	_id: '',
-	fecha: '',
-	hora: '',
-	inspeccionadoPor: '',
-	cargo: '',
-	trabajador: '',
-	dni: '',
-	name: '',
-	descripcion: '',
-	imagenes: [],
-	fotoTrabajador: '',
-	reportadoPor: '',
-	elaboradoPor: '',
-	estadoRegistro: '',
-	registroAccidente: [],
-	createdAt: '',
-	updatedAt: ''
+const initialValues: EmergencyLightsForm = {
+	id: "",
+	fechaInspeccion: "",
+	inspeccionadoPor: "",
+	cargo: "",
+	trabajador: "",
+	sede: "",
+	luzEmergencia: "",
+	//Enumerado
+	enumerado: false,
+	areaEnumerado: "",
+	fechaVencimientoEnumerado: "",
+	observacionEnumerado: "",
+	recomendacionEnumerado: "",
+	//UbicacionAdecuada
+	ubicacionAdecuada: false,
+	areaUbicacionAdecuada: "",
+	fechaVencimientoUbicacionAdecuada: "",
+	observacionUbicacionAdecuada: "",
+	recomendacionUbicacionAdecuada: "",
+	//EnSuLugar
+	enSuLugar: false,
+	areaEnSuLugar: "",
+	fechaVencimientoEnSuLugar: "",
+	observacionEnSuLugar: "",
+	recomendacionEnSuLugar: "",
+	//LibreDeObstaculos
+	libreDeObstaculos: false,
+	areaLibreDeObstaculos: "",
+	fechaVencimientoLibreDeObstaculos: "",
+	observacionLibreDeObstaculos: "",
+	recomendacionLibreDeObstaculos: "",
+	//ConectadoTomacorriente
+	conectadoTomacorriente: false,
+	areaConectadoTomacorriente: "",
+	fechaVencimientoConectadoTomacorriente: "",
+	observacionConectadoTomacorriente: "",
+	recomendacionConectadoTomacorriente: "",
+	//EnciendeSwitchPrueba
+	enciendeSwitchPrueba: false,
+	areaEnciendeSwitchPrueba: "",
+	fechaVencimientoEnciendeSwitchPrueba: "",
+	observacionEnciendeSwitchPrueba: "",
+	recomendacionEnciendeSwitchPrueba: "",
+	//BuenaIluminacion
+	buenaIluminacion: false,
+	areaBuenaIluminacion: "",
+	fechaVencimientoBuenaIluminacion: "",
+	observacionBuenaIluminacion: "",
+	recomendacionBuenaIluminacion: "",
+	//BuenaEstado
+	buenaEstado: false,
+	areaBuenaEstado: "",
+	fechaVencimientoBuenaEstado: "",
+	observacionBuenaEstado: "",
+	recomendacionBuenaEstado: "",
+	//EncendidoQuinceMin
+	encendidoQuinceMin: false,
+	areaEncendidoQuinceMin: "",
+	fechaVencimientoEncendidoQuinceMin: "",
+	observacionEncendidoQuinceMin: "",
+	recomendacionEncendidoQuinceMin: "",
+
+	observacion: "",
+	recomendacion: "",
+	foto: "",
+	nuevoEquipo: false,
+	PDF: "",
 };
 
-// Opciones fake de áreas, cargos y trabajadores
-const inspeccionadoPorOptions = [
-	{ id: "1", name: 'Gerencia' },
-	{ id: "2", name: 'Seguridad industrial' }
-];
-
-const cargoOptions = [
-	{ id: "1", name: 'Gerente', area: "1" },
-	{ id: "2", name: 'Jefe', area: "2" }
-];
-
-const trabajadorOptions = [
-	{ id: 1, name: 'Juan Pérez', cargo: '1', dni: '12345678', foto: '/man1.jpg' },
-	{ id: 2, name: 'María Gómez', cargo: '2', dni: '87654321', foto: '/woman1.jpg' },
-	{ id: 3, name: 'Carlos Rodriguez', cargo: '2', dni: '11223344', foto: '/man2.jpg' },
-];
-
-export interface EmergencyLightsForm {
-	fechaInspeccion: string;
-	sede: string;
-	//enumerado
-	enumerado: boolean;
-	areaEnumerado: string;
-	observacionEnumerado: string;
-	recomendacionEnumerado: string;
-	//ubicacionAdecuada
-	ubicacionAdecuada: boolean;
-	areaUbicacionAdecuada: string;
-	observacionUbicacionAdecuada: string;
-	recomendacionUbicacionAdecuada: string;
-	//enSuLugar
-	enSuLugar: boolean;
-	areaEnSuLugar: string;
-	observacionEnSuLugar: string;
-	recomendacionEnSuLugar: string;
-	//libreDeObstaculos
-	libreDeObstaculos: boolean;
-	areaLibreDeObstaculos: string;
-	observacionLibreDeObstaculos: string;
-	recomendacionLibreDeObstaculos: string;
-	//conectadoTomacorriente
-	conectadoTomacorriente: boolean;
-	areaConectadoTomacorriente: string;
-	observacionConectadoTomacorriente: string;
-	recomendacionConectadoTomacorriente: string;
-	//enciendeSwitchPrueba
-	enciendeSwitchPrueba: boolean;
-	areaEnciendeSwitchPrueba: string;
-	observacionEnciendeSwitchPrueba: string;
-	recomendacionEnciendeSwitchPrueba: string;
-	//buenaIluminacion
-	buenaIluminacion: boolean;
-	areaBuenaIluminacion: string;
-	observacionBuenaIluminacion: string;
-	recomendacionBuenaIluminacion: string;
-	//buenaEstado
-	buenaEstado: boolean;
-	areaBuenaEstado: string;
-	observacionBuenaEstado: string;
-	recomendacionBuenaEstado: string;
-	//encendidoQuinceMin
-	encendidoQuinceMin: boolean;
-	areaEncendidoQuinceMin: string;
-	observacionEncendidoQuinceMin: string;
-	recomendacionEncendidoQuinceMin: string;
-
-	observacion: string;
-	recomendacion: string;
-	foto: string;
-	nuevoEquipo: boolean;
-	PDF: string;
-}
-
 // eslint-disable-next-line react/prop-types, @typescript-eslint/no-unused-vars
-export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
+export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps & { mode: 'view' | 'edit' | 'create' | "delete", formData?: EmergencyLightsForm }> = ({
 	idEmployee,
 	onClose,
+	onSubmit,
 	children,
+	mode,
+	formData
 }) => {
 
+	const [inspections, setInspections] = useState<Inspection[]>([]);
+	const [sedeOptions, setSedeOptions] = useState<Sede[]>([]);
+	const [luzEmergenciaOptions, setluzEmergenciaOptions] = useState<LuzEmergencia[]>([]);
+	const [areaResponsableOptions, setAreaResponsableOptions] = useState<AreaResponsable[]>([]);
+	const [inspeccionadoPorOptions, setInspeccionadoPorOptions] = useState<InspeccionadoPor[]>([]);
+	const [cargoOptions, setCargoOptions] = useState<Cargo[]>([]);
+	const [trabajadorOptions, setTrabajadorOptions] = useState<Trabajador[]>([]);
+	const [localFormData, setLocalFormData] = useState(initialValues);
+	const [initialData, setInitialData] = useState<EmergencyLightsForm>(formData);
 
-	const [formData, setFormData] = useState(
-		initialValues
-	);
 
+	const [form, setForm] = useState<EmergencyLightsForm>(
+		initialData || {
+			id: "",
+			fechaInspeccion: "",
+			inspeccionadoPor: "",
+			cargo: "",
+			trabajador: "",
+			sede: "",
+			luzEmergencia: "",
+			//Enumerado
+			enumerado: false,
+			areaEnumerado: "",
+			fechaVencimientoEnumerado: "",
+			observacionEnumerado: "",
+			recomendacionEnumerado: "",
+			//UbicacionAdecuada
+			ubicacionAdecuada: false,
+			areaUbicacionAdecuada: "",
+			fechaVencimientoUbicacionAdecuada: "",
+			observacionUbicacionAdecuada: "",
+			recomendacionUbicacionAdecuada: "",
+			//EnSuLugar
+			enSuLugar: false,
+			areaEnSuLugar: "",
+			fechaVencimientoEnSuLugar: "",
+			observacionEnSuLugar: "",
+			recomendacionEnSuLugar: "",
+			//LibreDeObstaculos
+			libreDeObstaculos: false,
+			areaLibreDeObstaculos: "",
+			fechaVencimientoLibreDeObstaculos: "",
+			observacionLibreDeObstaculos: "",
+			recomendacionLibreDeObstaculos: "",
+			//ConectadoTomacorriente
+			conectadoTomacorriente: false,
+			areaConectadoTomacorriente: "",
+			fechaVencimientoConectadoTomacorriente: "",
+			observacionConectadoTomacorriente: "",
+			recomendacionConectadoTomacorriente: "",
+			//EnciendeSwitchPrueba
+			enciendeSwitchPrueba: false,
+			areaEnciendeSwitchPrueba: "",
+			fechaVencimientoEnciendeSwitchPrueba: "",
+			observacionEnciendeSwitchPrueba: "",
+			recomendacionEnciendeSwitchPrueba: "",
+			//BuenaIluminacion
+			buenaIluminacion: false,
+			areaBuenaIluminacion: "",
+			fechaVencimientoBuenaIluminacion: "",
+			observacionBuenaIluminacion: "",
+			recomendacionBuenaIluminacion: "",
+			//BuenaEstado
+			buenaEstado: false,
+			areaBuenaEstado: "",
+			fechaVencimientoBuenaEstado: "",
+			observacionBuenaEstado: "",
+			recomendacionBuenaEstado: "",
+			//EncendidoQuinceMin
+			encendidoQuinceMin: false,
+			areaEncendidoQuinceMin: "",
+			fechaVencimientoEncendidoQuinceMin: "",
+			observacionEncendidoQuinceMin: "",
+			recomendacionEncendidoQuinceMin: "",
+
+			observacion: "",
+			recomendacion: "",
+			foto: "",
+			nuevoEquipo: false,
+			PDF: "",
+		});
 	// Filtrar cargos según el área seleccionada
-	const filteredCargos = cargoOptions.filter((cargo) => cargo.area === formData.inspeccionadoPor);
+	const filteredCargos = cargoOptions.filter((cargo) => cargo.area === form.inspeccionadoPor);
 	// Filtrar trabajadores según el cargo seleccionado
-	const filteredTrabajadores = trabajadorOptions.filter((trabajador) => trabajador.cargo === formData.cargo);
-
-	const [form, setForm] = useState<EmergencyLightsForm>({
-		fechaInspeccion: "",
-		sede: "",
-		//Enumerado
-		enumerado: false,
-		areaEnumerado: "",
-		observacionEnumerado: "",
-		recomendacionEnumerado: "",
-		//UbicacionAdecuada
-		ubicacionAdecuada: false,
-		areaUbicacionAdecuada: "",
-		observacionUbicacionAdecuada: "",
-		recomendacionUbicacionAdecuada: "",
-		//EnSuLugar
-		enSuLugar: false,
-		areaEnSuLugar: "",
-		observacionEnSuLugar: "",
-		recomendacionEnSuLugar: "",
-		//LibreDeObstaculos
-		libreDeObstaculos: false,
-		areaLibreDeObstaculos: "",
-		observacionLibreDeObstaculos: "",
-		recomendacionLibreDeObstaculos: "",
-		//ConectadoTomacorriente
-		conectadoTomacorriente: false,
-		areaConectadoTomacorriente: "",
-		observacionConectadoTomacorriente: "",
-		recomendacionConectadoTomacorriente: "",
-		//EnciendeSwitchPrueba
-		enciendeSwitchPrueba: false,
-		areaEnciendeSwitchPrueba: "",
-		observacionEnciendeSwitchPrueba: "",
-		recomendacionEnciendeSwitchPrueba: "",
-		//BuenaIluminacion
-		buenaIluminacion: false,
-		areaBuenaIluminacion: "",
-		observacionBuenaIluminacion: "",
-		recomendacionBuenaIluminacion: "",
-		//BuenaEstado
-		buenaEstado: false,
-		areaBuenaEstado: "",
-		observacionBuenaEstado: "",
-		recomendacionBuenaEstado: "",
-		//EncendidoQuinceMin
-		encendidoQuinceMin: false,
-		areaEncendidoQuinceMin: "",
-		observacionEncendidoQuinceMin: "",
-		recomendacionEncendidoQuinceMin: "",
-
-		observacion: "",
-		recomendacion: "",
-		foto: "",
-		nuevoEquipo: false,
-		PDF: "",
-	});
+	const filteredTrabajadores = trabajadorOptions.filter((trabajador) => trabajador.cargo === form.cargo);
 
 	useEffect(() => {
-		const initEmployee = async () => {
+		console.log(localFormData)
+		const fetchOptions = async () => {
 			try {
-				const response = await getEmergencyLightById(idEmployee);
-				setFormData({ ...initialValues, _id: undefined });
-				if (response.status == 200) {
-					const employee: EmergencyLightsResponse = response.data;
+				const sedeResponse = await getSede();
+				setSedeOptions(sedeResponse.data);
+			} catch (error) {
+				console.error("Error al obtener las opciones de sede:", error);
+			}
 
-					// setForm({
-					// 	numero: employee.area,
-					// 	sede: employee.sede,
-					// 	area: employee.area,
-					// 	ubicacionEspecifica: employee.ubicacionEspecifica,
-					// 	codigo: employee.codigo,
-					// 	marca: employee.marca,
-					// 	fechaIngresoEmpresa: dateInput(employee.fechaIngresoEmpresa),
-					// });
-				}
-			} catch (error: any) {
-				console.error(error);
+			try {
+				const luzEmergenciaResponse = await getLuzEmergencia();
+				setluzEmergenciaOptions(luzEmergenciaResponse.data);
+			} catch (error) {
+				console.error("Error al obtener las opciones de luz de emergencia:", error);
+			}
+
+			try {
+				const areaResponsableResponse = await getAreaResponsable();
+				setAreaResponsableOptions(areaResponsableResponse.data);
+			} catch (error) {
+				console.error("Error al obtener las opciones de área responsable:", error);
+			}
+
+			try {
+				const inspeccionadoPorResponse = await getInspeccionadoPor();
+				setInspeccionadoPorOptions(inspeccionadoPorResponse.data);
+			} catch (error) {
+				console.error("Error al obtener las opciones de inspeccionado por:", error);
+			}
+
+			try {
+				const cargoResponse = await getCargo();
+				setCargoOptions(cargoResponse.data);
+			} catch (error) {
+				console.error("Error al obtener las opciones de cardo:", error);
+			}
+
+			try {
+				const trabajadorResponse = await getTrabajador();
+				setTrabajadorOptions(trabajadorResponse.data);
+			} catch (error) {
+				console.error("Error al obtener las opciones de trabajador:", error);
 			}
 		};
 
-		initEmployee();
-	}, []);
+		fetchOptions();
 
-	const handleFieldChange = (field: string, value: any) => {
-		setFormData({
-			...formData,
-			[field]: value,
-		});
-	};
+		// Función para cargar los datos de inspección si el modo es 'edit' o 'view'
+		if (mode === 'edit' || mode === 'view') {
+			const inspectionToEdit = inspections.find((inspection) => inspection.id === idEmployee);
+			if (inspectionToEdit) {
+				// Copiamos la inspección encontrada en 'form' y llenamos valores faltantes con valores por defecto
+				setForm({
+					...initialValues, // Mantén los valores predeterminados para campos faltantes
+					...inspectionToEdit, // Sobrescribe solo los campos presentes en inspectionToEdit
+				});
+			}
+		} else {
+			// En modo 'create', limpiar el formulario
+			setForm({ ...initialValues, id: Date.now().toString() });
+		}
+	}, [mode, idEmployee, inspections]);
 
 	const handleSwitchChange = (fieldName: string, checked: boolean) => {
 		setForm({
 			...form,
-			[fieldName]: checked, // Actualiza solo el campo especificado
+			[fieldName]: checked,
 		});
 	};
 
@@ -271,105 +302,30 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 			...form,
 			[name]: value,
 		});
-		setFormData({ ...formData, [name]: value });
+		setLocalFormData({ ...form, [name]: value });
 
 		// Manejo de selects en cascada
 		if (name === 'inspeccionadoPor') {
-			setFormData({ ...formData, inspeccionadoPor: value, cargo: '', trabajador: '', name: '' });
+			setLocalFormData({ ...form, inspeccionadoPor: value, cargo: '', trabajador: '' });
 		}
 
 		if (name === 'cargo') {
-			setFormData({ ...formData, cargo: value, trabajador: '' });
+			setLocalFormData({ ...form, cargo: value, trabajador: '' });
 		}
 
 		// Manejo de trabajador seleccionado
 		if (name === 'trabajador') {
 			const trabajador = trabajadorOptions.find(t => t.id.toString() === value);
-			setFormData({ ...formData, trabajador: value, name: trabajador?.name || '' });
-		}
-
-		// Manejo del campo name seleccionado
-		if (name === 'name') {
-			const trabajador = trabajadorOptions.find(t => t.name === value);
-			if (trabajador) {
-				const cargo = cargoOptions.find(c => c.id.toString() === trabajador.cargo);
-				const area = inspeccionadoPorOptions.find(a => a.id === cargo?.area);
-
-				setFormData({
-					...formData,
-					name: value,
-					inspeccionadoPor: area?.id || '',
-					cargo: cargo?.id || '',
-					trabajador: trabajador.id.toString(),
-				});
-			} else {
-				setFormData({ ...formData, name: value, inspeccionadoPor: '', cargo: '', trabajador: '' });
-			}
+			setLocalFormData({ ...form, trabajador: value });
 		}
 	};
 
-	function deleteEmployee(id: string) {
-		Swal.fire({
-			icon: "question",
-			title: "¿Estas segur@ de realizar esta acción?",
-			showCancelButton: true,
-			cancelButtonText: "Cancelar",
-			confirmButtonText: "Si",
-			confirmButtonColor: "#1b84ff",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				try {
-					const deleteEmployee = async () => {
-						const response = await deleteEmergencyLightService(id);
+	const handleSubmit = (event: React.FormEvent) => {
+		event.preventDefault();
 
-						if (response.status == 200) {
-							// nesesario agregar estado global para estas entidades (luces de emergencia)
-							// appStateService.deleteEmployeeSubject(id);
-							// appStateService.setActiveModalSubject();
-
-							const Toast = Swal.mixin({
-								toast: true,
-								position: "top-end",
-								showConfirmButton: false,
-								timer: 3000,
-								timerProgressBar: true,
-								didOpen: (toast) => {
-									toast.onmouseenter = Swal.stopTimer;
-									toast.onmouseleave = Swal.resumeTimer;
-								},
-							});
-							Toast.fire({
-								icon: "success",
-								title: "luz de emergencia eliminada correctamente",
-							});
-						}
-					};
-
-					deleteEmployee();
-				} catch (e: any) {
-					console.error(e);
-				}
-			} else if (result.isDenied) {
-				// Swal.fire('Changes are not saved', '', 'info')
-			}
-		});
-	}
-
-	function putEmployee(id: string) {
-		if (
-			!form.fechaInspeccion ||
-			!form.sede ||
-			!form.areaEnumerado ||
-			!form.enumerado ||
-			!form.buenaEstado ||
-			!form.buenaIluminacion ||
-			!form.conectadoTomacorriente ||
-			!form.enSuLugar ||
-			!form.encendidoQuinceMin ||
-			!form.enciendeSwitchPrueba ||
-			!form.libreDeObstaculos ||
-			!form.ubicacionAdecuada
-		) {
+		// Primero, validar el formulario antes de proceder
+		console.log(form, 'localFormData')
+		if (validateForm(form)) {
 			const Toast = Swal.mixin({
 				toast: true,
 				position: "top-end",
@@ -383,67 +339,94 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 			});
 			Toast.fire({
 				icon: "error",
-				title: "Porfavor, rellenar todos los campos.",
+				title: "Por favor, asegúrese de completar todos los campos requeridos.",
 			});
-
 			return;
 		}
 
+		// Mostrar el modal de confirmación solo si la validación es exitosa
 		Swal.fire({
 			icon: "question",
-			title: "¿Estas segur@ de realizar esta acción?",
+			title: "¿Estás segur@ de realizar esta acción?",
 			showCancelButton: true,
 			cancelButtonText: "Cancelar",
-			confirmButtonText: "Si",
+			confirmButtonText: "Sí",
 			confirmButtonColor: "#1b84ff",
 		}).then((result) => {
 			if (result.isConfirmed) {
+				// Crear nuevo objeto con los datos del formulario
+				const newData: EmergencyLightsForm = {
+					id: mode === 'edit' ? form.id : Date.now().toString(),
+					fechaInspeccion: form.fechaInspeccion,
+					inspeccionadoPor: form.inspeccionadoPor,
+					cargo: form.cargo,
+					trabajador: form.trabajador,
+					sede: form.sede,
+					luzEmergencia: form.luzEmergencia,
+					enumerado: form.enumerado,
+					areaEnumerado: form.areaEnumerado,
+					fechaVencimientoEnumerado: form.fechaVencimientoEnumerado,
+					observacionEnumerado: form.observacionEnumerado,
+					recomendacionEnumerado: form.recomendacionEnumerado,
+					// Campos adicionales
+					ubicacionAdecuada: form.ubicacionAdecuada,
+					areaUbicacionAdecuada: form.areaUbicacionAdecuada,
+					fechaVencimientoUbicacionAdecuada: form.fechaVencimientoUbicacionAdecuada,
+					observacionUbicacionAdecuada: form.observacionUbicacionAdecuada,
+					recomendacionUbicacionAdecuada: form.recomendacionUbicacionAdecuada,
+					enSuLugar: form.enSuLugar,
+					areaEnSuLugar: form.areaEnSuLugar,
+					fechaVencimientoEnSuLugar: form.fechaVencimientoEnSuLugar,
+					observacionEnSuLugar: form.observacionEnSuLugar,
+					recomendacionEnSuLugar: form.recomendacionEnSuLugar,
+					libreDeObstaculos: form.libreDeObstaculos,
+					areaLibreDeObstaculos: form.areaLibreDeObstaculos,
+					fechaVencimientoLibreDeObstaculos: form.fechaVencimientoLibreDeObstaculos,
+					observacionLibreDeObstaculos: form.observacionLibreDeObstaculos,
+					recomendacionLibreDeObstaculos: form.recomendacionLibreDeObstaculos,
+					conectadoTomacorriente: form.conectadoTomacorriente,
+					areaConectadoTomacorriente: form.areaConectadoTomacorriente,
+					fechaVencimientoConectadoTomacorriente: form.fechaVencimientoConectadoTomacorriente,
+					observacionConectadoTomacorriente: form.observacionConectadoTomacorriente,
+					recomendacionConectadoTomacorriente: form.recomendacionConectadoTomacorriente,
+					enciendeSwitchPrueba: form.enciendeSwitchPrueba,
+					areaEnciendeSwitchPrueba: form.areaEnciendeSwitchPrueba,
+					fechaVencimientoEnciendeSwitchPrueba: form.fechaVencimientoEnciendeSwitchPrueba,
+					observacionEnciendeSwitchPrueba: form.observacionEnciendeSwitchPrueba,
+					recomendacionEnciendeSwitchPrueba: form.recomendacionEnciendeSwitchPrueba,
+					buenaIluminacion: form.buenaIluminacion,
+					areaBuenaIluminacion: form.areaBuenaIluminacion,
+					fechaVencimientoBuenaIluminacion: form.fechaVencimientoBuenaIluminacion,
+					observacionBuenaIluminacion: form.observacionBuenaIluminacion,
+					recomendacionBuenaIluminacion: form.recomendacionBuenaIluminacion,
+					buenaEstado: form.buenaEstado,
+					areaBuenaEstado: form.areaBuenaEstado,
+					fechaVencimientoBuenaEstado: form.fechaVencimientoBuenaEstado,
+					observacionBuenaEstado: form.observacionBuenaEstado,
+					recomendacionBuenaEstado: form.recomendacionBuenaEstado,
+					encendidoQuinceMin: form.encendidoQuinceMin,
+					areaEncendidoQuinceMin: form.areaEncendidoQuinceMin,
+					fechaVencimientoEncendidoQuinceMin: form.fechaVencimientoEncendidoQuinceMin,
+					observacionEncendidoQuinceMin: form.observacionEncendidoQuinceMin,
+					recomendacionEncendidoQuinceMin: form.recomendacionEncendidoQuinceMin,
+					observacion: form.observacion,
+					recomendacion: form.recomendacion,
+					foto: form.foto || "",
+					nuevoEquipo: form.nuevoEquipo,
+					PDF: form.PDF || "",
+				};
+
 				try {
-					// const editEmployee = async () => {
-					// 	const request: EmergencyLightsRequest = {
-					// 		numero: form.numero,
-					// 		sede: form.sede,
-					// 		area: form.area,
-					// 		ubicacionEspecifica: form.ubicacionEspecifica,
-					// 		codigo: form.codigo,
-					// 		marca: form.marca,
-					// 		fechaIngresoEmpresa: form.fechaIngresoEmpresa,
-					// 	};
-
-					// 	const response = await putEmergencyLightService(id, request);
-
-					// 	if (response.status == 200) {
-					// 		// nesesario agregar estado global para estas entidades (luces de emergencia)
-					// 		// appStateService.putEmployeeSubject(id, request);
-					// 		// appStateService.setActiveModalSubject();
-
-					// 		const Toast = Swal.mixin({
-					// 			toast: true,
-					// 			position: "top-end",
-					// 			showConfirmButton: false,
-					// 			timer: 3000,
-					// 			timerProgressBar: true,
-					// 			didOpen: (toast) => {
-					// 				toast.onmouseenter = Swal.stopTimer;
-					// 				toast.onmouseleave = Swal.resumeTimer;
-					// 			},
-					// 		});
-					// 		Toast.fire({
-					// 			icon: "success",
-					// 			title: "Luz de emergencia editada correctamente",
-					// 		});
-					// 	}
-					// };
-
-					// editEmployee();
+					onSubmit(newData);
+					setForm({ ...form });
+					onClose();
 				} catch (e: any) {
 					console.error(e);
 				}
-			} else if (result.isDenied) {
-				// Swal.fire('Changes are not saved', '', 'info')
 			}
 		});
-	}
+	};
+
 
 	return (
 		<div
@@ -488,36 +471,59 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 											value={form.sede}
 											onChange={handleChange}
 											aria-label="Default select example"
+											disabled={mode === "view"}
 										>
 											<option value="">Seleccione</option>
-											<option value="Sede 1">Sede 1</option>
-											<option value="Sede 2">Sede 2</option>
+											{sedeOptions.map((sede) => (
+												<option key={sede.id} value={sede.id}>{sede.name}</option>
+											))}
 										</select>
 									</div>
 									<div className="col-6 p-1">
-										<label htmlFor="fechaInspeccionInput" className="form-label required">
-											{fechaInspeccion}
+										<label htmlFor="luzEmergenciaInput" className="form-label required">
+											{luzEmergencia}
 										</label>
-										<input
-											type="date"
-											id="fechaInspeccionInput"
-											name="fechaInspeccion"
-											value={form.fechaInspeccion}
+										<select
+											className="form-select select-sm"
+											id="luzEmergenciaInput"
+											name="luzEmergencia"
+											value={form.luzEmergencia}
 											onChange={handleChange}
-											className="form-control input-sm"
-										/>
+											aria-label="Default select example"
+											disabled={mode === "view"}
+										>
+											<option value="">Seleccione</option>
+											{luzEmergenciaOptions.map((luzEmergencia) => (
+												<option key={luzEmergencia.id} value={luzEmergencia.id}>{luzEmergencia.name}</option>
+											))}
+										</select>
 									</div>
 								</div>
 								{/* Select cascada */}
 								<div className="col-12 mt-4">
 									<div className="row">
 										<div className="col-6 p-1">
+											<label htmlFor="fechaInspeccionInput" className="form-label required">
+												{fechaInspeccion}
+											</label>
+											<input
+												type="date"
+												id="fechaInspeccionInput"
+												name="fechaInspeccion"
+												value={form.fechaInspeccion}
+												onChange={handleChange}
+												className="form-control input-sm"
+												disabled={mode === "view"}
+											/>
+										</div>
+										<div className="col-6 p-1">
 											<label className="required form-label">{inspeccionadoPor}</label>
 											<select
 												name="inspeccionadoPor"
 												className="form-select"
-												value={formData.inspeccionadoPor}
+												value={form.inspeccionadoPor}
 												onChange={handleChange}
+												disabled={mode === "view"}
 											>
 												<option value="">Seleccione</option>
 												{inspeccionadoPorOptions.map((inspeccionadoPor) => (
@@ -525,36 +531,38 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 												))}
 											</select>
 										</div>
-										{formData.inspeccionadoPor && (
+									</div>
+								</div>
+								<div className="col-12">
+									<div className="row">
+										{form.inspeccionadoPor && (
 											<div className="col-6 p-1 mt-2">
 												<label className="form-label">{/*Cargo*/}</label>
 												<select
 													name="cargo"
 													className="form-select"
-													value={formData.cargo}
+													value={form.cargo}
 													onChange={handleChange}
+													disabled={mode === "view"}
 												>
-													<option value="">Seleccione</option>
+													<option value="">Seleccione cargo</option>
 													{filteredCargos.map((cargo) => (
 														<option key={cargo.id} value={cargo.id}>{cargo.name}</option>
 													))}
 												</select>
 											</div>
 										)}
-									</div>
-								</div>
-								<div className="col-12">
-									<div className="row">
-										{formData.cargo && (
-											<div className="col-6 p-1">
+										{form.cargo && (
+											<div className="col-6 p-1 mt-2">
 												<label className="form-label">{/*Trabajador*/}</label>
 												<select
 													name="trabajador"
 													className="form-select"
-													value={formData.trabajador}
+													value={form.trabajador}
 													onChange={handleChange}
+													disabled={mode === "view"}
 												>
-													<option value="">Seleccione</option>
+													<option value="">Seleccione trabajador</option>
 													{filteredTrabajadores.map((trabajador) => (
 														<option key={trabajador.id} value={trabajador.id.toString()}>{trabajador.name}</option>
 													))}
@@ -570,37 +578,52 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 								<div className="card-body">
 									{/* Enumerado */}
 									<div className="col-12 row">
-										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+										<div className="row g-3 align-items-center mt-2">
 											<div className="col-4">
 												<label htmlFor="" className="col-form-label">{numeral1}</label>
 											</div>
-											<div className="col-2">
+											<div className="col-1">
 												<CheckboxSwitch
 													label="Enumerado"
 													checked={form.enumerado}
 													onChange={(checked) => handleSwitchChange('enumerado', checked)}
+													mode={mode}
 												/>
 											</div>
-											<div className="col-6">
+											<div className="col-7">
 												<ConditionalFields visible={!form.enumerado}>
-													<div className="row g-3 align-items-start justify-content-evenly">
-														<div className="col-4">
-															<label htmlFor="areaEnumeradoInput" className="required col-form-label">
+													<div className="row g-3 align-items-start">
+														<div className="col-6">
+															<label htmlFor="areaEnumeradoInput" className="form-label required">
 																{areaResponsable}
 															</label>
-														</div>
-														<div className="col-8">
 															<select
 																className="form-select select-sm"
 																id="areaEnumeradoInput"
 																name="areaEnumerado"
 																value={form.areaEnumerado}
 																onChange={handleChange}
+																disabled={mode === "view"}
 															>
 																<option value="">Seleccione</option>
-																<option value="Área 1">Área 1</option>
-																<option value="Área 2">Área 2</option>
+																{areaResponsableOptions.map((areaResponsable) => (
+																	<option key={areaResponsable.id} value={areaResponsable.id}>{areaResponsable.name}</option>
+																))}
 															</select>
+														</div>
+														<div className="col-6">
+															<label htmlFor="fechaVencimientoEnumeradoInput" className="form-label required">
+																{fechaVencimiento}
+															</label>
+															<input
+																type="date"
+																id="fechaVencimientoEnumeradoInput"
+																name="fechaVencimientoEnumerado"
+																value={form.fechaVencimientoEnumerado}
+																onChange={handleChange}
+																className="form-control input-sm"
+																disabled={mode === "view"}
+															/>
 														</div>
 													</div>
 												</ConditionalFields>
@@ -621,6 +644,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 												<div className="col-6">
@@ -636,6 +660,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 											</div>
@@ -643,38 +668,53 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 									</div>
 
 									{/* UbicacionAdecuada */}
-									<div className="col-12 row">
-										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+									<div className="col-12 row mt-2">
+										<div className="row g-3 align-items-center mt-2">
 											<div className="col-4">
 												<label htmlFor="" className="col-form-label"> {numeral2} </label>
 											</div>
-											<div className="col-2">
+											<div className="col-1">
 												<CheckboxSwitch
 													label="Ubicación adecuada"
 													checked={form.ubicacionAdecuada}
 													onChange={(checked) => handleSwitchChange('ubicacionAdecuada', checked)}
+													mode={mode}
 												/>
 											</div>
-											<div className="col-6">
+											<div className="col-7">
 												<ConditionalFields visible={!form.ubicacionAdecuada}>
-													<div className="row g-3 align-items-start justify-content-evenly">
-														<div className="col-4">
-															<label htmlFor="areaUbicacionAdecuadaInput" className="required col-form-label">
+													<div className="row g-3 align-items-start">
+														<div className="col-6">
+															<label htmlFor="areaUbicacionAdecuadaInput" className="form-label required">
 																{areaResponsable}
 															</label>
-														</div>
-														<div className="col-8">
 															<select
 																className="form-select select-sm"
 																id="areaUbicacionAdecuadaInput"
 																name="areaUbicacionAdecuada"
 																value={form.areaUbicacionAdecuada}
 																onChange={handleChange}
+																disabled={mode === "view"}
 															>
 																<option value="">Seleccione</option>
-																<option value="Área 1">Área 1</option>
-																<option value="Área 2">Área 2</option>
+																{areaResponsableOptions.map((areaResponsable) => (
+																	<option key={areaResponsable.id} value={areaResponsable.id}>{areaResponsable.name}</option>
+																))}
 															</select>
+														</div>
+														<div className="col-6">
+															<label htmlFor="fechaVencimientoUbicacionAdecuadaInput" className="form-label required">
+																{fechaVencimiento}
+															</label>
+															<input
+																type="date"
+																id="fechaVencimientoUbicacionAdecuadaInput"
+																name="fechaVencimientoUbicacionAdecuada"
+																value={form.fechaVencimientoUbicacionAdecuada}
+																onChange={handleChange}
+																className="form-control input-sm"
+																disabled={mode === "view"}
+															/>
 														</div>
 													</div>
 												</ConditionalFields>
@@ -695,6 +735,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 												<div className="col-6">
@@ -710,6 +751,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 											</div>
@@ -717,38 +759,53 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 									</div>
 
 									{/* EnSuLugar */}
-									<div className="col-12 row">
-										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+									<div className="col-12 row mt-2">
+										<div className="row g-3 align-items-center mt-2">
 											<div className="col-4">
 												<label htmlFor="" className="col-form-label"> {numeral3} </label>
 											</div>
-											<div className="col-2">
+											<div className="col-1">
 												<CheckboxSwitch
 													label="En su lugar"
 													checked={form.enSuLugar}
 													onChange={(checked) => handleSwitchChange('enSuLugar', checked)}
+													mode={mode}
 												/>
 											</div>
-											<div className="col-6">
+											<div className="col-7">
 												<ConditionalFields visible={!form.enSuLugar}>
-													<div className="row g-3 align-items-start justify-content-evenly">
-														<div className="col-4">
-															<label htmlFor="areaEnSuLugarInput" className="required col-form-label">
+													<div className="row g-3 align-items-start">
+														<div className="col-6">
+															<label htmlFor="areaEnSuLugarInput" className="form-label required">
 																{areaResponsable}
 															</label>
-														</div>
-														<div className="col-8">
 															<select
 																className="form-select select-sm"
 																id="areaEnSuLugarInput"
 																name="areaEnSuLugar"
 																value={form.areaEnSuLugar}
 																onChange={handleChange}
+																disabled={mode === "view"}
 															>
 																<option value="">Seleccione</option>
-																<option value="Área 1">Área 1</option>
-																<option value="Área 2">Área 2</option>
+																{areaResponsableOptions.map((areaResponsable) => (
+																	<option key={areaResponsable.id} value={areaResponsable.id}>{areaResponsable.name}</option>
+																))}
 															</select>
+														</div>
+														<div className="col-6">
+															<label htmlFor="fechaVencimientoEnSuLugarInput" className="form-label required">
+																{fechaVencimiento}
+															</label>
+															<input
+																type="date"
+																id="fechaVencimientoEnSuLugarInput"
+																name="fechaVencimientoEnSuLugar"
+																value={form.fechaVencimientoEnSuLugar}
+																onChange={handleChange}
+																className="form-control input-sm"
+																disabled={mode === "view"}
+															/>
 														</div>
 													</div>
 												</ConditionalFields>
@@ -769,6 +826,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 												<div className="col-6">
@@ -784,6 +842,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 											</div>
@@ -791,38 +850,53 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 									</div>
 
 									{/* LibreDeObstaculos */}
-									<div className="col-12 row">
-										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+									<div className="col-12 row mt-2">
+										<div className="row g-3 align-items-center mt-2">
 											<div className="col-4">
 												<label htmlFor="" className="col-form-label"> {numeral4} </label>
 											</div>
-											<div className="col-2">
+											<div className="col-1">
 												<CheckboxSwitch
 													label="Libre de obstaculos"
 													checked={form.libreDeObstaculos}
 													onChange={(checked) => handleSwitchChange('libreDeObstaculos', checked)}
+													mode={mode}
 												/>
 											</div>
-											<div className="col-6">
+											<div className="col-7">
 												<ConditionalFields visible={!form.libreDeObstaculos}>
 													<div className="row g-3 align-items-start justify-content-evenly">
-														<div className="col-4">
-															<label htmlFor="areaLibreDeObstaculos" className="required col-form-label">
+														<div className="col-6">
+															<label htmlFor="areaLibreDeObstaculos" className="form-label required">
 																{areaResponsable}
 															</label>
-														</div>
-														<div className="col-8">
 															<select
 																className="form-select select-sm"
 																id="areaLibreDeObstaculosInput"
 																name="areaLibreDeObstaculos"
 																value={form.areaLibreDeObstaculos}
 																onChange={handleChange}
+																disabled={mode === "view"}
 															>
 																<option value="">Seleccione</option>
-																<option value="Área 1">Área 1</option>
-																<option value="Área 2">Área 2</option>
+																{areaResponsableOptions.map((areaResponsable) => (
+																	<option key={areaResponsable.id} value={areaResponsable.id}>{areaResponsable.name}</option>
+																))}
 															</select>
+														</div>
+														<div className="col-6">
+															<label htmlFor="fechaVencimientoLibreDeObstaculosInput" className="form-label required">
+																{fechaVencimiento}
+															</label>
+															<input
+																type="date"
+																id="fechaVencimientoLibreDeObstaculosInput"
+																name="fechaVencimientoLibreDeObstaculos"
+																value={form.fechaVencimientoLibreDeObstaculos}
+																onChange={handleChange}
+																className="form-control input-sm"
+																disabled={mode === "view"}
+															/>
 														</div>
 													</div>
 												</ConditionalFields>
@@ -843,6 +917,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 												<div className="col-6">
@@ -858,13 +933,14 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 												<div className="row g-3 align-items-start justify-content-evenly mt-2">
 													<div className="col-6">
 														<label
 															htmlFor="fotoInput"
-															className="required col-form-label"
+															className="col-form-label"
 														>
 															Foto
 														</label>
@@ -878,6 +954,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 															onChange={handleChange}
 															placeholder="Ubicación especifica"
 															className="form-control input-sm"
+															disabled={mode === "view"}
 														/>
 													</div>
 												</div>
@@ -886,38 +963,53 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 									</div>
 
 									{/* ConectadoTomacorriente */}
-									<div className="col-12 row">
-										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+									<div className="col-12 row mt-2">
+										<div className="row g-3 align-items-center mt-2">
 											<div className="col-4">
 												<label htmlFor="" className="col-form-label"> {numeral5} </label>
 											</div>
-											<div className="col-2">
+											<div className="col-1">
 												<CheckboxSwitch
 													label="Conectado a toma corriente"
 													checked={form.conectadoTomacorriente}
 													onChange={(checked) => handleSwitchChange('conectadoTomacorriente', checked)}
+													mode={mode}
 												/>
 											</div>
-											<div className="col-6">
+											<div className="col-7">
 												<ConditionalFields visible={!form.conectadoTomacorriente}>
 													<div className="row g-3 align-items-start justify-content-evenly">
-														<div className="col-4">
-															<label htmlFor="areaConectadoTomacorriente" className="required col-form-label">
+														<div className="col-6">
+															<label htmlFor="areaConectadoTomacorriente" className="form-label required">
 																{areaResponsable}
 															</label>
-														</div>
-														<div className="col-8">
 															<select
 																className="form-select select-sm"
 																id="areaConectadoTomacorrienteInput"
 																name="areaConectadoTomacorriente"
 																value={form.areaConectadoTomacorriente}
 																onChange={handleChange}
+																disabled={mode === "view"}
 															>
 																<option value="">Seleccione</option>
-																<option value="Área 1">Área 1</option>
-																<option value="Área 2">Área 2</option>
+																{areaResponsableOptions.map((areaResponsable) => (
+																	<option key={areaResponsable.id} value={areaResponsable.id}>{areaResponsable.name}</option>
+																))}
 															</select>
+														</div>
+														<div className="col-6">
+															<label htmlFor="fechaVencimientoConectadoTomacorrienteInput" className="form-label required">
+																{fechaVencimiento}
+															</label>
+															<input
+																type="date"
+																id="fechaVencimientoConectadoTomacorrienteInput"
+																name="fechaVencimientoConectadoTomacorriente"
+																value={form.fechaVencimientoConectadoTomacorriente}
+																onChange={handleChange}
+																className="form-control input-sm"
+																disabled={mode === "view"}
+															/>
 														</div>
 													</div>
 												</ConditionalFields>
@@ -938,6 +1030,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 												<div className="col-6">
@@ -953,6 +1046,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 											</div>
@@ -960,38 +1054,53 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 									</div>
 
 									{/* EnciendeSwitchPrueba */}
-									<div className="col-12 row">
-										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+									<div className="col-12 row mt-2">
+										<div className="row g-3 align-items-center mt-2">
 											<div className="col-4">
 												<label htmlFor="" className="col-form-label"> {numeral6} </label>
 											</div>
-											<div className="col-2">
+											<div className="col-1">
 												<CheckboxSwitch
 													label="Enciende switch prueba"
 													checked={form.enciendeSwitchPrueba}
 													onChange={(checked) => handleSwitchChange('enciendeSwitchPrueba', checked)}
+													mode={mode}
 												/>
 											</div>
-											<div className="col-6">
+											<div className="col-7">
 												<ConditionalFields visible={!form.enciendeSwitchPrueba}>
-													<div className="row g-3 align-items-start justify-content-evenly">
-														<div className="col-4">
-															<label htmlFor="areaEnciendeSwitchPrueba" className="required col-form-label">
+													<div className="row g-3 align-items-start">
+														<div className="col-6">
+															<label htmlFor="areaEnciendeSwitchPrueba" className="form-label required">
 																{areaResponsable}
 															</label>
-														</div>
-														<div className="col-8">
 															<select
 																className="form-select select-sm"
 																id="areaEnciendeSwitchPruebaInput"
 																name="areaEnciendeSwitchPrueba"
 																value={form.areaEnciendeSwitchPrueba}
 																onChange={handleChange}
+																disabled={mode === "view"}
 															>
 																<option value="">Seleccione</option>
-																<option value="Área 1">Área 1</option>
-																<option value="Área 2">Área 2</option>
+																{areaResponsableOptions.map((areaResponsable) => (
+																	<option key={areaResponsable.id} value={areaResponsable.id}>{areaResponsable.name}</option>
+																))}
 															</select>
+														</div>
+														<div className="col-6">
+															<label htmlFor="fechaVencimientoEnciendeSwitchPruebaInput" className="form-label required">
+																{fechaVencimiento}
+															</label>
+															<input
+																type="date"
+																id="fechaVencimientoEnciendeSwitchPruebaInput"
+																name="fechaVencimientoEnciendeSwitchPrueba"
+																value={form.fechaVencimientoEnciendeSwitchPrueba}
+																onChange={handleChange}
+																className="form-control input-sm"
+																disabled={mode === "view"}
+															/>
 														</div>
 													</div>
 												</ConditionalFields>
@@ -1012,6 +1121,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 												<div className="col-6">
@@ -1027,6 +1137,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 											</div>
@@ -1034,38 +1145,53 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 									</div>
 
 									{/* BuenaIluminacion */}
-									<div className="col-12 row">
-										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+									<div className="col-12 row mt-2">
+										<div className="row g-3 align-items-center mt-2">
 											<div className="col-4">
 												<label htmlFor="" className="col-form-label"> {numeral7} </label>
 											</div>
-											<div className="col-2">
+											<div className="col-1">
 												<CheckboxSwitch
 													label="Buena iluminación"
 													checked={form.buenaIluminacion}
 													onChange={(checked) => handleSwitchChange('buenaIluminacion', checked)}
+													mode={mode}
 												/>
 											</div>
-											<div className="col-6">
+											<div className="col-7">
 												<ConditionalFields visible={!form.buenaIluminacion}>
-													<div className="row g-3 align-items-start justify-content-evenly">
-														<div className="col-4">
-															<label htmlFor="areaBuenaIluminacion" className="required col-form-label">
+													<div className="row g-3 align-items-start">
+														<div className="col-6">
+															<label htmlFor="areaBuenaIluminacion" className="form-label required">
 																{areaResponsable}
 															</label>
-														</div>
-														<div className="col-8">
 															<select
 																className="form-select select-sm"
 																id="areaBuenaIluminacionInput"
 																name="areaBuenaIluminacion"
 																value={form.areaBuenaIluminacion}
 																onChange={handleChange}
+																disabled={mode === "view"}
 															>
 																<option value="">Seleccione</option>
-																<option value="Área 1">Área 1</option>
-																<option value="Área 2">Área 2</option>
+																{areaResponsableOptions.map((areaResponsable) => (
+																	<option key={areaResponsable.id} value={areaResponsable.id}>{areaResponsable.name}</option>
+																))}
 															</select>
+														</div>
+														<div className="col-6">
+															<label htmlFor="fechaVencimientoBuenaIluminacionInput" className="form-label required">
+																{fechaVencimiento}
+															</label>
+															<input
+																type="date"
+																id="fechaVencimientoBuenaIluminacionInput"
+																name="fechaVencimientoBuenaIluminacion"
+																value={form.fechaVencimientoBuenaIluminacion}
+																onChange={handleChange}
+																className="form-control input-sm"
+																disabled={mode === "view"}
+															/>
 														</div>
 													</div>
 												</ConditionalFields>
@@ -1086,6 +1212,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 												<div className="col-6">
@@ -1101,6 +1228,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 											</div>
@@ -1108,38 +1236,53 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 									</div>
 
 									{/* BuenaEstado */}
-									<div className="col-12 row">
-										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+									<div className="col-12 row mt-2">
+										<div className="row g-3 align-items-center mt-2">
 											<div className="col-4">
 												<label htmlFor="" className="col-form-label"> {numeral8} </label>
 											</div>
-											<div className="col-2">
+											<div className="col-1">
 												<CheckboxSwitch
-													label="Buena iluminación"
-													checked={form.buenaIluminacion}
-													onChange={(checked) => handleSwitchChange('buenaIluminacion', checked)}
+													label="Buen estado"
+													checked={form.buenaEstado}
+													onChange={(checked) => handleSwitchChange('buenaEstado', checked)}
+													mode={mode}
 												/>
 											</div>
-											<div className="col-6">
-												<ConditionalFields visible={!form.buenaIluminacion}>
-													<div className="row g-3 align-items-start justify-content-evenly">
-														<div className="col-4">
-															<label htmlFor="areaBuenaIluminacion" className="required col-form-label">
+											<div className="col-7">
+												<ConditionalFields visible={!form.buenaEstado}>
+													<div className="row g-3 align-items-start">
+														<div className="col-6">
+															<label htmlFor="areaBuenaEstado" className="form-label required">
 																{areaResponsable}
 															</label>
-														</div>
-														<div className="col-8">
 															<select
 																className="form-select select-sm"
-																id="areaBuenaIluminacionInput"
-																name="areaBuenaIluminacion"
-																value={form.areaBuenaIluminacion}
+																id="areaBuenaEstadoInput"
+																name="areaBuenaEstado"
+																value={form.areaBuenaEstado}
 																onChange={handleChange}
+																disabled={mode === "view"}
 															>
 																<option value="">Seleccione</option>
-																<option value="Área 1">Área 1</option>
-																<option value="Área 2">Área 2</option>
+																{areaResponsableOptions.map((areaResponsable) => (
+																	<option key={areaResponsable.id} value={areaResponsable.id}>{areaResponsable.name}</option>
+																))}
 															</select>
+														</div>
+														<div className="col-6">
+															<label htmlFor="fechaVencimientoBuenaEstadoInput" className="form-label required">
+																{fechaVencimiento}
+															</label>
+															<input
+																type="date"
+																id="fechaVencimientoBuenaEstadoInput"
+																name="fechaVencimientoBuenaEstado"
+																value={form.fechaVencimientoBuenaEstado}
+																onChange={handleChange}
+																className="form-control input-sm"
+																disabled={mode === "view"}
+															/>
 														</div>
 													</div>
 												</ConditionalFields>
@@ -1160,6 +1303,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 												<div className="col-6">
@@ -1175,13 +1319,14 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 												<div className="row g-3 align-items-start justify-content-evenly mt-2">
 													<div className="col-6">
 														<label
 															htmlFor="fotoInput"
-															className="required col-form-label"
+															className="col-form-label"
 														>
 															Foto
 														</label>
@@ -1195,6 +1340,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 															onChange={handleChange}
 															placeholder="Ubicación especifica"
 															className="form-control input-sm"
+															disabled={mode === "view"}
 														/>
 													</div>
 												</div>
@@ -1218,6 +1364,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 																	})
 																}
 																checked={form.nuevoEquipo}
+																disabled={mode === "view"}
 															/>
 															<label
 																className="form-label-sm ms-2"
@@ -1246,6 +1393,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 															onChange={handleChange}
 															placeholder="Ubicación especifica"
 															className="form-control input-sm"
+															disabled={mode === "view"}
 														/>
 													</div>
 												</div>
@@ -1254,38 +1402,53 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 									</div>
 
 									{/* EncendidoQuinceMin */}
-									<div className="col-12 row">
-										<div className="row g-3 align-items-center justify-content-evenly mt-2">
+									<div className="col-12 row mt-2">
+										<div className="row g-3 align-items-center mt-2">
 											<div className="col-4">
 												<label htmlFor="" className="col-form-label"> {numeral9} </label>
 											</div>
-											<div className="col-2">
+											<div className="col-1">
 												<CheckboxSwitch
 													label="Encendido quince minutos"
 													checked={form.encendidoQuinceMin}
 													onChange={(checked) => handleSwitchChange('encendidoQuinceMin', checked)}
+													mode={mode}
 												/>
 											</div>
-											<div className="col-6">
+											<div className="col-7">
 												<ConditionalFields visible={!form.encendidoQuinceMin}>
-													<div className="row g-3 align-items-start justify-content-evenly">
-														<div className="col-4">
-															<label htmlFor="areaEncendidoQuinceMin" className="required col-form-label">
+													<div className="row g-3 align-items-start">
+														<div className="col-6">
+															<label htmlFor="areaEncendidoQuinceMin" className="form-label required">
 																{areaResponsable}
 															</label>
-														</div>
-														<div className="col-8">
 															<select
 																className="form-select select-sm"
 																id="areaEncendidoQuinceMinInput"
 																name="areaEncendidoQuinceMin"
 																value={form.areaEncendidoQuinceMin}
 																onChange={handleChange}
+																disabled={mode === "view"}
 															>
 																<option value="">Seleccione</option>
-																<option value="Área 1">Área 1</option>
-																<option value="Área 2">Área 2</option>
+																{areaResponsableOptions.map((areaResponsable) => (
+																	<option key={areaResponsable.id} value={areaResponsable.id}>{areaResponsable.name}</option>
+																))}
 															</select>
+														</div>
+														<div className="col-6">
+															<label htmlFor="fechaVencimientoEncendidoQuinceMinInput" className="form-label required">
+																{fechaVencimiento}
+															</label>
+															<input
+																type="date"
+																id="fechaVencimientoEncendidoQuinceMinInput"
+																name="fechaVencimientoEncendidoQuinceMin"
+																value={form.fechaVencimientoEncendidoQuinceMin}
+																onChange={handleChange}
+																className="form-control input-sm"
+																disabled={mode === "view"}
+															/>
 														</div>
 													</div>
 												</ConditionalFields>
@@ -1306,6 +1469,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 												<div className="col-6">
@@ -1321,6 +1485,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 														className="form-control input-sm"
 														maxLength={500}
 														rows={3}
+														disabled={mode === "view"}
 													/>
 												</div>
 											</div>
@@ -1328,39 +1493,15 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 									</div>
 								</div>
 							</div>
-
-							{/* <div className="form-check form-switch form-check-custom form-check-solid">
-										<input
-											className="form-check-input h-20px w-30px"
-											type="checkbox"
-											value=""
-											id="statusSwitch"
-											onChange={handleChange}
-											checked={form.enumerado}
-										/>
-										<label
-											className="form-label-sm ms-2"
-											htmlFor="statusSwitch"
-										>
-											{form.libreDeObstaculos ? "Si" : "No"}
-										</label>
-									</div> */}
-
+							{/* Buttons footer */}
 							<div className="d-flex justify-content-center gap-10 modal-footer">
-								<button
-									type="button"
-									onClick={() => putEmployee(idEmployee)}
-									className="btn btn-primary"
-								>
-									Guardar
-								</button>
-								<button
-									type="button"
-									onClick={() => deleteEmployee(idEmployee)}
-									className="btn btn-danger"
-								>
-									Eliminar
-								</button>
+								{mode !== 'view' && (
+									<button type="button" className="btn btn-primary"
+										onClick={handleSubmit}>
+										{mode === 'edit' ? 'Actualizar' : 'Crear'}
+									</button>
+								)}
+								<button type="button" className="btn btn-danger" onClick={onClose}>Cancelar</button>
 							</div>
 						</form>
 					</div>
