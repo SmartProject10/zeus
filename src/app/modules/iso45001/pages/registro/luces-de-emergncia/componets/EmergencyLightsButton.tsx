@@ -357,8 +357,8 @@ export const EmergencyLightsButton = () => {
 											<div className="col-6">
 												<input
 													type="date"
-													id="fechaIngresoInput"
-													name="fechaIngreso"
+													id="fechaIngresoEmpresa"
+													name="fechaIngresoEmpresa"
 													value={form.fechaIngresoEmpresa}
 													onChange={handleChange}
 													className="form-control input-sm"
