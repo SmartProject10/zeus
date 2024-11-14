@@ -23,7 +23,7 @@ import { ModalInspectionEmergencyLightsForm } from "./ModalInspectionEmergencyLi
 
 interface InspectionEmergencylightsTableProps {
 	dataList: any[];
-	onDataUpdate: (newData: any) => void;
+	onDataUpdate: (newData: any, mode: "create" | "edit" | "delete" | "view") => void;
 }
 
 export const InspectionEmergencylightsTable: React.FC<InspectionEmergencylightsTableProps> = ({ dataList, onDataUpdate }) => {
@@ -366,7 +366,7 @@ export const InspectionEmergencylightsTable: React.FC<InspectionEmergencylightsT
 			}).then((result) => {
 				if (result.isConfirmed) {
 					console.log('Data enviada (Editar):', data);
-					onDataUpdate(data);
+					onDataUpdate(data, mode);
 				}
 			});
 		}
@@ -379,10 +379,10 @@ export const InspectionEmergencylightsTable: React.FC<InspectionEmergencylightsT
 			setEmployees((prevData) => [...prevData, data]);
 		} else if (mode === "edit") {
 			console.log('Data enviada (Editar):', data);
-			onDataUpdate(data);
+			onDataUpdate(data, mode);
 		} else if (mode === "delete") {
 			console.log('Data enviada (delete):', data);
-			onDataUpdate(data);
+			onDataUpdate(data, mode);
 		}
 		setActiveModal(false); // Cierra el modal después de guardar los cambios
 	};

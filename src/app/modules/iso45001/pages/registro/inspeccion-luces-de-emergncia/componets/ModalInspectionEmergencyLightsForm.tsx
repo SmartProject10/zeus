@@ -292,9 +292,63 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps & { m
 		setForm({
 			...form,
 			[fieldName]: checked,
+			// Limpiar los campos si el switch está activado
+			...(fieldName === 'enumerado' && checked && {
+				areaEnumerado: "",
+				fechaVencimientoEnumerado: "",
+				observacionEnumerado: "",
+				recomendacionEnumerado: "",
+			}),
+			...(fieldName === 'ubicacionAdecuada' && checked && {
+				areaUbicacionAdecuada: "",
+				fechaVencimientoUbicacionAdecuada: "",
+				observacionUbicacionAdecuada: "",
+				recomendacionUbicacionAdecuada: "",
+			}),
+			...(fieldName === 'enSuLugar' && checked && {
+				areaEnSuLugar: "",
+				fechaVencimientoEnSuLugar: "",
+				observacionEnSuLugar: "",
+				recomendacionEnSuLugar: "",
+			}),
+			...(fieldName === 'libreDeObstaculos' && checked && {
+				areaLibreDeObstaculos: "",
+				fechaVencimientoLibreDeObstaculos: "",
+				observacionLibreDeObstaculos: "",
+				recomendacionLibreDeObstaculos: "",
+			}),
+			...(fieldName === 'conectadoTomacorriente' && checked && {
+				areaConectadoTomacorriente: "",
+				fechaVencimientoConectadoTomacorriente: "",
+				observacionConectadoTomacorriente: "",
+				recomendacionConectadoTomacorriente: "",
+			}),
+			...(fieldName === 'enciendeSwitchPrueba' && checked && {
+				areaEnciendeSwitchPrueba: "",
+				fechaVencimientoEnciendeSwitchPrueba: "",
+				observacionEnciendeSwitchPrueba: "",
+				recomendacionEnciendeSwitchPrueba: "",
+			}),
+			...(fieldName === 'buenaIluminacion' && checked && {
+				areaBuenaIluminacion: "",
+				fechaVencimientoBuenaIluminacion: "",
+				observacionBuenaIluminacion: "",
+				recomendacionBuenaIluminacion: "",
+			}),
+			...(fieldName === 'buenaEstado' && checked && {
+				areaBuenaEstado: "",
+				fechaVencimientoBuenaEstado: "",
+				observacionBuenaEstado: "",
+				recomendacionBuenaEstado: "",
+			}),
+			...(fieldName === 'encendidoQuinceMin' && checked && {
+				areaEncendidoQuinceMin: "",
+				fechaVencimientoEncendidoQuinceMin: "",
+				observacionEncendidoQuinceMin: "",
+				recomendacionEncendidoQuinceMin: "",
+			})
 		});
 	};
-
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
 		const { name, value } = event.target;
