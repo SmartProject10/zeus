@@ -7,6 +7,7 @@ export interface AccidentesResponse {
     trabajador: string
     fotoTrabajador: string
     dni: string
+    name: string
     descripcion: string
     imagenes: string[]
     reportadoPor: string

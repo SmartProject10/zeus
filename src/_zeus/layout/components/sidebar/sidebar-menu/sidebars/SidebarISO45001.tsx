@@ -98,6 +98,13 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 				/>
 
 				<SidebarMenuItem
+					to="/iso45001/base-de-datos-registro"
+					icon="graph-3"
+					title="Bases de datos"
+					fontIcon="bi-layers"
+				/>
+
+				<SidebarMenuItem
 					to="/iso45001/accidentes-enfermedades-trabajo"
 					icon="graph-3"
 					title="Accidentes/Enfermedades de trabajo"

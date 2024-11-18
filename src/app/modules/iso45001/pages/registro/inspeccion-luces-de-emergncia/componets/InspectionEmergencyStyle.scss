@@ -1,0 +1,29 @@
+.sombreado-fondo {
+    background-color: #f0f0f0; /* Color de fondo claro */
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* realse */
+    padding: 30px; /* Espaciado interior */
+    border-radius: 8px; /* Bordes redondeados */
+  }
+
+  .conditional-fields {
+    /* Ejemplos de estilo */
+    // display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  //separadores con bordes o lineas
+//   .modal-body .row {
+//     border-bottom: 1px solid #ddd; /* Línea divisoria sutil */
+//     margin-bottom: 10px; /* Espacio entre el borde y el siguiente punto */
+//     padding-bottom: 10px;
+// }
+
+//Usar colores para destacar secciones - filas pares
+.modal-body .row:nth-child(even) {
+  background-color: #f9f9f9;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+
