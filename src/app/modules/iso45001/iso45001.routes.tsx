@@ -12,6 +12,7 @@ import { EmergencyLightsPage } from './pages/registro/luces-de-emergncia/Emergen
 import { InspectionEmergencyLightsPage } from './pages/registro/inspeccion-luces-de-emergncia/InspectionEmergencyLightsPage'
 import { Asistencia } from './pages/asistencia/Asistencia'
 import { AccidentesEnfermedadesTrabajo } from './pages/accidentes/AccidentesEnfermedadesTrabajo'
+import { DatabaseRegistroPage } from './pages/registro/database'
 
 const indexIso45001: Array<PageLink> = [
 	{
@@ -74,6 +75,14 @@ export function ISO45001Routes(): JSX.Element {
 				element={
 					<>
 						<InspectionEmergencyLightsPage />
+					</>
+				}
+			/>
+			<Route
+				path="base-de-datos-registro"
+				element={
+					<>
+						<DatabaseRegistroPage />
 					</>
 				}
 			/>
