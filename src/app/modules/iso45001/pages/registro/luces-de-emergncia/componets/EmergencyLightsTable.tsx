@@ -19,8 +19,11 @@ import {
 	putEmployeeService,
 } from "@zeus/app/modules/human-resources/tools/calendar/core/_requests";
 import { ModalEmergencyLightsForm } from "./ModalEmergencyLightsForm";
+import { EmergencyLightsRequest } from "../core/_models";
+
 
 interface EmployeeForm {
+	id: string;
 	numero: string;
 	sede: string;
 	area: string;
@@ -29,20 +32,29 @@ interface EmployeeForm {
 	marca: string;
 	fechaIngresoEmpresaInicial: string;
 	fechaIngresoEmpresaFinal: string;
+	fechaIngresoEmpresa: string;
 }
 
-export const EmergencylightsTable = () => {
+interface InspectionEmergencylightsTableProps {
+	data: EmergencyLightsRequest[];
+	onDataUpdate: (newData: any, mode: "create" | "edit" | "delete" | "view" | "change") => void;
+}
+
+export const EmergencylightsTable: React.FC<InspectionEmergencylightsTableProps> = ({ data, onDataUpdate }) => {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	console.log(data, 'data')
 	const [employees, setEmployees] = useState<EmergencyLightsResponse[]>([]);
 	const [filteredEmployees, setFilteredEmployees] = useState<
 		EmergencyLightsResponse[]
 	>([]);
+	const [mode, setMode] = useState<"create" | "edit" | "view" | "delete" | "change">("create");
 	const [totalPages, setTotalPages] = useState<number>(1);
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [limitPerPage, setLimitPerPage] = useState<number>(10);
 	const [idEmployee, setIdEmployee] = useState("");
-	const [formData, setFormData] = useState<EmployeeForm>({
+	const [formData, setFormData] = useState<any>({
+		id: "",
 		numero: "",
 		sede: "",
 		area: "",
@@ -51,6 +63,7 @@ export const EmergencylightsTable = () => {
 		marca: "",
 		fechaIngresoEmpresaInicial: "",
 		fechaIngresoEmpresaFinal: "",
+		fechaIngresoEmpresa: ""
 	});
 	const [activeModal, setActiveModal] = useState<boolean>(false);
 
@@ -73,23 +86,23 @@ export const EmergencylightsTable = () => {
 		};
 		employeesInit();
 
-		const employeesSubj = appStateService
-			.getEmployeesSubject()
-			.subscribe((employees: any) => {
-				setEmployees(employees);
-				setFilteredEmployees(employees);
-			});
+		// const employeesSubj = appStateService
+		// 	.getEmployeesSubject()
+		// 	.subscribe((employees: any) => {
+		// 		setEmployees(employees);
+		// 		setFilteredEmployees(employees);
+		// 	});
 
-		const activeModalSubj = appStateService
-			.getActiveModalSubject()
-			.subscribe((state: boolean) => {
-				setActiveModal(state);
-			});
+		// const activeModalSubj = appStateService
+		// 	.getActiveModalSubject()
+		// 	.subscribe((state: boolean) => {
+		// 		setActiveModal(state);
+		// 	});
 
-		return () => {
-			employeesSubj.unsubscribe();
-			activeModalSubj.unsubscribe();
-		};
+		// return () => {
+		// 	employeesSubj.unsubscribe();
+		// 	activeModalSubj.unsubscribe();
+		// };
 	}, []);
 
 	useEffect(() => {
@@ -101,19 +114,10 @@ export const EmergencylightsTable = () => {
 	) => {
 		const { name, value } = e.target;
 
-		setFormData((prevState) => ({
+		setFormData((prevState: any) => ({
 			...prevState,
 			[name]: value,
 		}));
-
-		// let filters:string = "?";
-		// for(const key in formData){
-		//   if(formData.hasOwnProperty(key)){
-		//     if(formData[key as keyof EmployeeForm] != "" && formData[key as keyof EmployeeForm] != null){
-		//       filters=filters+`${key}=${formData[key as keyof EmployeeForm]}&`
-		//     }
-		//   }
-		// }
 	};
 
 	function showModalEmployee(id: string) {
@@ -122,7 +126,6 @@ export const EmergencylightsTable = () => {
 	}
 
 	async function applyFilters() {
-		// eslint-disable-next-line max-len
 		const filters = `?numero=${formData.numero}&sede=${formData.sede}&area=${formData.area}&ubicacionEspecifica=${formData.ubicacionEspecifica}&codigo=${formData.codigo}&marca=${formData.marca}&fechaIngresoEmpresaInicial=${formData.fechaIngresoEmpresaInicial}&fechaIngresoEmpresaFinal=${formData.fechaIngresoEmpresaFinal}&limit=${limitPerPage}`;
 
 		try {
@@ -140,7 +143,6 @@ export const EmergencylightsTable = () => {
 	}
 
 	async function selectPageNavigate(page: number) {
-		// eslint-disable-next-line max-len
 		const filters = `?numero=${formData.numero}&sede=${formData.sede}&area=${formData.area}&ubicacionEspecifica=${formData.ubicacionEspecifica}&codigo=${formData.codigo}&marca=${formData.marca}&fechaIngresoEmpresaInicial=${formData.fechaIngresoEmpresaInicial}&fechaIngresoEmpresaFinal=${formData.fechaIngresoEmpresaFinal}&page=${page}&limit=${limitPerPage}`;
 
 		try {
@@ -158,16 +160,11 @@ export const EmergencylightsTable = () => {
 
 	async function navigatePage(action: string) {
 		if (action == "next") {
-			// eslint-disable-next-line max-len
-			const filters = `?numero=${formData.numero}&sede=${formData.sede}&area=${
-				formData.area
-			}&ubicacionEspecifica=${formData.ubicacionEspecifica}&codigo=${
-				formData.codigo
-			}&marca=${formData.marca}&fechaIngresoEmpresaInicial=${
-				formData.fechaIngresoEmpresaInicial
-			}&fechaIngresoEmpresaFinal=${formData.fechaIngresoEmpresaFinal}&page=${
-				currentPage + 1
-			}&limit=${limitPerPage}`;
+			const filters = `?numero=${formData.numero}&sede=${formData.sede}&area=${formData.area
+				}&ubicacionEspecifica=${formData.ubicacionEspecifica}&codigo=${formData.codigo
+				}&marca=${formData.marca}&fechaIngresoEmpresaInicial=${formData.fechaIngresoEmpresaInicial
+				}&fechaIngresoEmpresaFinal=${formData.fechaIngresoEmpresaFinal}&page=${currentPage + 1
+				}&limit=${limitPerPage}`;
 
 			try {
 				const response: any = await getFilteredEmployees(filters);
@@ -181,16 +178,11 @@ export const EmergencylightsTable = () => {
 				console.error(e);
 			}
 		} else if (action == "previous") {
-			// eslint-disable-next-line max-len
-			const filters = `?numero=${formData.numero}&sede=${formData.sede}&area=${
-				formData.area
-			}&ubicacionEspecifica=${formData.ubicacionEspecifica}&codigo=${
-				formData.codigo
-			}&marca=${formData.marca}&fechaIngresoEmpresaInicial=${
-				formData.fechaIngresoEmpresaInicial
-			}&fechaIngresoEmpresaFinal=${formData.fechaIngresoEmpresaFinal}&page=${
-				currentPage - 1
-			}&limit=${limitPerPage}`;
+			const filters = `?numero=${formData.numero}&sede=${formData.sede}&area=${formData.area
+				}&ubicacionEspecifica=${formData.ubicacionEspecifica}&codigo=${formData.codigo
+				}&marca=${formData.marca}&fechaIngresoEmpresaInicial=${formData.fechaIngresoEmpresaInicial
+				}&fechaIngresoEmpresaFinal=${formData.fechaIngresoEmpresaFinal}&page=${currentPage - 1
+				}&limit=${limitPerPage}`;
 
 			try {
 				const response: any = await getFilteredEmployees(filters);
@@ -226,34 +218,52 @@ export const EmergencylightsTable = () => {
 		saveAs(data, "reporteEmpleadosFiltrados.xlsx");
 	};
 
-	const exportEmployeeToExcel = (employee: EmergencyLightsResponse) => {
-		const employeeArray: EmergencyLightsResponse[] = [];
-		employeeArray.push(employee);
+	const handleActionClick = (action: "create" | "edit" | "view" | "delete" | "change", data: any) => {
+		console.log("Acción seleccionada:", action, "Datos:", data); // Depuración
+		setMode(action); // 'view', 'edit', 'change'
+		setFormData(data); // Asegúrate de tener una función setFormData para manejar los datos
+		if (action != "delete") {
+			setActiveModal(true); // Abre el modal
+		}
 
-		// Crear una hoja de trabajo a partir de los datos
-		const worksheet = XLSX.utils.json_to_sheet(employeeArray);
+		if (action === "delete") {
+			console.log("Acción seleccionada:", action, "Datos:", data); // Depuración
+			Swal.fire({
+				icon: "question",
+				title: "¿Estás segur@ de realizar esta acción?",
+				showCancelButton: true,
+				cancelButtonText: "Cancelar",
+				confirmButtonText: "Sí",
+				confirmButtonColor: "#1b84ff",
+			}).then((result) => {
+				if (result.isConfirmed) {
+					console.log('Data enviada (Editar):', data);
+					onDataUpdate(data, mode);
+				}
+			});
+		}
+	};
 
-		// Crear un libro de trabajo y agregar la hoja de trabajo
-		const workbook = XLSX.utils.book_new();
-		XLSX.utils.book_append_sheet(workbook, worksheet, "Trabajadores");
-
-		// Generar un archivo de Excel
-		const excelBuffer = XLSX.write(workbook, {
-			bookType: "xlsx",
-			type: "array",
-		});
-
-		// Guardar el archivo usando file-saver
-		const data = new Blob([excelBuffer], { type: "application/octet-stream" });
-
-		saveAs(data, "reporteEmpleado.xlsx");
+	// Lógica para agregar o editar datos
+	const handleFormSubmit = (data: any) => {
+		if (mode === "create") {
+			setEmployees((prevData) => [...prevData, data]);
+		} else if (mode === "edit" || mode === "delete" || mode === "change") {
+			onDataUpdate(data, mode);
+		}
+		setActiveModal(false);
 	};
 
 	return (
 		<KTCardBody className="py-4 card card-grid min-w-full">
 			{activeModal ? (
 				<ModalEmergencyLightsForm
-					idEmployee={idEmployee}
+					idEmployee={''}
+					children={null}
+					onClose={() => setActiveModal(false)}
+					onSubmit={handleFormSubmit}
+					mode={mode} // Pasar el mode al modal
+					formData={formData} // Pasar los datos al modal
 				></ModalEmergencyLightsForm>
 			) : (
 				""
@@ -365,7 +375,7 @@ export const EmergencylightsTable = () => {
 
 			<hr />
 
-			<p>{"Coincidencias" + ": " + filteredEmployees.length}</p>
+			<p>{"Coincidencias" + ": " + data.length}</p>
 
 			<div className="d-grid gap-2 d-md-flex justify-content-md-end">
 				<button className="btn btn-success btn-sm disabled" type="button">
@@ -393,47 +403,56 @@ export const EmergencylightsTable = () => {
 							<th className="min-w-200px">Ubicacion especifica</th>
 							<th className="min-w-200px">Marca</th>
 							<th className="min-w-200px">Fecha de Ingreso Empresa</th>
+							<th className="min-w-200px">Acciones</th>
 						</tr>
 					</thead>
 					<tbody className="text-center">
-						{filteredEmployees.length > 0 &&
-							filteredEmployees.map((employee, index) => (
+						{data.length > 0 &&
+							data.map((light, index) => (
 								<tr key={index}>
 									<td>{index + 1}</td>
-									<td>{employee.numero}</td>
-									<td>{employee.sede}</td>
-									<td>{employee.area}</td>
-									<td>{employee.ubicacionEspecifica}</td>
-									<td>{employee.marca}</td>
-									<td>{dayMonthYear(employee.fechaIngresoEmpresa)}</td>
+									<td>{light.numero}</td>
+									<td>{light.sede}</td>
+									<td>{light.area}</td>
+									<td>{light.ubicacionEspecifica}</td>
+									<td>{light.marca}</td>
+									<td>{dayMonthYear(light.fechaIngresoEmpresa)}</td>
 									<td>
 										<div className="d-grid gap-2 d-md-flex">
-											{/* <button className="btn btn-sm btn-bg-light btn-active-color-primary">
-                      Editar/modificar/actualizar
-                    </button> */}
 											<button
-												className="btn btn-sm btn-bg-light btn-active-color-primary"
-												onClick={() => showModalEmployee(employee._id)}
-											>
-												Ver detalle
-											</button>
-											<button className="btn btn-sm btn-bg-light btn-active-color-primary">
-												Historial
-											</button>
-											<button
-												className="btn btn-sm btn-bg-light btn-active-color-primary disabled"
+												className="btn  btn-sm btn-icon btn-active-icon-primary btn-active-light-primary"
 												type="button"
-											>
-												<i className="bi bi-file-earmark-spreadsheet-fill"></i>
-												Importar a Excel
+												data-bs-toggle="modal"
+												title="Ver"
+												data-bs-target="#staticBackdrop"
+												data-uneditable
+												onClick={() => handleActionClick('view', light)}>
+												<i className="fas fa-eye fs-4"></i>
 											</button>
 											<button
-												onClick={() => exportEmployeeToExcel(employee)}
-												className="btn btn-sm btn-bg-light btn-active-color-primary"
+												className="btn  btn-sm btn-icon btn-active-icon-primary btn-active-light-primary"
 												type="button"
-											>
-												<i className="bi bi-file-earmark-spreadsheet-fill"></i>
-												Exportar a Excel
+												data-bs-toggle="modal"
+												title="Editar"
+												data-bs-target="#staticBackdrop"
+												onClick={() => handleActionClick('edit', light)}>
+												<i className="fas fa-edit fs-4"></i>
+											</button>
+											<button
+												className="btn  btn-sm btn-icon btn-active-icon-primary btn-active-light-primary"
+												type="button"
+												data-bs-toggle="modal"
+												title="Cambiar"
+												onClick={() => handleActionClick('change', light)}
+												data-bs-target="#staticBackdrop">
+												<i className="fas fa-rotate fs-4"></i>
+											</button>
+											<button
+												type="button"
+												onClick={() => handleActionClick('delete', light)}
+												className="btn btn-sm btn-icon btn-active-icon-danger btn-active-light-danger"
+												title="Eliminar">
+												<i className="fas fa-trash fs-4"></i>
 											</button>
 										</div>
 									</td>
@@ -443,13 +462,13 @@ export const EmergencylightsTable = () => {
 				</table>
 			</div>
 
-			{filteredEmployees.length == 0 && (
+			{data.length == 0 && (
 				<p className="text-center mb-5">
 					No se encontraron luces de emergencia
 				</p>
 			)}
 
-			{filteredEmployees.length != 0 && (
+			{data.length != 0 && (
 				<div className="mt-2">
 					<ul className="pagination">
 						<li

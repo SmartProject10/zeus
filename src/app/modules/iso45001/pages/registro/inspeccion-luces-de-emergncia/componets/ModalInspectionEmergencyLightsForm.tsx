@@ -1,32 +1,17 @@
 import { ReactNode, useEffect, useState } from "react";
-// import { EmployeeResponse, EmployeeRequest } from "../../core/_models";
 import Swal from "sweetalert2";
-// import {
-// 	deleteEmployeeService,
-// 	getEmployeeById,
-// 	putEmployeeService,
-// } from "../../core/_requests";
-import { appStateService } from "../../../../../../services/appState.service";
-import { dateInput } from "../../../../../../utils/dateFormat";
-import {
-	deleteEmergencyLightService,
-	deleteEmployeeService,
-	getEmergencyLightById,
-	getEmployeeById,
-	putEmergencyLightService,
-	putEmployeeService,
-} from "@zeus/app/modules/human-resources/tools/calendar/core/_requests";
 import './InspectionEmergencyStyle.scss';
 import { InspeccionResponse, EmergencyLightsForm, EmergencyLightsResponse, Sede, AreaResponsable, LuzEmergencia, InspeccionadoPor, Cargo, Trabajador, Inspection, validateForm } from '../core/_models';
 import CheckboxSwitch from './CheckboxSwitch';
 import ConditionalFields from './ConditionalFields';
 import { getAreaResponsable, getCargo, getInspeccionadoPor, getLuzEmergencia, getSede, getTrabajador } from "../core/_requests";
+import { accionValidacionGuardar } from "@zeus/app/utils/mensajesPredeterminados";
 
 interface MyComponentProps {
 	idEmployee: string;
 	onClose: () => void;
 	children?: ReactNode;
-	onSubmit: (newData: EmergencyLightsForm) => void;  // Asegúrate de que sea el tipo correcto
+	onSubmit: (newData: EmergencyLightsForm) => void;
 	mode: 'create' | 'edit' | 'view' | "delete";
 	formData: EmergencyLightsForm;
 }
@@ -225,7 +210,6 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps & { m
 	const filteredTrabajadores = trabajadorOptions.filter((trabajador) => trabajador.cargo === form.cargo);
 
 	useEffect(() => {
-		console.log(localFormData)
 		const fetchOptions = async () => {
 			try {
 				const sedeResponse = await getSede();
@@ -393,7 +377,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps & { m
 			});
 			Toast.fire({
 				icon: "error",
-				title: "Por favor, asegúrese de completar todos los campos requeridos.",
+				title: accionValidacionGuardar(),
 			});
 			return;
 		}
@@ -480,7 +464,6 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps & { m
 			}
 		});
 	};
-
 
 	return (
 		<div

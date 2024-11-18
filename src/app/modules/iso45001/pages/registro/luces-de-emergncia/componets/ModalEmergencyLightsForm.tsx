@@ -22,13 +22,19 @@ import {
 	EmployeeRequest,
 	EmployeeResponse,
 } from "@zeus/app/modules/human-resources/tools/calendar/core/_models";
+import { accionValidacionGuardar } from "@zeus/app/utils/mensajesPredeterminados";
 
 interface MyComponentProps {
 	idEmployee: string;
 	children?: ReactNode;
+	mode: 'create' | 'edit' | 'view' | "delete" | "change";
+	formData: any;
+	onClose: () => void;
+	onSubmit: (newData: any) => void;
 }
 
 export interface EmergencyLightsForm {
+	id?: string;
 	numero: string;
 	sede: string;
 	area: string;
@@ -39,19 +45,29 @@ export interface EmergencyLightsForm {
 }
 
 // eslint-disable-next-line react/prop-types, @typescript-eslint/no-unused-vars
-export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
+export const ModalEmergencyLightsForm: React.FC<MyComponentProps & { mode: 'view' | 'edit' | 'create' | "delete" | "change", formData?: EmergencyLightsForm }> = ({
 	idEmployee,
 	children,
+	mode,
+	onClose,
+	onSubmit,
+	formData
 }) => {
-	const [form, setForm] = useState<EmergencyLightsForm>({
-		numero: "",
-		sede: "",
-		area: "",
-		ubicacionEspecifica: "",
-		codigo: "",
-		marca: "",
-		fechaIngresoEmpresa: "",
-	});
+
+	const [initialData, setInitialData] = useState<EmergencyLightsForm>(formData);
+	const [dataLight, setDataLight] = useState<EmergencyLightsForm[]>([]);
+	const [isModalVisible, setIsModalVisible] = useState(true);
+	const [form, setForm] = useState<EmergencyLightsForm>(
+		initialData || {
+			id: "",
+			numero: "",
+			sede: "",
+			area: "",
+			ubicacionEspecifica: "",
+			codigo: "",
+			marca: "",
+			fechaIngresoEmpresa: "",
+		});
 
 	useEffect(() => {
 		const initEmployee = async () => {
@@ -62,6 +78,7 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 					const employee: EmergencyLightsResponse = response.data;
 
 					setForm({
+						id: employee._id,
 						numero: employee.area,
 						sede: employee.sede,
 						area: employee.area,
@@ -76,8 +93,23 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 			}
 		};
 
+		// Función para cargar los datos de inspección si el modo es 'edit' o 'view'
+		if (mode === 'edit' || mode === 'view') {
+			const lightEdit = dataLight.find((light) => light.id === idEmployee);
+			if (lightEdit) {
+				// Copiamos la inspección encontrada en 'form' y llenamos valores faltantes con valores por defecto
+				setForm({
+					...form, // Mantén los valores predeterminados para campos faltantes
+					...lightEdit, // Sobrescribe solo los campos presentes en inspectionToEdit
+				});
+			}
+		} else {
+			// En modo 'create', limpiar el formulario
+			setForm({ ...form, id: Date.now().toString() });
+		}
+
 		initEmployee();
-	}, []);
+	}, [mode, idEmployee, dataLight]);
 
 	const handleChange = (event: any) => {
 		const { name, value } = event.target;
@@ -87,62 +119,18 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 		});
 	};
 
-	function deleteEmployee(id: string) {
-		Swal.fire({
-			icon: "question",
-			title: "¿Estas segur@ de realizar esta acción?",
-			showCancelButton: true,
-			cancelButtonText: "Cancelar",
-			confirmButtonText: "Si",
-			confirmButtonColor: "#1b84ff",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				try {
-					const deleteEmployee = async () => {
-						const response = await deleteEmergencyLightService(id);
-
-						if (response.status == 200) {
-							// nesesario agregar estado global para estas entidades (luces de emergencia)
-							// appStateService.deleteEmployeeSubject(id);
-							// appStateService.setActiveModalSubject();
-
-							const Toast = Swal.mixin({
-								toast: true,
-								position: "top-end",
-								showConfirmButton: false,
-								timer: 3000,
-								timerProgressBar: true,
-								didOpen: (toast) => {
-									toast.onmouseenter = Swal.stopTimer;
-									toast.onmouseleave = Swal.resumeTimer;
-								},
-							});
-							Toast.fire({
-								icon: "success",
-								title: "luz de emergencia eliminada correctamente",
-							});
-						}
-					};
-
-					deleteEmployee();
-				} catch (e: any) {
-					console.error(e);
-				}
-			} else if (result.isDenied) {
-				// Swal.fire('Changes are not saved', '', 'info')
-			}
-		});
-	}
-
-	function putEmployee(id: string) {
+	const handleSubmit = (event: React.FormEvent) => {
+		event.preventDefault();
+		// Primero, validar el formulario antes de proceder
+		console.log(form, 'form')
 		if (
 			!form.numero ||
 			!form.sede ||
 			!form.area ||
 			!form.ubicacionEspecifica ||
 			!form.codigo ||
-			!form.marca ||
-			!form.fechaIngresoEmpresa
+			!form.marca
+			|| !form.fechaIngresoEmpresa
 		) {
 			const Toast = Swal.mixin({
 				toast: true,
@@ -157,70 +145,57 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 			});
 			Toast.fire({
 				icon: "error",
-				title: "Porfavor, rellenar todos los campos.",
+				title: accionValidacionGuardar(),
 			});
 
 			return;
 		}
 
+		// Mostrar el modal de confirmación solo si la validación es exitosa
 		Swal.fire({
 			icon: "question",
-			title: "¿Estas segur@ de realizar esta acción?",
+			title: "¿Estás segur@ de realizar esta acción?",
 			showCancelButton: true,
 			cancelButtonText: "Cancelar",
-			confirmButtonText: "Si",
+			confirmButtonText: "Sí",
 			confirmButtonColor: "#1b84ff",
 		}).then((result) => {
 			if (result.isConfirmed) {
+				// Crear nuevo objeto
+				const newLight: EmergencyLightsRequest = { ...form };
+
+				// Llamar al callback con el nuevo objeto
 				try {
-					const editEmployee = async () => {
-						const request: EmergencyLightsRequest = {
-							numero: form.numero,
-							sede: form.sede,
-							area: form.area,
-							ubicacionEspecifica: form.ubicacionEspecifica,
-							codigo: form.codigo,
-							marca: form.marca,
-							fechaIngresoEmpresa: form.fechaIngresoEmpresa,
-						};
-
-						const response = await putEmergencyLightService(id, request);
-
-						if (response.status == 200) {
-							// nesesario agregar estado global para estas entidades (luces de emergencia)
-							// appStateService.putEmployeeSubject(id, request);
-							// appStateService.setActiveModalSubject();
-
-							const Toast = Swal.mixin({
-								toast: true,
-								position: "top-end",
-								showConfirmButton: false,
-								timer: 3000,
-								timerProgressBar: true,
-								didOpen: (toast) => {
-									toast.onmouseenter = Swal.stopTimer;
-									toast.onmouseleave = Swal.resumeTimer;
-								},
-							});
-							Toast.fire({
-								icon: "success",
-								title: "Luz de emergencia editada correctamente",
-							});
-						}
-					};
-
-					editEmployee();
+					onSubmit(newLight);
+					setForm({ ...form });
+					onClose();
 				} catch (e: any) {
 					console.error(e);
 				}
-			} else if (result.isDenied) {
-				// Swal.fire('Changes are not saved', '', 'info')
+				// Limpiar el formulario
+				setForm({
+					numero: "",
+					sede: "",
+					area: "",
+					ubicacionEspecifica: "",
+					codigo: "",
+					marca: "",
+					fechaIngresoEmpresa: "",
+				});
+				// Cerrar el modal
+				const closeButton = document.getElementById("closeButton");
+				closeButton?.click();
+
+				Swal.fire({
+					icon: "success",
+					title: "Luz de emergencia creada correctamente",
+					toast: true,
+					position: "top-end",
+					showConfirmButton: false,
+					timer: 3000,
+				});
 			}
 		});
-	}
-
-	function closeModal() {
-		appStateService.setActiveModalSubject();
 	}
 
 	return (
@@ -245,7 +220,7 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 						</h1>
 						<button
 							type="button"
-							onClick={closeModal}
+							onClick={onClose}
 							className="btn-close"
 						></button>
 					</div>
@@ -271,6 +246,7 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 												onChange={handleChange}
 												placeholder="Numero"
 												className="form-control input-sm"
+												disabled={mode === "view" || mode === "change"}
 											/>
 										</div>
 									</div>
@@ -292,6 +268,7 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 												value={form.sede}
 												onChange={handleChange}
 												aria-label="Default select example"
+												disabled={mode === "view" || mode === "change"}
 											>
 												<option value="">Seleccione</option>
 												<option value="Sede 1">Sede 1</option>
@@ -317,6 +294,7 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 												value={form.area}
 												onChange={handleChange}
 												aria-label="Default select example"
+												disabled={mode === "view"}
 											>
 												<option value="">Seleccione</option>
 												<option value="Área 1">Área 1</option>
@@ -343,6 +321,7 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 												onChange={handleChange}
 												placeholder="Ubicación especifica"
 												className="form-control input-sm"
+												disabled={mode === "view"}
 											/>
 										</div>
 									</div>
@@ -366,6 +345,7 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 												onChange={handleChange}
 												placeholder="Código"
 												className="form-control input-sm"
+												disabled={mode === "view"}
 											/>
 										</div>
 									</div>
@@ -390,6 +370,7 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 												onChange={handleChange}
 												className="form-control input-sm"
 												required
+												disabled={mode === "view"}
 											/>
 											<datalist id="marcasExistentes">
 												<option value="Adidas">Adidas</option>
@@ -405,7 +386,7 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 									<div className="row g-3 align-items-start justify-content-evenly mt-2">
 										<div className="col-6">
 											<label
-												htmlFor="fechaIngresoInput"
+												htmlFor="fechaIngresoEmpresaInput"
 												className="required col-form-label"
 											>
 												Fecha de ingreso a la empresa
@@ -414,30 +395,24 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 										<div className="col-6">
 											<input
 												type="date"
-												id="fechaIngresoInput"
-												name="fechaIngreso"
+												id="fechaIngresoEmpresaInput"
+												name="fechaIngresoEmpresa"
 												value={form.fechaIngresoEmpresa}
 												onChange={handleChange}
 												className="form-control input-sm"
+												disabled={mode === "view"}
 											/>
 										</div>
 									</div>
 
 									<div className="d-flex justify-content-center gap-10 modal-footer">
-										<button
-											type="button"
-											onClick={() => putEmployee(idEmployee)}
-											className="btn btn-primary"
-										>
-											Editar
-										</button>
-										<button
-											type="button"
-											onClick={() => deleteEmployee(idEmployee)}
-											className="btn btn-danger"
-										>
-											Eliminar
-										</button>
+										{mode !== 'view' && (
+											<button type="button" className="btn btn-primary"
+												onClick={handleSubmit}>
+												{mode === 'edit' ? 'Actualizar' : mode === 'change' ? 'Cambiar' : 'Crear'}
+											</button>
+										)}
+										<button type="button" className="btn btn-danger" onClick={onClose}>Cancelar</button>
 									</div>
 								</form>
 							</div>

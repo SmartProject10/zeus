@@ -375,16 +375,13 @@ export const InspectionEmergencylightsTable: React.FC<InspectionEmergencylightsT
 	// Lógica para agregar o editar datos
 	const handleFormSubmit = (data: any) => {
 		if (mode === "create") {
-			console.log('Data enviada (Crear):', data);
 			setEmployees((prevData) => [...prevData, data]);
 		} else if (mode === "edit") {
-			console.log('Data enviada (Editar):', data);
 			onDataUpdate(data, mode);
 		} else if (mode === "delete") {
-			console.log('Data enviada (delete):', data);
 			onDataUpdate(data, mode);
 		}
-		setActiveModal(false); // Cierra el modal después de guardar los cambios
+		setActiveModal(false);
 	};
 
 	return (
@@ -392,9 +389,9 @@ export const InspectionEmergencylightsTable: React.FC<InspectionEmergencylightsT
 			{activeModal ? (
 				<ModalInspectionEmergencyLightsForm
 					idEmployee={idEmployee}
-					onClose={() => setActiveModal(false)} // Define cómo cerrar el modal
+					onClose={() => setActiveModal(false)}
 					onSubmit={handleFormSubmit}
-					mode={mode} // 'create', 'view', 'edit'
+					mode={mode}
 					formData={formData}
 				></ModalInspectionEmergencyLightsForm>
 			) : (
@@ -457,21 +454,12 @@ export const InspectionEmergencylightsTable: React.FC<InspectionEmergencylightsT
 												<i className="fas fa-edit fs-4"></i>
 											</button>
 											<button
-												className="btn  btn-sm btn-icon btn-active-icon-primary btn-active-light-primary"
-												type="button"
-												data-bs-toggle="modal"
-												title="Cambiar"
-												data-bs-target="#staticBackdrop">
-												<i className="fas fa-rotate fs-4"></i>
-											</button>
-											<button
 												type="button"
 												onClick={() => handleActionClick('delete', data)}
 												className="btn btn-sm btn-icon btn-active-icon-danger btn-active-light-danger"
 												title="Eliminar">
 												<i className="fas fa-trash fs-4"></i>
 											</button>
-
 										</div>
 									</td>
 								</tr>

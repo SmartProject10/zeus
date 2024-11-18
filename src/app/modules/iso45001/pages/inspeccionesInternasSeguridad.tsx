@@ -18,6 +18,7 @@ export function InspeccionesInternasSeguridad(): JSX.Element {
 		{ label: 'Inspección cisterna de combustible', path: '/inspeccion-cisterna' },
 		{ label: 'Inspección de grupo electrógeno/generador eléctrico', path: '/inspeccion-generador' },
 		{ label: 'Inspección de luminarias y torre de iluminación', path: '/inspeccion-luminarias' },
+		{ label: 'Inspección luces de emergencia', path: '/iso45001/inspeccion-luces-de-emergencia' },
 		{ label: 'Inspección de tableros eléctricos e instalaciones eléctricas', path: '/inspeccion-tableros' },
 		{ label: 'Inspección de herramientas manuales y eléctricas', path: '/inspeccion-herramientas' },
 		{ label: 'Inspección de escaleras portátiles', path: '/inspeccion-escaleras' },
