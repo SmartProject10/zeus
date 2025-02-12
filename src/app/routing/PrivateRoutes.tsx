@@ -5,8 +5,8 @@ import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes.
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
 import { ISO45001Routes } from '../modules/iso45001/iso45001.routes.tsx'
 import { ISO9001Routes } from '../modules/iso9001/iso9001.routes.tsx'
-import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
-import { MenuTestPage } from '../pages/MenuTestPage'
+import { DashboardWrapper } from '../modules/dashboard/DashboardWrapper.tsx'
+import { MenuTestPage } from '../modules/menu-test/MenuTestPage.tsx'
 
 const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage').then((module) => ({ default: module.WizardsPage })))
 const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage').then((module) => ({ default: module.WidgetsPage })))

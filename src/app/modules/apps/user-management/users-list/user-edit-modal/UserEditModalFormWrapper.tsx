@@ -2,7 +2,7 @@ import {useQuery} from 'react-query'
 import {UserEditModalForm} from './UserEditModalForm'
 import {isNotEmpty, QUERIES} from '../../../../../../_zeus/helpers'
 import {useListView} from '../core/ListViewProvider'
-import {getUserById} from '../core/_requests'
+import { backyService } from '@zeus/@services/api'
 
 const UserEditModalFormWrapper = () => {
   const {itemIdForUpdate, setItemIdForUpdate} = useListView()
@@ -14,7 +14,7 @@ const UserEditModalFormWrapper = () => {
   } = useQuery(
     `${QUERIES.USERS_LIST}-user-${itemIdForUpdate}`,
     () => {
-      return getUserById(itemIdForUpdate)
+      return backyService.userManagementRequests.getById(itemIdForUpdate)
     },
     {
       cacheTime: 0,

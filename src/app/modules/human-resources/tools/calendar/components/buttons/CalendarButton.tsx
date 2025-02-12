@@ -2,10 +2,10 @@ import { useState } from 'react'
 import Swal from 'sweetalert2'
 import { KTCardBody } from '../../../../../../../_zeus/helpers'
 import { appStateService } from '../../../../../../services/appState.service'
-import { EmployeeRequest } from '../../core/_models'
-import { registerEmployee } from '../../core/_requests'
+import { WorkerRequest } from '../../../../../../../@services/api/dtos/WorkerModel'
+import { backyService } from '@zeus/@services/api'
 
-export interface EmployeeForm {
+export interface WorkerForm {
     area: string
     cargo: string
     firmaDigital: string
@@ -33,7 +33,7 @@ export interface EmployeeForm {
 
 const CalendarButton = () => {
 
-    const [form, setForm] = useState<EmployeeForm>({
+    const [form, setForm] = useState<WorkerForm>({
         area: '',
         cargo: '',
         firmaDigital: '',
@@ -124,7 +124,7 @@ const CalendarButton = () => {
         // data.append('status', form.status);
         // data.append('sedeTrabajo', form.sedeTrabajo);
 
-        const newEmployee: EmployeeRequest = {
+        const newWorker: WorkerRequest = {
             dni: form.dni,
             apellidoPaterno: form.apellidoPaterno,
             apellidoMaterno: form.apellidoMaterno,
@@ -151,11 +151,11 @@ const CalendarButton = () => {
 
         try {
 
-            const resp = await registerEmployee(newEmployee)
+            const resp = await backyService.worker.register(newWorker)
 
             if (resp.status == 201) {
 
-                appStateService.setEmployeeSubject(resp.data)
+                appStateService.setWorkerSubject(resp.data)
 
                 const Toast = Swal.mixin({
                     toast: true,

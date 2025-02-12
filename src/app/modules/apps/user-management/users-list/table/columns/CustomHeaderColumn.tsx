@@ -1,6 +1,6 @@
 import {FC} from 'react'
 import {ColumnInstance} from 'react-table'
-import {User} from '../../core/_models'
+import {User} from '../../../../../../../@services/api/dtos/UserManagementModel'
 
 type Props = {
   column: ColumnInstance<User>

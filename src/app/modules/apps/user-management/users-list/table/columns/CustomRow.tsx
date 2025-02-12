@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { FC } from 'react'
 import { Row } from 'react-table'
-import { User } from '../../core/_models'
+import { User } from '../../../../../../../@services/api/dtos/UserManagementModel'
 
 type Props = {
   row: Row<User>

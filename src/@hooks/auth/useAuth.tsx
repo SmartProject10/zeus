@@ -26,13 +26,20 @@ const AuthContext = createContext<AuthContextProps>(initAuthContextPropsState)
 
 export const useAuth = () => useContext(AuthContext)
 
+//SE OBTIENE, QUITA O CREA EL TOKEN EN EL LOCALSTORAGE
+//SE QUITA EL USER
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
+    //en "auth" queda el token agarrado del localStorage por medio de "getAuth()"
     const [auth, setAuth] = useState<AuthModel | undefined>(authHelper.getAuth())
     const [currentUser, setCurrentUser] = useState<UserModel | undefined>()
 
+    //"quita" o "pone" en el localStorage el token
     const saveAuth = (auth: AuthModel | undefined) => {
+
+        //este "setAuth" es de la constante de arriba para setear el "auth" de arriba, no es del de "authHelper.setAuth"
         setAuth(auth)
 
+        //si auth es correcto entonces se manda al localStorage sino se lo saca porque es para sacarlo del localStorage
         if (auth) {
             authHelper.setAuth(auth)
         } else {
@@ -40,6 +47,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         }
     }
 
+    //"quita" el token del localStorage y "quita" el currentUser
     const logout = () => {
         saveAuth(undefined)
         setCurrentUser(undefined)
@@ -53,11 +61,14 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     )
 }
 
+//SE VERIFICA QUE EXISTA EL TOKEN Y EL USUARIO LOGEADO, SI EXISTE EL TOKEN Y EL USUARIO NO ESTÁ SETEADO SE LO SETEA DESDE EL TOKEN
 export const AuthInit: FC<PropsWithChildren> = ({ children }) => {
     const { auth, currentUser, logout, setCurrentUser } = useAuth()
     const [showSplashScreen, setShowSplashScreen] = useState(true)
 
     useEffect(() => {
+
+        //se setea el user si es que no existe
         const requestUser = async () => {
             try {
                 if (currentUser) return
@@ -71,7 +82,8 @@ export const AuthInit: FC<PropsWithChildren> = ({ children }) => {
                 setShowSplashScreen(false)
             }
         }
-
+ 
+        //si existe auth se verifica/setea el user
         if (auth && auth.token) {
             requestUser()
             return
@@ -81,5 +93,6 @@ export const AuthInit: FC<PropsWithChildren> = ({ children }) => {
         setShowSplashScreen(false)
     }, [])
 
+    //muestra el "cargando" o el "componente hijo"
     return showSplashScreen ? <LayoutSplashScreen /> : <>{children}</>
 }

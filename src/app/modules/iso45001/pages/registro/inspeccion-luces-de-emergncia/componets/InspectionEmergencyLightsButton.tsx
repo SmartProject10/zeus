@@ -2,16 +2,8 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { KTCardBody } from "../../../../../../../_zeus/helpers";
 import { appStateService } from "../../../../../../services/appState.service";
-import {
-	EmergencyLightsRequest,
-	EmployeeRequest,
-} from "@zeus/app/modules/human-resources/tools/calendar/core/_models";
-import {
-	registerEmergencyLight,
-	registerEmployee,
-} from "@zeus/app/modules/human-resources/tools/calendar/core/_requests";
-// import { EmployeeRequest } from "../../core/_models";
-// import { registerEmployee } from "../../core/_requests";
+import { EmergencyLightsRequest } from "@zeus/@services/api/dtos/EmergencyLightsModel";
+import { backyService } from "@zeus/@services/api";
 
 export interface EmergencyLightsForm {
 	numero: string;
@@ -100,7 +92,7 @@ export const InspectionEmergencyLightsButton = () => {
 		// data.append('status', form.status);
 		// data.append('sedeTrabajo', form.sedeTrabajo);
 
-		const newEmployee: EmergencyLightsRequest = {
+		const newWorker: EmergencyLightsRequest = {
 			numero: form.numero,
 			sede: form.sede,
 			area: form.area,
@@ -111,10 +103,10 @@ export const InspectionEmergencyLightsButton = () => {
 		};
 
 		try {
-			const resp = await registerEmergencyLight(newEmployee);
+			const resp = await backyService.emergencyLights.register(newWorker);
 
 			if (resp.status == 201) {
-				appStateService.setEmployeeSubject(resp.data);
+				appStateService.setWorkerSubject(resp.data);
 
 				const Toast = Swal.mixin({
 					toast: true,

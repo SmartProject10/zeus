@@ -1,14 +1,14 @@
 import { BehaviorSubject, Observable } from 'rxjs'
-import { Employee, EmployeeRequest } from '../modules/human-resources/tools/calendar/core/_models'
+import { Worker, WorkerRequest } from '../../@services/api/dtos/WorkerModel'
 
 class AppState {
 
-    private employeesSubject: BehaviorSubject<Employee[]> = new BehaviorSubject<Employee[]>([])
+    private workersSubject: BehaviorSubject<Worker[]> = new BehaviorSubject<Worker[]>([])
     private activeModalSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
     //Gets
-    getEmployeesSubject(): Observable<Employee[]> {
-        return this.employeesSubject.asObservable()
+    getWorkersSubject(): Observable<Worker[]> {
+        return this.workersSubject.asObservable()
     }
 
     getActiveModalSubject() {
@@ -20,20 +20,20 @@ class AppState {
         this.activeModalSubject.next(!this.activeModalSubject.getValue())
     }
 
-    setEmployeesSubject(employees: Employee[]) {
-        this.employeesSubject.next(employees)
+    setWorkersSubject(workers: Worker[]) {
+        this.workersSubject.next(workers)
     }
 
-    setEmployeeSubject(employee: Employee) {
-        const newEmployees = [...this.employeesSubject.getValue(), employee]
-        console.log(newEmployees)
-        this.employeesSubject.next(newEmployees)
+    setWorkerSubject(Worker: Worker) {
+        const newWorkers = [...this.workersSubject.getValue(), Worker]
+        console.log(newWorkers)
+        this.workersSubject.next(newWorkers)
     }
 
     //Puts
-    putEmployeeSubject(id: string, emp: EmployeeRequest) {
+    putWorkerSubject(id: string, emp: WorkerRequest) {
 
-        const employee: Employee = {
+        const Worker: Worker = {
             _id: id,
             apellidoMaterno: emp.apellidoMaterno,
             apellidoPaterno: emp.apellidoPaterno,
@@ -61,21 +61,21 @@ class AppState {
             updatedAt: '',
         }
 
-        const newEmployees = this.employeesSubject.getValue().map((e: Employee) => {
+        const newWorkers = this.workersSubject.getValue().map((e: Worker) => {
             if (e._id == id) {
-                return employee
+                return Worker
             } else {
                 return e
             }
         })
 
-        this.employeesSubject.next(newEmployees)
+        this.workersSubject.next(newWorkers)
     }
 
     //Deletes
-    deleteEmployeeSubject(id: string) {
-        const newEmployees = this.employeesSubject.getValue().filter((e: Employee) => e._id != id)
-        this.employeesSubject.next(newEmployees)
+    deleteWorkerSubject(id: string) {
+        const newWorkers = this.workersSubject.getValue().filter((e: Worker) => e._id != id)
+        this.workersSubject.next(newWorkers)
     }
 
 }

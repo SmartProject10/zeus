@@ -2,7 +2,7 @@ import { KTCard, KTCardBody } from '@zeus/_zeus/helpers';
 import { Content } from '@zeus/_zeus/layout/components/content';
 import { ToolbarWrapper } from '@zeus/_zeus/layout/components/toolbar';
 import { useEffect, useState } from 'react';
-// import { AccidentesResponse, RegistrosResponse } from './core/_models';
+// import { AccidentsResponse, RegistersResponse } from './core/_models';
 import Swal from 'sweetalert2';
 import BotonesModales from './BotonesModales';
 import TipoDocumentoModal from './TipoDocumentoModal';
@@ -13,7 +13,7 @@ import AreasModal from './AreasModal';
 import SubAreasModal from './SubAreasModal';
 import ControlDocumentosModal from './ControlDocumentosModal';
 import ControlDocumentosTable from './ControlDocumentosTable';
-import { BASE_URL } from '@zeus/app/modules/iso45001/pages/accidentes/core/_requests';
+import { BASE_URL } from '@zeus/@services/api/requests/accident.requests';
 
 export function ControlDocumentos(): JSX.Element {
 

@@ -9,8 +9,8 @@ import {
   stringifyRequestQuery,
   WithChildren,
 } from '../../../../../../_zeus/helpers'
-import {getUsers} from './_requests'
-import {User} from './_models'
+import { backyService } from '@zeus/@services/api'
+import {User} from '../../../../../../@services/api/dtos/UserManagementModel'
 import {useQueryRequest} from './QueryRequestProvider'
 
 const QueryResponseContext = createResponseContext<User>(initialQueryResponse)
@@ -32,7 +32,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
   } = useQuery(
     `${QUERIES.USERS_LIST}-${query}`,
     () => {
-      return getUsers(query)
+      return backyService.userManagementRequests.getAll(query)
     },
     { cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false },
   )

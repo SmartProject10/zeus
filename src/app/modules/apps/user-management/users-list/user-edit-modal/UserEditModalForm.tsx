@@ -2,12 +2,12 @@ import { FC, useState } from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { isNotEmpty, toAbsoluteUrl } from '../../../../../../_zeus/helpers'
-import { initialUser, User } from '../core/_models'
+import { initialUser, User } from '../../../../../../@services/api/dtos/UserManagementModel'
 import clsx from 'clsx'
 import { useListView } from '../core/ListViewProvider'
 import { UsersListLoading } from '../components/loading/UsersListLoading'
-import { createUser, updateUser } from '../core/_requests'
 import { useQueryResponse } from '../core/QueryResponseProvider'
+import { backyService } from '@zeus/@services/api'
 
 type Props = {
   isUserLoading: boolean
@@ -56,9 +56,9 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
       setSubmitting(true)
       try {
         if (isNotEmpty(values.id)) {
-          await updateUser(values)
+          await backyService.userManagementRequests.update(values)
         } else {
-          await createUser(values)
+          await backyService.userManagementRequests.create(values)
         }
       } catch (ex) {
         console.error(ex)
@@ -370,7 +370,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                     className="fw-bolder text-gray-800">Support</div>
                   <div
                     className="text-gray-600">
-                    Best for employees who regularly refund payments and respond to disputes
+                    Best for workers who regularly refund payments and respond to disputes
                   </div>
                 </label>
                 {/* end::Label */}

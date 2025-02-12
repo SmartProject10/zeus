@@ -29,15 +29,15 @@ export function setLanguage(lang: string) {
   window.location.reload()
 }
 
-const I18nContext = createContext<Props>(initialState)
+const CompanyWorkerContext = createContext<Props>(initialState)
 
 const useLang = () => {
-  return useContext(I18nContext).selectedLang
+  return useContext(CompanyWorkerContext).selectedLang
 }
 
-const MetronicI18nProvider: FC<WithChildren> = ({children}) => {
+const CompanyWorkerProvider: FC<WithChildren> = ({children}) => {
   const lang = getConfig()
-  return <I18nContext.Provider value={lang}>{children}</I18nContext.Provider>
+  return <CompanyWorkerContext.Provider value={lang}>{children}</CompanyWorkerContext.Provider>
 }
 
-export {MetronicI18nProvider, useLang}
+export {CompanyWorkerProvider, useLang}

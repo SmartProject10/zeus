@@ -1,8 +1,15 @@
 import axios, { AxiosInstance } from 'axios'
 import { getAuth } from '../session'
-import { AuthRequests } from './requests/auth.requests'
 import { flow } from './types/flow'
-import { CompaniesRequests } from './requests/companies.requests'
+import { AuthRequests } from './requests/auth.requests'
+import { CompaniesRequests } from './requests/company.requests'
+import { EmergencyLightRequests } from './requests/emergencyLight.requests'
+import { WorkerRequests } from './requests/worker.requests'
+import { AccidentsRequests } from './requests/accident.requests'
+import { AssistanceRequests } from './requests/assistance.requests'
+import { BotiquinRequests } from './requests/botiquin.requests'
+import { KitRequests } from './requests/kit.requests'
+import { UserManagementRequests } from './requests/userManagement.requests'
 
 class BackyServiceConnector {
 	http: AxiosInstance
@@ -43,6 +50,13 @@ class BackyServiceConnector {
 const mixer = flow(
 	AuthRequests,
 	CompaniesRequests,
+	EmergencyLightRequests,
+	WorkerRequests,
+	AccidentsRequests,
+	AssistanceRequests,
+	BotiquinRequests,
+	KitRequests,
+	UserManagementRequests
 )
 
 class BackyService extends mixer(BackyServiceConnector) { }

@@ -3,24 +3,15 @@ import Swal from "sweetalert2";
 import { KTCardBody } from "../../../../../../../_zeus/helpers";
 import { appStateService } from "../../../../../../services/appState.service";
 import { dayMonthYear } from "../../../../../../utils/dateFormat";
-// import { EmployeeRequest, EmployeeResponse } from "../../core/_models";
-// import { getFilteredEmployees, putEmployeeService } from "../../core/_requests";
-// import ModalTrabajador from "./ModalTrabajador";
 
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
-import {
-	EmergencyLightsResponse,
-	EmployeeRequest,
-	EmployeeResponse,
-} from "@zeus/app/modules/human-resources/tools/calendar/core/_models";
-import {
-	getFilteredEmployees,
-	putEmployeeService,
-} from "@zeus/app/modules/human-resources/tools/calendar/core/_requests";
+import { EmergencyLightsResponse } from "@zeus/@services/api/dtos/EmergencyLightsModel";
+import { WorkerResponse } from "@zeus/@services/api/dtos/WorkerModel";
 import { ModalEmergencyLightsForm } from "./ModalEmergencyLightsForm";
+import { backyService } from "@zeus/@services/api";
 
-interface EmployeeForm {
+interface WorkerForm {
 	numero: string;
 	sede: string;
 	area: string;
@@ -33,16 +24,16 @@ interface EmployeeForm {
 
 export const EmergencylightsTable = () => {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [employees, setEmployees] = useState<EmergencyLightsResponse[]>([]);
-	const [filteredEmployees, setFilteredEmployees] = useState<
+	const [workers, setWorkers] = useState<EmergencyLightsResponse[]>([]);
+	const [filteredWorkers, setFilteredWorkers] = useState<
 		EmergencyLightsResponse[]
 	>([]);
 	const [totalPages, setTotalPages] = useState<number>(1);
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [limitPerPage, setLimitPerPage] = useState<number>(10);
-	const [idEmployee, setIdEmployee] = useState("");
-	const [formData, setFormData] = useState<EmployeeForm>({
+	const [idWorker, setIdWorker] = useState("");
+	const [formData, setFormData] = useState<WorkerForm>({
 		numero: "",
 		sede: "",
 		area: "",
@@ -55,29 +46,29 @@ export const EmergencylightsTable = () => {
 	const [activeModal, setActiveModal] = useState<boolean>(false);
 
 	useEffect(() => {
-		const employeesInit = async () => {
+		const workersInit = async () => {
 			try {
-				//const response = await getEmployees();
+				//const response = await get();
 				const filters = `?limit=${limitPerPage}`;
-				const response = await getFilteredEmployees(filters);
+				const response = await backyService.worker.getFiltered(filters);
 
 				if (response.status == 200) {
 					setTotalPages(response.data.totalPages);
 					setCurrentPage(response.data.currentPage);
-					const employees: EmployeeResponse[] = response.data.trabajadores;
-					appStateService.setEmployeesSubject(employees);
+					const workers: WorkerResponse[] = response.data.trabajadores;
+					appStateService.setWorkersSubject(workers);
 				}
 			} catch (error: any) {
 				console.error(error);
 			}
 		};
-		employeesInit();
+		workersInit();
 
-		const employeesSubj = appStateService
-			.getEmployeesSubject()
-			.subscribe((employees: any) => {
-				setEmployees(employees);
-				setFilteredEmployees(employees);
+		const workersSubj = appStateService
+			.getSubject()
+			.subscribe((workers: any) => {
+				setWorkers(workers);
+				setFilteredWorkers(workers);
 			});
 
 		const activeModalSubj = appStateService
@@ -87,7 +78,7 @@ export const EmergencylightsTable = () => {
 			});
 
 		return () => {
-			employeesSubj.unsubscribe();
+			workersSubj.unsubscribe();
 			activeModalSubj.unsubscribe();
 		};
 	}, []);
@@ -109,15 +100,15 @@ export const EmergencylightsTable = () => {
 		// let filters:string = "?";
 		// for(const key in formData){
 		//   if(formData.hasOwnProperty(key)){
-		//     if(formData[key as keyof EmployeeForm] != "" && formData[key as keyof EmployeeForm] != null){
-		//       filters=filters+`${key}=${formData[key as keyof EmployeeForm]}&`
+		//     if(formData[key as keyof WorkerForm] != "" && formData[key as keyof WorkerForm] != null){
+		//       filters=filters+`${key}=${formData[key as keyof WorkerForm]}&`
 		//     }
 		//   }
 		// }
 	};
 
-	function showModalEmployee(id: string) {
-		setIdEmployee(id);
+	function showModalWorker(id: string) {
+		setIdWorker(id);
 		appStateService.setActiveModalSubject();
 	}
 
@@ -126,13 +117,13 @@ export const EmergencylightsTable = () => {
 		const filters = `?numero=${formData.numero}&sede=${formData.sede}&area=${formData.area}&ubicacionEspecifica=${formData.ubicacionEspecifica}&codigo=${formData.codigo}&marca=${formData.marca}&fechaIngresoEmpresaInicial=${formData.fechaIngresoEmpresaInicial}&fechaIngresoEmpresaFinal=${formData.fechaIngresoEmpresaFinal}&limit=${limitPerPage}`;
 
 		try {
-			const response = await getFilteredEmployees(filters);
+			const response = await backyService.worker.getFiltered(filters);
 			console.log(response);
 
 			if (response.status == 200) {
 				setTotalPages(response.data.totalPages);
 				setCurrentPage(response.data.currentPage);
-				setFilteredEmployees(response.data.trabajadores);
+				setFilteredWorkers(response.data.trabajadores);
 			}
 		} catch (e: any) {
 			console.error(e);
@@ -144,12 +135,12 @@ export const EmergencylightsTable = () => {
 		const filters = `?numero=${formData.numero}&sede=${formData.sede}&area=${formData.area}&ubicacionEspecifica=${formData.ubicacionEspecifica}&codigo=${formData.codigo}&marca=${formData.marca}&fechaIngresoEmpresaInicial=${formData.fechaIngresoEmpresaInicial}&fechaIngresoEmpresaFinal=${formData.fechaIngresoEmpresaFinal}&page=${page}&limit=${limitPerPage}`;
 
 		try {
-			const response: any = await getFilteredEmployees(filters);
+			const response: any = await backyService.worker.getFiltered(filters);
 
 			if (response.status == 200) {
 				setCurrentPage(response.data.currentPage);
 				setTotalPages(response.data.totalPages);
-				setFilteredEmployees(response.data.trabajadores);
+				setFilteredWorkers(response.data.trabajadores);
 			}
 		} catch (e: any) {
 			console.error(e);
@@ -170,12 +161,12 @@ export const EmergencylightsTable = () => {
 			}&limit=${limitPerPage}`;
 
 			try {
-				const response: any = await getFilteredEmployees(filters);
+				const response: any = await backyService.worker.getFiltered(filters);
 
 				if (response.status == 200) {
 					setCurrentPage(response.data.currentPage);
 					setTotalPages(response.data.totalPages);
-					setFilteredEmployees(response.data.trabajadores);
+					setFilteredWorkers(response.data.trabajadores);
 				}
 			} catch (e: any) {
 				console.error(e);
@@ -193,12 +184,12 @@ export const EmergencylightsTable = () => {
 			}&limit=${limitPerPage}`;
 
 			try {
-				const response: any = await getFilteredEmployees(filters);
+				const response: any = await backyService.worker.getFiltered(filters);
 
 				if (response.status == 200) {
 					setCurrentPage(response.data.currentPage);
 					setTotalPages(response.data.totalPages);
-					setFilteredEmployees(response.data.trabajadores);
+					setFilteredWorkers(response.data.trabajadores);
 				}
 			} catch (e: any) {
 				console.error(e);
@@ -206,9 +197,9 @@ export const EmergencylightsTable = () => {
 		}
 	}
 
-	const exportFilteredEmployeesToExcel = () => {
+	const exportFilteredWorkersToExcel = () => {
 		// Crear una hoja de trabajo a partir de los datos
-		const worksheet = XLSX.utils.json_to_sheet(filteredEmployees);
+		const worksheet = XLSX.utils.json_to_sheet(filteredWorkers);
 
 		// Crear un libro de trabajo y agregar la hoja de trabajo
 		const workbook = XLSX.utils.book_new();
@@ -226,12 +217,12 @@ export const EmergencylightsTable = () => {
 		saveAs(data, "reporteEmpleadosFiltrados.xlsx");
 	};
 
-	const exportEmployeeToExcel = (employee: EmergencyLightsResponse) => {
-		const employeeArray: EmergencyLightsResponse[] = [];
-		employeeArray.push(employee);
+	const exportWorkerToExcel = (Worker: EmergencyLightsResponse) => {
+		const workerArray: EmergencyLightsResponse[] = [];
+		workerArray.push(Worker);
 
 		// Crear una hoja de trabajo a partir de los datos
-		const worksheet = XLSX.utils.json_to_sheet(employeeArray);
+		const worksheet = XLSX.utils.json_to_sheet(workerArray);
 
 		// Crear un libro de trabajo y agregar la hoja de trabajo
 		const workbook = XLSX.utils.book_new();
@@ -253,7 +244,7 @@ export const EmergencylightsTable = () => {
 		<KTCardBody className="py-4 card card-grid min-w-full">
 			{activeModal ? (
 				<ModalEmergencyLightsForm
-					idEmployee={idEmployee}
+					idWorker={idWorker}
 				></ModalEmergencyLightsForm>
 			) : (
 				""
@@ -365,7 +356,7 @@ export const EmergencylightsTable = () => {
 
 			<hr />
 
-			<p>{"Coincidencias" + ": " + filteredEmployees.length}</p>
+			<p>{"Coincidencias" + ": " + filteredWorkers.length}</p>
 
 			<div className="d-grid gap-2 d-md-flex justify-content-md-end">
 				<button className="btn btn-success btn-sm disabled" type="button">
@@ -373,7 +364,7 @@ export const EmergencylightsTable = () => {
 					Importar a Excel
 				</button>
 				<button
-					onClick={exportFilteredEmployeesToExcel}
+					onClick={exportFilteredWorkersToExcel}
 					className="btn btn-success btn-sm"
 					type="button"
 				>
@@ -396,16 +387,16 @@ export const EmergencylightsTable = () => {
 						</tr>
 					</thead>
 					<tbody className="text-center">
-						{filteredEmployees.length > 0 &&
-							filteredEmployees.map((employee, index) => (
+						{filteredWorkers.length > 0 &&
+							filteredWorkers.map((Worker, index) => (
 								<tr key={index}>
 									<td>{index + 1}</td>
-									<td>{employee.numero}</td>
-									<td>{employee.sede}</td>
-									<td>{employee.area}</td>
-									<td>{employee.ubicacionEspecifica}</td>
-									<td>{employee.marca}</td>
-									<td>{dayMonthYear(employee.fechaIngresoEmpresa)}</td>
+									<td>{Worker.numero}</td>
+									<td>{Worker.sede}</td>
+									<td>{Worker.area}</td>
+									<td>{Worker.ubicacionEspecifica}</td>
+									<td>{Worker.marca}</td>
+									<td>{dayMonthYear(Worker.fechaIngresoEmpresa)}</td>
 									<td>
 										<div className="d-grid gap-2 d-md-flex">
 											{/* <button className="btn btn-sm btn-bg-light btn-active-color-primary">
@@ -413,7 +404,7 @@ export const EmergencylightsTable = () => {
                     </button> */}
 											<button
 												className="btn btn-sm btn-bg-light btn-active-color-primary"
-												onClick={() => showModalEmployee(employee._id)}
+												onClick={() => showModalWorker(Worker._id)}
 											>
 												Ver detalle
 											</button>
@@ -428,7 +419,7 @@ export const EmergencylightsTable = () => {
 												Importar a Excel
 											</button>
 											<button
-												onClick={() => exportEmployeeToExcel(employee)}
+												onClick={() => exportWorkerToExcel(Worker)}
 												className="btn btn-sm btn-bg-light btn-active-color-primary"
 												type="button"
 											>
@@ -443,13 +434,13 @@ export const EmergencylightsTable = () => {
 				</table>
 			</div>
 
-			{filteredEmployees.length == 0 && (
+			{filteredWorkers.length == 0 && (
 				<p className="text-center mb-5">
 					No se encontraron luces de emergencia
 				</p>
 			)}
 
-			{filteredEmployees.length != 0 && (
+			{filteredWorkers.length != 0 && (
 				<div className="mt-2">
 					<ul className="pagination">
 						<li

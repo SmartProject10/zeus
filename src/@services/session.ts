@@ -3,6 +3,12 @@ import { AuthModel } from './api/dtos/AuthModel'
 
 export const AUTH_LOCAL_STORAGE_KEY = 'USER_SESSION'
 
+/*"agarrarmos" desde el localStorage el token que tiene la forma modelo siguiente:
+    {
+        token: string
+        refreshToken: string
+    }
+*/
 export const getAuth = (): AuthModel | undefined => {
     if (!localStorage) {
         return 
@@ -24,6 +30,9 @@ export const getAuth = (): AuthModel | undefined => {
     }
 }
 
+/**
+ * "ponemos" en el localStorage el "auth" pasado por parámetro con la key de la constante "AUTH_LOCAL_STORAGE_KEY"
+ */
 export const setAuth = (auth: AuthModel) => {
     if (!localStorage) {
         return
@@ -37,6 +46,9 @@ export const setAuth = (auth: AuthModel) => {
     }
 }
 
+/**
+ * "removemos" en el localStorage el token con la key de la constante "AUTH_LOCAL_STORAGE_KEY"
+ */
 export const removeAuth = () => {
     if (!localStorage) return
 

@@ -5,7 +5,7 @@ import { MenuComponent } from '../../../../../../../_zeus/assets/ts/components'
 import { ID, KTIcon, QUERIES } from '../../../../../../../_zeus/helpers'
 import { useListView } from '../../core/ListViewProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
-import { deleteUser } from '../../core/_requests'
+import { backyService } from '@zeus/@services/api'
 
 type Props = {
   id: ID
@@ -24,7 +24,7 @@ const UserActionsCell: FC<Props> = ({ id }) => {
     setItemIdForUpdate(id)
   }
 
-  const deleteItem = useMutation(() => deleteUser(id), {
+  const deleteItem = useMutation(() => backyService.userManagementRequests.delete(id), {
     // 💡 response of the mutation is passed to onSuccess
     onSuccess: () => {
       // ✅ update detail view directly

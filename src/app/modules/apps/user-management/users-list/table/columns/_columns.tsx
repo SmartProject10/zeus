@@ -7,7 +7,7 @@ import { UserActionsCell } from './UserActionsCell'
 import { UserSelectionCell } from './UserSelectionCell'
 import { UserCustomHeader } from './UserCustomHeader'
 import { UserSelectionHeader } from './UserSelectionHeader'
-import { User } from '../../core/_models'
+import { User } from '../../../../../../../@services/api/dtos/UserManagementModel'
 
 const usersColumns: ReadonlyArray<Column<User>> = [
   {

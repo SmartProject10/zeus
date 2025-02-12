@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import { AreasResponse } from './core/_models'
-import { BASE_URL } from '@zeus/app/modules/iso45001/pages/accidentes/core/_requests'
+import { BASE_URL } from '@zeus/@services/api/requests/accident.requests'
 
 const AreasModal = () => {
     // const initialValues: AreasResponse = {

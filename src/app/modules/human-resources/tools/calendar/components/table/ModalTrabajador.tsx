@@ -1,16 +1,16 @@
 import { ReactNode, useEffect, useState } from 'react'
-import { EmployeeResponse, EmployeeRequest } from '../../core/_models'
+import { WorkerResponse, WorkerRequest } from '../../../../../../../@services/api/dtos/WorkerModel'
 import Swal from 'sweetalert2'
-import { deleteEmployeeService, getEmployeeById, putEmployeeService } from '../../core/_requests'
 import { appStateService } from '../../../../../../services/appState.service'
 import { dateInput } from '../../../../../../utils/dateFormat'
+import { backyService } from '@zeus/@services/api'
 
 interface MyComponentProps {
-    idEmployee: string
+    idWorker: string
     children?: ReactNode
 }
 
-export interface EmployeeForm {
+export interface WorkerForm {
     area: string
     cargo: string
     firmaDigital: string
@@ -36,9 +36,9 @@ export interface EmployeeForm {
 }
 
 // eslint-disable-next-line react/prop-types, @typescript-eslint/no-unused-vars
-const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) => {
+const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => {
 
-    const [form, setForm] = useState<EmployeeForm>({
+    const [form, setForm] = useState<WorkerForm>({
         area: '',
         cargo: '',
         firmaDigital: '',
@@ -65,38 +65,38 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
 
     useEffect(() => {
 
-        const initEmployee = async () => {
+        const initWorker = async () => {
 
             try {
-                const response = await getEmployeeById(idEmployee)
+                const response = await backyService.worker.getById(idWorker)
 
                 if (response.status == 200) {
 
-                    const employee: EmployeeResponse = response.data
+                    const Worker: WorkerResponse = response.data
 
                     setForm({
-                        area: employee.area,
-                        cargo: employee.cargo,
-                        firmaDigital: employee.firmaDigital,
+                        area: Worker.area,
+                        cargo: Worker.cargo,
+                        firmaDigital: Worker.firmaDigital,
                         recFacial: '',
-                        nacionalidad: employee.nacionalidad,
-                        estadoCivil: employee.estadoCivil,
-                        genero: employee.genero,
-                        dni: employee.dni,
-                        fechaNacimiento: dateInput(employee.fechaNacimiento),
-                        nombres: employee.nombres,
-                        apellidoPaterno: employee.apellidoPaterno,
-                        apellidoMaterno: employee.apellidoMaterno,
-                        distrito: employee.distrito,
-                        direccion: employee.direccion,
-                        correoTrabajo: employee.correoTrabajo,
-                        correoPersonal: employee.correoPersonal,
-                        telefonoPersonal: employee.telefonoPersonal,
-                        fechaIngresoArea: dateInput(employee.fechaIngresoArea),
-                        fechaIngresoEmpresa: dateInput(employee.fechaIngresoEmpresa),
-                        rollSistemaDigitalizado: employee.rollSistemaDigitalizado,
-                        status: employee.status,
-                        sedeTrabajo: employee.sedeTrabajo,
+                        nacionalidad: Worker.nacionalidad,
+                        estadoCivil: Worker.estadoCivil,
+                        genero: Worker.genero,
+                        dni: Worker.dni,
+                        fechaNacimiento: dateInput(Worker.fechaNacimiento),
+                        nombres: Worker.nombres,
+                        apellidoPaterno: Worker.apellidoPaterno,
+                        apellidoMaterno: Worker.apellidoMaterno,
+                        distrito: Worker.distrito,
+                        direccion: Worker.direccion,
+                        correoTrabajo: Worker.correoTrabajo,
+                        correoPersonal: Worker.correoPersonal,
+                        telefonoPersonal: Worker.telefonoPersonal,
+                        fechaIngresoArea: dateInput(Worker.fechaIngresoArea),
+                        fechaIngresoEmpresa: dateInput(Worker.fechaIngresoEmpresa),
+                        rollSistemaDigitalizado: Worker.rollSistemaDigitalizado,
+                        status: Worker.status,
+                        sedeTrabajo: Worker.sedeTrabajo,
                     })
                 }
             } catch (error: any) {
@@ -104,7 +104,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
             }
         }
 
-        initEmployee()
+        initWorker()
 
     }, [])
 
@@ -116,7 +116,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
         })
     }
 
-    function deleteEmployee(id: string) {
+    function deleteWorker(id: string) {
 
         Swal.fire({
             icon: 'question',
@@ -129,13 +129,13 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
             if (result.isConfirmed) {
 
                 try {
-                    const deleteEmployee = async () => {
+                    const deleteWorker = async () => {
 
-                        const response = await deleteEmployeeService(id)
+                        const response = await backyService.worker.delete(id)
 
                         if(response.status == 200){
 
-                            appStateService.deleteEmployeeSubject(id)
+                            appStateService.deleteWorkerSubject(id)
                             appStateService.setActiveModalSubject()
 
                             const Toast = Swal.mixin({
@@ -156,7 +156,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
                         }
                     }
 
-                    deleteEmployee()
+                    deleteWorker()
 
                 } catch (e: any) {
                     console.error(e)
@@ -169,7 +169,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
 
     }
 
-    function putEmployee(id: string) {
+    function putWorker(id: string) {
 
         if (!form.area || !form.cargo || !form.firmaDigital || !form.nacionalidad ||
             !form.estadoCivil || !form.genero || !form.dni || !form.fechaNacimiento ||
@@ -208,9 +208,9 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
             if (result.isConfirmed) {
 
                 try {
-                    const editEmployee = async () => {
+                    const editWorker = async () => {
 
-                        const request: EmployeeRequest = {
+                        const request: WorkerRequest = {
                             dni: form.dni,
                             apellidoPaterno: form.apellidoPaterno,
                             apellidoMaterno: form.apellidoMaterno,
@@ -235,11 +235,11 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
                             sedeTrabajo: form.sedeTrabajo,
                         }
 
-                        const response = await putEmployeeService(id, request)
+                        const response = await backyService.worker.put(id, request)
 
                         if(response.status == 200){
 
-                            appStateService.putEmployeeSubject(id, request)
+                            appStateService.putWorkerSubject(id, request)
                             appStateService.setActiveModalSubject()
 
                             const Toast = Swal.mixin({
@@ -261,7 +261,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
 
                     }
 
-                    editEmployee()
+                    editWorker()
                 } catch (e: any) {
                     console.error(e)
                 }
@@ -866,13 +866,13 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
                                         className="d-flex justify-content-center gap-10 modal-footer">
                                         <button
                                             type="button"
-                                            onClick={() => putEmployee(idEmployee)}
+                                            onClick={() => putWorker(idWorker)}
                                             className="btn btn-primary">
                                             Editar
                                         </button>
                                         <button
                                             type="button"
-                                            onClick={() => deleteEmployee(idEmployee)}
+                                            onClick={() => deleteWorker(idWorker)}
                                             className="btn btn-danger">
                                             Eliminar
                                         </button>

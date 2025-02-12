@@ -3,14 +3,14 @@ import Swal from 'sweetalert2'
 import { KTCardBody } from '../../../../../../../_zeus/helpers'
 import { appStateService } from '../../../../../../services/appState.service'
 import { dayMonthYear } from '../../../../../../utils/dateFormat'
-import { EmployeeRequest, EmployeeResponse } from '../../core/_models'
-import { getFilteredEmployees, putEmployeeService } from '../../core/_requests'
+import { WorkerRequest, WorkerResponse } from '../../../../../../../@services/api/dtos/WorkerModel'
 import ModalTrabajador from './ModalTrabajador'
+import { backyService } from '@zeus/@services/api'
 
 import { saveAs } from 'file-saver'
 import * as XLSX from 'xlsx'
 
-interface EmployeeForm {
+interface WorkerForm {
   area: string
   cargo: string
   firmaDigital: string
@@ -37,14 +37,14 @@ interface EmployeeForm {
 
 const CalendarTable = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [employees, setEmployees] = useState<EmployeeResponse[]>([])
-  const [filteredEmployees, setFilteredEmployees] = useState<EmployeeResponse[]>([])
+  const [workers, setWorkers] = useState<WorkerResponse[]>([])
+  const [filteredWorkers, setFilteredWorkers] = useState<WorkerResponse[]>([])
   const [totalPages, setTotalPages] = useState<number>(1)
   const [currentPage, setCurrentPage] = useState<number>(1)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [limitPerPage, setLimitPerPage] = useState<number>(10)
-  const [idEmployee, setIdEmployee] = useState('')
-  const [formData, setFormData] = useState<EmployeeForm>({
+  const [idWorker, setIdWorker] = useState('')
+  const [formData, setFormData] = useState<WorkerForm>({
     area: '',
     cargo: '',
     firmaDigital: '',
@@ -72,18 +72,18 @@ const CalendarTable = () => {
 
   useEffect(() => {
 
-    const employeesInit = async () => {
+    const workersInit = async () => {
 
       try {
-        //const response = await getEmployees();
+        //const response = await get();
         const filters = `?limit=${limitPerPage}`
-        const response = await getFilteredEmployees(filters)
+        const response = await backyService.worker.getFiltered(filters)
 
         if (response.status == 200) {
           setTotalPages(response.data.totalPages)
           setCurrentPage(response.data.currentPage)
-          const employees: EmployeeResponse[] = response.data.trabajadores
-          appStateService.setEmployeesSubject(employees)
+          const workers: WorkerResponse[] = response.data.trabajadores
+          appStateService.setWorkersSubject(workers)
         }
 
       } catch (error: any) {
@@ -91,11 +91,11 @@ const CalendarTable = () => {
       }
 
     }
-    employeesInit()
+    workersInit()
 
-    const employeesSubj = appStateService.getEmployeesSubject().subscribe((employees: EmployeeResponse[]) => {
-      setEmployees(employees)
-      setFilteredEmployees(employees)
+    const workersSubj = appStateService.getSubject().subscribe((workers: WorkerResponse[]) => {
+      setWorkers(workers)
+      setFilteredWorkers(workers)
     })
 
     const activeModalSubj = appStateService.getActiveModalSubject().subscribe((state: boolean) => {
@@ -103,7 +103,7 @@ const CalendarTable = () => {
     })
 
     return () => {
-      employeesSubj.unsubscribe()
+      workersSubj.unsubscribe()
       activeModalSubj.unsubscribe()
     }
 
@@ -124,15 +124,15 @@ const CalendarTable = () => {
     // let filters:string = "?";
     // for(const key in formData){
     //   if(formData.hasOwnProperty(key)){
-    //     if(formData[key as keyof EmployeeForm] != "" && formData[key as keyof EmployeeForm] != null){
-    //       filters=filters+`${key}=${formData[key as keyof EmployeeForm]}&`
+    //     if(formData[key as keyof WorkerForm] != "" && formData[key as keyof WorkerForm] != null){
+    //       filters=filters+`${key}=${formData[key as keyof WorkerForm]}&`
     //     }
     //   }
     // }
   }
 
-  function showModalEmployee(id: string) {
-    setIdEmployee(id)
+  function showModalWorker(id: string) {
+    setIdWorker(id)
     appStateService.setActiveModalSubject()
   }
 
@@ -141,13 +141,13 @@ const CalendarTable = () => {
     const filters = `?area=${formData.area}&cargo=${formData.cargo}&dni=${formData.dni.replace(' ', '%20')}&apellidoPaterno=${formData.apellidoPaterno.replace(' ', '%20')}&apellidoMaterno=${formData.apellidoMaterno.replace(' ', '%20')}&estadoCivil=${formData.estadoCivil}&genero=${formData.genero}&nacionalidad=${formData.nacionalidad}&distrito=${formData.distrito}&direccion=${formData.direccion.replace(' ', '%20')}&status=${formData.status}&limit=${limitPerPage}`
 
     try {
-      const response = await getFilteredEmployees(filters)
+      const response = await backyService.worker.getFiltered(filters)
       console.log(response)
 
       if (response.status == 200) {
         setTotalPages(response.data.totalPages)
         setCurrentPage(response.data.currentPage)
-        setFilteredEmployees(response.data.trabajadores)
+        setFilteredWorkers(response.data.trabajadores)
       }
 
     } catch (e: any) {
@@ -163,12 +163,12 @@ const CalendarTable = () => {
 
     try {
 
-      const response: any = await getFilteredEmployees(filters)
+      const response: any = await backyService.worker.getFiltered(filters)
 
       if (response.status == 200) {
         setCurrentPage(response.data.currentPage)
         setTotalPages(response.data.totalPages)
-        setFilteredEmployees(response.data.trabajadores)
+        setFilteredWorkers(response.data.trabajadores)
       }
 
     } catch (e: any) {
@@ -177,7 +177,7 @@ const CalendarTable = () => {
 
   }
 
-  function changeStatusEmployee(state: boolean, employee: EmployeeResponse) {
+  function changeStatusWorker(state: boolean, Worker: WorkerResponse) {
 
     Swal.fire({
       icon: 'question',
@@ -190,38 +190,38 @@ const CalendarTable = () => {
       if (result.isConfirmed) {
         if (state == true) {//Inactivo
           try {
-            const editEmployee = async () => {
+            const editWorker = async () => {
 
-              const request: EmployeeRequest = {
-                dni: employee.dni,
-                apellidoPaterno: employee.apellidoPaterno,
-                apellidoMaterno: employee.apellidoMaterno,
-                nombres: employee.nombres,
-                direccion: employee.direccion,
-                distrito: employee.distrito,
-                correoTrabajo: employee.correoTrabajo,
-                correoPersonal: employee.correoPersonal,
-                nacionalidad: employee.nacionalidad,
-                genero: employee.genero,
-                estadoCivil: employee.estadoCivil,
-                fechaNacimiento: employee.fechaNacimiento,
-                telefonoPersonal: employee.telefonoPersonal,
+              const request: WorkerRequest = {
+                dni: Worker.dni,
+                apellidoPaterno: Worker.apellidoPaterno,
+                apellidoMaterno: Worker.apellidoMaterno,
+                nombres: Worker.nombres,
+                direccion: Worker.direccion,
+                distrito: Worker.distrito,
+                correoTrabajo: Worker.correoTrabajo,
+                correoPersonal: Worker.correoPersonal,
+                nacionalidad: Worker.nacionalidad,
+                genero: Worker.genero,
+                estadoCivil: Worker.estadoCivil,
+                fechaNacimiento: Worker.fechaNacimiento,
+                telefonoPersonal: Worker.telefonoPersonal,
                 reconocimientoFacial: '',
-                firmaDigital: employee.firmaDigital,
-                area: employee.area,
-                cargo: employee.cargo,
-                rollSistemaDigitalizado: employee.rollSistemaDigitalizado,
-                fechaIngresoArea: employee.fechaIngresoArea,
-                fechaIngresoEmpresa: employee.fechaIngresoEmpresa,
+                firmaDigital: Worker.firmaDigital,
+                area: Worker.area,
+                cargo: Worker.cargo,
+                rollSistemaDigitalizado: Worker.rollSistemaDigitalizado,
+                fechaIngresoArea: Worker.fechaIngresoArea,
+                fechaIngresoEmpresa: Worker.fechaIngresoEmpresa,
                 status: 'Activo',
-                sedeTrabajo: employee.sedeTrabajo,
+                sedeTrabajo: Worker.sedeTrabajo,
               }
 
-              const response = await putEmployeeService(employee._id, request)
+              const response = await backyService.worker.put(Worker._id, request)
 
               if (response.status == 200) {
 
-                appStateService.putEmployeeSubject(employee._id, request)
+                appStateService.putWorkerSubject(Worker._id, request)
 
                 const Toast = Swal.mixin({
                   toast: true,
@@ -241,45 +241,45 @@ const CalendarTable = () => {
               }
 
             }
-            editEmployee()
+            editWorker()
 
           } catch (e: any) {
             console.error(e)
           }
         } else {//Activo
           try {
-            const editEmployee = async () => {
+            const editWorker = async () => {
 
-              const request: EmployeeRequest = {
-                dni: employee.dni,
-                apellidoPaterno: employee.apellidoPaterno,
-                apellidoMaterno: employee.apellidoMaterno,
-                nombres: employee.nombres,
-                direccion: employee.direccion,
-                distrito: employee.distrito,
-                correoTrabajo: employee.correoTrabajo,
-                correoPersonal: employee.correoPersonal,
-                nacionalidad: employee.nacionalidad,
-                genero: employee.genero,
-                estadoCivil: employee.estadoCivil,
-                fechaNacimiento: employee.fechaNacimiento,
-                telefonoPersonal: employee.telefonoPersonal,
+              const request: WorkerRequest = {
+                dni: Worker.dni,
+                apellidoPaterno: Worker.apellidoPaterno,
+                apellidoMaterno: Worker.apellidoMaterno,
+                nombres: Worker.nombres,
+                direccion: Worker.direccion,
+                distrito: Worker.distrito,
+                correoTrabajo: Worker.correoTrabajo,
+                correoPersonal: Worker.correoPersonal,
+                nacionalidad: Worker.nacionalidad,
+                genero: Worker.genero,
+                estadoCivil: Worker.estadoCivil,
+                fechaNacimiento: Worker.fechaNacimiento,
+                telefonoPersonal: Worker.telefonoPersonal,
                 reconocimientoFacial: '',
-                firmaDigital: employee.firmaDigital,
-                area: employee.area,
-                cargo: employee.cargo,
-                rollSistemaDigitalizado: employee.rollSistemaDigitalizado,
-                fechaIngresoArea: employee.fechaIngresoArea,
-                fechaIngresoEmpresa: employee.fechaIngresoEmpresa,
+                firmaDigital: Worker.firmaDigital,
+                area: Worker.area,
+                cargo: Worker.cargo,
+                rollSistemaDigitalizado: Worker.rollSistemaDigitalizado,
+                fechaIngresoArea: Worker.fechaIngresoArea,
+                fechaIngresoEmpresa: Worker.fechaIngresoEmpresa,
                 status: 'Inactivo',
-                sedeTrabajo: employee.sedeTrabajo,
+                sedeTrabajo: Worker.sedeTrabajo,
               }
 
-              const response = await putEmployeeService(employee._id, request)
+              const response = await backyService.worker.put(Worker._id, request)
 
               if (response.status == 200) {
 
-                appStateService.putEmployeeSubject(employee._id, request)
+                appStateService.putWorkerSubject(Worker._id, request)
 
                 const Toast = Swal.mixin({
                   toast: true,
@@ -299,7 +299,7 @@ const CalendarTable = () => {
               }
 
             }
-            editEmployee()
+            editWorker()
 
           } catch (e: any) {
             console.error(e)
@@ -322,12 +322,12 @@ const CalendarTable = () => {
 
       try {
 
-        const response: any = await getFilteredEmployees(filters)
+        const response: any = await backyService.worker.getFiltered(filters)
 
         if (response.status == 200) {
           setCurrentPage(response.data.currentPage)
           setTotalPages(response.data.totalPages)
-          setFilteredEmployees(response.data.trabajadores)
+          setFilteredWorkers(response.data.trabajadores)
         }
 
       } catch (e: any) {
@@ -341,12 +341,12 @@ const CalendarTable = () => {
 
       try {
 
-        const response: any = await getFilteredEmployees(filters)
+        const response: any = await backyService.worker.getFiltered(filters)
 
         if (response.status == 200) {
           setCurrentPage(response.data.currentPage)
           setTotalPages(response.data.totalPages)
-          setFilteredEmployees(response.data.trabajadores)
+          setFilteredWorkers(response.data.trabajadores)
         }
 
       } catch (e: any) {
@@ -357,10 +357,10 @@ const CalendarTable = () => {
 
   }
 
-  const exportFilteredEmployeesToExcel = () => {
+  const exportFilteredWorkersToExcel = () => {
 
     // Crear una hoja de trabajo a partir de los datos
-    const worksheet = XLSX.utils.json_to_sheet(filteredEmployees)
+    const worksheet = XLSX.utils.json_to_sheet(filteredWorkers)
 
     // Crear un libro de trabajo y agregar la hoja de trabajo
     const workbook = XLSX.utils.book_new()
@@ -375,13 +375,13 @@ const CalendarTable = () => {
     saveAs(data, 'reporteEmpleadosFiltrados.xlsx')
   }
 
-  const exportEmployeeToExcel = (employee: EmployeeResponse) => {
+  const exportWorkerToExcel = (Worker: WorkerResponse) => {
 
-    const employeeArray: EmployeeResponse[] = []
-    employeeArray.push(employee)
+    const workerArray: WorkerResponse[] = []
+    workerArray.push(Worker)
 
     // Crear una hoja de trabajo a partir de los datos
-    const worksheet = XLSX.utils.json_to_sheet(employeeArray)
+    const worksheet = XLSX.utils.json_to_sheet(workerArray)
 
     // Crear un libro de trabajo y agregar la hoja de trabajo
     const workbook = XLSX.utils.book_new()
@@ -401,7 +401,7 @@ const CalendarTable = () => {
       className="py-4 card card-grid min-w-full">
 
       {activeModal ? <ModalTrabajador
-        idEmployee={idEmployee}></ModalTrabajador> : ''}
+        idWorker={idWorker}></ModalTrabajador> : ''}
 
       <p>Filtros de búsqueda</p>
 
@@ -657,7 +657,7 @@ const CalendarTable = () => {
 
       <hr />
 
-      <p>{'Coincidencias' + ': ' + filteredEmployees.length}</p>
+      <p>{'Coincidencias' + ': ' + filteredWorkers.length}</p>
 
       <div
         className="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -669,7 +669,7 @@ const CalendarTable = () => {
           Importar a Excel
         </button>
         <button
-          onClick={exportFilteredEmployeesToExcel}
+          onClick={exportFilteredWorkersToExcel}
           className="btn btn-success btn-sm"
           type="button">
           <i
@@ -735,31 +735,31 @@ const CalendarTable = () => {
           </thead>
           <tbody
             className="text-center">
-            {filteredEmployees.length > 0 && filteredEmployees.map((employee, index) => (
+            {filteredWorkers.length > 0 && filteredWorkers.map((Worker, index) => (
               <tr
                 key={index}>
                 <td>{index + 1}</td>
-                <td>{employee.dni}</td>
-                <td>{employee.nombres}</td>
-                <td>{employee.apellidoMaterno}</td>
-                <td>{employee.apellidoPaterno}</td>
-                <td>{dayMonthYear(employee.fechaNacimiento)}</td>
-                <td>{employee.cargo}</td>
-                <td>{employee.area}</td>
-                <td>{dayMonthYear(employee.fechaIngresoEmpresa)}</td>
-                <td>{dayMonthYear(employee.fechaIngresoArea)}</td>
-                <td>{employee.direccion}</td>
-                <td>{employee.distrito}</td>
-                <td>{employee.correoTrabajo}</td>
-                <td>{employee.correoPersonal}</td>
-                <td>{employee.nacionalidad}</td>
-                <td>{employee.genero}</td>
-                <td>{employee.estadoCivil}</td>
-                <td>{employee.telefonoPersonal}</td>
-                <td>{employee.firmaDigital}</td>
-                <td>{employee.status}</td>
-                <td>{employee.sedeTrabajo}</td>
-                <td>{employee.rollSistemaDigitalizado}</td>
+                <td>{Worker.dni}</td>
+                <td>{Worker.nombres}</td>
+                <td>{Worker.apellidoMaterno}</td>
+                <td>{Worker.apellidoPaterno}</td>
+                <td>{dayMonthYear(Worker.fechaNacimiento)}</td>
+                <td>{Worker.cargo}</td>
+                <td>{Worker.area}</td>
+                <td>{dayMonthYear(Worker.fechaIngresoEmpresa)}</td>
+                <td>{dayMonthYear(Worker.fechaIngresoArea)}</td>
+                <td>{Worker.direccion}</td>
+                <td>{Worker.distrito}</td>
+                <td>{Worker.correoTrabajo}</td>
+                <td>{Worker.correoPersonal}</td>
+                <td>{Worker.nacionalidad}</td>
+                <td>{Worker.genero}</td>
+                <td>{Worker.estadoCivil}</td>
+                <td>{Worker.telefonoPersonal}</td>
+                <td>{Worker.firmaDigital}</td>
+                <td>{Worker.status}</td>
+                <td>{Worker.sedeTrabajo}</td>
+                <td>{Worker.rollSistemaDigitalizado}</td>
                 <td>
                   <div
                     className="d-grid gap-2 d-md-flex">
@@ -771,12 +771,12 @@ const CalendarTable = () => {
                         type="checkbox"
                         value=""
                         id="statusSwitch"
-                        onChange={(e: any) => changeStatusEmployee(e.target.checked, employee)}
-                        checked={employee.status == 'Activo' ? true : false} />
+                        onChange={(e: any) => changeStatusWorker(e.target.checked, Worker)}
+                        checked={Worker.status == 'Activo' ? true : false} />
                       <label
                         className="form-label-sm ms-2"
                         htmlFor="statusSwitch">
-                        {employee.status == 'Activo' ? 'Activo' : 'Inactivo'}
+                        {Worker.status == 'Activo' ? 'Activo' : 'Inactivo'}
                       </label>
                     </div>
                     {/* <button className="btn btn-sm btn-bg-light btn-active-color-primary">
@@ -784,7 +784,7 @@ const CalendarTable = () => {
                     </button> */}
                     <button
                       className="btn btn-sm btn-bg-light btn-active-color-primary"
-                      onClick={() => showModalEmployee(employee._id)}>
+                      onClick={() => showModalWorker(Worker._id)}>
                       Ver detalle
                     </button>
                     <button
@@ -799,7 +799,7 @@ const CalendarTable = () => {
                       Importar a Excel
                     </button>
                     <button
-                      onClick={() => exportEmployeeToExcel(employee)}
+                      onClick={() => exportWorkerToExcel(Worker)}
                       className="btn btn-sm btn-bg-light btn-active-color-primary"
                       type="button">
                       <i
@@ -814,10 +814,10 @@ const CalendarTable = () => {
         </table>
       </div>
 
-      {filteredEmployees.length == 0 && <p
+      {filteredWorkers.length == 0 && <p
         className="text-center mb-5">No se encontraron trabajadores</p>}
 
-      {filteredEmployees.length != 0 && (
+      {filteredWorkers.length != 0 && (
         <div
           className="mt-2">
           <ul
