@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ProyectosResponse } from './core/_models';
 import Swal from 'sweetalert2';
-import { BASE_URL } from '@zeus/@services/api/requests/accident.requests';
+//import { BASE_URL } from '@zeus/@services/api/requests/accident.requests';
 
 interface ProyectoModalProps {
     saveProyecto: (proyecto: ProyectosResponse[]) => void; // Pasar arreglo completo
@@ -14,7 +14,8 @@ const ProyectosModal = ({ saveProyecto }: ProyectoModalProps) => {
         logo: []
     };
 
-    let apiUrl = `${BASE_URL}/api/control-documentos`
+    //let apiUrl = `${BASE_URL}/api/control-documentos`
+    let apiUrl = `/api/control-documentos`
 
     const [formData, setFormData] = useState(initialValues);
     const [tableData, setTableData] = useState<ProyectosResponse[]>([]); // Nuevos datos

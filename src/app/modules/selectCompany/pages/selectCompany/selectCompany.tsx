@@ -3,15 +3,15 @@ import { backyService } from '@zeus/@services/api'
 import { KTIcon } from '@zeus/_zeus/helpers'
 import { useEffect, useState } from 'react'
 import './selectCompany.scss'
-import { useAuth } from '@zeus/@hooks/auth/useAuth.tsx'
+import useWorker from '../../../../../@hooks/useWorker'
 
-export function SelectCompany(): JSX.Element {
-	const { currentUser } = useAuth()
-	const [companies, setcompanies] = useState<Array<{ id: string; companyName: string; details: string }>>([])
+export function SelectCompany(): JSX.Element{
+	const { worker } = useWorker()
+	const [companies, setCompanies] = useState<Array<{ id: string; companyName: string; details: string }>>([])
 
 	useEffect(() => {
 		backyService.companies.getCompanies().then((response) => {
-			setcompanies(response.data)
+			setCompanies(response.data)
 		})
 	}, [])
 
@@ -28,7 +28,7 @@ export function SelectCompany(): JSX.Element {
 
 					<p
 						className="fs-1 fw-bold m-0">
-						Bienvenido, 	{currentUser?.firstname}
+						Bienvenido, 	{worker.name}
 					</p>
 				</div>
 

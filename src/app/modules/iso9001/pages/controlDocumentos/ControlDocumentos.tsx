@@ -13,7 +13,7 @@ import AreasModal from './AreasModal';
 import SubAreasModal from './SubAreasModal';
 import ControlDocumentosModal from './ControlDocumentosModal';
 import ControlDocumentosTable from './ControlDocumentosTable';
-import { BASE_URL } from '@zeus/@services/api/requests/accident.requests';
+//import { BASE_URL } from '@zeus/@services/api/requests/accident.requests';
 
 export function ControlDocumentos(): JSX.Element {
 
@@ -22,7 +22,8 @@ export function ControlDocumentos(): JSX.Element {
     const [selectedControlDoc, setSelectedControlDoc] = useState<ControlDocsResponse | null>(null);
     const [dataSourceControlDocs, setDataSourceControlDocs] = useState<ControlDocsResponse[]>([]);
 
-    let apiUrl = `${BASE_URL}/api/control-documentos`
+    //let apiUrl = `${BASE_URL}/api/control-documentos`
+    let apiUrl = `/api/control-documentos`
 
     // Obtener los registro de Contro de Documentos desde el backend
     const fetchControlDocs = async () => {

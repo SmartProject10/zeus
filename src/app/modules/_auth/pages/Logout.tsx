@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { Navigate, Routes } from 'react-router-dom'
-import { useAuth } from '@zeus/@hooks/auth/useAuth.tsx'
+import useWorker from '@zeus/@hooks/useWorker'
 
 export function Logout() {
-  const { logout } = useAuth()
+  const { logout } = useWorker()
 
   useEffect(() => {
     logout()
@@ -12,8 +12,7 @@ export function Logout() {
 
   return (
     <Routes>
-      <Navigate
-to="/auth/login" />
+      <Navigate to="/auth/login" />
     </Routes>
   )
 }

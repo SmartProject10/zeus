@@ -1,80 +1,103 @@
+export interface Worker {
+	_id?: string;
+	name?: string | null;
+	lastname?: string | null;
+	email: string;
+	password?: string | null;
+	dni: string;
+	mothers_lastname: string;
+	fathers_lastname: string;
+	birthDate: string;
+	companyAreaId: string;
+	charge: string;
+	entryDate: string;
+	contractTerminationDate?: string | null;
+	areaEntryDate: string;
+	province: string;
+	city: string;
+	address: string;
+	district: string;
+	corporateEmail: string;
+	nationalityId: string;
+	gender: 'Masculino' | 'Femenino';
+	civilStatus: 'Soltero/a' | 'Casado/a' | 'Divorciado/a' | 'Conviviente' | 'Viudo/a';
+	personalPhone: string;
+	facialRecognition?: string | null;
+	digitalSignature?: string | null;
+	status: 'Activo' | 'Inactivo';
+	workSiteId: string;
+	rolId: string;
+	sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
+	sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
+	sizeShoe: 36 | 38 | 40 | 42 | 44;
+	companyIds: string[];
+	createdAt?: string;
+	updatedAt?: string;
+}
+
 export interface WorkerResponse {
 	_id: string;
-	apellidoMaterno: string;
-	apellidoPaterno: string;
-	area: string;
-	cargo: string;
-	correoPersonal: string;
-	correoTrabajo: string;
-	createdAt: string; //TO ISO STRING
-	direccion: string;
-	distrito: string;
+	name?: string | null;
+	lastname?: string | null;
+	email: string;
 	dni: string;
-	estadoCivil: string;
-	fechaIngresoArea: string; //TO ISO STRING
-	fechaIngresoEmpresa: string; //TO ISO STRING
-	fechaNacimiento: string; //TO ISO STRING
-	firmaDigital: string;
-	genero: string;
-	nacionalidad: string;
-	nombres: string;
-	reconocimientoFacial: string;
-	rollSistemaDigitalizado: string;
-	sedeTrabajo: string;
-	status: string;
-	telefonoPersonal: string;
-	updatedAt: string; //TO ISO STRING
+	mothers_lastname: string;
+	fathers_lastname: string;
+	birthDate: string;
+	companyAreaId: string;
+	charge: string;
+	entryDate: string;
+	contractTerminationDate?: string | null;
+	areaEntryDate: string;
+	province: string;
+	city: string;
+	address: string;
+	district: string;
+	corporateEmail: string;
+	nationalityId: string;
+	gender: 'Masculino' | 'Femenino';
+	civilStatus: 'Soltero/a' | 'Casado/a' | 'Divorciado/a' | 'Conviviente' | 'Viudo/a';
+	personalPhone: string;
+	facialRecognition?: string | null;
+	digitalSignature?: string | null;
+	status: 'Activo' | 'Inactivo';
+	workSiteId: string;
+	rolId: string;
+	sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
+	sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
+	sizeShoe: 36 | 38 | 40 | 42 | 44;
+	companyIds: string[];
 }
 
 export interface WorkerRequest {
+	name?: string | null;
+	lastname?: string | null;
+	email: string;
+	password?: string | null;
 	dni: string;
-	apellidoPaterno: string;
-	apellidoMaterno: string;
-	nombres: string;
-	direccion: string;
-	distrito: string;
-	correoTrabajo: string;
-	correoPersonal: string;
-	nacionalidad: string;
-	genero: string;
-	estadoCivil: string;
-	fechaNacimiento: string;
-	telefonoPersonal: string;
-	reconocimientoFacial: string;
-	firmaDigital: string;
-	area: string;
-	cargo: string;
-	rollSistemaDigitalizado: string;
-	fechaIngresoArea: string;
-	fechaIngresoEmpresa: string;
-	status: string;
-	sedeTrabajo: string;
-}
-
-export interface Worker {
-	_id: string;
-	apellidoMaterno: string;
-	apellidoPaterno: string;
-	area: string;
-	cargo: string;
-	correoPersonal: string;
-	correoTrabajo: string;
-	createdAt: string; //TO ISO STRING
-	direccion: string;
-	distrito: string;
-	dni: string;
-	estadoCivil: string;
-	fechaIngresoArea: string;
-	fechaIngresoEmpresa: string;
-	fechaNacimiento: string; //TO ISO STRING
-	firmaDigital: string;
-	genero: string;
-	nacionalidad: string;
-	nombres: string;
-	reconocimientoFacial: string; //Preguntar porque string
-	rollSistemaDigitalizado: string;
-	sedeTrabajo: string;
-	status: string; //Cambiar a boolean
-	telefonoPersonal: string;
-	updatedAt: string;
+	mothers_lastname: string;
+	fathers_lastname: string;
+	birthDate: string;
+	companyAreaId: string;
+	charge: string;
+	entryDate: string;
+	contractTerminationDate?: string | null;
+	areaEntryDate: string;
+	province: string;
+	city: string;
+	address: string;
+	district: string;
+	corporateEmail: string;
+	nationalityId: string;
+	gender: 'Masculino' | 'Femenino';
+	civilStatus: 'Soltero/a' | 'Casado/a' | 'Divorciado/a' | 'Conviviente' | 'Viudo/a';
+	personalPhone: string;
+	facialRecognition?: string | null;
+	digitalSignature?: string | null;
+	status: 'Activo' | 'Inactivo';
+	workSiteId: string;
+	rolId: string;
+	sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
+	sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
+	sizeShoe: 36 | 38 | 40 | 42 | 44;
 }

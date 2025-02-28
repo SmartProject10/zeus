@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import SVG from 'react-inlinesvg'
-import { toAbsoluteUrl } from '../../_zeus/helpers'
+import { toAbsoluteUrl } from '@zeus/_zeus/helpers/AssetHelpers.ts'
 
 const MenuTestPage: FC = () => {
   return (

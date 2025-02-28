@@ -11,57 +11,71 @@ interface MyComponentProps {
 }
 
 export interface WorkerForm {
-    area: string
-    cargo: string
-    firmaDigital: string
-    recFacial: string
-    nacionalidad: string
-    estadoCivil: string
-    genero: string
-    dni: string
-    fechaNacimiento: string
-    nombres: string
-    apellidoPaterno: string
-    apellidoMaterno: string
-    distrito: string
-    direccion: string
-    correoTrabajo: string
-    correoPersonal: string
-    telefonoPersonal: string
-    fechaIngresoArea: string
-    fechaIngresoEmpresa: string
-    rollSistemaDigitalizado: string
-    status: string
-    sedeTrabajo: string
+    name?: string | null;
+    lastname?: string | null;
+    email: string;
+    dni: string;
+    mothers_lastname: string;
+    fathers_lastname: string;
+    birthDate: string;
+    companyAreaId: string;
+    charge: string;
+    entryDate: string;
+    contractTerminationDate?: string | null;
+    areaEntryDate: string;
+    province: string;
+    city: string;
+    address: string;
+    district: string;
+    corporateEmail: string;
+    nationalityId: string;
+    gender: 'Masculino' | 'Femenino';
+    civilStatus: 'Soltero/a' | 'Casado/a' | 'Divorciado/a' | 'Conviviente' | 'Viudo/a';
+    personalPhone: string;
+    facialRecognition?: string | null;
+    digitalSignature?: string | null;
+    status: 'Activo' | 'Inactivo';
+    workSiteId: string;
+    rolId: string;
+    sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
+    sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
+    sizeShoe: 36 | 38 | 40 | 42 | 44;
 }
 
 // eslint-disable-next-line react/prop-types, @typescript-eslint/no-unused-vars
 const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => {
 
     const [form, setForm] = useState<WorkerForm>({
-        area: '',
-        cargo: '',
-        firmaDigital: '',
-        recFacial: '',
-        nacionalidad: '',
-        estadoCivil: '',
-        genero: '',
+        name: null,
+        lastname: null,
+        email: '',
         dni: '',
-        fechaNacimiento: '',
-        nombres: '',
-        apellidoPaterno: '',
-        apellidoMaterno: '',
-        distrito: '',
-        direccion: '',
-        correoTrabajo: '',
-        correoPersonal: '',
-        telefonoPersonal: '',
-        fechaIngresoArea: '',
-        fechaIngresoEmpresa: '',
-        rollSistemaDigitalizado: '',
-        status: '',
-        sedeTrabajo: '',
-    })
+        mothers_lastname: '',
+        fathers_lastname: '',
+        birthDate: '',
+        companyAreaId: '',
+        charge: '',
+        entryDate: '',
+        contractTerminationDate: null,
+        areaEntryDate: '',
+        province: '',
+        city: '',
+        address: '',
+        district: '',
+        corporateEmail: '',
+        nationalityId: '',
+        gender: 'Masculino',
+        civilStatus: 'Soltero/a',
+        personalPhone: '',
+        facialRecognition: null,
+        digitalSignature: null,
+        status: 'Activo',
+        workSiteId: '',
+        rolId: '',
+        sizePants: 26,
+        sizePolo: 'XS',
+        sizeShoe: 36,
+      })
 
     useEffect(() => {
 
@@ -75,28 +89,35 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                     const Worker: WorkerResponse = response.data
 
                     setForm({
-                        area: Worker.area,
-                        cargo: Worker.cargo,
-                        firmaDigital: Worker.firmaDigital,
-                        recFacial: '',
-                        nacionalidad: Worker.nacionalidad,
-                        estadoCivil: Worker.estadoCivil,
-                        genero: Worker.genero,
+                        name: Worker.name,
+                        lastname: Worker.lastname,
+                        email: Worker.email,
                         dni: Worker.dni,
-                        fechaNacimiento: dateInput(Worker.fechaNacimiento),
-                        nombres: Worker.nombres,
-                        apellidoPaterno: Worker.apellidoPaterno,
-                        apellidoMaterno: Worker.apellidoMaterno,
-                        distrito: Worker.distrito,
-                        direccion: Worker.direccion,
-                        correoTrabajo: Worker.correoTrabajo,
-                        correoPersonal: Worker.correoPersonal,
-                        telefonoPersonal: Worker.telefonoPersonal,
-                        fechaIngresoArea: dateInput(Worker.fechaIngresoArea),
-                        fechaIngresoEmpresa: dateInput(Worker.fechaIngresoEmpresa),
-                        rollSistemaDigitalizado: Worker.rollSistemaDigitalizado,
+                        mothers_lastname: Worker.mothers_lastname,
+                        fathers_lastname: Worker.fathers_lastname,
+                        birthDate: Worker.birthDate,
+                        companyAreaId: Worker.companyAreaId, 
+                        charge: Worker.charge, 
+                        entryDate: Worker.entryDate, 
+                        contractTerminationDate: Worker.contractTerminationDate,
+                        areaEntryDate: Worker.areaEntryDate, 
+                        province: Worker.province,
+                        city: Worker.city,
+                        address: Worker.address,
+                        district: Worker.district,
+                        corporateEmail: Worker.corporateEmail,
+                        nationalityId: Worker.nationalityId, 
+                        gender: Worker.gender,
+                        civilStatus: Worker.civilStatus,
+                        personalPhone: Worker.personalPhone,
+                        facialRecognition: Worker.facialRecognition,
+                        digitalSignature: Worker.digitalSignature,
                         status: Worker.status,
-                        sedeTrabajo: Worker.sedeTrabajo,
+                        workSiteId: Worker.workSiteId,
+                        rolId: Worker.rolId,
+                        sizePants: Worker.sizePants,
+                        sizePolo: Worker.sizePolo,
+                        sizeShoe: Worker.sizeShoe,
                     })
                 }
             } catch (error: any) {
@@ -171,31 +192,55 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
 
     function putWorker(id: string) {
 
-        if (!form.area || !form.cargo || !form.firmaDigital || !form.nacionalidad ||
-            !form.estadoCivil || !form.genero || !form.dni || !form.fechaNacimiento ||
-            !form.nombres || !form.apellidoPaterno || !form.apellidoMaterno ||
-            !form.distrito || !form.direccion || !form.correoTrabajo || !form.correoPersonal ||
-            !form.telefonoPersonal || !form.fechaIngresoArea || !form.fechaIngresoEmpresa ||
-            !form.rollSistemaDigitalizado || !form.status || !form.sedeTrabajo) {
-
+        if (
+            !form.name?.trim() || 
+            !form.lastname?.trim() || 
+            !form.email.trim() || 
+            !form.dni.trim() || 
+            !form.mothers_lastname.trim() || 
+            !form.fathers_lastname.trim() || 
+            !form.birthDate.trim() || 
+            !form.companyAreaId.trim() || 
+            !form.charge.trim() || 
+            !form.entryDate.trim() || 
+            !form.contractTerminationDate || 
+            !form.areaEntryDate.trim() || 
+            !form.province.trim() || 
+            !form.city.trim() || 
+            !form.address.trim() || 
+            !form.district.trim() || 
+            !form.corporateEmail.trim() || 
+            !form.nationalityId.trim() || 
+            !form.gender || 
+            !form.civilStatus || 
+            !form.personalPhone.trim() || 
+            !form.facialRecognition || 
+            !form.digitalSignature || 
+            !form.status || 
+            !form.workSiteId || 
+            !form.rolId || 
+            !form.sizePants || 
+            !form.sizePolo || 
+            !form.sizeShoe
+          ) {
             const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer
-                    toast.onmouseleave = Swal.resumeTimer
-                },
-            })
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              },
+            });
             Toast.fire({
-                icon: 'error',
-                title: 'Porfavor, rellenar todos los campos.',
-            })
-
-            return
-        }
+              icon: "error",
+              title: "Por favor, rellene todos los campos.",
+            });
+          
+            return;
+        }          
 
         Swal.fire({
             icon: 'question',
@@ -211,28 +256,35 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                     const editWorker = async () => {
 
                         const request: WorkerRequest = {
+                            name: form.name,
+                            lastname: form.lastname,
+                            email: form.email,
                             dni: form.dni,
-                            apellidoPaterno: form.apellidoPaterno,
-                            apellidoMaterno: form.apellidoMaterno,
-                            nombres: form.nombres,
-                            direccion: form.direccion,
-                            distrito: form.distrito,
-                            correoTrabajo: form.correoTrabajo,
-                            correoPersonal: form.correoPersonal,
-                            nacionalidad: form.nacionalidad,
-                            genero: form.genero,
-                            estadoCivil: form.estadoCivil,
-                            fechaNacimiento: form.fechaNacimiento,
-                            telefonoPersonal: form.telefonoPersonal,
-                            reconocimientoFacial: '',
-                            firmaDigital: form.firmaDigital,
-                            area: form.area,
-                            cargo: form.cargo,
-                            rollSistemaDigitalizado: form.rollSistemaDigitalizado,
-                            fechaIngresoArea: form.fechaIngresoArea,
-                            fechaIngresoEmpresa: form.fechaIngresoEmpresa,
+                            mothers_lastname: form.mothers_lastname,
+                            fathers_lastname: form.fathers_lastname,
+                            birthDate: form.birthDate,
+                            companyAreaId: form.companyAreaId, 
+                            charge: form.charge, 
+                            entryDate: form.entryDate, 
+                            contractTerminationDate: form.contractTerminationDate,
+                            areaEntryDate: form.areaEntryDate, 
+                            province: form.province,
+                            city: form.city,
+                            address: form.address,
+                            district: form.district,
+                            corporateEmail: form.corporateEmail,
+                            nationalityId: form.nationalityId, 
+                            gender: form.gender,
+                            civilStatus: form.civilStatus,
+                            personalPhone: form.personalPhone,
+                            facialRecognition: form.facialRecognition,
+                            digitalSignature: form.digitalSignature,
                             status: form.status,
-                            sedeTrabajo: form.sedeTrabajo,
+                            workSiteId: form.workSiteId,
+                            rolId: form.rolId,
+                            sizePants: form.sizePants,
+                            sizePolo: form.sizePolo,
+                            sizeShoe: form.sizeShoe,
                         }
 
                         const response = await backyService.worker.put(id, request)
@@ -314,20 +366,20 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                         <div
                                             className="col-6">
                                             <label
-                                                htmlFor="inputtext"
-                                                className="required col-form-label">
-                                                DNI
+                                                htmlFor="modal_trabajador_inputNombre"
+                                                className="col-form-label">
+                                                Nombre
                                             </label>
                                         </div>
                                         <div
                                             className="col-6">
                                             <input
                                                 type="text"
-                                                id="inputtext"
-                                                name="dni"
-                                                value={form.dni}
+                                                id="modal_trabajador_inputNombre"
+                                                name="nombre"
+                                                value={form.name || ""}
                                                 onChange={handleChange}
-                                                placeholder="Identificacion"
+                                                placeholder="Nombre"
                                                 className="form-control input-sm" />
                                         </div>
                                     </div>
@@ -337,41 +389,18 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                         <div
                                             className="col-6">
                                             <label
-                                                htmlFor="inputtext"
-                                                className="required col-form-label">
-                                                Nombres
+                                                htmlFor="modal_trabajador_inputApellido"
+                                                className="col-form-label">
+                                                Apellido
                                             </label>
                                         </div>
                                         <div
                                             className="col-6">
                                             <input
                                                 type="text"
-                                                id="inputtext"
-                                                name="nombres"
-                                                value={form.nombres}
-                                                onChange={handleChange}
-                                                placeholder="Nombres"
-                                                className="form-control input-sm" />
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className="row g-3 align-items-start justify-content-evenly mt-2">
-                                        <div
-                                            className="col-6">
-                                            <label
-                                                htmlFor="inputtext"
-                                                className="required col-form-label">
-                                                Apellido Materno
-                                            </label>
-                                        </div>
-                                        <div
-                                            className="col-6">
-                                            <input
-                                                type="text"
-                                                id="inputtext"
-                                                name="apellidoMaterno"
-                                                value={form.apellidoMaterno}
+                                                id="modal_trabajador_inputApellido"
+                                                name="apellido"
+                                                value={form.lastname || ""}
                                                 onChange={handleChange}
                                                 placeholder="Apellido"
                                                 className="form-control input-sm" />
@@ -383,228 +412,8 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                         <div
                                             className="col-6">
                                             <label
-                                                htmlFor="inputtext"
-                                                className="required col-form-label">
-                                                Apellido Paterno
-                                            </label>
-                                        </div>
-                                        <div
-                                            className="col-6">
-                                            <input
-                                                type="text"
-                                                id="inputtext"
-                                                name="apellidoPaterno"
-                                                value={form.apellidoPaterno}
-                                                onChange={handleChange}
-                                                placeholder="Apellido"
-                                                className="form-control input-sm" />
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className="row g-3 align-items-start justify-content-evenly mt-2">
-                                        <div
-                                            className="col-6">
-                                            <label
-                                                htmlFor="inputtext"
-                                                className="required col-form-label">
-                                                Fecha de cumpleaños
-                                            </label>
-                                        </div>
-                                        <div
-                                            className="col-6">
-                                            <input
-                                                type="date"
-                                                id="inputtext"
-                                                name="fechaNacimiento"
-                                                value={form.fechaNacimiento}
-                                                onChange={handleChange}
-                                                className="form-control input-sm" />
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className="row g-3 align-items-start justify-content-evenly mt-2">
-                                        <div
-                                            className="col-6">
-                                            <label
-                                                htmlFor="selecttext"
-                                                className="required col-form-label">
-                                                Cargo
-                                            </label>
-                                        </div>
-                                        <div
-                                            className="col-6">
-                                            <select
-                                                className="form-select select-sm"
-                                                id="selecttext"
-                                                name="cargo"
-                                                value={form.cargo}
-                                                onChange={handleChange}
-                                                aria-label="Default select example">
-                                                <option
-                                                    value="">Seleccione</option>
-                                                <option
-                                                    value="Gerente">Gerente</option>
-                                                <option
-                                                    value="Jefe">Jefe</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className="row g-3 align-items-start justify-content-evenly mt-2">
-                                        <div
-                                            className="col-6">
-                                            <label
-                                                htmlFor="selecttext"
-                                                className="required col-form-label">
-                                                Área
-                                            </label>
-                                        </div>
-                                        <div
-                                            className="col-6">
-                                            <select
-                                                className="form-select select-sm"
-                                                id="selecttext"
-                                                name="area"
-                                                value={form.area}
-                                                onChange={handleChange}
-                                                aria-label="Default select example">
-                                                <option
-                                                    value="">Seleccione</option>
-                                                <option
-                                                    value="Gerencia">Gerencia</option>
-                                                <option
-                                                    value="Seguridad Industrial">Seguridad Industrial</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className="row g-3 align-items-start justify-content-evenly mt-2">
-                                        <div
-                                            className="col-6">
-                                            <label
-                                                htmlFor="inputtext"
-                                                className="required col-form-label">
-                                                Fecha de ingreso a la empresa
-                                            </label>
-                                        </div>
-                                        <div
-                                            className="col-6">
-                                            <input
-                                                type="date"
-                                                id="inputtext"
-                                                name="FechaIngresoEmp"
-                                                value={form.fechaIngresoEmpresa}
-                                                onChange={handleChange}
-                                                className="form-control input-sm" />
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className="row g-3 align-items-start justify-content-evenly mt-2">
-                                        <div
-                                            className="col-6">
-                                            <label
-                                                htmlFor="inputtext"
-                                                className="required col-form-label">
-                                                Fecha de ingreso al área
-                                            </label>
-                                        </div>
-                                        <div
-                                            className="col-6">
-                                            <input
-                                                type="date"
-                                                id="inputtext"
-                                                name="fechaIngresoArea"
-                                                value={form.fechaIngresoArea}
-                                                onChange={handleChange}
-                                                className="form-control input-sm" />
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className="row g-3 align-items-start justify-content-evenly mt-2">
-                                        <div
-                                            className="col-6">
-                                            <label
-                                                htmlFor="direccionInput"
-                                                className="required form-label">
-                                                Dirección
-                                            </label>
-                                        </div>
-                                        <div
-                                            className="col-6">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="direccionInput"
-                                                name="direccion"
-                                                value={form.direccion}
-                                                onChange={handleChange}
-                                                placeholder="Dirección" />
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className="row g-3 align-items-start justify-content-evenly mt-2">
-                                        <div
-                                            className="col-6">
-                                            <label
-                                                htmlFor="distritoSelect"
-                                                className="required form-label">
-                                                Distrito
-                                            </label>
-                                        </div>
-                                        <div
-                                            className="col-6">
-                                            <select
-                                                className="form-select"
-                                                id="distritoSelect"
-                                                name="distrito"
-                                                value={form.distrito}
-                                                onChange={handleChange}
-                                                aria-label="Distritos">
-                                                <option>Seleccione</option>
-                                                <option>Distrito 1</option>
-                                                <option>Distrito 2</option>
-                                                <option>Distrito 3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className="row g-3 align-items-start justify-content-evenly mt-2">
-                                        <div
-                                            className="col-6">
-                                            <label
-                                                htmlFor="cEmailInput"
-                                                className="required form-label">
-                                                Email corporativo
-                                            </label>
-                                        </div>
-                                        <div
-                                            className="col-6">
-                                            <input
-                                                type="email"
-                                                className="form-control"
-                                                id="cEmailInput"
-                                                name="corpEmail"
-                                                value={form.correoTrabajo}
-                                                onChange={handleChange}
-                                                placeholder="Email" />
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className="row g-3 align-items-start justify-content-evenly mt-2">
-                                        <div
-                                            className="col-6">
-                                            <label
-                                                htmlFor="pEmailInput"
-                                                className="required form-label">
+                                                htmlFor="modal_trabajador_inputEmail"
+                                                className="col-form-label">
                                                 Email personal
                                             </label>
                                         </div>
@@ -612,12 +421,12 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                             className="col-6">
                                             <input
                                                 type="email"
-                                                className="form-control"
-                                                id="pEmailInput"
-                                                name="perEmail"
-                                                value={form.correoPersonal}
+                                                id="modal_trabajador_inputEmail"
+                                                name="email"
+                                                value={form.email}
                                                 onChange={handleChange}
-                                                placeholder="Email" />
+                                                placeholder="Email personal"
+                                                className="form-control input-sm" />
                                         </div>
                                     </div>
 
@@ -626,28 +435,353 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                         <div
                                             className="col-6">
                                             <label
-                                                htmlFor="labelselect"
-                                                className="required form-label">
+                                                htmlFor="modal_trabajador_inputDni"
+                                                className="col-form-label">
+                                                DNI
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <input
+                                                type="text"
+                                                id="modal_trabajador_inputDni"
+                                                name="dni"
+                                                value={form.dni}
+                                                onChange={handleChange}
+                                                placeholder="Dni"
+                                                className="form-control input-sm" />
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputApellidoMaterno"
+                                                className="col-form-label">
+                                                Apellido materno
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <input
+                                                type="text"
+                                                id="modal_trabajador_inputApellidoMaterno"
+                                                name="apellido_materno"
+                                                value={form.mothers_lastname}
+                                                onChange={handleChange}
+                                                placeholder="Apellido materno"
+                                                className="form-control input-sm" />
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputApellidoPaterno"
+                                                className="col-form-label">
+                                                Apellido paterno
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <input
+                                                type="text"
+                                                id="modal_trabajador_inputApellidoPaterno"
+                                                name="apellido_paterno"
+                                                value={form.fathers_lastname}
+                                                onChange={handleChange}
+                                                placeholder="Apellido paterno"
+                                                className="form-control input-sm" />
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputFechaDeNacimiento"
+                                                className="col-form-label">
+                                                Fecha de nacimiento
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <input
+                                                type="date"
+                                                id="modal_trabajador_inputFechaDeNacimiento"
+                                                name="fecha_de_nacimiento"
+                                                value={form.birthDate}
+                                                onChange={handleChange}
+                                                placeholder="Fecha de nacimiento"
+                                                className="form-control input-sm" />
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputArea"
+                                                className="col-form-label">
+                                                Área
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <select
+                                                id="modal_trabajador_inputArea"
+                                                name="área"
+                                                value={form.companyAreaId}
+                                                onChange={handleChange}
+                                                className="form-control input-sm"
+                                            >
+                                                //acá deben ir todas las áreas de la empresa en la base de datos
+                                                {/* <option value="">Seleccione un área</option>
+                                                <option value="cargo1">Cargo 1</option>
+                                                <option value="cargo2">Cargo 2</option>
+                                                <option value="cargo3">Cargo 3</option> */}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div className="col-6">
+                                            <label htmlFor="modal_trabajador_inputCargo" className="col-form-label">
+                                                Cargo
+                                            </label>
+                                        </div>
+                                        <div className="col-6">
+                                            <select
+                                                id="modal_trabajador_inputCargo"
+                                                name="cargo"
+                                                value={form.charge}
+                                                onChange={handleChange}
+                                                className="form-control input-sm"
+                                            >
+                                                //las opciones deben venir de acuerdo al área que se elija, porque cada área tiene sus cargos
+                                                {/* <option value="">Seleccione un cargo</option>
+                                                <option value="cargo1">Cargo 1</option>
+                                                <option value="cargo2">Cargo 2</option>
+                                                <option value="cargo3">Cargo 3</option> */}
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputFechaDeIngresoALaEmpresa"
+                                                className="col-form-label">
+                                                Fecha de ingreso a la empresa
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <input
+                                                type="date"
+                                                id="modal_trabajador_inputFechaDeIngresoALaEmpresa"
+                                                name="fecha_de_ingreso_a_la_empresa"
+                                                value={form.entryDate}
+                                                onChange={handleChange}
+                                                placeholder="Fecha de ingreso a la empresa"
+                                                className="form-control input-sm" />
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputFechaDeTerminoDeContrato"
+                                                className="col-form-label">
+                                                Fecha de termino de contrato
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <input
+                                                type="date"
+                                                id="modal_trabajador_inputFechaDeTerminoDeContrato"
+                                                name="fecha_de_termino_de_contrato"
+                                                value={form.contractTerminationDate || ""}
+                                                onChange={handleChange}
+                                                placeholder="Fecha de termino de contrato"
+                                                className="form-control input-sm" />
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputFechaDeEntradaAlArea"
+                                                className="col-form-label">
+                                                Fecha de entrada al área
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <input
+                                                type="date"
+                                                id="modal_trabajador_inputFechaDeEntradaAlArea"
+                                                name="fecha_de_entrada_al_area"
+                                                value={form.areaEntryDate}
+                                                onChange={handleChange}
+                                                placeholder="Fecha de entrada al área"
+                                                className="form-control input-sm" />
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputProvincia"
+                                                className="col-form-label">
+                                                Provincia
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <input
+                                                type="text"
+                                                id="modal_trabajador_inputProvincia"
+                                                name="provincia"
+                                                value={form.province}
+                                                onChange={handleChange}
+                                                placeholder="Provincia"
+                                                className="form-control input-sm" />
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputCiudad"
+                                                className="col-form-label">
+                                                Ciudad
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <input
+                                                type="text"
+                                                id="modal_trabajador_inputCiudad"
+                                                name="ciudad"
+                                                value={form.city}
+                                                onChange={handleChange}
+                                                placeholder="Ciudad"
+                                                className="form-control input-sm" />
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputDireccion"
+                                                className="col-form-label">
+                                                Dirección
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <input
+                                                type="text"
+                                                id="modal_trabajador_inputDireccion"
+                                                name="direccion"
+                                                value={form.address}
+                                                onChange={handleChange}
+                                                placeholder="Dirección"
+                                                className="form-control input-sm" />
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputName"
+                                                className="col-form-label">
+                                                Distrito
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <input
+                                                type="text"
+                                                id="modal_trabajador_inputName"
+                                                name="distrito"
+                                                value={form.district}
+                                                onChange={handleChange}
+                                                placeholder="Distrito"
+                                                className="form-control input-sm" />
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputEmailCorporativo"
+                                                className="col-form-label">
+                                                Email corporativo
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <input
+                                                type="email"
+                                                id="modal_trabajador_inputEmailCorporativo"
+                                                name="email_corporativo"
+                                                value={form.corporateEmail}
+                                                onChange={handleChange}
+                                                placeholder="Email corporativo"
+                                                className="form-control input-sm" />
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputNacionalidad"
+                                                className="col-form-label">
                                                 Nacionalidad
                                             </label>
                                         </div>
                                         <div
                                             className="col-6">
                                             <select
-                                                className="form-select"
-                                                id="labelselect"
+                                                id="modal_trabajador_inputNacionalidad"
                                                 name="nacionalidad"
-                                                value={form.nacionalidad}
+                                                value={form.nationalityId}
                                                 onChange={handleChange}
-                                                aria-label="Select example"
+                                                className="form-control input-sm"
                                             >
-                                                <option>Seleccione</option>
-                                                <option
-                                                    value="Peruano">Peruano</option>
-                                                <option
-                                                    value="Estado Unidense">Estado Unidense</option>
-                                                <option
-                                                    value="Canadiense">Canadiense</option>
+                                                //las opciones deben venir de las nacionalidades de la base de datos
+                                                {/* <option value="">Seleccione un cargo</option>
+                                                <option value="cargo1">Cargo 1</option>
+                                                <option value="cargo2">Cargo 2</option>
+                                                <option value="cargo3">Cargo 3</option> */}
                                             </select>
                                         </div>
                                     </div>
@@ -657,26 +791,23 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                         <div
                                             className="col-6">
                                             <label
-                                                htmlFor="labelselect"
-                                                className="required form-label">
+                                                htmlFor="modal_trabajador_inputGenero"
+                                                className="col-form-label">
                                                 Género
                                             </label>
                                         </div>
                                         <div
                                             className="col-6">
                                             <select
-                                                className="form-select"
-                                                id="labelselect"
-                                                aria-label="Select example"
+                                                id="modal_trabajador_inputGenero"
                                                 name="genero"
-                                                value={form.genero}
+                                                value={form.gender}
                                                 onChange={handleChange}
+                                                className="form-control input-sm"
                                             >
-                                                <option>Seleccione</option>
-                                                <option
-                                                    value="Masculino">Masculino</option>
-                                                <option
-                                                    value="Femenino">Femenino</option>
+                                                <option value="">Seleccione género</option>
+                                                <option value="Masculino">Masculino</option>
+                                                <option value="Femenino">Femenino</option>
                                             </select>
                                         </div>
                                     </div>
@@ -686,26 +817,26 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                         <div
                                             className="col-6">
                                             <label
-                                                htmlFor="estadoCivilSelect"
-                                                className="required form-label">
+                                                htmlFor="modal_trabajador_inputEstadoCivil"
+                                                className="col-form-label">
                                                 Estado civil
                                             </label>
                                         </div>
                                         <div
                                             className="col-6">
                                             <select
-                                                className="form-select"
-                                                id="estadoCivilSelect"
-                                                name="estadoCivil"
-                                                value={form.estadoCivil}
+                                                id="modal_trabajador_inputEstadoCivil"
+                                                name="estado_civil"
+                                                value={form.civilStatus}
                                                 onChange={handleChange}
-                                                aria-label="estado civil select">
-                                                <option>Seleccione</option>
-                                                <option>Soltero</option>
-                                                <option>Casado</option>
-                                                <option>Divorciado</option>
-                                                <option>Conviviente</option>
-                                                <option>Viudo/a</option>
+                                                className="form-control input-sm" 
+                                            >
+                                                <option value="">Seleccione estado civil</option>
+                                                <option value="Soltero/a">Soltero/a</option>
+                                                <option value="Casado/a">Casado/a</option>
+                                                <option value="Divorciado/a">Divorciado/a</option>
+                                                <option value="Conviviente">Conviviente</option>
+                                                <option value="Viudo/a">Viudo/a</option>
                                             </select>
                                         </div>
                                     </div>
@@ -715,27 +846,21 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                         <div
                                             className="col-6">
                                             <label
-                                                htmlFor="estadoCivilSelect"
-                                                className="required form-label">
-                                                Indicativo
+                                                htmlFor="modal_trabajador_inputTelefonoPersonal"
+                                                className="col-form-label">
+                                                Teléfono personal
                                             </label>
                                         </div>
                                         <div
                                             className="col-6">
-                                            <div
-                                                className="row">
-                                                <div
-                                                    className="col-7">
-                                                    <input
-                                                        type="text"
-                                                        className="form-control"
-                                                        id="tPersonalInput"
-                                                        name="telefono"
-                                                        value={form.telefonoPersonal}
-                                                        onChange={handleChange}
-                                                        placeholder="Telefono" />
-                                                </div>
-                                            </div>
+                                            <input
+                                                type="text"
+                                                id="modal_trabajador_inputTelefonoPersonal"
+                                                name="telefono_personal"
+                                                value={form.personalPhone}
+                                                onChange={handleChange}
+                                                placeholder="Teléfono personal"
+                                                className="form-control input-sm" />
                                         </div>
                                     </div>
 
@@ -744,8 +869,8 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                         <div
                                             className="col-6">
                                             <label
-                                                htmlFor="recFacialInput"
-                                                className="form-label">
+                                                htmlFor="modal_trabajador_inputReconocimientoFacial"
+                                                className="col-form-label">
                                                 Reconocimiento facial
                                             </label>
                                         </div>
@@ -753,10 +878,10 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                             className="col-6">
                                             <input
                                                 type="file"
-                                                className="form-control"
-                                                id="recFacialInput"
-                                                name="recFacial"
-                                                onChange={handleChange} />
+                                                id="modal_trabajador_inputReconocimientoFacial"
+                                                name="reconocimiento_facial"
+                                                onChange={handleChange}
+                                                className="form-control input-sm" />
                                         </div>
                                     </div>
 
@@ -765,21 +890,21 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                         <div
                                             className="col-6">
                                             <label
-                                                htmlFor="firmaDigitalInput"
-                                                className="required form-label">
+                                                htmlFor="modal_trabajador_inputFirmaDigital"
+                                                className="col-form-label">
                                                 Firma digital
                                             </label>
                                         </div>
                                         <div
                                             className="col-6">
                                             <input
-                                                type="text"
-                                                className="form-control"
-                                                id="firmaDigitalInput"
-                                                name="firmaDigital"
-                                                value={form.firmaDigital}
+                                                type="file"
+                                                id="modal_trabajador_inputFirmaDigital"
+                                                name="firma_digital"
+                                                value={form.digitalSignature || ""}
                                                 onChange={handleChange}
-                                                placeholder="Firma.." />
+                                                placeholder="Firma digital"
+                                                className="form-control input-sm" />
                                         </div>
                                     </div>
 
@@ -788,23 +913,23 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                         <div
                                             className="col-6">
                                             <label
-                                                htmlFor="statusSelect"
-                                                className="required form-label">
-                                                Status
+                                                htmlFor="modal_trabajador_inputEstado"
+                                                className="col-form-label">
+                                                Estado
                                             </label>
                                         </div>
                                         <div
                                             className="col-6">
                                             <select
-                                                className="form-select"
-                                                id="statusSelect"
-                                                name="status"
+                                                id="modal_trabajador_inputEstado"
+                                                name="estado"
                                                 value={form.status}
                                                 onChange={handleChange}
-                                                aria-label="status select">
-                                                <option>Seleccione</option>
-                                                <option>Activo</option>
-                                                <option>Inactivo</option>
+                                                className="form-control input-sm" 
+                                            >
+                                                <option value="">Seleccione estado</option>
+                                                <option value="Activo">Activo</option>
+                                                <option value="Inactivo">Inactivo</option>
                                             </select>
                                         </div>
                                     </div>
@@ -814,23 +939,25 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                         <div
                                             className="col-6">
                                             <label
-                                                htmlFor="sedeSelect"
-                                                className="required form-label">
+                                                htmlFor="modal_trabajador_inputSedeDeTrabajo"
+                                                className="col-form-label">
                                                 Sede de trabajo
                                             </label>
                                         </div>
                                         <div
                                             className="col-6">
                                             <select
-                                                className="form-select"
-                                                id="sedeSelect"
-                                                name="sedeTrabajo"
-                                                value={form.sedeTrabajo}
+                                                id="modal_trabajador_inputSedeDeTrabajo"
+                                                name="sede_de_trabajo"
+                                                value={form.workSiteId}
                                                 onChange={handleChange}
-                                                aria-label="sede select">
-                                                <option>Seleccione</option>
-                                                <option>Sede 1</option>
-                                                <option>Sede 2</option>
+                                                className="form-control input-sm" 
+                                            >
+                                                //las opciones vendrán de acuerdo a las sedes de la empresa que se registraron en ella
+                                                {/* <option value="">Seleccione sede</option>
+                                                <option value="cargo1">Cargo 1</option>
+                                                <option value="cargo2">Cargo 2</option>
+                                                <option value="cargo3">Cargo 3</option> */}
                                             </select>
                                         </div>
                                     </div>
@@ -840,24 +967,119 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                         <div
                                             className="col-6">
                                             <label
-                                                htmlFor="rolSelect"
-                                                className="required form-label">
-                                                Tipo de rol
+                                                htmlFor="modal_trabajador_inputRol"
+                                                className="col-form-label">
+                                                Rol
                                             </label>
                                         </div>
                                         <div
                                             className="col-6">
                                             <select
-                                                className="form-select"
-                                                id="rolSelect"
-                                                name="tipoRol"
-                                                value={form.rollSistemaDigitalizado}
+                                                id="modal_trabajador_inputRol"
+                                                name="rol"
+                                                value={form.rolId}
                                                 onChange={handleChange}
-                                                aria-label="rol select">
-                                                <option>Seleccione</option>
-                                                <option>Jefe</option>
-                                                <option>Asistente</option>
-                                                <option>Colaborador</option>
+                                                className="form-control input-sm" 
+                                            >
+                                                //las opciones vendrán de acuerdo a los roles en la base de datos
+                                                {/* <option value="">Seleccione rol</option>
+                                                <option value="cargo1">Cargo 1</option>
+                                                <option value="cargo2">Cargo 2</option>
+                                                <option value="cargo3">Cargo 3</option> */}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputTallePantalon"
+                                                className="col-form-label">
+                                                Talle pantalón
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <select
+                                                id="modal_trabajador_inputTallePantalon"
+                                                name="talle_pantalon"
+                                                value={form.sizePants}
+                                                onChange={handleChange}
+                                                className="form-control input-sm"
+                                            >
+                                                <option value="">Seleccione talle de pantalón</option>
+                                                <option value="26">26</option>
+                                                <option value="28">28</option>
+                                                <option value="30">30</option>
+                                                <option value="32">32</option>
+                                                <option value="34">34</option>
+                                                <option value="36">36</option>
+                                                <option value="38">38</option>
+                                                <option value="40">40</option>
+                                                <option value="42">42</option>
+                                                <option value="44">44</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputTallePolo"
+                                                className="col-form-label">
+                                                Talle polo
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <select
+                                                id="modal_trabajador_inputTallePolo"
+                                                name="talle_polo"
+                                                value={form.sizePolo}
+                                                onChange={handleChange}
+                                                className="form-control input-sm"
+                                            >
+                                                <option value="">Seleccione talle de polo</option>
+                                                <option value="XS">XS</option>
+                                                <option value="S">S</option>
+                                                <option value="M">M</option>
+                                                <option value="L">L</option>
+                                                <option value="XL">XL</option>
+                                                <option value="XXL">XXL</option>
+                                                <option value="XXXL">XXXL</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="row g-3 align-items-start justify-content-evenly mt-2">
+                                        <div
+                                            className="col-6">
+                                            <label
+                                                htmlFor="modal_trabajador_inputTalleZapato"
+                                                className="col-form-label">
+                                                Talle zapato
+                                            </label>
+                                        </div>
+                                        <div
+                                            className="col-6">
+                                            <select
+                                                id="modal_trabajador_inputTalleZapato"
+                                                name="talle_zapato"
+                                                value={form.sizeShoe}
+                                                onChange={handleChange}
+                                                className="form-control input-sm"
+                                            >
+                                                <option value="">Seleccione talle de zapato</option>
+                                                <option value="36">36</option>
+                                                <option value="38">38</option>
+                                                <option value="40">40</option>
+                                                <option value="42">42</option>
+                                                <option value="44">44</option>
                                             </select>
                                         </div>
                                     </div>

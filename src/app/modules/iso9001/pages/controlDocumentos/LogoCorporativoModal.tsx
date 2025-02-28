@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2';
 import { LogoCorporativoResponse } from './core/_models';
-import { BASE_URL } from '@zeus/@services/api/requests/accident.requests';
+//import { BASE_URL } from '@zeus/@services/api/requests/accident.requests';
 
 interface LogoCorporativoModalProps {
     saveLogoCorporativo: (proyecto: LogoCorporativoResponse[]) => void; // Pasar arreglo completo
@@ -15,7 +15,8 @@ const LogoCorporativoModal = ({ saveLogoCorporativo }: LogoCorporativoModalProps
         nomenclatura: ''
     };
 
-    let apiUrl = `${BASE_URL}/api/control-documentos`
+    //let apiUrl = `${BASE_URL}/api/control-documentos`
+    let apiUrl = `/api/control-documentos`
 
     const [formData, setFormData] = useState(initialValues);
     const [tableData, setTableData] = useState<LogoCorporativoResponse[]>([]); // Nuevos datos

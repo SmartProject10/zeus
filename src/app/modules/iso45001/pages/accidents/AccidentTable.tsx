@@ -2,7 +2,7 @@
 import { KTCard, KTCardBody } from '@zeus/_zeus/helpers'
 import { AccidentsResponse } from '../../../../../@services/api/dtos/AccidentModel'
 import { useState, useEffect } from 'react'
-import { BASE_URL } from '../../../../../@services/api/requests/accident.requests'
+//import { BASE_URL } from '../../../../../@services/api/requests/accident.requests'
 
 function AccidentsTable({ 
 	dataSource, 
@@ -19,7 +19,8 @@ function AccidentsTable({
             return <span className="text-danger">No realizado</span>  // Si no existe el ID, regresamos "No realizado"
         }
 
-        const apiUrl = `${BASE_URL}/api/accidents`
+        //const apiUrl = `${BASE_URL}/api/accidents`
+        const apiUrl = `/api/accidents`
 
         try {
             const response = await fetch(`${apiUrl}/getRegistroAccidenteById/${registroAccidenteId}`)

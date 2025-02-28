@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import { AreasResponse } from './core/_models'
-import { BASE_URL } from '@zeus/@services/api/requests/accident.requests'
+//import { BASE_URL } from '@zeus/@services/api/requests/accident.requests'
 
 const AreasModal = () => {
     // const initialValues: AreasResponse = {
@@ -11,7 +11,8 @@ const AreasModal = () => {
     //     area: '',
     // }
 
-    const apiUrl = `${BASE_URL}/api/control-documentos`
+    //const apiUrl = `${BASE_URL}/api/control-documentos`
+    const apiUrl = `/api/control-documentos`
 
     // const [formData, setFormData] = useState(initialValues)
     const [dataSourceAreas, setDataSourceAreas] = useState<AreasResponse[]>([]) // Datos del backend

@@ -27,17 +27,17 @@ export function ForgotPassword() {
       setLoading(true)
       setHasErrors(undefined)
       setTimeout(() => {
-        backyService.auth.resetPassword(values.email)
-          .then(() => {
-            setHasErrors(false)
-            setLoading(false)
-          })
-          .catch(() => {
-            setHasErrors(true)
-            setLoading(false)
-            setSubmitting(false)
-            setStatus('The login detail is incorrect')
-          })
+        // backyService.auth.resetPassword(values.email)
+        //   .then(() => {
+        //     setHasErrors(false)
+        //     setLoading(false)
+        //   })
+        //   .catch(() => {
+        //     setHasErrors(true)
+        //     setLoading(false)
+        //     setSubmitting(false)
+        //     setStatus('The login detail is incorrect')
+        //   })
       }, 1000)
     },
   })

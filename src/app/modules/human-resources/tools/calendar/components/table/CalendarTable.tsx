@@ -11,28 +11,35 @@ import { saveAs } from 'file-saver'
 import * as XLSX from 'xlsx'
 
 interface WorkerForm {
-  area: string
-  cargo: string
-  firmaDigital: string
-  recFacial: string
-  nacionalidad: string
-  estadoCivil: string
-  genero: string
-  dni: string
-  fechaNacimiento: string
-  nombres: string
-  apellidoPaterno: string
-  apellidoMaterno: string
-  distrito: string
-  direccion: string
-  correoTrabajo: string
-  correoPersonal: string
-  telefonoPersonal: string
-  fechaIngresoArea: string
-  fechaIngresoEmpresa: string
-  rollSistemaDigitalizado: string
-  status: string
-  sedeTrabajo: string
+    name?: string | null;
+    lastname?: string | null;
+    email: string;
+    dni: string;
+    mothers_lastname: string;
+    fathers_lastname: string;
+    birthDate: string;
+    companyAreaId: string;
+    charge: string;
+    entryDate: string;
+    contractTerminationDate?: string | null;
+    areaEntryDate: string;
+    province: string;
+    city: string;
+    address: string;
+    district: string;
+    corporateEmail: string;
+    nationalityId: string;
+    gender: 'Masculino' | 'Femenino';
+    civilStatus: 'Soltero/a' | 'Casado/a' | 'Divorciado/a' | 'Conviviente' | 'Viudo/a';
+    personalPhone: string;
+    facialRecognition?: string | null;
+    digitalSignature?: string | null;
+    status: 'Activo' | 'Inactivo';
+    workSiteId: string;
+    rolId: string;
+    sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
+    sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
+    sizeShoe: 36 | 38 | 40 | 42 | 44;
 }
 
 const CalendarTable = () => {
@@ -45,28 +52,35 @@ const CalendarTable = () => {
   const [limitPerPage, setLimitPerPage] = useState<number>(10)
   const [idWorker, setIdWorker] = useState('')
   const [formData, setFormData] = useState<WorkerForm>({
-    area: '',
-    cargo: '',
-    firmaDigital: '',
-    recFacial: '',
-    nacionalidad: '',
-    estadoCivil: '',
-    genero: '',
-    dni: '',
-    fechaNacimiento: '',
-    nombres: '',
-    apellidoPaterno: '',
-    apellidoMaterno: '',
-    distrito: '',
-    direccion: '',
-    correoTrabajo: '',
-    correoPersonal: '',
-    telefonoPersonal: '',
-    fechaIngresoArea: '',
-    fechaIngresoEmpresa: '',
-    rollSistemaDigitalizado: '',
-    status: '',
-    sedeTrabajo: '',
+        name: null,
+        lastname: null,
+        email: '',
+        dni: '',
+        mothers_lastname: '',
+        fathers_lastname: '',
+        birthDate: '',
+        companyAreaId: '',
+        charge: '',
+        entryDate: '',
+        contractTerminationDate: null,
+        areaEntryDate: '',
+        province: '',
+        city: '',
+        address: '',
+        district: '',
+        corporateEmail: '',
+        nationalityId: '',
+        gender: 'Masculino',
+        civilStatus: 'Soltero/a',
+        personalPhone: '',
+        facialRecognition: null,
+        digitalSignature: null,
+        status: 'Activo',
+        workSiteId: '',
+        rolId: '',
+        sizePants: 26,
+        sizePolo: 'XS',
+        sizeShoe: 36,
   })
   const [activeModal, setActiveModal] = useState<boolean>(false)
 
@@ -93,17 +107,17 @@ const CalendarTable = () => {
     }
     workersInit()
 
-    const workersSubj = appStateService.getSubject().subscribe((workers: WorkerResponse[]) => {
-      setWorkers(workers)
-      setFilteredWorkers(workers)
-    })
+    //const workersSubj = appStateService.getSubject().subscribe((workers: WorkerResponse[]) => {
+    //  setWorkers(workers)
+    //  setFilteredWorkers(workers)
+    //})
 
     const activeModalSubj = appStateService.getActiveModalSubject().subscribe((state: boolean) => {
       setActiveModal(state)
     })
 
     return () => {
-      workersSubj.unsubscribe()
+      //workersSubj.unsubscribe()
       activeModalSubj.unsubscribe()
     }
 
@@ -138,7 +152,7 @@ const CalendarTable = () => {
 
   async function applyFilters() {
     // eslint-disable-next-line max-len
-    const filters = `?area=${formData.area}&cargo=${formData.cargo}&dni=${formData.dni.replace(' ', '%20')}&apellidoPaterno=${formData.apellidoPaterno.replace(' ', '%20')}&apellidoMaterno=${formData.apellidoMaterno.replace(' ', '%20')}&estadoCivil=${formData.estadoCivil}&genero=${formData.genero}&nacionalidad=${formData.nacionalidad}&distrito=${formData.distrito}&direccion=${formData.direccion.replace(' ', '%20')}&status=${formData.status}&limit=${limitPerPage}`
+    const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&workSiteId=${formData.workSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
 
     try {
       const response = await backyService.worker.getFiltered(filters)
@@ -159,7 +173,7 @@ const CalendarTable = () => {
   async function selectPageNavigate(page: number) {
 
     // eslint-disable-next-line max-len
-    const filters = `?area=${formData.area}&cargo=${formData.cargo}&dni=${formData.dni.replace(' ', '%20')}&apellidoPaterno=${formData.apellidoPaterno.replace(' ', '%20')}&apellidoMaterno=${formData.apellidoMaterno.replace(' ', '%20')}&estadoCivil=${formData.estadoCivil}&genero=${formData.genero}&nacionalidad=${formData.nacionalidad}&distrito=${formData.distrito}&direccion=${formData.direccion.replace(' ', '%20')}&status=${formData.status}&page=${page}&limit=${limitPerPage}`
+    const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&workSiteId=${formData.workSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
 
     try {
 
@@ -193,28 +207,35 @@ const CalendarTable = () => {
             const editWorker = async () => {
 
               const request: WorkerRequest = {
+                name: Worker.name,
+                lastname: Worker.lastname,
+                email: Worker.email,
                 dni: Worker.dni,
-                apellidoPaterno: Worker.apellidoPaterno,
-                apellidoMaterno: Worker.apellidoMaterno,
-                nombres: Worker.nombres,
-                direccion: Worker.direccion,
-                distrito: Worker.distrito,
-                correoTrabajo: Worker.correoTrabajo,
-                correoPersonal: Worker.correoPersonal,
-                nacionalidad: Worker.nacionalidad,
-                genero: Worker.genero,
-                estadoCivil: Worker.estadoCivil,
-                fechaNacimiento: Worker.fechaNacimiento,
-                telefonoPersonal: Worker.telefonoPersonal,
-                reconocimientoFacial: '',
-                firmaDigital: Worker.firmaDigital,
-                area: Worker.area,
-                cargo: Worker.cargo,
-                rollSistemaDigitalizado: Worker.rollSistemaDigitalizado,
-                fechaIngresoArea: Worker.fechaIngresoArea,
-                fechaIngresoEmpresa: Worker.fechaIngresoEmpresa,
-                status: 'Activo',
-                sedeTrabajo: Worker.sedeTrabajo,
+                mothers_lastname: Worker.mothers_lastname,
+                fathers_lastname: Worker.fathers_lastname,
+                birthDate: Worker.birthDate,
+                companyAreaId: Worker.companyAreaId, 
+                charge: Worker.charge, 
+                entryDate: Worker.entryDate, 
+                contractTerminationDate: Worker.contractTerminationDate,
+                areaEntryDate: Worker.areaEntryDate, 
+                province: Worker.province,
+                city: Worker.city,
+                address: Worker.address,
+                district: Worker.district,
+                corporateEmail: Worker.corporateEmail,
+                nationalityId: Worker.nationalityId, 
+                gender: Worker.gender,
+                civilStatus: Worker.civilStatus,
+                personalPhone: Worker.personalPhone,
+                facialRecognition: Worker.facialRecognition,
+                digitalSignature: Worker.digitalSignature,
+                status: "Activo",
+                workSiteId: Worker.workSiteId,
+                rolId: Worker.rolId,
+                sizePants: Worker.sizePants,
+                sizePolo: Worker.sizePolo,
+                sizeShoe: Worker.sizeShoe,
               }
 
               const response = await backyService.worker.put(Worker._id, request)
@@ -251,28 +272,35 @@ const CalendarTable = () => {
             const editWorker = async () => {
 
               const request: WorkerRequest = {
+                name: Worker.name,
+                lastname: Worker.lastname,
+                email: Worker.email,
                 dni: Worker.dni,
-                apellidoPaterno: Worker.apellidoPaterno,
-                apellidoMaterno: Worker.apellidoMaterno,
-                nombres: Worker.nombres,
-                direccion: Worker.direccion,
-                distrito: Worker.distrito,
-                correoTrabajo: Worker.correoTrabajo,
-                correoPersonal: Worker.correoPersonal,
-                nacionalidad: Worker.nacionalidad,
-                genero: Worker.genero,
-                estadoCivil: Worker.estadoCivil,
-                fechaNacimiento: Worker.fechaNacimiento,
-                telefonoPersonal: Worker.telefonoPersonal,
-                reconocimientoFacial: '',
-                firmaDigital: Worker.firmaDigital,
-                area: Worker.area,
-                cargo: Worker.cargo,
-                rollSistemaDigitalizado: Worker.rollSistemaDigitalizado,
-                fechaIngresoArea: Worker.fechaIngresoArea,
-                fechaIngresoEmpresa: Worker.fechaIngresoEmpresa,
-                status: 'Inactivo',
-                sedeTrabajo: Worker.sedeTrabajo,
+                mothers_lastname: Worker.mothers_lastname,
+                fathers_lastname: Worker.fathers_lastname,
+                birthDate: Worker.birthDate,
+                companyAreaId: Worker.companyAreaId, 
+                charge: Worker.charge, 
+                entryDate: Worker.entryDate, 
+                contractTerminationDate: Worker.contractTerminationDate,
+                areaEntryDate: Worker.areaEntryDate, 
+                province: Worker.province,
+                city: Worker.city,
+                address: Worker.address,
+                district: Worker.district,
+                corporateEmail: Worker.corporateEmail,
+                nationalityId: Worker.nationalityId, 
+                gender: Worker.gender,
+                civilStatus: Worker.civilStatus,
+                personalPhone: Worker.personalPhone,
+                facialRecognition: Worker.facialRecognition,
+                digitalSignature: Worker.digitalSignature,
+                status: "Inactivo",
+                workSiteId: Worker.workSiteId,
+                rolId: Worker.rolId,
+                sizePants: Worker.sizePants,
+                sizePolo: Worker.sizePolo,
+                sizeShoe: Worker.sizeShoe,
               }
 
               const response = await backyService.worker.put(Worker._id, request)
@@ -318,8 +346,7 @@ const CalendarTable = () => {
     if (action == 'next') {
 
       // eslint-disable-next-line max-len
-      const filters = `?area=${formData.area}&cargo=${formData.cargo}&dni=${formData.dni.replace(' ', '%20')}&apellidoPaterno=${formData.apellidoPaterno.replace(' ', '%20')}&apellidoMaterno=${formData.apellidoMaterno.replace(' ', '%20')}&estadoCivil=${formData.estadoCivil}&genero=${formData.genero}&nacionalidad=${formData.nacionalidad}&distrito=${formData.distrito}&direccion=${formData.direccion.replace(' ', '%20')}&status=${formData.status}&page=${currentPage + 1}&limit=${limitPerPage}`
-
+      const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&workSiteId=${formData.workSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
       try {
 
         const response: any = await backyService.worker.getFiltered(filters)
@@ -337,8 +364,8 @@ const CalendarTable = () => {
     } else if (action == 'previous') {
 
       // eslint-disable-next-line max-len
-      const filters = `?area=${formData.area}&cargo=${formData.cargo}&dni=${formData.dni.replace(' ', '%20')}&apellidoPaterno=${formData.apellidoPaterno.replace(' ', '%20')}&apellidoMaterno=${formData.apellidoMaterno.replace(' ', '%20')}&estadoCivil=${formData.estadoCivil}&genero=${formData.genero}&nacionalidad=${formData.nacionalidad}&distrito=${formData.distrito}&direccion=${formData.direccion.replace(' ', '%20')}&status=${formData.status}&page=${currentPage - 1}&limit=${limitPerPage}`
-
+      const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&workSiteId=${formData.workSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
+      
       try {
 
         const response: any = await backyService.worker.getFiltered(filters)
@@ -412,46 +439,44 @@ const CalendarTable = () => {
           <div
             className="col-2">
             <label
-              htmlFor="areaSelect"
+              htmlFor="calendartable_areaSelect"
               className="form-label-sm d-block mb-1">
               Área
             </label>
             <select
               className="form-select form-select-sm"
-              id="areaSelect"
+              id="calendartable_areaSelect"
               name="area"
-              value={formData.area}
+              value={formData.companyAreaId}
               onChange={handleInputChange}
             >
-              <option
-                value="">Seleccione</option>
-              <option
-                value="Gerencia">Gerencia</option>
-              <option
-                value="Seguridad Industrial">Seguridad Industrial</option>
+              //acá deben ir todas las áreas de la empresa en la base de datos
+              {/* <option value="">Seleccione un área</option>
+              <option value="area1">area 1</option>
+              <option value="area2">area 2</option>
+              <option value="area3">area 3</option> */}
             </select>
           </div>
 
           <div
             className="col-2">
             <label
-              htmlFor="cargoInput"
+              htmlFor="calendartable_cargoInput"
               className="form-label-sm d-block mb-1">
               Cargo
             </label>
             <select
               className="form-select form-select-sm"
-              id="cargoInput"
+              id="calendartable_cargoInput"
               name="cargo"
-              value={formData.cargo}
+              value={formData.charge}
               onChange={handleInputChange}
             >
-              <option
-                value="">Seleccione</option>
-              <option
-                value="Gerente">Gerente</option>
-              <option
-                value="Jefe">Jefe</option>
+              //las opciones deben venir de acuerdo al área que se elija, porque cada área tiene sus cargos
+              {/* <option value="">Seleccione un cargo</option>
+              <option value="cargo1">Cargo 1</option>
+              <option value="cargo2">Cargo 2</option>
+              <option value="cargo3">Cargo 3</option> */}
             </select>
           </div>
 
@@ -459,13 +484,13 @@ const CalendarTable = () => {
             className="col-2">
             <label
               className="form-label-sm d-block mb-1"
-              htmlFor="dniInput">
+              htmlFor="calendartable_dniInput">
               Dni
             </label>
             <input
               type="text"
               className="form-control form-control-sm"
-              id="dniInput"
+              id="calendartable_dniInput"
               name="dni"
               placeholder="Número de dni"
               value={formData.dni}
@@ -476,17 +501,17 @@ const CalendarTable = () => {
           <div
             className="col-2">
             <label
-              htmlFor="aPaternoInput"
+              htmlFor="calendartable_aPaternoInput"
               className="form-label-sm d-block mb-1">
               Apellido paterno
             </label>
             <input
               type="text"
               className="form-control form-control-sm"
-              id="aPaternoInput"
+              id="calendartable_aPaternoInput"
               name="apellidoPaterno"
               placeholder="Apellido paterno"
-              value={formData.apellidoPaterno}
+              value={formData.fathers_lastname}
               onChange={handleInputChange}
             />
           </div>
@@ -494,17 +519,17 @@ const CalendarTable = () => {
           <div
             className="col-2">
             <label
-              htmlFor="aMaternoInput"
+              htmlFor="calendartable_aMaternoInput"
               className="form-label-sm d-block mb-1">
               Apellido materno
             </label>
             <input
               type="text"
               className="form-control form-control-sm"
-              id="aMaternoInput"
+              id="calendartable_aMaternoInput"
               name="apellidoMaterno"
               placeholder="Apellido materno"
-              value={formData.apellidoMaterno}
+              value={formData.mothers_lastname}
               onChange={handleInputChange}
             />
           </div>
@@ -512,142 +537,101 @@ const CalendarTable = () => {
           <div
             className="col-2">
             <label
-              htmlFor="estadoCivil"
+              htmlFor="calendartable_estadoCivil"
               className="form-label-sm d-block mb-1">
               Estado civil
             </label>
             <select
               className="form-select form-select-sm"
-              id="estadoCivil"
+              id="calendartable_estadoCivil"
               name="estadoCivil"
-              value={formData.estadoCivil}
+              value={formData.civilStatus}
               onChange={handleInputChange}
             >
-              <option
-                value="">Seleccione</option>
-              <option
-                value="Soltero">Soltero</option>
-              <option
-                value="Casado">Casado</option>
-              <option
-                value="Divorciado">Divorciado</option>
-              <option
-                value="Conviviente">Conviviente</option>
-              <option
-                value="Viudo/a">Viudo/a</option>
+              <option value="">Seleccione estado civil</option>
+              <option value="Soltero/a">Soltero/a</option>
+              <option value="Casado/a">Casado/a</option>
+              <option value="Divorciado/a">Divorciado/a</option>
+              <option value="Conviviente">Conviviente</option>
+              <option value="Viudo/a">Viudo/a</option>
             </select>
           </div>
 
           <div
             className="col-2">
             <label
-              htmlFor="genero"
+              htmlFor="calendartable_genero"
               className="form-label-sm d-block mb-1">
               Género
             </label>
             <select
               className="form-select form-select-sm"
-              id="genero"
+              id="calendartable_genero"
               name="genero"
-              value={formData.genero}
+              value={formData.gender}
               onChange={handleInputChange}
             >
-              <option
-                value="">Seleccione</option>
-              <option
-                value="Masculino">Masculino</option>
-              <option
-                value="Femenino">Femenino</option>
+              <option value="">Seleccione género</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
             </select>
           </div>
 
           <div
             className="col-2">
             <label
-              htmlFor="labelselect"
+              htmlFor="calendartable_nacionalidad"
               className="form-label-sm d-block mb-1">
               Nacionalidad
             </label>
             <select
               className="form-select form-select-sm"
-              id="labelselect"
+              id="calendartable_nacionalidad"
               name="nacionalidad"
-              value={formData.nacionalidad}
+              value={formData.nationalityId}
               onChange={handleInputChange}
-              aria-label="Select example"
             >
-              <option
-                value="">Seleccione</option>
-              <option
-                value="Peruano">Peruano</option>
-              <option
-                value="Estado Unidense">Estado Unidense</option>
-              <option
-                value="Canadiense">Canadiense</option>
-              <option
-                value="Panameña">Panameña</option>
+              //las opciones deben venir de las nacionalidades de la base de datos
+              {/* <option value="">Seleccione un cargo</option>
+              <option value="cargo1">Cargo 1</option>
+              <option value="cargo2">Cargo 2</option>
+              <option value="cargo3">Cargo 3</option> */}
             </select>
           </div>
 
           <div
             className="col-2">
             <label
-              htmlFor="distritoSelect"
-              className="form-label-sm d-block mb-1">
-              Distrito
-            </label>
-            <select
-              className="form-select form-select-sm"
-              id="distritoSelect"
-              name="distrito"
-              value={formData.distrito}
-              onChange={handleInputChange}
-              aria-label="Distritos">
-              <option
-                value="">Seleccione</option>
-              <option
-                value="Distrito 1">Distrito 1</option>
-              <option
-                value="Distrito 2">Distrito 2</option>
-              <option
-                value="Distrito 3">Distrito 3</option>
-            </select>
-          </div>
-
-          <div
-            className="col-2">
-            <label
-              htmlFor="direccionInput"
+              htmlFor="calendartable_direccionInput"
               className="form-label-sm d-block mb-1">
               Dirección
             </label>
             <input
               type="text"
               className="form-control form-control-sm"
-              id="direccionInput"
+              id="calendartable_direccionInput"
               name="direccion"
               placeholder="Dirección"
-              value={formData.direccion}
+              value={formData.address}
               onChange={handleInputChange} />
           </div>
 
           <div
             className="col-2">
             <label
-              htmlFor="statusSelect"
+              htmlFor="calendartable_statusSelect"
               className="form-label-sm d-block mb-1">
               Status trabajador
             </label>
             <select
               className="form-select form-select-sm"
-              id="statusSelect"
+              id="calendartable_statusSelect"
               name="status"
               value={formData.status}
               onChange={handleInputChange}>
-              <option
-                value="">Seleccione</option>
-              <option>Activo</option>
-              <option>Inactivo</option>
+              <option value="">Seleccione estado</option>
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
             </select>
           </div>
 
@@ -740,26 +724,25 @@ const CalendarTable = () => {
                 key={index}>
                 <td>{index + 1}</td>
                 <td>{Worker.dni}</td>
-                <td>{Worker.nombres}</td>
-                <td>{Worker.apellidoMaterno}</td>
-                <td>{Worker.apellidoPaterno}</td>
-                <td>{dayMonthYear(Worker.fechaNacimiento)}</td>
-                <td>{Worker.cargo}</td>
-                <td>{Worker.area}</td>
-                <td>{dayMonthYear(Worker.fechaIngresoEmpresa)}</td>
-                <td>{dayMonthYear(Worker.fechaIngresoArea)}</td>
-                <td>{Worker.direccion}</td>
-                <td>{Worker.distrito}</td>
-                <td>{Worker.correoTrabajo}</td>
-                <td>{Worker.correoPersonal}</td>
-                <td>{Worker.nacionalidad}</td>
-                <td>{Worker.genero}</td>
-                <td>{Worker.estadoCivil}</td>
-                <td>{Worker.telefonoPersonal}</td>
-                <td>{Worker.firmaDigital}</td>
+                <td>{Worker.name}</td>
+                <td>{Worker.mothers_lastname}</td>
+                <td>{Worker.fathers_lastname}</td>
+                <td>{dayMonthYear(Worker.birthDate)}</td>
+                <td>{Worker.charge}</td>
+                <td>{Worker.companyAreaId}</td>
+                <td>{dayMonthYear(Worker.entryDate)}</td>
+                <td>{dayMonthYear(Worker.areaEntryDate)}</td>
+                <td>{Worker.address}</td>
+                <td>{Worker.district}</td>
+                <td>{Worker.corporateEmail}</td>
+                <td>{Worker.email}</td>
+                <td>{Worker.nationalityId}</td>
+                <td>{Worker.gender}</td>
+                <td>{Worker.civilStatus}</td>
+                <td>{Worker.personalPhone}</td>
+                <td>{Worker.digitalSignature}</td>
                 <td>{Worker.status}</td>
-                <td>{Worker.sedeTrabajo}</td>
-                <td>{Worker.rollSistemaDigitalizado}</td>
+                <td>{Worker.workSiteId}</td>
                 <td>
                   <div
                     className="d-grid gap-2 d-md-flex">

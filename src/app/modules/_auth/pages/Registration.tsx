@@ -6,71 +6,84 @@ import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 import { toAbsoluteUrl } from '../../../../_zeus/helpers'
 import { PasswordMeterComponent } from '../../../../_zeus/assets/ts/components'
-import { useAuth } from '@zeus/@hooks/auth/useAuth.tsx'
-import { backyService } from '@zeus/@services/api'
+import useWorker from '@zeus/@hooks/useWorker'
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const initialValues = {
-	firstname: '',
-	lastname: '',
 	email: '',
+	name: '',
+	lastname: '',
 	password: '',
-	changepassword: '',
+	// changepassword: '',
 	acceptTerms: false,
 }
 
 const registrationSchema = Yup.object().shape({
-	firstname: Yup.string()
-		.min(3, 'Minimum 3 symbols')
-		.max(50, 'Maximum 50 symbols')
-		.required('First name is required'),
 	email: Yup.string()
-		.email('Wrong email format')
-		.min(3, 'Minimum 3 symbols')
-		.max(50, 'Maximum 50 symbols')
-		.required('Email is required'),
+		.email('Formato de correo incorrecto')
+		.matches(/^[^\s@]+@[^\s@]+\.com$/, 'El correo debe ser una dirección válida que termine en .com')
+		.matches(/@gmail\.com$/, 'El correo debe ser una dirección de Gmail')
+		.required('El correo es obligatorio'),
+	name: Yup.string()
+		.min(3, 'Mínimo 3 caracteres')
+		.max(50, 'Máximo 50 caracteres')
+		.required('El nombre es obligatorio'),
 	lastname: Yup.string()
-		.min(3, 'Minimum 3 symbols')
-		.max(50, 'Maximum 50 symbols')
-		.required('Last name is required'),
+		.min(3, 'Mínimo 3 caracteres')
+		.max(50, 'Máximo 50 caracteres')
+		.required('El apellido es obligatorio'),
 	password: Yup.string()
-		.min(3, 'Minimum 3 symbols')
-		.max(50, 'Maximum 50 symbols')
-		.required('Password is required'),
-	changepassword: Yup.string()
-		.min(3, 'Minimum 3 symbols')
-		.max(50, 'Maximum 50 symbols')
-		.required('Password confirmation is required')
-		.oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
-	acceptTerms: Yup.bool().required('You must accept the terms and conditions'),
-})
+		.min(3, 'Mínimo 3 caracteres')
+		.max(50, 'Máximo 50 caracteres')
+		.required('La contraseña es obligatoria'),
+	// changepassword: Yup.string()
+	// 	.min(3, 'Mínimo 3 caracteres')
+	// 	.max(50, 'Máximo 50 caracteres')
+	// 	.required('La confirmación de contraseña es obligatoria')
+	// 	.oneOf([Yup.ref('password')], 'Las contraseñas no coinciden'),
+	acceptTerms: Yup.bool().required('Debes aceptar los términos y condiciones'),
+});
 
 export function Registration() {
+
+	const navigate = useNavigate()
+
 	const [loading, setLoading] = useState(false)
-	const { saveAuth, setCurrentUser } = useAuth()
+	const { register } = useWorker();
+
 	const formik = useFormik({
 		initialValues,
 		validationSchema: registrationSchema,
 		onSubmit: async (values, { setStatus, setSubmitting }) => {
 			setLoading(true)
-
 			try {
-				const { data: auth } = await backyService.auth.register(
-					values.email,
-					values.firstname,
-					values.lastname,
-					values.password,
-				)
-				saveAuth(auth)
-				const { data: user } = await backyService.auth.verifyToken()
-				setCurrentUser(user)
-				console.log(auth.data.message)
-				console.log(values)
-			} catch (error) {
-				setStatus('The registration details is incorrect.')
-
-				saveAuth(undefined)
-				setSubmitting(false)
-				setLoading(false)
+				const registroExitoso = await register(
+					{ 
+						email: values.email, 
+						name: values.name, 
+						lastname: values.lastname, 
+						password: values.password, 
+					},
+					setStatus
+				);
+		
+				if (registroExitoso) {
+					await Swal.fire({
+						icon: 'success',
+						text: "Registro exitoso",
+					});
+					//navigate('/company/acquisitions');  // Redirige después de un registro exitoso
+				} else {
+					await Swal.fire({
+						icon: 'error',
+						text: "Error en el registro. Verifique los datos ingresados.",
+					});
+				}
+			} 
+			finally {
+				setSubmitting(false);
+				setLoading(false);
 			}
 		},
 	})
@@ -172,24 +185,24 @@ export function Registration() {
 					placeholder="First name"
 					type="text"
 					autoComplete="off"
-					{...formik.getFieldProps('firstname')}
+					{...formik.getFieldProps('name')}
 					className={clsx(
 						'form-control bg-transparent',
 						{
-							'is-invalid': formik.touched.firstname && formik.errors.firstname,
+							'is-invalid': formik.touched.name && formik.errors.name,
 						},
 						{
-							'is-valid': formik.touched.firstname && !formik.errors.firstname,
+							'is-valid': formik.touched.name && !formik.errors.name,
 						},
 					)}
 				/>
-				{formik.touched.firstname && formik.errors.firstname && (
+				{formik.touched.name && formik.errors.name && (
 					<div
 						className="fv-plugins-message-container">
 						<div
 							className="fv-help-block">
 							<span
-								role="alert">{formik.errors.firstname}</span>
+								role="alert">{formik.errors.name}</span>
 						</div>
 					</div>
 				)}
@@ -319,7 +332,7 @@ export function Registration() {
 			{/* end::Form group */}
 
 			{/* begin::Form group Confirm password */}
-			<div
+			{/* <div
 				className="fv-row mb-5">
 				<label
 					className="form-label fw-bolder text-gray-900 fs-6">Confirm Password</label>
@@ -348,7 +361,7 @@ export function Registration() {
 						</div>
 					</div>
 				)}
-			</div>
+			</div> */}
 			{/* end::Form group */}
 
 			{/* begin::Form group */}

@@ -6,7 +6,7 @@ import { AccidentsResponse, RegistersResponse } from '../../../../../@services/a
 import Swal from 'sweetalert2';
 import AccidentsTable from './AccidentTable';
 import AccidentRegistersModal from './AccidentRegistersModal';
-import { BASE_URL } from '../../../../../@services/api/requests/accident.requests';
+//import { BASE_URL } from '../../../../../@services/api/requests/accident.requests';
 
 export function AccidentsillnessesAtWork(): JSX.Element {
     const [dataSourceReporte, setDataSourceReporte] = useState<AccidentsResponse[]>([]);
@@ -15,7 +15,8 @@ export function AccidentsillnessesAtWork(): JSX.Element {
     const [modalMode, setModalMode] = useState<'create' | 'edit' | 'view'>('create');
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    let apiUrl = `${BASE_URL}/api/accidents`
+    //let apiUrl = `${BASE_URL}/api/accidents`
+    let apiUrl = `/api/accidents`
 
     // Obtener los reportes desde el backend
     const fetchAccidents = async () => {

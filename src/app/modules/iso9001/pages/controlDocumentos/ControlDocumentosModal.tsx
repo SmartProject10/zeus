@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ControlDocsResponse, TipoDocumentoResponse } from './core/_models';
 import Swal from 'sweetalert2';
-import { BASE_URL } from '@zeus/@services/api/requests/accident.requests';
+//import { BASE_URL } from '@zeus/@services/api/requests/accident.requests';
 
 interface ControlDocsModalProps {
     saveControlDocumento: (controlDoc: ControlDocsResponse) => void; // Pasar arreglo completo
@@ -24,7 +24,8 @@ const ControlDocumentosModal = ({ saveControlDocumento, controlDocumento, mode, 
         datosVertical: []
     };
 
-    let apiUrl = `${BASE_URL}/api/control-documentos`
+    //let apiUrl = `${BASE_URL}/api/control-documentos`
+    let apiUrl = `/api/control-documentos`
 
     const [formData, setFormData] = useState(initialValues);
     // const [tableDataHorizontal, setTableDataHorizontal] = useState<ControlDocsResponse[]>([]); // Nuevos datos
