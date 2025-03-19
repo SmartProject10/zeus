@@ -1,6 +1,6 @@
 import { Route, Routes, Outlet, Navigate } from 'react-router-dom'
-import { PageLink, PageTitle } from '../../../../_zeus/layout/core'
-import { CalendarWrapper } from './calendar/Calendar'
+import { PageLink, PageTitle } from '../../../../_zeus/layout/core/index.ts'
+import { CalendarWrapper } from './calendar/Calendar.tsx'
 import { ClockWrapper } from './clock/Clock.tsx'
 import { LibraryWrapper } from './library/library.tsx'
 

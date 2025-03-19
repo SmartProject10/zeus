@@ -1,6 +1,6 @@
 import { lazy } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { MasterLayout } from '../../_zeus/layout/MasterLayout'
+import { MasterLayout } from '../../_zeus/layout/MasterLayout.tsx'
 import { FichaUsuarioRoutes } from '../modules/fichausuario/fichaUsuario.routes.tsx'
 import { HomeRoutes } from '../modules/home/home.routes.tsx'
 import { ISO45001Routes } from '../modules/iso45001/iso45001.routes.tsx'
@@ -8,12 +8,12 @@ import { ISO9001Routes } from '../modules/iso9001/iso9001.routes.tsx'
 import { DashboardWrapper } from '../modules/dashboard/DashboardWrapper.tsx'
 import { MenuTestPage } from '../modules/menu-test/MenuTestPage.tsx'
 
-const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage').then((module) => ({ default: module.WizardsPage })))
-const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage').then((module) => ({ default: module.WidgetsPage })))
-const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
-const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
-const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
-const HumanResourcesPage = lazy(() => import('../modules/human-resources/HumanResourcesPage'))
+const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage.tsx').then((module) => ({ default: module.WizardsPage })))
+const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage.tsx').then((module) => ({ default: module.WidgetsPage })))
+const AccountPage = lazy(() => import('../modules/accounts/AccountPage.tsx'))
+const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage.tsx'))
+const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage.tsx'))
+const HumanResourcesPage = lazy(() => import('../modules/human-resources/HumanResourcesPage.tsx'))
 
 export const PrivateRoutes = () => {
 	const RedirectTo = () => <Navigate to="/select-company" />

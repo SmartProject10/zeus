@@ -13,6 +13,18 @@ import { App } from './app/routing/App.js'
 import { EmployeeProvider } from './_zeus/i18n/Zeus18n.tsx'
 import { EmployeeAuthProvider } from '@zeus/@hooks/auth/EmployeeAuthProvider.tsx'
 
+// RUTAS PÚLICAS
+
+// RUTAS PRIVADAS
+
+//CONTEXTO
+
+//HOOK USECOMPANY
+
+//RUTAS
+
+//PROYECTO PRINCIPAL
+
 Chart.register(...registerables)
 
 const queryClient = new QueryClient()

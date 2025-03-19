@@ -7,7 +7,7 @@ import '@formatjs/intl-relativetimeformat/locale-data/es'
 
 import enMessages from './messages/en.json'
 import esMessages from './messages/es.json'
-import {WithChildren} from '../helpers'
+import {WithChildren} from '../helpers/index.ts'
 
 const allMessages = {
   en: enMessages,

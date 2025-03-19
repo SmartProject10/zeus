@@ -1,6 +1,6 @@
-import { KTCard } from '../../../../../_zeus/helpers'
-import { Content } from '../../../../../_zeus/layout/components/content'
-import { ToolbarWrapper } from '../../../../../_zeus/layout/components/toolbar'
+import { KTCard } from '../../../../../_zeus/helpers/index.ts'
+import { Content } from '../../../../../_zeus/layout/components/content/index.ts'
+import { ToolbarWrapper } from '../../../../../_zeus/layout/components/toolbar/index.ts'
 import { ClockHeader } from './content/ClockHeader.tsx'
 import { ClockContent } from './header/ClockContent.tsx'
 
