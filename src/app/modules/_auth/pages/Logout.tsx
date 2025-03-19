@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { Navigate, Routes } from 'react-router-dom'
-import useWorker from '@zeus/@hooks/useWorker'
+import useEmployee from '@zeus/@hooks/useEmployee'
 
 export function Logout() {
-  const { logout } = useWorker()
+  const { logout } = useEmployee()
 
   useEffect(() => {
     logout()

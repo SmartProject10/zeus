@@ -2,7 +2,7 @@ import axios from 'axios';
 import { flow } from './types/flow';
 import { CompaniesRequests } from './requests/company.requests';
 import { EmergencyLightRequests } from './requests/emergencyLight.requests';
-import { WorkerRequests } from './requests/worker.requests';
+import { EmployeeRequests } from './requests/employee.requests';
 import { AccidentsRequests } from './requests/accident.requests';
 import { AssistanceRequests } from './requests/assistance.requests';
 import { BotiquinRequests } from './requests/botiquin.requests';
@@ -43,7 +43,7 @@ class BackyServiceConnector {
 const mixer = flow(
     CompaniesRequests,
     EmergencyLightRequests,
-    WorkerRequests,
+    EmployeeRequests,
     AccidentsRequests,
     AssistanceRequests,
     BotiquinRequests,

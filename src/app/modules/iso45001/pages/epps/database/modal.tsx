@@ -141,7 +141,7 @@ const options: FieldProps[] = [
 	},
 ]
 
-function SearchWorker () {
+function SearchEmployee () {
 	const [isAdvancedSearch, setIsAdvancedSearch] = useState(false)
 
 	const handleClick = () => {
@@ -339,7 +339,7 @@ export const Modal = forwardRef<HTMLFormElement, ModalProps>((props, ref) => {
 								<h2 className="card-title">Buscar trabajador</h2>
 							</div>
 							<div className="card-body">
-								<SearchWorker />
+								<SearchEmployee />
 							</div>
 						</div>
 

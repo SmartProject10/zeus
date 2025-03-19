@@ -1,16 +1,16 @@
 import { ReactNode, useEffect, useState } from 'react'
-import { WorkerResponse, WorkerRequest } from '../../../../../../../@services/api/dtos/WorkerModel'
+import { EmployeeResponse, EmployeeRequest } from '../../../../../../../@services/api/dtos/EmployeeModel'
 import Swal from 'sweetalert2'
 import { appStateService } from '../../../../../../services/appState.service'
 import { dateInput } from '../../../../../../utils/dateFormat'
 import { backyService } from '@zeus/@services/api'
 
 interface MyComponentProps {
-    idWorker: string
+    idEmployee: string
     children?: ReactNode
 }
 
-export interface WorkerForm {
+export interface EmployeeForm {
     name?: string | null;
     lastname?: string | null;
     email: string;
@@ -35,7 +35,7 @@ export interface WorkerForm {
     facialRecognition?: string | null;
     digitalSignature?: string | null;
     status: 'Activo' | 'Inactivo';
-    workSiteId: string;
+    employeeSiteId: string;
     rolId: string;
     sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
     sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
@@ -43,9 +43,9 @@ export interface WorkerForm {
 }
 
 // eslint-disable-next-line react/prop-types, @typescript-eslint/no-unused-vars
-const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => {
+const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) => {
 
-    const [form, setForm] = useState<WorkerForm>({
+    const [form, setForm] = useState<EmployeeForm>({
         name: null,
         lastname: null,
         email: '',
@@ -70,7 +70,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
         facialRecognition: null,
         digitalSignature: null,
         status: 'Activo',
-        workSiteId: '',
+        employeeSiteId: '',
         rolId: '',
         sizePants: 26,
         sizePolo: 'XS',
@@ -79,45 +79,45 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
 
     useEffect(() => {
 
-        const initWorker = async () => {
+        const initEmployee = async () => {
 
             try {
-                const response = await backyService.worker.getById(idWorker)
+                const response = await backyService.employee.getById(idEmployee)
 
                 if (response.status == 200) {
 
-                    const Worker: WorkerResponse = response.data
+                    const Employee: EmployeeResponse = response.data
 
                     setForm({
-                        name: Worker.name,
-                        lastname: Worker.lastname,
-                        email: Worker.email,
-                        dni: Worker.dni,
-                        mothers_lastname: Worker.mothers_lastname,
-                        fathers_lastname: Worker.fathers_lastname,
-                        birthDate: Worker.birthDate,
-                        companyAreaId: Worker.companyAreaId, 
-                        charge: Worker.charge, 
-                        entryDate: Worker.entryDate, 
-                        contractTerminationDate: Worker.contractTerminationDate,
-                        areaEntryDate: Worker.areaEntryDate, 
-                        province: Worker.province,
-                        city: Worker.city,
-                        address: Worker.address,
-                        district: Worker.district,
-                        corporateEmail: Worker.corporateEmail,
-                        nationalityId: Worker.nationalityId, 
-                        gender: Worker.gender,
-                        civilStatus: Worker.civilStatus,
-                        personalPhone: Worker.personalPhone,
-                        facialRecognition: Worker.facialRecognition,
-                        digitalSignature: Worker.digitalSignature,
-                        status: Worker.status,
-                        workSiteId: Worker.workSiteId,
-                        rolId: Worker.rolId,
-                        sizePants: Worker.sizePants,
-                        sizePolo: Worker.sizePolo,
-                        sizeShoe: Worker.sizeShoe,
+                        name: Employee.name,
+                        lastname: Employee.lastname,
+                        email: Employee.email,
+                        dni: Employee.dni,
+                        mothers_lastname: Employee.mothers_lastname,
+                        fathers_lastname: Employee.fathers_lastname,
+                        birthDate: Employee.birthDate,
+                        companyAreaId: Employee.companyAreaId, 
+                        charge: Employee.charge, 
+                        entryDate: Employee.entryDate, 
+                        contractTerminationDate: Employee.contractTerminationDate,
+                        areaEntryDate: Employee.areaEntryDate, 
+                        province: Employee.province,
+                        city: Employee.city,
+                        address: Employee.address,
+                        district: Employee.district,
+                        corporateEmail: Employee.corporateEmail,
+                        nationalityId: Employee.nationalityId, 
+                        gender: Employee.gender,
+                        civilStatus: Employee.civilStatus,
+                        personalPhone: Employee.personalPhone,
+                        facialRecognition: Employee.facialRecognition,
+                        digitalSignature: Employee.digitalSignature,
+                        status: Employee.status,
+                        employeeSiteId: Employee.employeeSiteId,
+                        rolId: Employee.rolId,
+                        sizePants: Employee.sizePants,
+                        sizePolo: Employee.sizePolo,
+                        sizeShoe: Employee.sizeShoe,
                     })
                 }
             } catch (error: any) {
@@ -125,7 +125,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
             }
         }
 
-        initWorker()
+        initEmployee()
 
     }, [])
 
@@ -137,7 +137,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
         })
     }
 
-    function deleteWorker(id: string) {
+    function deleteEmployee(id: string) {
 
         Swal.fire({
             icon: 'question',
@@ -150,13 +150,13 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
             if (result.isConfirmed) {
 
                 try {
-                    const deleteWorker = async () => {
+                    const deleteEmployee = async () => {
 
-                        const response = await backyService.worker.delete(id)
+                        const response = await backyService.employee.delete(id)
 
                         if(response.status == 200){
 
-                            appStateService.deleteWorkerSubject(id)
+                            appStateService.deleteEmployeeSubject(id)
                             appStateService.setActiveModalSubject()
 
                             const Toast = Swal.mixin({
@@ -177,7 +177,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                         }
                     }
 
-                    deleteWorker()
+                    deleteEmployee()
 
                 } catch (e: any) {
                     console.error(e)
@@ -190,7 +190,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
 
     }
 
-    function putWorker(id: string) {
+    function putEmployee(id: string) {
 
         if (
             !form.name?.trim() || 
@@ -217,7 +217,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
             !form.facialRecognition || 
             !form.digitalSignature || 
             !form.status || 
-            !form.workSiteId || 
+            !form.employeeSiteId || 
             !form.rolId || 
             !form.sizePants || 
             !form.sizePolo || 
@@ -253,9 +253,9 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
             if (result.isConfirmed) {
 
                 try {
-                    const editWorker = async () => {
+                    const editEmployee = async () => {
 
-                        const request: WorkerRequest = {
+                        const request: EmployeeRequest = {
                             name: form.name,
                             lastname: form.lastname,
                             email: form.email,
@@ -280,18 +280,18 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                             facialRecognition: form.facialRecognition,
                             digitalSignature: form.digitalSignature,
                             status: form.status,
-                            workSiteId: form.workSiteId,
+                            employeeSiteId: form.employeeSiteId,
                             rolId: form.rolId,
                             sizePants: form.sizePants,
                             sizePolo: form.sizePolo,
                             sizeShoe: form.sizeShoe,
                         }
 
-                        const response = await backyService.worker.put(id, request)
+                        const response = await backyService.employee.put(id, request)
 
                         if(response.status == 200){
 
-                            appStateService.putWorkerSubject(id, request)
+                            appStateService.putEmployeeSubject(id, request)
                             appStateService.setActiveModalSubject()
 
                             const Toast = Swal.mixin({
@@ -313,7 +313,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
 
                     }
 
-                    editWorker()
+                    editEmployee()
                 } catch (e: any) {
                     console.error(e)
                 }
@@ -949,7 +949,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                             <select
                                                 id="modal_trabajador_inputSedeDeTrabajo"
                                                 name="sede_de_trabajo"
-                                                value={form.workSiteId}
+                                                value={form.employeeSiteId}
                                                 onChange={handleChange}
                                                 className="form-control input-sm" 
                                             >
@@ -1088,13 +1088,13 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idWorker, children }) => 
                                         className="d-flex justify-content-center gap-10 modal-footer">
                                         <button
                                             type="button"
-                                            onClick={() => putWorker(idWorker)}
+                                            onClick={() => putEmployee(idEmployee)}
                                             className="btn btn-primary">
                                             Editar
                                         </button>
                                         <button
                                             type="button"
-                                            onClick={() => deleteWorker(idWorker)}
+                                            onClick={() => deleteEmployee(idEmployee)}
                                             className="btn btn-danger">
                                             Eliminar
                                         </button>

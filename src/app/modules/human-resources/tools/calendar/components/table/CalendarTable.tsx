@@ -3,14 +3,14 @@ import Swal from 'sweetalert2'
 import { KTCardBody } from '../../../../../../../_zeus/helpers'
 import { appStateService } from '../../../../../../services/appState.service'
 import { dayMonthYear } from '../../../../../../utils/dateFormat'
-import { WorkerRequest, WorkerResponse } from '../../../../../../../@services/api/dtos/WorkerModel'
+import { EmployeeRequest, EmployeeResponse } from '../../../../../../../@services/api/dtos/EmployeeModel'
 import ModalTrabajador from './ModalTrabajador'
 import { backyService } from '@zeus/@services/api'
 
 import { saveAs } from 'file-saver'
 import * as XLSX from 'xlsx'
 
-interface WorkerForm {
+interface EmployeeForm {
     name?: string | null;
     lastname?: string | null;
     email: string;
@@ -35,7 +35,7 @@ interface WorkerForm {
     facialRecognition?: string | null;
     digitalSignature?: string | null;
     status: 'Activo' | 'Inactivo';
-    workSiteId: string;
+    employeeSiteId: string;
     rolId: string;
     sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
     sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
@@ -44,14 +44,14 @@ interface WorkerForm {
 
 const CalendarTable = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [workers, setWorkers] = useState<WorkerResponse[]>([])
-  const [filteredWorkers, setFilteredWorkers] = useState<WorkerResponse[]>([])
+  const [employees, setEmployees] = useState<EmployeeResponse[]>([])
+  const [filteredEmployees, setFilteredEmployees] = useState<EmployeeResponse[]>([])
   const [totalPages, setTotalPages] = useState<number>(1)
   const [currentPage, setCurrentPage] = useState<number>(1)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [limitPerPage, setLimitPerPage] = useState<number>(10)
-  const [idWorker, setIdWorker] = useState('')
-  const [formData, setFormData] = useState<WorkerForm>({
+  const [idEmployee, setIdEmployee] = useState('')
+  const [formData, setFormData] = useState<EmployeeForm>({
         name: null,
         lastname: null,
         email: '',
@@ -76,7 +76,7 @@ const CalendarTable = () => {
         facialRecognition: null,
         digitalSignature: null,
         status: 'Activo',
-        workSiteId: '',
+        employeeSiteId: '',
         rolId: '',
         sizePants: 26,
         sizePolo: 'XS',
@@ -86,18 +86,18 @@ const CalendarTable = () => {
 
   useEffect(() => {
 
-    const workersInit = async () => {
+    const employeesInit = async () => {
 
       try {
         //const response = await get();
         const filters = `?limit=${limitPerPage}`
-        const response = await backyService.worker.getFiltered(filters)
+        const response = await backyService.employee.getFiltered(filters)
 
         if (response.status == 200) {
           setTotalPages(response.data.totalPages)
           setCurrentPage(response.data.currentPage)
-          const workers: WorkerResponse[] = response.data.trabajadores
-          appStateService.setWorkersSubject(workers)
+          const employees: EmployeeResponse[] = response.data.trabajadores
+          appStateService.setEmployeesSubject(employees)
         }
 
       } catch (error: any) {
@@ -105,11 +105,11 @@ const CalendarTable = () => {
       }
 
     }
-    workersInit()
+    employeesInit()
 
-    //const workersSubj = appStateService.getSubject().subscribe((workers: WorkerResponse[]) => {
-    //  setWorkers(workers)
-    //  setFilteredWorkers(workers)
+    //const employeesSubj = appStateService.getSubject().subscribe((employees: EmployeeResponse[]) => {
+    //  setEmployees(employees)
+    //  setFilteredEmployees(employees)
     //})
 
     const activeModalSubj = appStateService.getActiveModalSubject().subscribe((state: boolean) => {
@@ -117,7 +117,7 @@ const CalendarTable = () => {
     })
 
     return () => {
-      //workersSubj.unsubscribe()
+      //employeesSubj.unsubscribe()
       activeModalSubj.unsubscribe()
     }
 
@@ -138,30 +138,30 @@ const CalendarTable = () => {
     // let filters:string = "?";
     // for(const key in formData){
     //   if(formData.hasOwnProperty(key)){
-    //     if(formData[key as keyof WorkerForm] != "" && formData[key as keyof WorkerForm] != null){
-    //       filters=filters+`${key}=${formData[key as keyof WorkerForm]}&`
+    //     if(formData[key as keyof EmployeeForm] != "" && formData[key as keyof EmployeeForm] != null){
+    //       filters=filters+`${key}=${formData[key as keyof EmployeeForm]}&`
     //     }
     //   }
     // }
   }
 
-  function showModalWorker(id: string) {
-    setIdWorker(id)
+  function showModalEmployee(id: string) {
+    setIdEmployee(id)
     appStateService.setActiveModalSubject()
   }
 
   async function applyFilters() {
     // eslint-disable-next-line max-len
-    const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&workSiteId=${formData.workSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
+    const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
 
     try {
-      const response = await backyService.worker.getFiltered(filters)
+      const response = await backyService.employee.getFiltered(filters)
       console.log(response)
 
       if (response.status == 200) {
         setTotalPages(response.data.totalPages)
         setCurrentPage(response.data.currentPage)
-        setFilteredWorkers(response.data.trabajadores)
+        setFilteredEmployees(response.data.trabajadores)
       }
 
     } catch (e: any) {
@@ -173,16 +173,16 @@ const CalendarTable = () => {
   async function selectPageNavigate(page: number) {
 
     // eslint-disable-next-line max-len
-    const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&workSiteId=${formData.workSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
+    const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
 
     try {
 
-      const response: any = await backyService.worker.getFiltered(filters)
+      const response: any = await backyService.employee.getFiltered(filters)
 
       if (response.status == 200) {
         setCurrentPage(response.data.currentPage)
         setTotalPages(response.data.totalPages)
-        setFilteredWorkers(response.data.trabajadores)
+        setFilteredEmployees(response.data.trabajadores)
       }
 
     } catch (e: any) {
@@ -191,7 +191,7 @@ const CalendarTable = () => {
 
   }
 
-  function changeStatusWorker(state: boolean, Worker: WorkerResponse) {
+  function changeStatusEmployee(state: boolean, Employee: EmployeeResponse) {
 
     Swal.fire({
       icon: 'question',
@@ -204,45 +204,45 @@ const CalendarTable = () => {
       if (result.isConfirmed) {
         if (state == true) {//Inactivo
           try {
-            const editWorker = async () => {
+            const editEmployee = async () => {
 
-              const request: WorkerRequest = {
-                name: Worker.name,
-                lastname: Worker.lastname,
-                email: Worker.email,
-                dni: Worker.dni,
-                mothers_lastname: Worker.mothers_lastname,
-                fathers_lastname: Worker.fathers_lastname,
-                birthDate: Worker.birthDate,
-                companyAreaId: Worker.companyAreaId, 
-                charge: Worker.charge, 
-                entryDate: Worker.entryDate, 
-                contractTerminationDate: Worker.contractTerminationDate,
-                areaEntryDate: Worker.areaEntryDate, 
-                province: Worker.province,
-                city: Worker.city,
-                address: Worker.address,
-                district: Worker.district,
-                corporateEmail: Worker.corporateEmail,
-                nationalityId: Worker.nationalityId, 
-                gender: Worker.gender,
-                civilStatus: Worker.civilStatus,
-                personalPhone: Worker.personalPhone,
-                facialRecognition: Worker.facialRecognition,
-                digitalSignature: Worker.digitalSignature,
+              const request: EmployeeRequest = {
+                name: Employee.name,
+                lastname: Employee.lastname,
+                email: Employee.email,
+                dni: Employee.dni,
+                mothers_lastname: Employee.mothers_lastname,
+                fathers_lastname: Employee.fathers_lastname,
+                birthDate: Employee.birthDate,
+                companyAreaId: Employee.companyAreaId, 
+                charge: Employee.charge, 
+                entryDate: Employee.entryDate, 
+                contractTerminationDate: Employee.contractTerminationDate,
+                areaEntryDate: Employee.areaEntryDate, 
+                province: Employee.province,
+                city: Employee.city,
+                address: Employee.address,
+                district: Employee.district,
+                corporateEmail: Employee.corporateEmail,
+                nationalityId: Employee.nationalityId, 
+                gender: Employee.gender,
+                civilStatus: Employee.civilStatus,
+                personalPhone: Employee.personalPhone,
+                facialRecognition: Employee.facialRecognition,
+                digitalSignature: Employee.digitalSignature,
                 status: "Activo",
-                workSiteId: Worker.workSiteId,
-                rolId: Worker.rolId,
-                sizePants: Worker.sizePants,
-                sizePolo: Worker.sizePolo,
-                sizeShoe: Worker.sizeShoe,
+                employeeSiteId: Employee.employeeSiteId,
+                rolId: Employee.rolId,
+                sizePants: Employee.sizePants,
+                sizePolo: Employee.sizePolo,
+                sizeShoe: Employee.sizeShoe,
               }
 
-              const response = await backyService.worker.put(Worker._id, request)
+              const response = await backyService.employee.put(Employee._id, request)
 
               if (response.status == 200) {
 
-                appStateService.putWorkerSubject(Worker._id, request)
+                appStateService.putEmployeeSubject(Employee._id, request)
 
                 const Toast = Swal.mixin({
                   toast: true,
@@ -262,52 +262,52 @@ const CalendarTable = () => {
               }
 
             }
-            editWorker()
+            editEmployee()
 
           } catch (e: any) {
             console.error(e)
           }
         } else {//Activo
           try {
-            const editWorker = async () => {
+            const editEmployee = async () => {
 
-              const request: WorkerRequest = {
-                name: Worker.name,
-                lastname: Worker.lastname,
-                email: Worker.email,
-                dni: Worker.dni,
-                mothers_lastname: Worker.mothers_lastname,
-                fathers_lastname: Worker.fathers_lastname,
-                birthDate: Worker.birthDate,
-                companyAreaId: Worker.companyAreaId, 
-                charge: Worker.charge, 
-                entryDate: Worker.entryDate, 
-                contractTerminationDate: Worker.contractTerminationDate,
-                areaEntryDate: Worker.areaEntryDate, 
-                province: Worker.province,
-                city: Worker.city,
-                address: Worker.address,
-                district: Worker.district,
-                corporateEmail: Worker.corporateEmail,
-                nationalityId: Worker.nationalityId, 
-                gender: Worker.gender,
-                civilStatus: Worker.civilStatus,
-                personalPhone: Worker.personalPhone,
-                facialRecognition: Worker.facialRecognition,
-                digitalSignature: Worker.digitalSignature,
+              const request: EmployeeRequest = {
+                name: Employee.name,
+                lastname: Employee.lastname,
+                email: Employee.email,
+                dni: Employee.dni,
+                mothers_lastname: Employee.mothers_lastname,
+                fathers_lastname: Employee.fathers_lastname,
+                birthDate: Employee.birthDate,
+                companyAreaId: Employee.companyAreaId, 
+                charge: Employee.charge, 
+                entryDate: Employee.entryDate, 
+                contractTerminationDate: Employee.contractTerminationDate,
+                areaEntryDate: Employee.areaEntryDate, 
+                province: Employee.province,
+                city: Employee.city,
+                address: Employee.address,
+                district: Employee.district,
+                corporateEmail: Employee.corporateEmail,
+                nationalityId: Employee.nationalityId, 
+                gender: Employee.gender,
+                civilStatus: Employee.civilStatus,
+                personalPhone: Employee.personalPhone,
+                facialRecognition: Employee.facialRecognition,
+                digitalSignature: Employee.digitalSignature,
                 status: "Inactivo",
-                workSiteId: Worker.workSiteId,
-                rolId: Worker.rolId,
-                sizePants: Worker.sizePants,
-                sizePolo: Worker.sizePolo,
-                sizeShoe: Worker.sizeShoe,
+                employeeSiteId: Employee.employeeSiteId,
+                rolId: Employee.rolId,
+                sizePants: Employee.sizePants,
+                sizePolo: Employee.sizePolo,
+                sizeShoe: Employee.sizeShoe,
               }
 
-              const response = await backyService.worker.put(Worker._id, request)
+              const response = await backyService.employee.put(Employee._id, request)
 
               if (response.status == 200) {
 
-                appStateService.putWorkerSubject(Worker._id, request)
+                appStateService.putEmployeeSubject(Employee._id, request)
 
                 const Toast = Swal.mixin({
                   toast: true,
@@ -327,7 +327,7 @@ const CalendarTable = () => {
               }
 
             }
-            editWorker()
+            editEmployee()
 
           } catch (e: any) {
             console.error(e)
@@ -346,15 +346,15 @@ const CalendarTable = () => {
     if (action == 'next') {
 
       // eslint-disable-next-line max-len
-      const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&workSiteId=${formData.workSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
+      const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
       try {
 
-        const response: any = await backyService.worker.getFiltered(filters)
+        const response: any = await backyService.employee.getFiltered(filters)
 
         if (response.status == 200) {
           setCurrentPage(response.data.currentPage)
           setTotalPages(response.data.totalPages)
-          setFilteredWorkers(response.data.trabajadores)
+          setFilteredEmployees(response.data.trabajadores)
         }
 
       } catch (e: any) {
@@ -364,16 +364,16 @@ const CalendarTable = () => {
     } else if (action == 'previous') {
 
       // eslint-disable-next-line max-len
-      const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&workSiteId=${formData.workSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
+      const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
       
       try {
 
-        const response: any = await backyService.worker.getFiltered(filters)
+        const response: any = await backyService.employee.getFiltered(filters)
 
         if (response.status == 200) {
           setCurrentPage(response.data.currentPage)
           setTotalPages(response.data.totalPages)
-          setFilteredWorkers(response.data.trabajadores)
+          setFilteredEmployees(response.data.trabajadores)
         }
 
       } catch (e: any) {
@@ -384,10 +384,10 @@ const CalendarTable = () => {
 
   }
 
-  const exportFilteredWorkersToExcel = () => {
+  const exportFilteredEmployeesToExcel = () => {
 
     // Crear una hoja de trabajo a partir de los datos
-    const worksheet = XLSX.utils.json_to_sheet(filteredWorkers)
+    const worksheet = XLSX.utils.json_to_sheet(filteredEmployees)
 
     // Crear un libro de trabajo y agregar la hoja de trabajo
     const workbook = XLSX.utils.book_new()
@@ -402,13 +402,13 @@ const CalendarTable = () => {
     saveAs(data, 'reporteEmpleadosFiltrados.xlsx')
   }
 
-  const exportWorkerToExcel = (Worker: WorkerResponse) => {
+  const exportEmployeeToExcel = (Employee: EmployeeResponse) => {
 
-    const workerArray: WorkerResponse[] = []
-    workerArray.push(Worker)
+    const employeeArray: EmployeeResponse[] = []
+    employeeArray.push(Employee)
 
     // Crear una hoja de trabajo a partir de los datos
-    const worksheet = XLSX.utils.json_to_sheet(workerArray)
+    const worksheet = XLSX.utils.json_to_sheet(employeeArray)
 
     // Crear un libro de trabajo y agregar la hoja de trabajo
     const workbook = XLSX.utils.book_new()
@@ -428,7 +428,7 @@ const CalendarTable = () => {
       className="py-4 card card-grid min-w-full">
 
       {activeModal ? <ModalTrabajador
-        idWorker={idWorker}></ModalTrabajador> : ''}
+        idEmployee={idEmployee}></ModalTrabajador> : ''}
 
       <p>Filtros de búsqueda</p>
 
@@ -641,7 +641,7 @@ const CalendarTable = () => {
 
       <hr />
 
-      <p>{'Coincidencias' + ': ' + filteredWorkers.length}</p>
+      <p>{'Coincidencias' + ': ' + filteredEmployees.length}</p>
 
       <div
         className="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -653,7 +653,7 @@ const CalendarTable = () => {
           Importar a Excel
         </button>
         <button
-          onClick={exportFilteredWorkersToExcel}
+          onClick={exportFilteredEmployeesToExcel}
           className="btn btn-success btn-sm"
           type="button">
           <i
@@ -719,30 +719,30 @@ const CalendarTable = () => {
           </thead>
           <tbody
             className="text-center">
-            {filteredWorkers.length > 0 && filteredWorkers.map((Worker, index) => (
+            {filteredEmployees.length > 0 && filteredEmployees.map((Employee, index) => (
               <tr
                 key={index}>
                 <td>{index + 1}</td>
-                <td>{Worker.dni}</td>
-                <td>{Worker.name}</td>
-                <td>{Worker.mothers_lastname}</td>
-                <td>{Worker.fathers_lastname}</td>
-                <td>{dayMonthYear(Worker.birthDate)}</td>
-                <td>{Worker.charge}</td>
-                <td>{Worker.companyAreaId}</td>
-                <td>{dayMonthYear(Worker.entryDate)}</td>
-                <td>{dayMonthYear(Worker.areaEntryDate)}</td>
-                <td>{Worker.address}</td>
-                <td>{Worker.district}</td>
-                <td>{Worker.corporateEmail}</td>
-                <td>{Worker.email}</td>
-                <td>{Worker.nationalityId}</td>
-                <td>{Worker.gender}</td>
-                <td>{Worker.civilStatus}</td>
-                <td>{Worker.personalPhone}</td>
-                <td>{Worker.digitalSignature}</td>
-                <td>{Worker.status}</td>
-                <td>{Worker.workSiteId}</td>
+                <td>{Employee.dni}</td>
+                <td>{Employee.name}</td>
+                <td>{Employee.mothers_lastname}</td>
+                <td>{Employee.fathers_lastname}</td>
+                <td>{dayMonthYear(Employee.birthDate)}</td>
+                <td>{Employee.charge}</td>
+                <td>{Employee.companyAreaId}</td>
+                <td>{dayMonthYear(Employee.entryDate)}</td>
+                <td>{dayMonthYear(Employee.areaEntryDate)}</td>
+                <td>{Employee.address}</td>
+                <td>{Employee.district}</td>
+                <td>{Employee.corporateEmail}</td>
+                <td>{Employee.email}</td>
+                <td>{Employee.nationalityId}</td>
+                <td>{Employee.gender}</td>
+                <td>{Employee.civilStatus}</td>
+                <td>{Employee.personalPhone}</td>
+                <td>{Employee.digitalSignature}</td>
+                <td>{Employee.status}</td>
+                <td>{Employee.employeeSiteId}</td>
                 <td>
                   <div
                     className="d-grid gap-2 d-md-flex">
@@ -754,12 +754,12 @@ const CalendarTable = () => {
                         type="checkbox"
                         value=""
                         id="statusSwitch"
-                        onChange={(e: any) => changeStatusWorker(e.target.checked, Worker)}
-                        checked={Worker.status == 'Activo' ? true : false} />
+                        onChange={(e: any) => changeStatusEmployee(e.target.checked, Employee)}
+                        checked={Employee.status == 'Activo' ? true : false} />
                       <label
                         className="form-label-sm ms-2"
                         htmlFor="statusSwitch">
-                        {Worker.status == 'Activo' ? 'Activo' : 'Inactivo'}
+                        {Employee.status == 'Activo' ? 'Activo' : 'Inactivo'}
                       </label>
                     </div>
                     {/* <button className="btn btn-sm btn-bg-light btn-active-color-primary">
@@ -767,7 +767,7 @@ const CalendarTable = () => {
                     </button> */}
                     <button
                       className="btn btn-sm btn-bg-light btn-active-color-primary"
-                      onClick={() => showModalWorker(Worker._id)}>
+                      onClick={() => showModalEmployee(Employee._id)}>
                       Ver detalle
                     </button>
                     <button
@@ -782,7 +782,7 @@ const CalendarTable = () => {
                       Importar a Excel
                     </button>
                     <button
-                      onClick={() => exportWorkerToExcel(Worker)}
+                      onClick={() => exportEmployeeToExcel(Employee)}
                       className="btn btn-sm btn-bg-light btn-active-color-primary"
                       type="button">
                       <i
@@ -797,10 +797,10 @@ const CalendarTable = () => {
         </table>
       </div>
 
-      {filteredWorkers.length == 0 && <p
+      {filteredEmployees.length == 0 && <p
         className="text-center mb-5">No se encontraron trabajadores</p>}
 
-      {filteredWorkers.length != 0 && (
+      {filteredEmployees.length != 0 && (
         <div
           className="mt-2">
           <ul

@@ -7,11 +7,11 @@ import { dayMonthYear } from "../../../../../../utils/dateFormat";
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
 import { EmergencyLightsResponse } from "@zeus/@services/api/dtos/EmergencyLightsModel";
-import { WorkerResponse } from "@zeus/@services/api/dtos/WorkerModel";
+import { EmployeeResponse } from "@zeus/@services/api/dtos/EmployeeModel";
 import { ModalInspectionEmergencyLightsForm } from "./ModalInspectionEmergencyLightsForm";
 import { backyService } from "@zeus/@services/api";
 
-interface WorkerForm {
+interface EmployeeForm {
 	fechaInspeccion: string;
 	sede: string;
 	area: string;
@@ -28,16 +28,16 @@ interface WorkerForm {
 
 export const InspectionEmergencylightsTable = () => {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [workers, setWorkers] = useState<EmergencyLightsResponse[]>([]);
-	const [filteredWorkers, setFilteredWorkers] = useState<
+	const [employees, setEmployees] = useState<EmergencyLightsResponse[]>([]);
+	const [filteredEmployees, setFilteredEmployees] = useState<
 		any[]
 	>([]);
 	const [totalPages, setTotalPages] = useState<number>(1);
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [limitPerPage, setLimitPerPage] = useState<number>(10);
-	const [idWorker, setIdWorker] = useState("");
-	const [formData, setFormData] = useState<WorkerForm>({
+	const [idEmployee, setIdEmployee] = useState("");
+	const [formData, setFormData] = useState<EmployeeForm>({
 		fechaInspeccion: "",
 		sede: "",
 		area: "",
@@ -54,29 +54,29 @@ export const InspectionEmergencylightsTable = () => {
 	const [activeModal, setActiveModal] = useState<boolean>(false);
 
 	useEffect(() => {
-		const workersInit = async () => {
+		const employeesInit = async () => {
 			try {
 				//const response = await get();
 				const filters = `?limit=${limitPerPage}`;
-				const response = await backyService.worker.getFiltered(filters);
+				const response = await backyService.employee.getFiltered(filters);
 
 				if (response.status == 200) {
 					setTotalPages(response.data.totalPages);
 					setCurrentPage(response.data.currentPage);
-					const workers: WorkerResponse[] = response.data.trabajadores;
-					appStateService.setWorkerSubject(workers);
+					const employees: EmployeeResponse[] = response.data.trabajadores;
+					appStateService.setEmployeeSubject(employees);
 				}
 			} catch (error: any) {
 				console.error(error);
 			}
 		};
-		workersInit();
+		employeesInit();
 
-		const workersSubj = appStateService
+		const employeesSubj = appStateService
 			.getSubject()
-			.subscribe((workers: any) => {
-				setWorkers(workers);
-				setFilteredWorkers(workers);
+			.subscribe((employees: any) => {
+				setEmployees(employees);
+				setFilteredEmployees(employees);
 			});
 
 		const activeModalSubj = appStateService
@@ -86,7 +86,7 @@ export const InspectionEmergencylightsTable = () => {
 			});
 
 		return () => {
-			workersSubj.unsubscribe();
+			employeesSubj.unsubscribe();
 			activeModalSubj.unsubscribe();
 		};
 	}, []);
@@ -108,15 +108,15 @@ export const InspectionEmergencylightsTable = () => {
 		// let filters:string = "?";
 		// for(const key in formData){
 		//   if(formData.hasOwnProperty(key)){
-		//     if(formData[key as keyof WorkerForm] != "" && formData[key as keyof WorkerForm] != null){
-		//       filters=filters+`${key}=${formData[key as keyof WorkerForm]}&`
+		//     if(formData[key as keyof EmployeeForm] != "" && formData[key as keyof EmployeeForm] != null){
+		//       filters=filters+`${key}=${formData[key as keyof EmployeeForm]}&`
 		//     }
 		//   }
 		// }
 	};
 
-	function showModalWorker(id: string) {
-		setIdWorker(id);
+	function showModalEmployee(id: string) {
+		setIdEmployee(id);
 		appStateService.setActiveModalSubject();
 	}
 
@@ -125,13 +125,13 @@ export const InspectionEmergencylightsTable = () => {
 		const filters = `?fechaInspeccion=${formData.fechaInspeccion}&area=${formData.area}&sede=${formData.sede}&enumerado=${formData.enumerado}&ubicacionAdecuada=${formData.ubicacionAdecuada}&enSuLugar=${formData.enSuLugar}&libreDeObstaculos=${formData.libreDeObstaculos}&conectadoTomacorriente=${formData.conectadoTomacorriente}&enciendeSwitchPrueba=${formData.enciendeSwitchPrueba}&buenaIluminacion=${formData.buenaIluminacion}&buenaEstado=${formData.buenaEstado}&encendidoQuinceMin=${formData.encendidoQuinceMin}&limit=${limitPerPage}`;
 
 		try {
-			const response = await backyService.worker.getFiltered(filters);
+			const response = await backyService.employee.getFiltered(filters);
 			console.log(response);
 
 			if (response.status == 200) {
 				setTotalPages(response.data.totalPages);
 				setCurrentPage(response.data.currentPage);
-				setFilteredWorkers(response.data.trabajadores);
+				setFilteredEmployees(response.data.trabajadores);
 			}
 		} catch (e: any) {
 			console.error(e);
@@ -143,12 +143,12 @@ export const InspectionEmergencylightsTable = () => {
 		const filters = `?fechaInspeccion=${formData.fechaInspeccion}&area=${formData.area}&sede=${formData.sede}&enumerado=${formData.enumerado}&ubicacionAdecuada=${formData.ubicacionAdecuada}&enSuLugar=${formData.enSuLugar}&libreDeObstaculos=${formData.libreDeObstaculos}&conectadoTomacorriente=${formData.conectadoTomacorriente}&enciendeSwitchPrueba=${formData.enciendeSwitchPrueba}&buenaIluminacion=${formData.buenaIluminacion}&buenaEstado=${formData.buenaEstado}&encendidoQuinceMin=${formData.encendidoQuinceMin}&limit=${limitPerPage}`;
 
 		try {
-			const response: any = await backyService.worker.getFiltered(filters);
+			const response: any = await backyService.employee.getFiltered(filters);
 
 			if (response.status == 200) {
 				setCurrentPage(response.data.currentPage);
 				setTotalPages(response.data.totalPages);
-				setFilteredWorkers(response.data.trabajadores);
+				setFilteredEmployees(response.data.trabajadores);
 			}
 		} catch (e: any) {
 			console.error(e);
@@ -161,12 +161,12 @@ export const InspectionEmergencylightsTable = () => {
 			const filters = `?fechaInspeccion=${formData.fechaInspeccion}&area=${formData.area}&sede=${formData.sede}&enumerado=${formData.enumerado}&ubicacionAdecuada=${formData.ubicacionAdecuada}&enSuLugar=${formData.enSuLugar}&libreDeObstaculos=${formData.libreDeObstaculos}&conectadoTomacorriente=${formData.conectadoTomacorriente}&enciendeSwitchPrueba=${formData.enciendeSwitchPrueba}&buenaIluminacion=${formData.buenaIluminacion}&buenaEstado=${formData.buenaEstado}&encendidoQuinceMin=${formData.encendidoQuinceMin}&limit=${limitPerPage}`;
 
 			try {
-				const response: any = await backyService.worker.getFiltered(filters);
+				const response: any = await backyService.employee.getFiltered(filters);
 
 				if (response.status == 200) {
 					setCurrentPage(response.data.currentPage);
 					setTotalPages(response.data.totalPages);
-					setFilteredWorkers(response.data.trabajadores);
+					setFilteredEmployees(response.data.trabajadores);
 				}
 			} catch (e: any) {
 				console.error(e);
@@ -176,12 +176,12 @@ export const InspectionEmergencylightsTable = () => {
 			const filters = `?fechaInspeccion=${formData.fechaInspeccion}&area=${formData.area}&sede=${formData.sede}&enumerado=${formData.enumerado}&ubicacionAdecuada=${formData.ubicacionAdecuada}&enSuLugar=${formData.enSuLugar}&libreDeObstaculos=${formData.libreDeObstaculos}&conectadoTomacorriente=${formData.conectadoTomacorriente}&enciendeSwitchPrueba=${formData.enciendeSwitchPrueba}&buenaIluminacion=${formData.buenaIluminacion}&buenaEstado=${formData.buenaEstado}&encendidoQuinceMin=${formData.encendidoQuinceMin}&limit=${limitPerPage}`;
 
 			try {
-				const response: any = await backyService.worker.getFiltered(filters);
+				const response: any = await backyService.employee.getFiltered(filters);
 
 				if (response.status == 200) {
 					setCurrentPage(response.data.currentPage);
 					setTotalPages(response.data.totalPages);
-					setFilteredWorkers(response.data.trabajadores);
+					setFilteredEmployees(response.data.trabajadores);
 				}
 			} catch (e: any) {
 				console.error(e);
@@ -189,9 +189,9 @@ export const InspectionEmergencylightsTable = () => {
 		}
 	}
 
-	const exportFilteredWorkersToExcel = () => {
+	const exportFilteredEmployeesToExcel = () => {
 		// Crear una hoja de trabajo a partir de los datos
-		const worksheet = XLSX.utils.json_to_sheet(filteredWorkers);
+		const worksheet = XLSX.utils.json_to_sheet(filteredEmployees);
 
 		// Crear un libro de trabajo y agregar la hoja de trabajo
 		const workbook = XLSX.utils.book_new();
@@ -209,12 +209,12 @@ export const InspectionEmergencylightsTable = () => {
 		saveAs(data, "reporteEmpleadosFiltrados.xlsx");
 	};
 
-	const exportWorkerToExcel = (Worker: EmergencyLightsResponse) => {
-		const workerArray: EmergencyLightsResponse[] = [];
-		workerArray.push(Worker);
+	const exportEmployeeToExcel = (Employee: EmergencyLightsResponse) => {
+		const employeeArray: EmergencyLightsResponse[] = [];
+		employeeArray.push(Employee);
 
 		// Crear una hoja de trabajo a partir de los datos
-		const worksheet = XLSX.utils.json_to_sheet(workerArray);
+		const worksheet = XLSX.utils.json_to_sheet(employeeArray);
 
 		// Crear un libro de trabajo y agregar la hoja de trabajo
 		const workbook = XLSX.utils.book_new();
@@ -236,7 +236,7 @@ export const InspectionEmergencylightsTable = () => {
 		<KTCardBody className="py-4 card card-grid min-w-full">
 			{activeModal ? (
 				<ModalInspectionEmergencyLightsForm
-					idWorker={idWorker}
+					idEmployee={idEmployee}
 				></ModalInspectionEmergencyLightsForm>
 			) : (
 				""
@@ -348,7 +348,7 @@ export const InspectionEmergencylightsTable = () => {
 
 			{/* <hr />
 
-			<p>{"Coincidencias" + ": " + filteredWorkers.length}</p> */}
+			<p>{"Coincidencias" + ": " + filteredEmployees.length}</p> */}
 
 			<div className="d-grid gap-2 d-md-flex justify-content-md-end">
 				{/* <button className="btn btn-success btn-sm disabled" type="button">
@@ -356,7 +356,7 @@ export const InspectionEmergencylightsTable = () => {
 					Importar a Excel
 				</button> */}
 				<button
-					onClick={exportFilteredWorkersToExcel}
+					onClick={exportFilteredEmployeesToExcel}
 					className="btn btn-success btn-sm"
 					type="button"
 				>
@@ -377,14 +377,14 @@ export const InspectionEmergencylightsTable = () => {
 						</tr>
 					</thead>
 					<tbody className="text-center">
-						{filteredWorkers.length > 0 &&
-							filteredWorkers.map((Worker, index) => (
+						{filteredEmployees.length > 0 &&
+							filteredEmployees.map((Employee, index) => (
 								<tr key={index}>
 									<td>{index + 1}</td>
-									<td>{Worker.fechaInspeccion}</td>
-									<td>{Worker.inspeccionadoPor}</td>
-									<td>{Worker.observaciones}</td>
-									<td>{Worker.recomendaciones}</td>
+									<td>{Employee.fechaInspeccion}</td>
+									<td>{Employee.inspeccionadoPor}</td>
+									<td>{Employee.observaciones}</td>
+									<td>{Employee.recomendaciones}</td>
 									<td>
 										<div className="d-grid gap-2 d-md-flex">
 											{/* <button className="btn btn-sm btn-bg-light btn-active-color-primary">
@@ -392,7 +392,7 @@ export const InspectionEmergencylightsTable = () => {
                     </button> */}
 											<button
 												className="btn btn-sm btn-bg-light btn-active-color-primary"
-												onClick={() => showModalWorker(Worker._id)}
+												onClick={() => showModalEmployee(Employee._id)}
 											>
 												Ver detalle
 											</button>
@@ -407,7 +407,7 @@ export const InspectionEmergencylightsTable = () => {
 												Importar a Excel
 											</button>
 											<button
-												onClick={() => exportWorkerToExcel(Worker)}
+												onClick={() => exportEmployeeToExcel(Employee)}
 												className="btn btn-sm btn-bg-light btn-active-color-primary"
 												type="button"
 											>
@@ -422,13 +422,13 @@ export const InspectionEmergencylightsTable = () => {
 				</table>
 			</div>
 
-			{filteredWorkers.length == 0 && (
+			{filteredEmployees.length == 0 && (
 				<p className="text-center mb-5">
 					No se encontraron luces de emergencia
 				</p>
 			)}
 
-			{filteredWorkers.length != 0 && (
+			{filteredEmployees.length != 0 && (
 				<div className="mt-2">
 					<ul className="pagination">
 						<li
@@ -482,7 +482,7 @@ export const InspectionEmergencylightsTable = () => {
 
 			{/* <button
 				className="btn btn-sm btn-bg-light btn-active-color-primary"
-				onClick={() => showModalWorker("")}
+				onClick={() => showModalEmployee("")}
 			>
 				ejemplo modal
 			</button> */}

@@ -1,12 +1,12 @@
 
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
-import useWorker from '@zeus/@hooks/useWorker'
+import useEmployee from '@zeus/@hooks/useEmployee'
 import { Languages } from './Languages'
 import { toAbsoluteUrl } from '../../../helpers'
 
 const HeaderUserMenu: FC = () => {
-	const { worker, logout } = useWorker()
+	const { employee, logout } = useEmployee()
 	const location = window.location
 
 	return (
@@ -22,11 +22,11 @@ const HeaderUserMenu: FC = () => {
 
 					<div className='d-flex flex-column'>
 						<div className='fw-bolder d-flex align-items-center fs-5'>
-							{worker.name} {worker.lastname}
+							{employee.name} {employee.lastname}
 							<span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>VIP</span>
 						</div>
 						<a href='#' className='fw-bold text-muted text-hover-primary fs-7'>
-							{worker.email}
+							{employee.email}
 						</a>
 					</div>
 				</div>

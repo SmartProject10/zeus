@@ -144,7 +144,7 @@ const fieldSchema: FieldSchema[] = [
 		fields: [
 			{
 				type: 'select',
-				key: 'typeOfWorker',
+				key: 'typeOfEmployee',
 				options: [
 					{ value: '', content: 'Seleccione una opción' },
 					{ value: 'Area 1', content: 'Area 1' },
@@ -157,7 +157,7 @@ const fieldSchema: FieldSchema[] = [
 			},
 			{
 				type: 'select',
-				key: 'workerSite',
+				key: 'employeeSite',
 				label: 'Sede',
 				placeholder: 'Seleccione una opción',
 				required: true,
@@ -170,7 +170,7 @@ const fieldSchema: FieldSchema[] = [
 			},
 			{
 				type: 'select',
-				key: 'workerJob',
+				key: 'employeeJob',
 				label: 'Cargo',
 				placeholder: 'Seleccione una opción',
 				required: true,

@@ -29,15 +29,15 @@ export function setLanguage(lang: string) {
   window.location.reload()
 }
 
-const WorkerContext = createContext<Props>(initialState)
+const EmployeeContext = createContext<Props>(initialState)
 
 const useLang = () => {
-  return useContext(WorkerContext).selectedLang
+  return useContext(EmployeeContext).selectedLang
 }
 
-const WorkerProvider: FC<WithChildren> = ({children}) => {
+const EmployeeProvider: FC<WithChildren> = ({children}) => {
   const lang = getConfig()
-  return <WorkerContext.Provider value={lang}>{children}</WorkerContext.Provider>
+  return <EmployeeContext.Provider value={lang}>{children}</EmployeeContext.Provider>
 }
 
-export {WorkerProvider, useLang}
+export {EmployeeProvider, useLang}

@@ -1,14 +1,14 @@
 import { BehaviorSubject, Observable } from 'rxjs'
-import { Worker, WorkerRequest } from '../../@services/api/dtos/WorkerModel'
+import { Employee, EmployeeRequest } from '../../@services/api/dtos/EmployeeModel'
 
 class AppState {
 
-    private workersSubject: BehaviorSubject<Worker[]> = new BehaviorSubject<Worker[]>([])
+    private employeesSubject: BehaviorSubject<Employee[]> = new BehaviorSubject<Employee[]>([])
     private activeModalSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
     //Gets
-    getWorkersSubject(): Observable<Worker[]> {
-        return this.workersSubject.asObservable()
+    getEmployeesSubject(): Observable<Employee[]> {
+        return this.employeesSubject.asObservable()
     }
 
     getActiveModalSubject() {
@@ -20,20 +20,20 @@ class AppState {
         this.activeModalSubject.next(!this.activeModalSubject.getValue())
     }
 
-    setWorkersSubject(workers: Worker[]) {
-        this.workersSubject.next(workers)
+    setEmployeesSubject(employees: Employee[]) {
+        this.employeesSubject.next(employees)
     }
 
-    setWorkerSubject(Worker: Worker) {
-        const newWorkers = [...this.workersSubject.getValue(), Worker]
-        console.log(newWorkers)
-        this.workersSubject.next(newWorkers)
+    setEmployeeSubject(Employee: Employee) {
+        const newEmployees = [...this.employeesSubject.getValue(), Employee]
+        console.log(newEmployees)
+        this.employeesSubject.next(newEmployees)
     }
 
     //Puts
-    putWorkerSubject(id: string, emp: WorkerRequest) {
+    putEmployeeSubject(id: string, emp: EmployeeRequest) {
 
-        const Worker: Worker = {
+        const Employee: Employee = {
             _id: id,
             name: emp.name,
             lastname: emp.lastname,
@@ -59,7 +59,7 @@ class AppState {
             facialRecognition: emp.facialRecognition,
             digitalSignature: emp.digitalSignature,
             status: emp.status,
-            workSiteId: emp.workSiteId,
+            employeeSiteId: emp.employeeSiteId,
             rolId: emp.rolId,
             sizePants: emp.sizePants,
             sizePolo: emp.sizePolo,
@@ -67,21 +67,21 @@ class AppState {
             companyIds: emp.companyIds,
         }
 
-        const newWorkers = this.workersSubject.getValue().map((e: Worker) => {
+        const newEmployees = this.employeesSubject.getValue().map((e: Employee) => {
             if (e._id == id) {
-                return Worker
+                return Employee
             } else {
                 return e
             }
         })
 
-        this.workersSubject.next(newWorkers)
+        this.employeesSubject.next(newEmployees)
     }
 
     //Deletes
-    deleteWorkerSubject(id: string) {
-        const newWorkers = this.workersSubject.getValue().filter((e: Worker) => e._id != id)
-        this.workersSubject.next(newWorkers)
+    deleteEmployeeSubject(id: string) {
+        const newEmployees = this.employeesSubject.getValue().filter((e: Employee) => e._id != id)
+        this.employeesSubject.next(newEmployees)
     }
 
 }

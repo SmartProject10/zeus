@@ -6,8 +6,7 @@ import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 import { toAbsoluteUrl } from '../../../../_zeus/helpers'
 import { PasswordMeterComponent } from '../../../../_zeus/assets/ts/components'
-import useWorker from '@zeus/@hooks/useWorker'
-import Swal from 'sweetalert2';
+import useEmployee from '@zeus/@hooks/useEmployee'
 import { useNavigate } from 'react-router-dom';
 
 const initialValues = {
@@ -50,7 +49,7 @@ export function Registration() {
 	const navigate = useNavigate()
 
 	const [loading, setLoading] = useState(false)
-	const { register } = useWorker();
+	const { register } = useEmployee();
 
 	const formik = useFormik({
 		initialValues,
@@ -64,21 +63,10 @@ export function Registration() {
 						name: values.name, 
 						lastname: values.lastname, 
 						password: values.password, 
-					},
-					setStatus
+					}
 				);
-		
 				if (registroExitoso) {
-					await Swal.fire({
-						icon: 'success',
-						text: "Registro exitoso",
-					});
 					//navigate('/company/acquisitions');  // Redirige después de un registro exitoso
-				} else {
-					await Swal.fire({
-						icon: 'error',
-						text: "Error en el registro. Verifique los datos ingresados.",
-					});
 				}
 			} 
 			finally {
@@ -176,6 +164,37 @@ export function Registration() {
 				</div>
 			)}
 
+			{/* begin::Form group Email */}
+			<div
+				className="fv-row mb-8">
+				<label
+					className="form-label fw-bolder text-gray-900 fs-6">Email</label>
+				<input
+					placeholder="Email"
+					type="email"
+					autoComplete="off"
+					{...formik.getFieldProps('email')}
+					className={clsx(
+						'form-control bg-transparent',
+						{ 'is-invalid': formik.touched.email && formik.errors.email },
+						{
+							'is-valid': formik.touched.email && !formik.errors.email,
+						},
+					)}
+				/>
+				{formik.touched.email && formik.errors.email && (
+					<div
+						className="fv-plugins-message-container">
+						<div
+							className="fv-help-block">
+							<span
+								role="alert">{formik.errors.email}</span>
+						</div>
+					</div>
+				)}
+			</div>
+			{/* end::Form group */}
+
 			{/* begin::Form group Firstname */}
 			<div
 				className="fv-row mb-8">
@@ -240,37 +259,6 @@ export function Registration() {
 				)}
 				{/* end::Form group */}
 			</div>
-
-			{/* begin::Form group Email */}
-			<div
-				className="fv-row mb-8">
-				<label
-					className="form-label fw-bolder text-gray-900 fs-6">Email</label>
-				<input
-					placeholder="Email"
-					type="email"
-					autoComplete="off"
-					{...formik.getFieldProps('email')}
-					className={clsx(
-						'form-control bg-transparent',
-						{ 'is-invalid': formik.touched.email && formik.errors.email },
-						{
-							'is-valid': formik.touched.email && !formik.errors.email,
-						},
-					)}
-				/>
-				{formik.touched.email && formik.errors.email && (
-					<div
-						className="fv-plugins-message-container">
-						<div
-							className="fv-help-block">
-							<span
-								role="alert">{formik.errors.email}</span>
-						</div>
-					</div>
-				)}
-			</div>
-			{/* end::Form group */}
 
 			{/* begin::Form group Password */}
 			<div

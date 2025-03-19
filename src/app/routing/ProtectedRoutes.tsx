@@ -1,12 +1,12 @@
 import { FC, useEffect, useState } from 'react';
 import { Navigate, useLocation, Outlet } from 'react-router-dom';
 import { MasterInit } from '@zeus/_zeus/layout/MasterInit';
-import useWorker from '@zeus/@hooks/useWorker';
+import useEmployee from '@zeus/@hooks/useEmployee';
 import Swal from 'sweetalert2';
 
 const ProtectedRoutes: FC = () => {
     const location = useLocation();
-    const { isAuth, isLoading } = useWorker();
+    const { isAuth, isLoading } = useEmployee();
     const [alertShown, setAlertShown] = useState(false);
 
     useEffect(() => {

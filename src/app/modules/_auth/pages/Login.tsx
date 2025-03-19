@@ -3,9 +3,8 @@ import * as Yup from 'yup';
 import clsx from 'clsx';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import useWorker from '@zeus/@hooks/useWorker';
+import useEmployee from '@zeus/@hooks/useEmployee';
 import { useIntl } from 'react-intl';
-import Swal from 'sweetalert2';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -27,7 +26,7 @@ export function Login() {
   const navigate = useNavigate();
   const intl = useIntl();
   const [loading, setLoading] = useState(false);
-  const { login } = useWorker();
+  const { login } = useEmployee();
 
   const formik = useFormik({
     initialValues,
@@ -39,22 +38,11 @@ export function Login() {
           {
             email: values.email,
             password: values.password,
-          },
-          setStatus
+          }
         );
-
         if (inicioDeSesionExitoso) {
-          await Swal.fire({
-            icon: 'success',
-            text: 'Inicio de sesión exitoso',
-          });
           // navigate('/company/acquisitions');  // Redirige después de un inicio de sesión exitoso
-        } else {
-          await Swal.fire({
-            icon: 'error',
-            text: 'Error en el inicio de sesión. Verifique los datos ingresados.',
-          });
-        }
+        } 
       } finally {
         setSubmitting(false);
         setLoading(false);

@@ -10,8 +10,8 @@ import './_zeus/assets/keenicons/outline/style.css'
 import './_zeus/assets/keenicons/solid/style.css'
 import './_zeus/assets/sass/style.scss'
 import { App } from './app/routing/App.js'
-import { WorkerProvider } from './_zeus/i18n/Zeus18n.tsx'
-import { WorkerAuthProvider } from '@zeus/@hooks/auth/WorkerAuthProvider.tsx'
+import { EmployeeProvider } from './_zeus/i18n/Zeus18n.tsx'
+import { EmployeeAuthProvider } from '@zeus/@hooks/auth/EmployeeAuthProvider.tsx'
 
 Chart.register(...registerables)
 
@@ -21,11 +21,11 @@ const container = document.getElementById('root')
 if (container) {
     createRoot(container).render(
       <QueryClientProvider client={queryClient}>
-        <WorkerProvider>
-          <WorkerAuthProvider>
+        <EmployeeProvider>
+          <EmployeeAuthProvider>
             <App />
-          </WorkerAuthProvider>
-        </WorkerProvider>
+          </EmployeeAuthProvider>
+        </EmployeeProvider>
 
         <ReactQueryDevtools
           initialIsOpen={false} />

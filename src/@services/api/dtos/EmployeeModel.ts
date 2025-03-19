@@ -1,4 +1,4 @@
-export interface Worker {
+export interface Employee {
 	_id?: string;
 	name?: string | null;
 	lastname?: string | null;
@@ -25,7 +25,7 @@ export interface Worker {
 	facialRecognition?: string | null;
 	digitalSignature?: string | null;
 	status: 'Activo' | 'Inactivo';
-	workSiteId: string;
+	employeeSiteId: string;
 	rolId: string;
 	sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
 	sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
@@ -35,7 +35,7 @@ export interface Worker {
 	updatedAt?: string;
 }
 
-export interface WorkerResponse {
+export interface EmployeeResponse {
 	_id: string;
 	name?: string | null;
 	lastname?: string | null;
@@ -61,7 +61,7 @@ export interface WorkerResponse {
 	facialRecognition?: string | null;
 	digitalSignature?: string | null;
 	status: 'Activo' | 'Inactivo';
-	workSiteId: string;
+	employeeSiteId: string;
 	rolId: string;
 	sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
 	sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
@@ -69,7 +69,7 @@ export interface WorkerResponse {
 	companyIds: string[];
 }
 
-export interface WorkerRequest {
+export interface EmployeeRequest {
 	name?: string | null;
 	lastname?: string | null;
 	email: string;
@@ -95,7 +95,7 @@ export interface WorkerRequest {
 	facialRecognition?: string | null;
 	digitalSignature?: string | null;
 	status: 'Activo' | 'Inactivo';
-	workSiteId: string;
+	employeeSiteId: string;
 	rolId: string;
 	sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
 	sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';

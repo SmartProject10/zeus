@@ -6,7 +6,7 @@ import { backyService } from "@zeus/@services/api";
 import { EmergencyLightsResponse } from "@zeus/@services/api/dtos/EmergencyLightsModel";
 
 interface MyComponentProps {
-	idWorker: string;
+	idEmployee: string;
 	children?: ReactNode;
 }
 
@@ -32,7 +32,7 @@ export interface EmergencyLightsForm {
 
 // eslint-disable-next-line react/prop-types, @typescript-eslint/no-unused-vars
 export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
-	idWorker,
+	idEmployee,
 	children,
 }) => {
 	const [form, setForm] = useState<EmergencyLightsForm>({
@@ -56,21 +56,21 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 	});
 
 	useEffect(() => {
-		const initWorker = async () => {
+		const initEmployee = async () => {
 			try {
-				const response = await backyService.emergencyLights.getById(idWorker);
+				const response = await backyService.emergencyLights.getById(idEmployee);
 
 				if (response.status == 200) {
-					const Worker: EmergencyLightsResponse = response.data;
+					const Employee: EmergencyLightsResponse = response.data;
 
 					// setForm({
-					// 	numero: Worker.area,
-					// 	sede: Worker.sede,
-					// 	area: Worker.area,
-					// 	ubicacionEspecifica: Worker.ubicacionEspecifica,
-					// 	codigo: Worker.codigo,
-					// 	marca: Worker.marca,
-					// 	fechaIngresoEmpresa: dateInput(Worker.fechaIngresoEmpresa),
+					// 	numero: Employee.area,
+					// 	sede: Employee.sede,
+					// 	area: Employee.area,
+					// 	ubicacionEspecifica: Employee.ubicacionEspecifica,
+					// 	codigo: Employee.codigo,
+					// 	marca: Employee.marca,
+					// 	fechaIngresoEmpresa: dateInput(Employee.fechaIngresoEmpresa),
 					// });
 				}
 			} catch (error: any) {
@@ -78,7 +78,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 			}
 		};
 
-		initWorker();
+		initEmployee();
 	}, []);
 
 	const handleChange = (event: any) => {
@@ -89,7 +89,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 		});
 	};
 
-	function deleteWorker(id: string) {
+	function deleteEmployee(id: string) {
 		Swal.fire({
 			icon: "question",
 			title: "¿Estas segur@ de realizar esta acción?",
@@ -100,12 +100,12 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 		}).then((result) => {
 			if (result.isConfirmed) {
 				try {
-					const deleteWorker = async () => {
+					const deleteEmployee = async () => {
 						const response = await backyService.emergencyLights.delete(id);
 
 						if (response.status == 200) {
 							// nesesario agregar estado global para estas entidades (luces de emergencia)
-							// appStateService.deleteWorkerSubject(id);
+							// appStateService.deleteEmployeeSubject(id);
 							// appStateService.setActiveModalSubject();
 
 							const Toast = Swal.mixin({
@@ -126,7 +126,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 						}
 					};
 
-					deleteWorker();
+					deleteEmployee();
 				} catch (e: any) {
 					console.error(e);
 				}
@@ -136,7 +136,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 		});
 	}
 
-	function putWorker(id: string) {
+	function putEmployee(id: string) {
 		if (
 			!form.fechaInspeccion ||
 			!form.sede ||
@@ -180,7 +180,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 		}).then((result) => {
 			if (result.isConfirmed) {
 				try {
-					// const editWorker = async () => {
+					// const editEmployee = async () => {
 					// 	const request: EmergencyLightsRequest = {
 					// 		numero: form.numero,
 					// 		sede: form.sede,
@@ -195,7 +195,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 
 					// 	if (response.status == 200) {
 					// 		// nesesario agregar estado global para estas entidades (luces de emergencia)
-					// 		// appStateService.putWorkerSubject(id, request);
+					// 		// appStateService.putEmployeeSubject(id, request);
 					// 		// appStateService.setActiveModalSubject();
 
 					// 		const Toast = Swal.mixin({
@@ -216,7 +216,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 					// 	}
 					// };
 
-					// editWorker();
+					// editEmployee();
 				} catch (e: any) {
 					console.error(e);
 				}
@@ -1377,14 +1377,14 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 									<div className="d-flex justify-content-center gap-10 modal-footer">
 										<button
 											type="button"
-											onClick={() => putWorker(idWorker)}
+											onClick={() => putEmployee(idEmployee)}
 											className="btn btn-primary"
 										>
 											Editar
 										</button>
 										<button
 											type="button"
-											onClick={() => deleteWorker(idWorker)}
+											onClick={() => deleteEmployee(idEmployee)}
 											className="btn btn-danger"
 										>
 											Eliminar

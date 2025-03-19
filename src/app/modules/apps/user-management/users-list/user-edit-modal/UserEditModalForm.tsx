@@ -370,7 +370,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                     className="fw-bolder text-gray-800">Support</div>
                   <div
                     className="text-gray-600">
-                    Best for workers who regularly refund payments and respond to disputes
+                    Best for employees who regularly refund payments and respond to disputes
                   </div>
                 </label>
                 {/* end::Label */}

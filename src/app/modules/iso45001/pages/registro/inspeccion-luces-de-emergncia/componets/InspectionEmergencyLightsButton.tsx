@@ -92,7 +92,7 @@ export const InspectionEmergencyLightsButton = () => {
 		// data.append('status', form.status);
 		// data.append('sedeTrabajo', form.sedeTrabajo);
 
-		const newWorker: EmergencyLightsRequest = {
+		const newEmployee: EmergencyLightsRequest = {
 			numero: form.numero,
 			sede: form.sede,
 			area: form.area,
@@ -103,10 +103,10 @@ export const InspectionEmergencyLightsButton = () => {
 		};
 
 		try {
-			const resp = await backyService.emergencyLights.register(newWorker);
+			const resp = await backyService.emergencyLights.register(newEmployee);
 
 			if (resp.status == 201) {
-				appStateService.setWorkerSubject(resp.data);
+				appStateService.setEmployeeSubject(resp.data);
 
 				const Toast = Swal.mixin({
 					toast: true,
