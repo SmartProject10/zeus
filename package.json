@@ -44,7 +44,7 @@
     "react-inlinesvg": "4.1.0",
     "react-intl": "^6.4.4",
     "react-query": "3.38.0",
-    "react-router-dom": "6.3.0",
+    "react-router-dom": "^7.4.0",
     "react-select": "^5.8.0",
     "react-table": "^7.7.0",
     "react-topbar-progress-indicator": "4.1.1",

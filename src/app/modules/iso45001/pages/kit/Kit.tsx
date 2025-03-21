@@ -1,7 +1,7 @@
 import { Content } from '@zeus/_zeus/layout/components/content'
 import { ToolbarWrapper } from '@zeus/_zeus/layout/components/toolbar'
 import { useEffect, useState } from 'react'
-import { KitResponse } from '../../../../../@services/api/dtos/KitModel'
+import { KitResponse } from '../../../../@services/api/dtos/KitModel'
 import KitButton from './KitButton'
 import KitTable from './KitTable'
 import KitModal from './KitModal'

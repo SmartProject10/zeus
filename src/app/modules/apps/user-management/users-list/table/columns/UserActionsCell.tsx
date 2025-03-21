@@ -5,7 +5,7 @@ import { MenuComponent } from '../../../../../../../_zeus/assets/ts/components'
 import { ID, KTIcon, QUERIES } from '../../../../../../../_zeus/helpers'
 import { useListView } from '../../core/ListViewProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
-import { backyService } from '@zeus/@services/api'
+import { backyService } from '@zeus/app/@services/api'
 
 type Props = {
   id: ID

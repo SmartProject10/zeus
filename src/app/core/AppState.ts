@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs'
-import { Employee, EmployeeRequest } from '../../@services/api/dtos/EmployeeModel'
+import { Employee, EmployeeRequest } from '../@services/api/dtos/EmployeeModel'
 
 class AppState {
 

@@ -2,8 +2,8 @@ import { ReactNode, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { appStateService } from "../../../../../../services/appState.service";
 import { dateInput } from "../../../../../../utils/dateFormat";
-import { backyService } from "@zeus/@services/api";
-import { EmergencyLightsResponse } from "@zeus/@services/api/dtos/EmergencyLightsModel";
+import { backyService } from "@zeus/app/@services/api";
+import { EmergencyLightsResponse } from "@zeus/app/@services/api/dtos/EmergencyLightsModel";
 
 interface MyComponentProps {
 	idEmployee: string;

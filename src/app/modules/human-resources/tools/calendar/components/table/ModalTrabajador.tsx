@@ -1,9 +1,9 @@
 import { ReactNode, useEffect, useState } from 'react'
-import { EmployeeResponse, EmployeeRequest } from '../../../../../../../@services/api/dtos/EmployeeModel'
+import { EmployeeResponse, EmployeeRequest } from '../../../../../../@services/api/dtos/EmployeeModel'
 import Swal from 'sweetalert2'
 import { appStateService } from '../../../../../../services/appState.service'
 import { dateInput } from '../../../../../../utils/dateFormat'
-import { backyService } from '@zeus/@services/api'
+import { backyService } from '@zeus/app/@services/api'
 
 interface MyComponentProps {
     idEmployee: string

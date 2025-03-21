@@ -9,8 +9,8 @@ import {
   stringifyRequestQuery,
   WithChildren,
 } from '../../../../../../_zeus/helpers'
-import { backyService } from '@zeus/@services/api'
-import {User} from '../../../../../../@services/api/dtos/UserManagementModel'
+import { backyService } from '@zeus/app/@services/api'
+import {User} from '../../../../../@services/api/dtos/UserManagementModel'
 import {useQueryRequest} from './QueryRequestProvider'
 
 const QueryResponseContext = createResponseContext<User>(initialQueryResponse)

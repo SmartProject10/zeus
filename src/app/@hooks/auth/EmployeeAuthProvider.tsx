@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
 import { backyService } from "../../@services/api/index";
-import { EmployeeResponse } from "@zeus/@services/api/dtos/EmployeeModel";
+import { EmployeeResponse } from "@zeus/app/@services/api/dtos/EmployeeModel";
 import Swal from 'sweetalert2';
 
 // Tipo del contexto

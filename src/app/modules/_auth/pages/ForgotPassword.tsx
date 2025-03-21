@@ -3,7 +3,7 @@ import * as Yup from 'yup'
 import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { backyService } from '@zeus/@services/api'
+import { backyService } from '@zeus/app/@services/api'
 
 const initialValues = {
   email: 'admin@demo.com',

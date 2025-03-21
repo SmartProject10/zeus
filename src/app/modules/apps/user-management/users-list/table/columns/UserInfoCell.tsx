@@ -2,7 +2,7 @@
 import clsx from 'clsx'
 import {FC} from 'react'
 import {toAbsoluteUrl} from '../../../../../../../_zeus/helpers'
-import {User} from '../../../../../../../@services/api/dtos/UserManagementModel'
+import {User} from '../../../../../../@services/api/dtos/UserManagementModel'
 
 type Props = {
   user: User

@@ -2,7 +2,7 @@ import {useQueryClient, useMutation} from 'react-query'
 import {QUERIES} from '../../../../../../../_zeus/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
-import { backyService } from '@zeus/@services/api'
+import { backyService } from '@zeus/app/@services/api'
 
 const UsersListGrouping = () => {
   const {selected, clearSelected} = useListView()

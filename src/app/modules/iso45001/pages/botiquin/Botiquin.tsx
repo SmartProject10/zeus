@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import BotiquinTable from './BotiquinTable'
 import BotiquinModal from './BotiquinModal'
 import BotiquinButton from './BotiquinButton'
-import { BotiquinResponse } from '../../../../../@services/api/dtos/BotiquinModel'
+import { BotiquinResponse } from '../../../../@services/api/dtos/BotiquinModel'
 import Swal from 'sweetalert2'
 
 export function Botiquin(): JSX.Element {

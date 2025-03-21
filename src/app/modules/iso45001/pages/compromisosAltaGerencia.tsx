@@ -1,4 +1,4 @@
-import { TitleBar } from '@zeus/@components/titleBar'
+import { TitleBar } from '@zeus/app/@components/titleBar'
 
 export function CompromisosAltaGenerencia(): JSX.Element {
     return (

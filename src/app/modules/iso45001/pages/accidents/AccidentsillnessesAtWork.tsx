@@ -2,7 +2,7 @@ import { Content } from '@zeus/_zeus/layout/components/content';
 import { ToolbarWrapper } from '@zeus/_zeus/layout/components/toolbar';
 import { useEffect, useState } from 'react';
 import AccidentReportingModal from './AccidentReportingModal';
-import { AccidentsResponse, RegistersResponse } from '../../../../../@services/api/dtos/AccidentModel';
+import { AccidentsResponse, RegistersResponse } from '../../../../@services/api/dtos/AccidentModel';
 import Swal from 'sweetalert2';
 import AccidentsTable from './AccidentTable';
 import AccidentRegistersModal from './AccidentRegistersModal';

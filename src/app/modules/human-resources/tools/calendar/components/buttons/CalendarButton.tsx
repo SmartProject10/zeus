@@ -2,8 +2,8 @@ import { useState } from 'react'
 import Swal from 'sweetalert2'
 import { KTCardBody } from '../../../../../../../_zeus/helpers'
 import { appStateService } from '../../../../../../services/appState.service'
-import { EmployeeRequest } from '../../../../../../../@services/api/dtos/EmployeeModel'
-import { backyService } from '@zeus/@services/api'
+import { EmployeeRequest } from '../../../../../../@services/api/dtos/EmployeeModel'
+import { backyService } from '@zeus/app/@services/api'
 
 export interface EmployeeForm {
     area: string

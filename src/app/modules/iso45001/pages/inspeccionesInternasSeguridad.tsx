@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { TitleBar } from '@zeus/@components/titleBar'
+import { TitleBar } from '@zeus/app/@components/titleBar'
 import { useNavigate } from 'react-router-dom'
 
 export function InspeccionesInternasSeguridad(): JSX.Element {

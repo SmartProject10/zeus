@@ -2,12 +2,12 @@ import { FC, useState } from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { isNotEmpty, toAbsoluteUrl } from '../../../../../../_zeus/helpers'
-import { initialUser, User } from '../../../../../../@services/api/dtos/UserManagementModel'
+import { initialUser, User } from '../../../../../@services/api/dtos/UserManagementModel'
 import clsx from 'clsx'
 import { useListView } from '../core/ListViewProvider'
 import { UsersListLoading } from '../components/loading/UsersListLoading'
 import { useQueryResponse } from '../core/QueryResponseProvider'
-import { backyService } from '@zeus/@services/api'
+import { backyService } from '@zeus/app/@services/api'
 
 type Props = {
   isUserLoading: boolean

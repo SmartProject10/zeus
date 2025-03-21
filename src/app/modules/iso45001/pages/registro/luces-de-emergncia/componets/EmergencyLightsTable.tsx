@@ -6,10 +6,10 @@ import { dayMonthYear } from "../../../../../../utils/dateFormat";
 
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
-import { EmergencyLightsResponse } from "@zeus/@services/api/dtos/EmergencyLightsModel";
-import { EmployeeResponse } from "@zeus/@services/api/dtos/EmployeeModel";
+import { EmergencyLightsResponse } from "@zeus/app/@services/api/dtos/EmergencyLightsModel";
+import { EmployeeResponse } from "@zeus/app/@services/api/dtos/EmployeeModel";
 import { ModalEmergencyLightsForm } from "./ModalEmergencyLightsForm";
-import { backyService } from "@zeus/@services/api";
+import { backyService } from "@zeus/app/@services/api";
 
 interface EmployeeForm {
 	numero: string;
