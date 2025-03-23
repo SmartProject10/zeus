@@ -1,4 +1,4 @@
-import {ID, Response} from '../../../_zeus/helpers'
+import {ID, Response} from '../../../app/_zeus/helpers'
 export type User = {
   id?: ID
   name?: string

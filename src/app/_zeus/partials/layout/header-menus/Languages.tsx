@@ -2,7 +2,7 @@
 import clsx from 'clsx'
 import {FC} from 'react'
 import {toAbsoluteUrl} from '../../../helpers/index.ts'
-import {useLang, setLanguage} from '../../../i18n/Zeus18n.tsx'
+import { useLang,setLanguage } from '@zeus/app/EmployeeContext.tsx'
 
 const languages = [
   {

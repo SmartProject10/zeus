@@ -1,5 +1,5 @@
-import { Content } from '../../../../_zeus/layout/components/content'
-import {Card3} from '../../../../_zeus/partials/content/cards/Card3'
+import { Content } from '../../../../app/_zeus/layout/components/content'
+import {Card3} from '../../../../app/_zeus/partials/content/cards/Card3'
 
 export function Connections() {
   return (

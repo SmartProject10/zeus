@@ -1,4 +1,4 @@
-import { Content } from '../../../../_zeus/layout/components/content'
+import { Content } from '../../../../app/_zeus/layout/components/content'
 import {
   FeedsWidget2,
   FeedsWidget3,
@@ -8,7 +8,7 @@ import {
   ChartsWidget1,
   ListsWidget5,
   ListsWidget2,
-} from '../../../../_zeus/partials/widgets'
+} from '../../../../app/_zeus/partials/widgets'
 
 export function Overview() {
   return (

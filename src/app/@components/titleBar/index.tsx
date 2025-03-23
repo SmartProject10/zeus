@@ -1,4 +1,4 @@
-import { KTIcon } from '@zeus/_zeus/helpers'
+import { KTIcon } from '@zeus/app/_zeus/helpers'
 import { memo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './index.scss'
