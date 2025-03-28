@@ -1,7 +1,10 @@
 
-import { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect,ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { WithChildren } from '../../../helpers'
+
+interface WithChildren {
+  children: ReactNode;
+}
 
 /**
  * React portal based on https://stackoverflow.com/a/59154364

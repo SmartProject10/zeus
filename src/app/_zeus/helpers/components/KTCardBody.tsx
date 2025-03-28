@@ -1,6 +1,9 @@
 import clsx from 'clsx'
-import {FC} from 'react'
-import {WithChildren} from '../react18MigrationHelpers'
+import {FC,ReactNode} from 'react'
+
+interface WithChildren {
+    children: ReactNode;
+}
 
 type Props = {
   className?: string

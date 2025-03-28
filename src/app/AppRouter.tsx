@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState, ReactNode, PropsWithChildren, FC } from 'react';
+import { createContext,useContext, SetStateAction, Dispatch, lazy, Suspense, useEffect, useState, ReactNode, PropsWithChildren, FC } from 'react';
 import { createBrowserRouter, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useEmployee, useLang } from './EmployeeContext.tsx';
 import { IntlProvider } from 'react-intl';
@@ -12,7 +12,6 @@ import { ScrollTop } from './_zeus/layout/components/scroll-top';
 import { FooterWrapper } from './_zeus/layout/components/footer';
 import { Sidebar } from './_zeus/layout/components/sidebar';
 import { ActivityDrawer, DrawerMessenger, InviteUsers, UpgradePlan } from './_zeus/partials';
-import { reInitMenu } from './_zeus/helpers/react18MigrationHelpers.ts';
 import { Content } from './_zeus/layout/components/content';
 import TopBarProgress from 'react-topbar-progress-indicator';
 import { getCSSVariableValue } from './_zeus/assets/ts/_utils/DomHelpers.ts';
@@ -27,10 +26,7 @@ import { SwapperComponent } from './_zeus/assets/ts/components/_SwapperComponent
 
 import { ThemeModeComponent } from './_zeus/assets/ts/layout/ThemeMode.ts';
 
-import { LayoutProvider } from './_zeus/layout/core/_LayoutProvider.tsx';
-import { LayoutSplashScreen } from './_zeus/layout/core/MetronicSplashScreen.tsx';
-import { PageDataProvider } from './_zeus/layout/core';
-import { useLayout } from './_zeus/layout/core';
+import { LayoutProvider,PageDataProvider,useLayout } from './generalcomponents/layoutprovider/LayoutProvider.tsx';
 
 import { Tab } from 'bootstrap';
 import Swal from 'sweetalert2';
@@ -57,11 +53,11 @@ const AccountPage = lazy(() => import('./privateroutes/accounts/AccountPage.tsx'
 const ChatPage = lazy(() => import('./privateroutes/chat/ChatPage.tsx'));
 const UsersPage = lazy(() => import('./privateroutes/user-management/UsersPage.tsx'));
 
-interface ProtectedRoutesProps {
+interface WithChildren {
     children: ReactNode;
 }
 
-const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ children }) => {
+const ProtectedRoutes: React.FC<WithChildren> = ({ children }) => {
     const location = useLocation();
     const { isAuth, isLoading } = useEmployee();
     const [alertShown, setAlertShown] = useState(false);
@@ -96,6 +92,11 @@ const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ children }) => {
 const MasterLayout = () => {
     const location = useLocation();
     useEffect(() => {
+        const reInitMenu = () => {
+            setTimeout(() => {
+              MenuComponent.reinitialization()
+            }, 500)
+        }
         reInitMenu();
     }, [location.key]);
 
@@ -171,11 +172,6 @@ function MasterInit() {
     return <></>;
 }
 
-// Integración de I18nProvider directamente aquí
-interface WithChildren {
-    children: ReactNode;
-}
-
 const allMessages = {
     en: enMessages,
     es: esMessages,
@@ -191,6 +187,40 @@ const I18nProvider: FC<WithChildren> = ({ children }) => {
         </IntlProvider>
     );
 };
+
+// LayoutSplashScreen
+
+const MetronicSplashScreenContext = createContext<Dispatch<SetStateAction<number>> | undefined>(
+    undefined
+  )
+  
+const LayoutSplashScreen: FC<{visible?: boolean}> = ({visible = true}) => {
+    const setCount = useContext(MetronicSplashScreenContext)
+
+    useEffect(() => {
+        if (!visible) {
+        return
+        }
+
+        if (setCount) {
+        setCount((prev) => {
+            return prev + 1
+        })
+        }
+
+        return () => {
+        if (setCount) {
+            setCount((prev) => {
+            return prev - 1
+            })
+        }
+        }
+    }, [setCount, visible])
+
+    return null
+}
+
+//
 
 const router = createBrowserRouter([
     {

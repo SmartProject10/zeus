@@ -1,4 +1,4 @@
-import { FC, useState, createContext, useContext, useMemo } from 'react'
+import { FC, useState, createContext, useContext, useMemo, ReactNode } from 'react'
 import {
   ID,
   calculatedGroupingIsDisabled,
@@ -7,9 +7,12 @@ import {
   initialListView,
   ListViewContextProps,
   groupingOnSelectAll,
-  WithChildren,
 } from '../../../../../../app/_zeus/helpers'
 import { useQueryResponse, useQueryResponseData } from './QueryResponseProvider'
+
+interface WithChildren {
+  children: ReactNode;
+}
 
 const ListViewContext = createContext<ListViewContextProps>(initialListView)
 

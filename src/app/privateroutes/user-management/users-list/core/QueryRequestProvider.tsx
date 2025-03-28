@@ -1,10 +1,13 @@
-import {FC, useState, createContext, useContext} from 'react'
+import {FC, useState, createContext, useContext, ReactNode} from 'react'
 import {
   QueryState,
   QueryRequestContextProps,
   initialQueryRequest,
-  WithChildren,
 } from '../../../../../../app/_zeus/helpers'
+
+interface WithChildren {
+  children: ReactNode;
+}
 
 const QueryRequestContext = createContext<QueryRequestContextProps>(initialQueryRequest)
 

@@ -5,7 +5,10 @@ import Swal from 'sweetalert2';
 
 import { backyService } from './@services/api';
 import { EmployeeResponse } from '@zeus/app/@services/api/dtos/EmployeeModel';
-import { WithChildren } from './app/_zeus/helpers';
+
+interface WithChildren {
+  children: ReactNode;
+}
 
 interface EmployeeContextType {
   isLoading: boolean;

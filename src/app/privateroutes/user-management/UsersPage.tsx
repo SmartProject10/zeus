@@ -1,5 +1,6 @@
 import {Route, Routes, Outlet, Navigate} from 'react-router-dom'
-import {PageLink, PageTitle} from '../../../../app/_zeus/layout/core'
+import { PageTitle } from "@zeus/app/generalcomponents/layoutprovider/LayoutProvider";
+import { PageLink } from '@zeus/models/layoutprovider/model';
 import {UsersListWrapper} from './users-list/UsersList'
 
 const usersBreadcrumbs: Array<PageLink> = [

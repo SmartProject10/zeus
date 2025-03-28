@@ -6,7 +6,8 @@ import { PersonalProtectiveEquipment } from "../../epps/delivery/types";
 import { Table } from "../../epps/delivery/table";
 import { Modal } from "../../epps/delivery/modal";
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { PageLink, PageTitle } from "../../../../../../app/_zeus/layout/core";
+import { PageTitle } from "@zeus/app/generalcomponents/layoutprovider/LayoutProvider";
+import { PageLink } from "@zeus/models/layoutprovider/model";
 import { CalendarWrapper } from "../../../../human-resources/tools/calendar/Calendar";
 import { EmergencyLightsWrapper } from "./componets/EmergencyLightsWrapper";
 // import { CalendarWrapper } from "../..app/modules/human-resources/tools/calendar/Calendar";

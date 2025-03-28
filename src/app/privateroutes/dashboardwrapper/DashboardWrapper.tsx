@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { toAbsoluteUrl } from '../../../app/_zeus/helpers'
 import { Content } from '../../../app/_zeus/layout/components/content'
 import { ToolbarWrapper } from '../../../app/_zeus/layout/components/toolbar'
-import { PageTitle } from '../../../app/_zeus/layout/core'
+import { PageTitle } from '@zeus/app/generalcomponents/layoutprovider/LayoutProvider'
 import {
   CardsWidget17,
   CardsWidget20,

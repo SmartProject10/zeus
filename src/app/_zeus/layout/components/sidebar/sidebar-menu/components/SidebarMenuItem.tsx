@@ -1,9 +1,13 @@
-import { FC } from 'react'
+import { FC,ReactNode } from 'react'
 import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router'
-import { checkIsActive, KTIcon, KTIconsNames, WithChildren } from '../../../../../helpers'
+import { checkIsActive, KTIcon, KTIconsNames } from '../../../../../helpers'
 import { useLayout } from '../../../../core'
+
+interface WithChildren {
+  children: ReactNode;
+}
 
 type Props = {
   to: string

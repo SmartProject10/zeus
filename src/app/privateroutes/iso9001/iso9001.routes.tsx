@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { Dashboard } from './pages/dashboard'
-import { PageLink,PageTitle } from '@zeus/app/_zeus/layout/core'
+import { PageTitle } from "@zeus/app/generalcomponents/layoutprovider/LayoutProvider";
+import { PageLink } from '@zeus/models/layoutprovider/model';
 import { ControlDocumentos } from './pages/controlDocumentos/ControlDocumentos'
 
 export function ISO9001Routes(): JSX.Element {

@@ -1,9 +1,12 @@
-import {useEffect} from 'react'
+import {useEffect,ReactNode} from 'react'
 import {useLocation} from 'react-router'
 import clsx from 'clsx'
 import {useLayout} from '../../core'
 import {DrawerComponent} from '../../../assets/ts/components'
-import {WithChildren} from '../../../helpers'
+
+interface WithChildren {
+    children: ReactNode;
+}
 
 const Content = ({children}: WithChildren) => {
   const {config, classes} = useLayout()

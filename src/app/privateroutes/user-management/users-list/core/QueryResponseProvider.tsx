@@ -1,4 +1,4 @@
-import {FC, useContext, useState, useEffect, useMemo} from 'react'
+import {FC, useContext, useState, useEffect, useMemo, ReactNode} from 'react'
 import {useQuery} from 'react-query'
 import {
   createResponseContext,
@@ -7,11 +7,14 @@ import {
   PaginationState,
   QUERIES,
   stringifyRequestQuery,
-  WithChildren,
 } from '../../../../../../app/_zeus/helpers'
 import { backyService } from '@zeus/app/@services/api'
 import {User} from '../../../../../@services/api/dtos/UserManagementModel'
 import {useQueryRequest} from './QueryRequestProvider'
+
+interface WithChildren {
+  children: ReactNode;
+}
 
 const QueryResponseContext = createResponseContext<User>(initialQueryResponse)
 const QueryResponseProvider: FC<WithChildren> = ({children}) => {

@@ -1,5 +1,6 @@
 import {Navigate, Route, Routes, Outlet} from 'react-router-dom'
-import {PageLink, PageTitle} from '../../../app/_zeus/layout/core'
+import { PageTitle } from "@zeus/app/generalcomponents/layoutprovider/LayoutProvider";
+import { PageLink } from '@zeus/models/layoutprovider/model';
 import {Charts} from './components/Charts'
 import {Feeds} from './components/Feeds'
 import {Lists} from './components/Lists'

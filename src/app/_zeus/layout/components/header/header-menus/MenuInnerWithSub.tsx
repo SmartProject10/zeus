@@ -1,7 +1,11 @@
-import { FC, useEffect, useRef } from 'react'
+import { FC, useEffect, useRef, ReactNode } from 'react'
 import { useLocation } from 'react-router'
 import clsx from 'clsx'
-import { checkIsActive, KTIcon, KTIconsNames, WithChildren } from '../../../../helpers'
+import { checkIsActive, KTIcon, KTIconsNames } from '../../../../helpers'
+
+interface WithChildren {
+    children: ReactNode;
+}
 
 type Props = {
   to: string

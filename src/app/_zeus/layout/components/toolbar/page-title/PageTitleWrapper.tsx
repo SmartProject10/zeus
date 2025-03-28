@@ -1,4 +1,4 @@
-import {useLayout} from '../../../core'
+import { useLayout } from '@zeus/app/generalcomponents/layoutprovider/LayoutProvider'
 import {PageTitle} from './PageTitle'
 
 const PageTitleWrapper = () => {

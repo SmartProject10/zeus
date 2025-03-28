@@ -1,3 +1,5 @@
+import { LayoutSetup } from "@zeus/classes/layoutprovider/classes"
+
 export type LayoutType = 'dark-sidebar' | 'light-sidebar' | 'dark-header' | 'light-header'
 
 export type CSSClassesType = {
@@ -256,3 +258,31 @@ export interface ILayoutHTMLAttributes {
 export interface ILayoutCSSVariables {
   body: Map<string, string | number | boolean>
 }
+
+//
+export interface PageLink {
+  title: string;
+  path: string;
+  isActive: boolean;
+  isSeparator?: boolean;
+}
+
+export interface PageDataContextModel {
+  pageTitle?: string;
+  setPageTitle: (_title: string) => void;
+  pageDescription?: string;
+  setPageDescription: (_description: string) => void;
+  pageBreadcrumbs?: Array<PageLink>;
+  setPageBreadcrumbs: (_breadcrumbs: Array<PageLink>) => void;
+}
+
+export interface LayoutContextModel {
+  config: ILayout;
+  classes: ILayoutCSSClasses;
+  attributes: ILayoutHTMLAttributes;
+  cssVariables: ILayoutCSSVariables;
+  setLayout: (config: LayoutSetup) => void;
+  setLayoutType: (layoutType: LayoutType) => void;
+  setToolbarType: (toolbarType: ToolbarType) => void;
+}
+//
