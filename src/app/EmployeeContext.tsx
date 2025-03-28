@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import Swal from 'sweetalert2';
 
 import { backyService } from './@services/api';
-import { EmployeeResponse } from '@zeus/app/@services/api/dtos/EmployeeModel';
+import { Employee } from '@zeus/app/@services/api/dtos/EmployeeModel';
 
 interface WithChildren {
   children: ReactNode;
@@ -13,7 +13,7 @@ interface WithChildren {
 interface EmployeeContextType {
   isLoading: boolean;
   isAuth: boolean;
-  employee: EmployeeResponse;
+  employee: Employee;
   register: (data: DataRegistration) => Promise<boolean>;
   login: (data: DataLogin) => Promise<boolean>;
   logout: () => Promise<void>;
@@ -87,13 +87,13 @@ interface DataRegistration {
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [employee, setEmployee] = useState<EmployeeResponse>({} as EmployeeResponse);
+  const [employee, setEmployee] = useState<Employee>({} as Employee);
   const [isAuth, setIsAuth] = useState<boolean>(false);
 
   const register = async (data: DataRegistration): Promise<boolean> => {
     try {
       const response = await backyService.employee.register(data);
-      const employee: EmployeeResponse = response.data;
+      const employee: Employee = response.data;
       setEmployee(employee);
       setIsAuth(true);
       await Swal.fire({
@@ -115,7 +115,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (data: DataLogin): Promise<boolean> => {
     try {
       const response = await backyService.employee.login(data);
-      const employee: EmployeeResponse = response.data;
+      const employee: Employee = response.data;
       setEmployee(employee);
       setIsAuth(true);
       await Swal.fire({
@@ -136,7 +136,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = async (): Promise<void> => {
     try {
       await backyService.employee.logout();
-      setEmployee({} as EmployeeResponse);
+      setEmployee({} as Employee);
       setIsAuth(false);
       window.location.href = '/';
     } catch (error) {
@@ -148,7 +148,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const response = await backyService.employee.get();
       if (response.status === 200) {
-        const employee: EmployeeResponse = response.data;
+        const employee: Employee = response.data;
         setEmployee(employee);
         setIsAuth(true);
       }

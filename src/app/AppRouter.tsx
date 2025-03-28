@@ -1,10 +1,12 @@
-import { createContext,useContext, SetStateAction, Dispatch, lazy, Suspense, useEffect, useState, ReactNode, PropsWithChildren, FC } from 'react';
-import { createBrowserRouter, Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useEmployee, useLang } from './EmployeeContext.tsx';
-import { IntlProvider } from 'react-intl';
 import '@formatjs/intl-relativetimeformat/polyfill';
 import '@formatjs/intl-relativetimeformat/locale-data/en';
 import '@formatjs/intl-relativetimeformat/locale-data/es';
+
+import { createContext,useContext, SetStateAction, Dispatch, lazy, Suspense, useEffect, useState, ReactNode, PropsWithChildren, FC } from 'react';
+import { createBrowserRouter, Navigate, Outlet, useLocation } from 'react-router-dom';
+import { IntlProvider } from 'react-intl';
+
+import { useEmployee, useLang } from './EmployeeContext.tsx';
 import { ThemeModeProvider } from './_zeus/partials/index.ts';
 import { HeaderWrapper } from './_zeus/layout/components/header/HeaderWrapper';
 import { RightToolbar } from './_zeus/partials/layout/RightToolbar';

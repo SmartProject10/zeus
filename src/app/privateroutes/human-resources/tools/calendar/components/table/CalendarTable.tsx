@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
-import { KTCardBody } from '../../../../../../../app/_zeus/helpers'
+import { KTCardBody } from '../../../../../../../_zeus/helpers'
 import { appStateService } from '../../../../../../services/appState.service'
-import { dayMonthYear } from '../../../../../../generalcomponents/utils/dateformat/dateFormat'
-import { EmployeeRequest, EmployeeResponse } from '../../../../../../@services/api/dtos/EmployeeModel'
+import { dayMonthYear } from '../../../../../../utils/dateFormat'
+import { Employee, EmployeeResponse } from '../../../../../../@services/api/dtos/EmployeeModel'
 import ModalTrabajador from './ModalTrabajador'
 import { backyService } from '@zeus/app/@services/api'
 
@@ -206,7 +206,7 @@ const CalendarTable = () => {
           try {
             const editEmployee = async () => {
 
-              const request: EmployeeRequest = {
+              const request: Employee = {
                 name: Employee.name,
                 lastname: Employee.lastname,
                 email: Employee.email,
@@ -271,7 +271,7 @@ const CalendarTable = () => {
           try {
             const editEmployee = async () => {
 
-              const request: EmployeeRequest = {
+              const request: Employee = {
                 name: Employee.name,
                 lastname: Employee.lastname,
                 email: Employee.email,

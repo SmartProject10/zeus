@@ -1,18 +1,18 @@
 export interface Employee {
 	_id?: string;
-	name?: string | null;
-	lastname?: string | null;
+	name: string | null;
+	lastname: string | null;
 	email: string;
-	password?: string | null;
+	password: string | null;
 	dni: string;
 	mothers_lastname: string;
 	fathers_lastname: string;
-	birthDate: string;
+	birthDate: Date | string;
 	companyAreaId: string;
 	charge: string;
-	entryDate: string;
-	contractTerminationDate?: string | null;
-	areaEntryDate: string;
+	entryDate: Date | string;
+	contractTerminationDate: Date | string | null;
+	areaEntryDate: Date | string;
 	province: string;
 	city: string;
 	address: string;
@@ -22,82 +22,15 @@ export interface Employee {
 	gender: 'Masculino' | 'Femenino';
 	civilStatus: 'Soltero/a' | 'Casado/a' | 'Divorciado/a' | 'Conviviente' | 'Viudo/a';
 	personalPhone: string;
-	facialRecognition?: string | null;
-	digitalSignature?: string | null;
+	facialRecognition: string | null;
+	digitalSignature: string | null;
 	status: 'Activo' | 'Inactivo';
-	employeeSiteId: string;
-	rolId: string;
+	employeeSiteId: string; // ObjectId as string
+	rolId: string; // ObjectId as string
 	sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
 	sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
 	sizeShoe: 36 | 38 | 40 | 42 | 44;
-	companyIds: string[];
-	createdAt?: string;
-	updatedAt?: string;
-}
-
-export interface EmployeeResponse {
-	_id: string;
-	name?: string | null;
-	lastname?: string | null;
-	email: string;
-	dni: string;
-	mothers_lastname: string;
-	fathers_lastname: string;
-	birthDate: string;
-	companyAreaId: string;
-	charge: string;
-	entryDate: string;
-	contractTerminationDate?: string | null;
-	areaEntryDate: string;
-	province: string;
-	city: string;
-	address: string;
-	district: string;
-	corporateEmail: string;
-	nationalityId: string;
-	gender: 'Masculino' | 'Femenino';
-	civilStatus: 'Soltero/a' | 'Casado/a' | 'Divorciado/a' | 'Conviviente' | 'Viudo/a';
-	personalPhone: string;
-	facialRecognition?: string | null;
-	digitalSignature?: string | null;
-	status: 'Activo' | 'Inactivo';
-	employeeSiteId: string;
-	rolId: string;
-	sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
-	sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
-	sizeShoe: 36 | 38 | 40 | 42 | 44;
-	companyIds: string[];
-}
-
-export interface EmployeeRequest {
-	name?: string | null;
-	lastname?: string | null;
-	email: string;
-	password?: string | null;
-	dni: string;
-	mothers_lastname: string;
-	fathers_lastname: string;
-	birthDate: string;
-	companyAreaId: string;
-	charge: string;
-	entryDate: string;
-	contractTerminationDate?: string | null;
-	areaEntryDate: string;
-	province: string;
-	city: string;
-	address: string;
-	district: string;
-	corporateEmail: string;
-	nationalityId: string;
-	gender: 'Masculino' | 'Femenino';
-	civilStatus: 'Soltero/a' | 'Casado/a' | 'Divorciado/a' | 'Conviviente' | 'Viudo/a';
-	personalPhone: string;
-	facialRecognition?: string | null;
-	digitalSignature?: string | null;
-	status: 'Activo' | 'Inactivo';
-	employeeSiteId: string;
-	rolId: string;
-	sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
-	sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
-	sizeShoe: 36 | 38 | 40 | 42 | 44;
-}
+	companyIds: string[]; // Array of ObjectIds as strings
+	createdAt?: Date | string; // Optional, timestamps
+	updatedAt?: Date | string; // Optional, timestamps
+  }
