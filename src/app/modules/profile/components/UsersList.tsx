@@ -1,8 +1,8 @@
 import {FC} from 'react'
 import {IconUserModel} from '../ProfileModels'
-import {toAbsoluteUrl} from '../../../../_zeus/helpers'
+import {toAbsoluteUrl} from '../../../../app/_zeus/helpers'
 import {OverlayTrigger, Tooltip} from 'react-bootstrap'
-import { Content } from '../../../../_zeus/layout/components/content'
+import { Content } from '../../../../app/_zeus/layout/components/content'
 
 type Props = {
   users?: Array<IconUserModel>

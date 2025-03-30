@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs'
-import { Employee, EmployeeRequest } from '../modules/human-resources/tools/calendar/core/_models'
+import { Employee, EmployeeRequest } from '../@services/api/dtos/EmployeeModel'
 
 class AppState {
 
@@ -24,8 +24,8 @@ class AppState {
         this.employeesSubject.next(employees)
     }
 
-    setEmployeeSubject(employee: Employee) {
-        const newEmployees = [...this.employeesSubject.getValue(), employee]
+    setEmployeeSubject(Employee: Employee) {
+        const newEmployees = [...this.employeesSubject.getValue(), Employee]
         console.log(newEmployees)
         this.employeesSubject.next(newEmployees)
     }
@@ -33,37 +33,43 @@ class AppState {
     //Puts
     putEmployeeSubject(id: string, emp: EmployeeRequest) {
 
-        const employee: Employee = {
+        const Employee: Employee = {
             _id: id,
-            apellidoMaterno: emp.apellidoMaterno,
-            apellidoPaterno: emp.apellidoPaterno,
-            area: emp.area,
-            cargo: emp.cargo,
-            correoPersonal: emp.correoPersonal,
-            correoTrabajo: emp.correoTrabajo,
-            createdAt: '', //TO ISO STRING
-            direccion: emp.direccion,
-            distrito: emp.distrito,
+            name: emp.name,
+            lastname: emp.lastname,
+            email: emp.email,
             dni: emp.dni,
-            estadoCivil: emp.estadoCivil,
-            fechaIngresoArea: emp.fechaIngresoArea,
-            fechaIngresoEmpresa: emp.fechaIngresoEmpresa,
-            fechaNacimiento: emp.fechaNacimiento, //TO ISO STRING
-            firmaDigital: emp.firmaDigital,
-            genero: emp.genero,
-            nacionalidad: emp.nacionalidad,
-            nombres: emp.nombres,
-            reconocimientoFacial: emp.reconocimientoFacial, //Preguntar porque string
-            rollSistemaDigitalizado: emp.rollSistemaDigitalizado,
-            sedeTrabajo: emp.sedeTrabajo,
-            status: emp.status, //Cambiar a boolean
-            telefonoPersonal: emp.telefonoPersonal,
-            updatedAt: '',
+            mothers_lastname: emp.mothers_lastname,
+            fathers_lastname: emp.fathers_lastname,
+            birthDate: emp.birthDate,
+            companyAreaId: emp.companyAreaId,
+            charge: emp.charge,
+            entryDate: emp.entryDate,
+            contractTerminationDate: emp.contractTerminationDate,
+            areaEntryDate: emp.areaEntryDate,
+            province: emp.province,
+            city: emp.city,
+            address: emp.address,
+            district: emp.district,
+            corporateEmail: emp.corporateEmail,
+            nationalityId: emp.nationalityId,
+            gender: emp.gender,
+            civilStatus: emp.civilStatus,
+            personalPhone: emp.personalPhone,
+            facialRecognition: emp.facialRecognition,
+            digitalSignature: emp.digitalSignature,
+            status: emp.status,
+            employeeSiteId: emp.employeeSiteId,
+            rolId: emp.rolId,
+            sizePants: emp.sizePants,
+            sizePolo: emp.sizePolo,
+            sizeShoe: emp.sizeShoe,
+            companyIds: emp.companyIds,
         }
 
         const newEmployees = this.employeesSubject.getValue().map((e: Employee) => {
             if (e._id == id) {
-                return employee
+                return Employee
             } else {
                 return e
             }

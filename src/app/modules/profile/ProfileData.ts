@@ -1,4 +1,4 @@
-import { PageLink } from '../../../_zeus/layout/core'
+import { PageLink } from "@zeus/models/layoutprovider/model"
 
 export const profileSubmenu: Array<PageLink> = [
   {

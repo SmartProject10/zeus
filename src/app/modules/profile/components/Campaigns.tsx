@@ -1,6 +1,6 @@
 
-import { Content } from '../../../../_zeus/layout/components/content'
-import {Card5} from '../../../../_zeus/partials/content/cards/Card5'
+import { Content } from '../../../../app/_zeus/layout/components/content'
+import {Card5} from '../../../../app/_zeus/partials/content/cards/Card5'
 
 export function Campaigns() {
   return (
