@@ -1,7 +1,9 @@
 import { SidebarMenuItem } from "../components/SidebarMenuItem";
 import { SidebarMenuItemWithSub } from "../components/SidebarMenuItemWithSub";
 
-interface SidebarIso45001Props { handleReloadMenu: any }
+interface SidebarIso45001Props {
+	handleReloadMenu: any;
+}
 
 export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 	return (
