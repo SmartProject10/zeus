@@ -7,7 +7,7 @@ import { dayMonthYear } from "../../../../../../generalcomponents/utils/dateform
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
 import { EmergencyLightsResponse } from "@zeus/app/@services/api/dtos/EmergencyLightsModel";
-import { EmployeeResponse } from "@zeus/app/@services/api/dtos/EmployeeModel";
+import { Employee } from "@zeus/models/apimodels/Employee";
 import { ModalInspectionEmergencyLightsForm } from "./ModalInspectionEmergencyLightsForm";
 import { backyService } from "@zeus/app/@services/api";
 
@@ -55,29 +55,29 @@ export const InspectionEmergencylightsTable = () => {
 
 	useEffect(() => {
 		const employeesInit = async () => {
-			try {
-				//const response = await get();
-				const filters = `?limit=${limitPerPage}`;
-				const response = await backyService.employee.getFiltered(filters);
+			// try {
+			// 	//const response = await get();
+			// 	const filters = `?limit=${limitPerPage}`;
+			// 	const response = await backyService.employee.getFiltered(filters);
 
-				if (response.status == 200) {
-					setTotalPages(response.data.totalPages);
-					setCurrentPage(response.data.currentPage);
-					const employees: EmployeeResponse[] = response.data.trabajadores;
-					appStateService.setEmployeeSubject(employees);
-				}
-			} catch (error: any) {
-				console.error(error);
-			}
+			// 	if (response.status == 200) {
+			// 		setTotalPages(response.data.totalPages);
+			// 		setCurrentPage(response.data.currentPage);
+			// 		const employees: Employee[] = response.data.trabajadores;
+			// 		appStateService.setEmployeeSubject(employees);
+			// 	}
+			// } catch (error: any) {
+			// 	console.error(error);
+			// }
 		};
 		employeesInit();
 
-		const employeesSubj = appStateService
-			.getSubject()
-			.subscribe((employees: any) => {
-				setEmployees(employees);
-				setFilteredEmployees(employees);
-			});
+		// const employeesSubj = appStateService
+		// 	.getSubject()
+		// 	.subscribe((employees: any) => {
+		// 		setEmployees(employees);
+		// 		setFilteredEmployees(employees);
+		// 	});
 
 		const activeModalSubj = appStateService
 			.getActiveModalSubject()
@@ -86,7 +86,7 @@ export const InspectionEmergencylightsTable = () => {
 			});
 
 		return () => {
-			employeesSubj.unsubscribe();
+			//employeesSubj.unsubscribe();
 			activeModalSubj.unsubscribe();
 		};
 	}, []);
@@ -124,35 +124,35 @@ export const InspectionEmergencylightsTable = () => {
 		// eslint-disable-next-line max-len
 		const filters = `?fechaInspeccion=${formData.fechaInspeccion}&area=${formData.area}&sede=${formData.sede}&enumerado=${formData.enumerado}&ubicacionAdecuada=${formData.ubicacionAdecuada}&enSuLugar=${formData.enSuLugar}&libreDeObstaculos=${formData.libreDeObstaculos}&conectadoTomacorriente=${formData.conectadoTomacorriente}&enciendeSwitchPrueba=${formData.enciendeSwitchPrueba}&buenaIluminacion=${formData.buenaIluminacion}&buenaEstado=${formData.buenaEstado}&encendidoQuinceMin=${formData.encendidoQuinceMin}&limit=${limitPerPage}`;
 
-		try {
-			const response = await backyService.employee.getFiltered(filters);
-			console.log(response);
+		// try {
+		// 	const response = await backyService.employee.getFiltered(filters);
+		// 	console.log(response);
 
-			if (response.status == 200) {
-				setTotalPages(response.data.totalPages);
-				setCurrentPage(response.data.currentPage);
-				setFilteredEmployees(response.data.trabajadores);
-			}
-		} catch (e: any) {
-			console.error(e);
-		}
+		// 	if (response.status == 200) {
+		// 		setTotalPages(response.data.totalPages);
+		// 		setCurrentPage(response.data.currentPage);
+		// 		setFilteredEmployees(response.data.trabajadores);
+		// 	}
+		// } catch (e: any) {
+		// 	console.error(e);
+		// }
 	}
 
 	async function selectPageNavigate(page: number) {
 		// eslint-disable-next-line max-len
 		const filters = `?fechaInspeccion=${formData.fechaInspeccion}&area=${formData.area}&sede=${formData.sede}&enumerado=${formData.enumerado}&ubicacionAdecuada=${formData.ubicacionAdecuada}&enSuLugar=${formData.enSuLugar}&libreDeObstaculos=${formData.libreDeObstaculos}&conectadoTomacorriente=${formData.conectadoTomacorriente}&enciendeSwitchPrueba=${formData.enciendeSwitchPrueba}&buenaIluminacion=${formData.buenaIluminacion}&buenaEstado=${formData.buenaEstado}&encendidoQuinceMin=${formData.encendidoQuinceMin}&limit=${limitPerPage}`;
 
-		try {
-			const response: any = await backyService.employee.getFiltered(filters);
+		// try {
+		// 	const response: any = await backyService.employee.getFiltered(filters);
 
-			if (response.status == 200) {
-				setCurrentPage(response.data.currentPage);
-				setTotalPages(response.data.totalPages);
-				setFilteredEmployees(response.data.trabajadores);
-			}
-		} catch (e: any) {
-			console.error(e);
-		}
+		// 	if (response.status == 200) {
+		// 		setCurrentPage(response.data.currentPage);
+		// 		setTotalPages(response.data.totalPages);
+		// 		setFilteredEmployees(response.data.trabajadores);
+		// 	}
+		// } catch (e: any) {
+		// 	console.error(e);
+		// }
 	}
 
 	async function navigatePage(action: string) {
@@ -160,32 +160,32 @@ export const InspectionEmergencylightsTable = () => {
 			// eslint-disable-next-line max-len
 			const filters = `?fechaInspeccion=${formData.fechaInspeccion}&area=${formData.area}&sede=${formData.sede}&enumerado=${formData.enumerado}&ubicacionAdecuada=${formData.ubicacionAdecuada}&enSuLugar=${formData.enSuLugar}&libreDeObstaculos=${formData.libreDeObstaculos}&conectadoTomacorriente=${formData.conectadoTomacorriente}&enciendeSwitchPrueba=${formData.enciendeSwitchPrueba}&buenaIluminacion=${formData.buenaIluminacion}&buenaEstado=${formData.buenaEstado}&encendidoQuinceMin=${formData.encendidoQuinceMin}&limit=${limitPerPage}`;
 
-			try {
-				const response: any = await backyService.employee.getFiltered(filters);
+			// try {
+			// 	const response: any = await backyService.employee.getFiltered(filters);
 
-				if (response.status == 200) {
-					setCurrentPage(response.data.currentPage);
-					setTotalPages(response.data.totalPages);
-					setFilteredEmployees(response.data.trabajadores);
-				}
-			} catch (e: any) {
-				console.error(e);
-			}
+			// 	if (response.status == 200) {
+			// 		setCurrentPage(response.data.currentPage);
+			// 		setTotalPages(response.data.totalPages);
+			// 		setFilteredEmployees(response.data.trabajadores);
+			// 	}
+			// } catch (e: any) {
+			// 	console.error(e);
+			// }
 		} else if (action == "previous") {
 			// eslint-disable-next-line max-len
 			const filters = `?fechaInspeccion=${formData.fechaInspeccion}&area=${formData.area}&sede=${formData.sede}&enumerado=${formData.enumerado}&ubicacionAdecuada=${formData.ubicacionAdecuada}&enSuLugar=${formData.enSuLugar}&libreDeObstaculos=${formData.libreDeObstaculos}&conectadoTomacorriente=${formData.conectadoTomacorriente}&enciendeSwitchPrueba=${formData.enciendeSwitchPrueba}&buenaIluminacion=${formData.buenaIluminacion}&buenaEstado=${formData.buenaEstado}&encendidoQuinceMin=${formData.encendidoQuinceMin}&limit=${limitPerPage}`;
 
-			try {
-				const response: any = await backyService.employee.getFiltered(filters);
+			// try {
+			// 	const response: any = await backyService.employee.getFiltered(filters);
 
-				if (response.status == 200) {
-					setCurrentPage(response.data.currentPage);
-					setTotalPages(response.data.totalPages);
-					setFilteredEmployees(response.data.trabajadores);
-				}
-			} catch (e: any) {
-				console.error(e);
-			}
+			// 	if (response.status == 200) {
+			// 		setCurrentPage(response.data.currentPage);
+			// 		setTotalPages(response.data.totalPages);
+			// 		setFilteredEmployees(response.data.trabajadores);
+			// 	}
+			// } catch (e: any) {
+			// 	console.error(e);
+			// }
 		}
 	}
 

@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import Swal from 'sweetalert2';
 
 import { backyService } from './@services/api';
-import { Employee } from '@zeus/app/@services/api/dtos/EmployeeModel';
+import { Employee } from '@zeus/models/apimodels/Employee';
 
 interface WithChildren {
   children: ReactNode;

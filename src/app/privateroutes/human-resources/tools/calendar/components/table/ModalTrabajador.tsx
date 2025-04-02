@@ -1,9 +1,9 @@
 import { ReactNode, useEffect, useState } from 'react'
-import { EmployeeResponse, EmployeeRequest } from '../../../../../../@services/api/dtos/EmployeeModel'
 import Swal from 'sweetalert2'
 import { appStateService } from '../../../../../../services/appState.service'
 import { dateInput } from '../../../../../../generalcomponents/utils/dateformat/dateFormat'
 import { backyService } from '@zeus/app/@services/api'
+import { Employee } from '@zeus/models/apimodels/Employee'
 
 interface MyComponentProps {
     idEmployee: string
@@ -11,44 +11,49 @@ interface MyComponentProps {
 }
 
 export interface EmployeeForm {
-    name?: string | null;
-    lastname?: string | null;
-    email: string;
-    dni: string;
-    mothers_lastname: string;
-    fathers_lastname: string;
-    birthDate: string;
-    companyAreaId: string;
-    charge: string;
-    entryDate: string;
-    contractTerminationDate?: string | null;
-    areaEntryDate: string;
-    province: string;
-    city: string;
-    address: string;
-    district: string;
-    corporateEmail: string;
-    nationalityId: string;
-    gender: 'Masculino' | 'Femenino';
-    civilStatus: 'Soltero/a' | 'Casado/a' | 'Divorciado/a' | 'Conviviente' | 'Viudo/a';
-    personalPhone: string;
-    facialRecognition?: string | null;
-    digitalSignature?: string | null;
-    status: 'Activo' | 'Inactivo';
-    employeeSiteId: string;
-    rolId: string;
-    sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
-    sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
-    sizeShoe: 36 | 38 | 40 | 42 | 44;
+    _id: string;
+	name: string | null;
+	lastname: string | null;
+	email: string;
+	password: string | null;
+	dni: string;
+	mothers_lastname: string;
+	fathers_lastname: string;
+	birthDate: Date | string;
+	companyAreaId: string;
+	charge: string;
+	entryDate: Date | string;
+	contractTerminationDate: Date | string | null;
+	areaEntryDate: Date | string;
+	province: string;
+	city: string;
+	address: string;
+	district: string;
+	corporateEmail: string;
+	nationalityId: string;
+	gender: 'Masculino' | 'Femenino' | '';
+	civilStatus: 'Soltero/a' | 'Casado/a' | 'Divorciado/a' | 'Conviviente' | 'Viudo/a' | '';
+	personalPhone: string;
+	facialRecognition: string | null;
+	digitalSignature: string | null;
+	status: 'Activo' | 'Inactivo' | '';
+	employeeSiteId: string;
+	rolId: string;
+	sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
+	sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
+	sizeShoe: 36 | 38 | 40 | 42 | 44;
+	companyIds: string[];
 }
 
 // eslint-disable-next-line react/prop-types, @typescript-eslint/no-unused-vars
 const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) => {
 
     const [form, setForm] = useState<EmployeeForm>({
+        _id: '',
         name: null,
         lastname: null,
         email: '',
+        password: null,
         dni: '',
         mothers_lastname: '',
         fathers_lastname: '',
@@ -64,65 +69,66 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
         district: '',
         corporateEmail: '',
         nationalityId: '',
-        gender: 'Masculino',
-        civilStatus: 'Soltero/a',
+        gender: '',
+        civilStatus: '',
         personalPhone: '',
         facialRecognition: null,
         digitalSignature: null,
-        status: 'Activo',
+        status: '',
         employeeSiteId: '',
         rolId: '',
         sizePants: 26,
         sizePolo: 'XS',
         sizeShoe: 36,
-      })
+        companyIds: [],
+    })
 
     useEffect(() => {
 
         const initEmployee = async () => {
 
-            try {
-                const response = await backyService.employee.getById(idEmployee)
+            // try {
+            //     const response = await backyService.employee.getById(idEmployee)
 
-                if (response.status == 200) {
+            //     if (response.status == 200) {
 
-                    const Employee: EmployeeResponse = response.data
+            //         const Employee: Employee = response.data
 
-                    setForm({
-                        name: Employee.name,
-                        lastname: Employee.lastname,
-                        email: Employee.email,
-                        dni: Employee.dni,
-                        mothers_lastname: Employee.mothers_lastname,
-                        fathers_lastname: Employee.fathers_lastname,
-                        birthDate: Employee.birthDate,
-                        companyAreaId: Employee.companyAreaId, 
-                        charge: Employee.charge, 
-                        entryDate: Employee.entryDate, 
-                        contractTerminationDate: Employee.contractTerminationDate,
-                        areaEntryDate: Employee.areaEntryDate, 
-                        province: Employee.province,
-                        city: Employee.city,
-                        address: Employee.address,
-                        district: Employee.district,
-                        corporateEmail: Employee.corporateEmail,
-                        nationalityId: Employee.nationalityId, 
-                        gender: Employee.gender,
-                        civilStatus: Employee.civilStatus,
-                        personalPhone: Employee.personalPhone,
-                        facialRecognition: Employee.facialRecognition,
-                        digitalSignature: Employee.digitalSignature,
-                        status: Employee.status,
-                        employeeSiteId: Employee.employeeSiteId,
-                        rolId: Employee.rolId,
-                        sizePants: Employee.sizePants,
-                        sizePolo: Employee.sizePolo,
-                        sizeShoe: Employee.sizeShoe,
-                    })
-                }
-            } catch (error: any) {
-                console.error(error)
-            }
+            //         setForm({
+            //             name: Employee.name,
+            //             lastname: Employee.lastname,
+            //             email: Employee.email,
+            //             dni: Employee.dni,
+            //             mothers_lastname: Employee.mothers_lastname,
+            //             fathers_lastname: Employee.fathers_lastname,
+            //             birthDate: Employee.birthDate,
+            //             companyAreaId: Employee.companyAreaId, 
+            //             charge: Employee.charge, 
+            //             entryDate: Employee.entryDate, 
+            //             contractTerminationDate: Employee.contractTerminationDate,
+            //             areaEntryDate: Employee.areaEntryDate, 
+            //             province: Employee.province,
+            //             city: Employee.city,
+            //             address: Employee.address,
+            //             district: Employee.district,
+            //             corporateEmail: Employee.corporateEmail,
+            //             nationalityId: Employee.nationalityId, 
+            //             gender: Employee.gender,
+            //             civilStatus: Employee.civilStatus,
+            //             personalPhone: Employee.personalPhone,
+            //             facialRecognition: Employee.facialRecognition,
+            //             digitalSignature: Employee.digitalSignature,
+            //             status: Employee.status,
+            //             employeeSiteId: Employee.employeeSiteId,
+            //             rolId: Employee.rolId,
+            //             sizePants: Employee.sizePants,
+            //             sizePolo: Employee.sizePolo,
+            //             sizeShoe: Employee.sizeShoe,
+            //         })
+            //     }
+            // } catch (error: any) {
+            //     console.error(error)
+            // }
         }
 
         initEmployee()
@@ -149,39 +155,39 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
         }).then((result) => {
             if (result.isConfirmed) {
 
-                try {
-                    const deleteEmployee = async () => {
+                // try {
+                //     const deleteEmployee = async () => {
 
-                        const response = await backyService.employee.delete(id)
+                //         const response = await backyService.employee.delete(id)
 
-                        if(response.status == 200){
+                //         if(response.status == 200){
 
-                            appStateService.deleteEmployeeSubject(id)
-                            appStateService.setActiveModalSubject()
+                //             appStateService.deleteEmployeeSubject(id)
+                //             appStateService.setActiveModalSubject()
 
-                            const Toast = Swal.mixin({
-                                toast: true,
-                                position: 'top-end',
-                                showConfirmButton: false,
-                                timer: 3000,
-                                timerProgressBar: true,
-                                didOpen: (toast) => {
-                                    toast.onmouseenter = Swal.stopTimer
-                                    toast.onmouseleave = Swal.resumeTimer
-                                },
-                            })
-                            Toast.fire({
-                                icon: 'success',
-                                title: 'Trabajador eliminado correctamente',
-                            })
-                        }
-                    }
+                //             const Toast = Swal.mixin({
+                //                 toast: true,
+                //                 position: 'top-end',
+                //                 showConfirmButton: false,
+                //                 timer: 3000,
+                //                 timerProgressBar: true,
+                //                 didOpen: (toast) => {
+                //                     toast.onmouseenter = Swal.stopTimer
+                //                     toast.onmouseleave = Swal.resumeTimer
+                //                 },
+                //             })
+                //             Toast.fire({
+                //                 icon: 'success',
+                //                 title: 'Trabajador eliminado correctamente',
+                //             })
+                //         }
+                //     }
 
-                    deleteEmployee()
+                //     deleteEmployee()
 
-                } catch (e: any) {
-                    console.error(e)
-                }
+                // } catch (e: any) {
+                //     console.error(e)
+                // }
 
             } else if (result.isDenied) {
                 // Swal.fire('Changes are not saved', '', 'info')
@@ -199,12 +205,12 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
             !form.dni.trim() || 
             !form.mothers_lastname.trim() || 
             !form.fathers_lastname.trim() || 
-            !form.birthDate.trim() || 
+            !form.birthDate.toString().trim() || 
             !form.companyAreaId.trim() || 
             !form.charge.trim() || 
-            !form.entryDate.trim() || 
+            !form.entryDate.toString().trim() || 
             !form.contractTerminationDate || 
-            !form.areaEntryDate.trim() || 
+            !form.areaEntryDate.toString().trim() || 
             !form.province.trim() || 
             !form.city.trim() || 
             !form.address.trim() || 
@@ -252,71 +258,71 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
         }).then((result) => {
             if (result.isConfirmed) {
 
-                try {
-                    const editEmployee = async () => {
+                // try {
+                //     const editEmployee = async () => {
 
-                        const request: EmployeeRequest = {
-                            name: form.name,
-                            lastname: form.lastname,
-                            email: form.email,
-                            dni: form.dni,
-                            mothers_lastname: form.mothers_lastname,
-                            fathers_lastname: form.fathers_lastname,
-                            birthDate: form.birthDate,
-                            companyAreaId: form.companyAreaId, 
-                            charge: form.charge, 
-                            entryDate: form.entryDate, 
-                            contractTerminationDate: form.contractTerminationDate,
-                            areaEntryDate: form.areaEntryDate, 
-                            province: form.province,
-                            city: form.city,
-                            address: form.address,
-                            district: form.district,
-                            corporateEmail: form.corporateEmail,
-                            nationalityId: form.nationalityId, 
-                            gender: form.gender,
-                            civilStatus: form.civilStatus,
-                            personalPhone: form.personalPhone,
-                            facialRecognition: form.facialRecognition,
-                            digitalSignature: form.digitalSignature,
-                            status: form.status,
-                            employeeSiteId: form.employeeSiteId,
-                            rolId: form.rolId,
-                            sizePants: form.sizePants,
-                            sizePolo: form.sizePolo,
-                            sizeShoe: form.sizeShoe,
-                        }
+                //         const request: Employee = {
+                //             name: form.name,
+                //             lastname: form.lastname,
+                //             email: form.email,
+                //             dni: form.dni,
+                //             mothers_lastname: form.mothers_lastname,
+                //             fathers_lastname: form.fathers_lastname,
+                //             birthDate: form.birthDate,
+                //             companyAreaId: form.companyAreaId, 
+                //             charge: form.charge, 
+                //             entryDate: form.entryDate, 
+                //             contractTerminationDate: form.contractTerminationDate,
+                //             areaEntryDate: form.areaEntryDate, 
+                //             province: form.province,
+                //             city: form.city,
+                //             address: form.address,
+                //             district: form.district,
+                //             corporateEmail: form.corporateEmail,
+                //             nationalityId: form.nationalityId, 
+                //             gender: form.gender,
+                //             civilStatus: form.civilStatus,
+                //             personalPhone: form.personalPhone,
+                //             facialRecognition: form.facialRecognition,
+                //             digitalSignature: form.digitalSignature,
+                //             status: form.status,
+                //             employeeSiteId: form.employeeSiteId,
+                //             rolId: form.rolId,
+                //             sizePants: form.sizePants,
+                //             sizePolo: form.sizePolo,
+                //             sizeShoe: form.sizeShoe,
+                //         }
 
-                        const response = await backyService.employee.put(id, request)
+                //         const response = await backyService.employee.put(id, request)
 
-                        if(response.status == 200){
+                //         if(response.status == 200){
 
-                            appStateService.putEmployeeSubject(id, request)
-                            appStateService.setActiveModalSubject()
+                //             appStateService.putEmployeeSubject(id, request)
+                //             appStateService.setActiveModalSubject()
 
-                            const Toast = Swal.mixin({
-                                toast: true,
-                                position: 'top-end',
-                                showConfirmButton: false,
-                                timer: 3000,
-                                timerProgressBar: true,
-                                didOpen: (toast) => {
-                                    toast.onmouseenter = Swal.stopTimer
-                                    toast.onmouseleave = Swal.resumeTimer
-                                },
-                            })
-                            Toast.fire({
-                                icon: 'success',
-                                title: 'Trabajador editado correctamente',
-                            })
-                        }
+                //             const Toast = Swal.mixin({
+                //                 toast: true,
+                //                 position: 'top-end',
+                //                 showConfirmButton: false,
+                //                 timer: 3000,
+                //                 timerProgressBar: true,
+                //                 didOpen: (toast) => {
+                //                     toast.onmouseenter = Swal.stopTimer
+                //                     toast.onmouseleave = Swal.resumeTimer
+                //                 },
+                //             })
+                //             Toast.fire({
+                //                 icon: 'success',
+                //                 title: 'Trabajador editado correctamente',
+                //             })
+                //         }
 
-                    }
+                //     }
 
-                    editEmployee()
-                } catch (e: any) {
-                    console.error(e)
-                }
+                //     editEmployee()
+                // } catch (e: any) {
+                //     console.error(e)
+                // }
 
             } else if (result.isDenied) {
                 // Swal.fire('Changes are not saved', '', 'info')
@@ -515,7 +521,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
                                                 type="date"
                                                 id="modal_trabajador_inputFechaDeNacimiento"
                                                 name="fecha_de_nacimiento"
-                                                value={form.birthDate}
+                                                value={form.birthDate.toString()}
                                                 onChange={handleChange}
                                                 placeholder="Fecha de nacimiento"
                                                 className="form-control input-sm" />
@@ -590,7 +596,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
                                                 type="date"
                                                 id="modal_trabajador_inputFechaDeIngresoALaEmpresa"
                                                 name="fecha_de_ingreso_a_la_empresa"
-                                                value={form.entryDate}
+                                                value={form.entryDate.toString()}
                                                 onChange={handleChange}
                                                 placeholder="Fecha de ingreso a la empresa"
                                                 className="form-control input-sm" />
@@ -613,7 +619,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
                                                 type="date"
                                                 id="modal_trabajador_inputFechaDeTerminoDeContrato"
                                                 name="fecha_de_termino_de_contrato"
-                                                value={form.contractTerminationDate || ""}
+                                                value={form.contractTerminationDate?.toString() || ""}
                                                 onChange={handleChange}
                                                 placeholder="Fecha de termino de contrato"
                                                 className="form-control input-sm" />
@@ -636,7 +642,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
                                                 type="date"
                                                 id="modal_trabajador_inputFechaDeEntradaAlArea"
                                                 name="fecha_de_entrada_al_area"
-                                                value={form.areaEntryDate}
+                                                value={form.areaEntryDate.toString()}
                                                 onChange={handleChange}
                                                 placeholder="Fecha de entrada al área"
                                                 className="form-control input-sm" />

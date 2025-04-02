@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
-import { KTCardBody } from '../../../../../../../_zeus/helpers'
+import { KTCardBody } from '@zeus/app/_zeus/helpers'
 import { appStateService } from '../../../../../../services/appState.service'
-import { dayMonthYear } from '../../../../../../utils/dateFormat'
-import { Employee, EmployeeResponse } from '../../../../../../@services/api/dtos/EmployeeModel'
+import { dayMonthYear } from '@zeus/app/generalcomponents/utils/dateformat/dateFormat'
+import { Employee } from '@zeus/models/apimodels/Employee'
 import ModalTrabajador from './ModalTrabajador'
 import { backyService } from '@zeus/app/@services/api'
 
@@ -44,8 +44,8 @@ interface EmployeeForm {
 
 const CalendarTable = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [employees, setEmployees] = useState<EmployeeResponse[]>([])
-  const [filteredEmployees, setFilteredEmployees] = useState<EmployeeResponse[]>([])
+  const [employees, setEmployees] = useState<Employee[]>([])
+  const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>([])
   const [totalPages, setTotalPages] = useState<number>(1)
   const [currentPage, setCurrentPage] = useState<number>(1)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -88,26 +88,26 @@ const CalendarTable = () => {
 
     const employeesInit = async () => {
 
-      try {
-        //const response = await get();
-        const filters = `?limit=${limitPerPage}`
-        const response = await backyService.employee.getFiltered(filters)
+      // try {
+      //   //const response = await get();
+      //   const filters = `?limit=${limitPerPage}`
+      //   const response = await backyService.employee.getFiltered(filters)
 
-        if (response.status == 200) {
-          setTotalPages(response.data.totalPages)
-          setCurrentPage(response.data.currentPage)
-          const employees: EmployeeResponse[] = response.data.trabajadores
-          appStateService.setEmployeesSubject(employees)
-        }
+      //   if (response.status == 200) {
+      //     setTotalPages(response.data.totalPages)
+      //     setCurrentPage(response.data.currentPage)
+      //     const employees: Employee[] = response.data.trabajadores
+      //     appStateService.setEmployeesSubject(employees)
+      //   }
 
-      } catch (error: any) {
-        console.error(error)
-      }
+      // } catch (error: any) {
+      //   console.error(error)
+      // }
 
     }
     employeesInit()
 
-    //const employeesSubj = appStateService.getSubject().subscribe((employees: EmployeeResponse[]) => {
+    //const employeesSubj = appStateService.getSubject().subscribe((employees: Employee[]) => {
     //  setEmployees(employees)
     //  setFilteredEmployees(employees)
     //})
@@ -154,19 +154,19 @@ const CalendarTable = () => {
     // eslint-disable-next-line max-len
     const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
 
-    try {
-      const response = await backyService.employee.getFiltered(filters)
-      console.log(response)
+    // try {
+    //   const response = await backyService.employee.getFiltered(filters)
+    //   console.log(response)
 
-      if (response.status == 200) {
-        setTotalPages(response.data.totalPages)
-        setCurrentPage(response.data.currentPage)
-        setFilteredEmployees(response.data.trabajadores)
-      }
+    //   if (response.status == 200) {
+    //     setTotalPages(response.data.totalPages)
+    //     setCurrentPage(response.data.currentPage)
+    //     setFilteredEmployees(response.data.trabajadores)
+    //   }
 
-    } catch (e: any) {
-      console.error(e)
-    }
+    // } catch (e: any) {
+    //   console.error(e)
+    // }
 
   }
 
@@ -175,23 +175,23 @@ const CalendarTable = () => {
     // eslint-disable-next-line max-len
     const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
 
-    try {
+    // try {
 
-      const response: any = await backyService.employee.getFiltered(filters)
+    //   const response: any = await backyService.employee.getFiltered(filters)
 
-      if (response.status == 200) {
-        setCurrentPage(response.data.currentPage)
-        setTotalPages(response.data.totalPages)
-        setFilteredEmployees(response.data.trabajadores)
-      }
+    //   if (response.status == 200) {
+    //     setCurrentPage(response.data.currentPage)
+    //     setTotalPages(response.data.totalPages)
+    //     setFilteredEmployees(response.data.trabajadores)
+    //   }
 
-    } catch (e: any) {
-      console.error(e)
-    }
+    // } catch (e: any) {
+    //   console.error(e)
+    // }
 
   }
 
-  function changeStatusEmployee(state: boolean, Employee: EmployeeResponse) {
+  function changeStatusEmployee(state: boolean, Employee: Employee) {
 
     Swal.fire({
       icon: 'question',
@@ -201,142 +201,145 @@ const CalendarTable = () => {
       confirmButtonText: 'Si',
       confirmButtonColor: '#1b84ff',
     }).then((result) => {
-      if (result.isConfirmed) {
-        if (state == true) {//Inactivo
-          try {
-            const editEmployee = async () => {
+      // if (result.isConfirmed) {
+      //   if (state == true) {//Inactivo
+      //     try {
+      //       const editEmployee = async () => {
 
-              const request: Employee = {
-                name: Employee.name,
-                lastname: Employee.lastname,
-                email: Employee.email,
-                dni: Employee.dni,
-                mothers_lastname: Employee.mothers_lastname,
-                fathers_lastname: Employee.fathers_lastname,
-                birthDate: Employee.birthDate,
-                companyAreaId: Employee.companyAreaId, 
-                charge: Employee.charge, 
-                entryDate: Employee.entryDate, 
-                contractTerminationDate: Employee.contractTerminationDate,
-                areaEntryDate: Employee.areaEntryDate, 
-                province: Employee.province,
-                city: Employee.city,
-                address: Employee.address,
-                district: Employee.district,
-                corporateEmail: Employee.corporateEmail,
-                nationalityId: Employee.nationalityId, 
-                gender: Employee.gender,
-                civilStatus: Employee.civilStatus,
-                personalPhone: Employee.personalPhone,
-                facialRecognition: Employee.facialRecognition,
-                digitalSignature: Employee.digitalSignature,
-                status: "Activo",
-                employeeSiteId: Employee.employeeSiteId,
-                rolId: Employee.rolId,
-                sizePants: Employee.sizePants,
-                sizePolo: Employee.sizePolo,
-                sizeShoe: Employee.sizeShoe,
-              }
+      //         const request: Employee = {
+      //           _id:Employee._id,
+      //           name: Employee.name,
+      //           password:null,
+      //           companyIds:[],
+      //           lastname: Employee.lastname,
+      //           email: Employee.email,
+      //           dni: Employee.dni,
+      //           mothers_lastname: Employee.mothers_lastname,
+      //           fathers_lastname: Employee.fathers_lastname,
+      //           birthDate: Employee.birthDate,
+      //           companyAreaId: Employee.companyAreaId, 
+      //           charge: Employee.charge, 
+      //           entryDate: Employee.entryDate, 
+      //           contractTerminationDate: Employee.contractTerminationDate,
+      //           areaEntryDate: Employee.areaEntryDate, 
+      //           province: Employee.province,
+      //           city: Employee.city,
+      //           address: Employee.address,
+      //           district: Employee.district,
+      //           corporateEmail: Employee.corporateEmail,
+      //           nationalityId: Employee.nationalityId, 
+      //           gender: Employee.gender,
+      //           civilStatus: Employee.civilStatus,
+      //           personalPhone: Employee.personalPhone,
+      //           facialRecognition: Employee.facialRecognition,
+      //           digitalSignature: Employee.digitalSignature,
+      //           status: "Activo",
+      //           employeeSiteId: Employee.employeeSiteId,
+      //           rolId: Employee.rolId,
+      //           sizePants: Employee.sizePants,
+      //           sizePolo: Employee.sizePolo,
+      //           sizeShoe: Employee.sizeShoe,
+      //         }
 
-              const response = await backyService.employee.put(Employee._id, request)
+      //         const response = await backyService.employee.put(Employee._id, request)
 
-              if (response.status == 200) {
+      //         if (response.status == 200) {
 
-                appStateService.putEmployeeSubject(Employee._id, request)
+      //           appStateService.putEmployeeSubject(Employee._id, request)
 
-                const Toast = Swal.mixin({
-                  toast: true,
-                  position: 'top-end',
-                  showConfirmButton: false,
-                  timer: 3000,
-                  timerProgressBar: true,
-                  didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer
-                    toast.onmouseleave = Swal.resumeTimer
-                  },
-                })
-                Toast.fire({
-                  icon: 'success',
-                  title: 'Estado del trabajador modificado correctamente',
-                })
-              }
+      //           const Toast = Swal.mixin({
+      //             toast: true,
+      //             position: 'top-end',
+      //             showConfirmButton: false,
+      //             timer: 3000,
+      //             timerProgressBar: true,
+      //             didOpen: (toast) => {
+      //               toast.onmouseenter = Swal.stopTimer
+      //               toast.onmouseleave = Swal.resumeTimer
+      //             },
+      //           })
+      //           Toast.fire({
+      //             icon: 'success',
+      //             title: 'Estado del trabajador modificado correctamente',
+      //           })
+      //         }
 
-            }
-            editEmployee()
+      //       }
+      //       editEmployee()
 
-          } catch (e: any) {
-            console.error(e)
-          }
-        } else {//Activo
-          try {
-            const editEmployee = async () => {
+      //     } catch (e: any) {
+      //       console.error(e)
+      //     }
+      //   } else {//Activo
+      //     try {
+      //       const editEmployee = async () => {
 
-              const request: Employee = {
-                name: Employee.name,
-                lastname: Employee.lastname,
-                email: Employee.email,
-                dni: Employee.dni,
-                mothers_lastname: Employee.mothers_lastname,
-                fathers_lastname: Employee.fathers_lastname,
-                birthDate: Employee.birthDate,
-                companyAreaId: Employee.companyAreaId, 
-                charge: Employee.charge, 
-                entryDate: Employee.entryDate, 
-                contractTerminationDate: Employee.contractTerminationDate,
-                areaEntryDate: Employee.areaEntryDate, 
-                province: Employee.province,
-                city: Employee.city,
-                address: Employee.address,
-                district: Employee.district,
-                corporateEmail: Employee.corporateEmail,
-                nationalityId: Employee.nationalityId, 
-                gender: Employee.gender,
-                civilStatus: Employee.civilStatus,
-                personalPhone: Employee.personalPhone,
-                facialRecognition: Employee.facialRecognition,
-                digitalSignature: Employee.digitalSignature,
-                status: "Inactivo",
-                employeeSiteId: Employee.employeeSiteId,
-                rolId: Employee.rolId,
-                sizePants: Employee.sizePants,
-                sizePolo: Employee.sizePolo,
-                sizeShoe: Employee.sizeShoe,
-              }
+      //         const request: Employee = {
+      //           name: Employee.name,
+      //           lastname: Employee.lastname,
+      //           email: Employee.email,
+      //           dni: Employee.dni,
+      //           mothers_lastname: Employee.mothers_lastname,
+      //           fathers_lastname: Employee.fathers_lastname,
+      //           birthDate: Employee.birthDate,
+      //           companyAreaId: Employee.companyAreaId, 
+      //           charge: Employee.charge, 
+      //           entryDate: Employee.entryDate, 
+      //           contractTerminationDate: Employee.contractTerminationDate,
+      //           areaEntryDate: Employee.areaEntryDate, 
+      //           province: Employee.province,
+      //           city: Employee.city,
+      //           address: Employee.address,
+      //           district: Employee.district,
+      //           corporateEmail: Employee.corporateEmail,
+      //           nationalityId: Employee.nationalityId, 
+      //           gender: Employee.gender,
+      //           civilStatus: Employee.civilStatus,
+      //           personalPhone: Employee.personalPhone,
+      //           facialRecognition: Employee.facialRecognition,
+      //           digitalSignature: Employee.digitalSignature,
+      //           status: "Inactivo",
+      //           employeeSiteId: Employee.employeeSiteId,
+      //           rolId: Employee.rolId,
+      //           sizePants: Employee.sizePants,
+      //           sizePolo: Employee.sizePolo,
+      //           sizeShoe: Employee.sizeShoe,
+      //         }
 
-              const response = await backyService.employee.put(Employee._id, request)
+      //         const response = await backyService.employee.put(Employee._id, request)
 
-              if (response.status == 200) {
+      //         if (response.status == 200) {
 
-                appStateService.putEmployeeSubject(Employee._id, request)
+      //           appStateService.putEmployeeSubject(Employee._id, request)
 
-                const Toast = Swal.mixin({
-                  toast: true,
-                  position: 'top-end',
-                  showConfirmButton: false,
-                  timer: 3000,
-                  timerProgressBar: true,
-                  didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer
-                    toast.onmouseleave = Swal.resumeTimer
-                  },
-                })
-                Toast.fire({
-                  icon: 'success',
-                  title: 'Estado del trabajador modificado correctamente',
-                })
-              }
+      //           const Toast = Swal.mixin({
+      //             toast: true,
+      //             position: 'top-end',
+      //             showConfirmButton: false,
+      //             timer: 3000,
+      //             timerProgressBar: true,
+      //             didOpen: (toast) => {
+      //               toast.onmouseenter = Swal.stopTimer
+      //               toast.onmouseleave = Swal.resumeTimer
+      //             },
+      //           })
+      //           Toast.fire({
+      //             icon: 'success',
+      //             title: 'Estado del trabajador modificado correctamente',
+      //           })
+      //         }
 
-            }
-            editEmployee()
+      //       }
+      //       editEmployee()
 
-          } catch (e: any) {
-            console.error(e)
-          }
-        }
+      //     } catch (e: any) {
+      //       console.error(e)
+      //     }
+      //   }
 
-      } else if (result.isDenied) {
-        // Swal.fire('Changes are not saved', '', 'info')
-      }
+      // } else if (result.isDenied) {
+      //   // Swal.fire('Changes are not saved', '', 'info')
+      // }
     })
 
   }
@@ -347,38 +350,38 @@ const CalendarTable = () => {
 
       // eslint-disable-next-line max-len
       const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
-      try {
+      // try {
 
-        const response: any = await backyService.employee.getFiltered(filters)
+      //   const response: any = await backyService.employee.getFiltered(filters)
 
-        if (response.status == 200) {
-          setCurrentPage(response.data.currentPage)
-          setTotalPages(response.data.totalPages)
-          setFilteredEmployees(response.data.trabajadores)
-        }
+      //   if (response.status == 200) {
+      //     setCurrentPage(response.data.currentPage)
+      //     setTotalPages(response.data.totalPages)
+      //     setFilteredEmployees(response.data.trabajadores)
+      //   }
 
-      } catch (e: any) {
-        console.error(e)
-      }
+      // } catch (e: any) {
+      //   console.error(e)
+      // }
 
     } else if (action == 'previous') {
 
       // eslint-disable-next-line max-len
       const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
       
-      try {
+      // try {
 
-        const response: any = await backyService.employee.getFiltered(filters)
+      //   const response: any = await backyService.employee.getFiltered(filters)
 
-        if (response.status == 200) {
-          setCurrentPage(response.data.currentPage)
-          setTotalPages(response.data.totalPages)
-          setFilteredEmployees(response.data.trabajadores)
-        }
+      //   if (response.status == 200) {
+      //     setCurrentPage(response.data.currentPage)
+      //     setTotalPages(response.data.totalPages)
+      //     setFilteredEmployees(response.data.trabajadores)
+      //   }
 
-      } catch (e: any) {
-        console.error(e)
-      }
+      // } catch (e: any) {
+      //   console.error(e)
+      // }
 
     }
 
@@ -402,9 +405,9 @@ const CalendarTable = () => {
     saveAs(data, 'reporteEmpleadosFiltrados.xlsx')
   }
 
-  const exportEmployeeToExcel = (Employee: EmployeeResponse) => {
+  const exportEmployeeToExcel = (Employee: Employee) => {
 
-    const employeeArray: EmployeeResponse[] = []
+    const employeeArray: Employee[] = []
     employeeArray.push(Employee)
 
     // Crear una hoja de trabajo a partir de los datos
@@ -727,11 +730,11 @@ const CalendarTable = () => {
                 <td>{Employee.name}</td>
                 <td>{Employee.mothers_lastname}</td>
                 <td>{Employee.fathers_lastname}</td>
-                <td>{dayMonthYear(Employee.birthDate)}</td>
+                <td>{dayMonthYear(Employee.birthDate.toString())}</td>
                 <td>{Employee.charge}</td>
                 <td>{Employee.companyAreaId}</td>
-                <td>{dayMonthYear(Employee.entryDate)}</td>
-                <td>{dayMonthYear(Employee.areaEntryDate)}</td>
+                <td>{dayMonthYear(Employee.entryDate.toString())}</td>
+                <td>{dayMonthYear(Employee.areaEntryDate.toString())}</td>
                 <td>{Employee.address}</td>
                 <td>{Employee.district}</td>
                 <td>{Employee.corporateEmail}</td>

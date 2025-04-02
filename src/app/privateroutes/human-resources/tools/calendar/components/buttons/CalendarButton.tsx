@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Swal from 'sweetalert2'
 import { KTCardBody } from '../../../../../../../app/_zeus/helpers'
 import { appStateService } from '../../../../../../services/appState.service'
-import { EmployeeRequest } from '../../../../../../@services/api/dtos/EmployeeModel'
+import { Employee } from '@zeus/models/apimodels/Employee'
 import { backyService } from '@zeus/app/@services/api'
 
 export interface EmployeeForm {
@@ -11,10 +11,10 @@ export interface EmployeeForm {
     firmaDigital: string
     reconocimientoFacial: string
     nacionalidad: string
-    estadoCivil: string
-    genero: string
+    estadoCivil: 'Soltero/a' | 'Casado/a' | 'Divorciado/a' | 'Conviviente' | 'Viudo/a' | ''
+    genero: 'Masculino' | 'Femenino' | ''
     dni: string
-    fechaNacimiento: string
+    fechaNacimiento: Date | string
     nombres: string
     apellidoPaterno: string
     apellidoMaterno: string
@@ -27,7 +27,7 @@ export interface EmployeeForm {
     fechaIngresoArea: string
     fechaIngresoEmpresa: string
     rollSistemaDigitalizado: string
-    status: string
+    status: 'Activo' | 'Inactivo' | ''
     sedeTrabajo: string
 }
 
@@ -124,63 +124,73 @@ const CalendarButton = () => {
         // data.append('status', form.status);
         // data.append('sedeTrabajo', form.sedeTrabajo);
 
-        const newEmployee: EmployeeRequest = {
+        const newEmployee: Employee = {
+            _id: "",
+            name: form.nombres,
+            lastname: "",
+            email: form.correoPersonal,
+            password:null,
             dni: form.dni,
-            apellidoPaterno: form.apellidoPaterno,
-            apellidoMaterno: form.apellidoMaterno,
-            nombres: form.nombres,
-            direccion: form.direccion,
-            distrito: form.distrito,
-            correoTrabajo: form.correoTrabajo,
-            correoPersonal: form.correoPersonal,
-            nacionalidad: form.nacionalidad,
-            genero: form.genero,
-            estadoCivil: form.estadoCivil,
-            fechaNacimiento: form.fechaNacimiento,
-            telefonoPersonal: form.indicativoTel + ' ' + form.telefonoPersonal,
-            reconocimientoFacial: '',
-            firmaDigital: form.firmaDigital,
-            area: form.area,
-            cargo: form.cargo,
-            rollSistemaDigitalizado: form.rollSistemaDigitalizado,
-            fechaIngresoArea: form.fechaIngresoArea,
-            fechaIngresoEmpresa: form.fechaIngresoEmpresa,
+            mothers_lastname: form.apellidoMaterno,
+            fathers_lastname: form.apellidoPaterno,
+            birthDate: form.fechaNacimiento,
+            companyAreaId: form.area,
+            charge: form.cargo,
+            entryDate: form.fechaIngresoEmpresa,
+            contractTerminationDate:null,
+            areaEntryDate: form.fechaIngresoArea,
+            province: "",
+            city: "",
+            address: form.direccion,
+            district: form.distrito,
+            corporateEmail: form.correoTrabajo,
+            nationalityId: form.nacionalidad,
+            gender: form.genero,
+            civilStatus: form.estadoCivil,
+            personalPhone: form.indicativoTel + ' ' + form.telefonoPersonal,
+            facialRecognition: form.reconocimientoFacial,
+            digitalSignature: form.firmaDigital,
             status: form.status,
-            sedeTrabajo: form.sedeTrabajo,
+            employeeSiteId: form.sedeTrabajo,
+            rolId: "",
+            sizePants: 26,
+            sizePolo: 'XS',
+            sizeShoe: 36,
+            companyIds: [],
         }
 
         try {
 
-            const resp = await backyService.employee.register(newEmployee)
+            //const resp = await backyService.employee.register(newEmployee)
 
-            if (resp.status == 201) {
+            // if (resp.status == 201) {
 
-                appStateService.setEmployeeSubject(resp.data)
+            //     appStateService.setEmployeeSubject(resp.data)
 
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer
-                        toast.onmouseleave = Swal.resumeTimer
-                    },
-                })
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Trabajador creado correctamente',
-                })
+            //     const Toast = Swal.mixin({
+            //         toast: true,
+            //         position: 'top-end',
+            //         showConfirmButton: false,
+            //         timer: 3000,
+            //         timerProgressBar: true,
+            //         didOpen: (toast) => {
+            //             toast.onmouseenter = Swal.stopTimer
+            //             toast.onmouseleave = Swal.resumeTimer
+            //         },
+            //     })
+            //     Toast.fire({
+            //         icon: 'success',
+            //         title: 'Trabajador creado correctamente',
+            //     })
 
-                const closeButton = document.getElementById('closeButton')
-                if (closeButton) {
-                    closeButton.click()
-                }
+            //     const closeButton = document.getElementById('closeButton')
+            //     if (closeButton) {
+            //         closeButton.click()
+            //     }
 
-            } else {
-                console.log(resp)
-            }
+            // } else {
+            //     console.log(resp)
+            // }
 
         } catch (error) {
             console.error('Error en la solicitud:', error)
@@ -353,7 +363,7 @@ const CalendarButton = () => {
                                                     type="date"
                                                     id="inputtext"
                                                     name="fechaNacimiento"
-                                                    value={form.fechaNacimiento}
+                                                    value={form.fechaNacimiento.toString()}
                                                     onChange={handleChange}
                                                     className="form-control input-sm" />
                                             </div>

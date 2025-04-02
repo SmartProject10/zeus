@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs'
-import { Employee, EmployeeRequest } from '../@services/api/dtos/EmployeeModel'
+import { Employee } from '@zeus/models/apimodels/Employee'
 
 class AppState {
 
@@ -31,12 +31,13 @@ class AppState {
     }
 
     //Puts
-    putEmployeeSubject(id: string, emp: EmployeeRequest) {
+    putEmployeeSubject(id: string, emp: Employee) {
 
         const Employee: Employee = {
             _id: id,
             name: emp.name,
             lastname: emp.lastname,
+            password:emp.password,
             email: emp.email,
             dni: emp.dni,
             mothers_lastname: emp.mothers_lastname,
