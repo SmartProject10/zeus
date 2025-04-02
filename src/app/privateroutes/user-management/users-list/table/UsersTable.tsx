@@ -7,7 +7,7 @@ import {usersColumns} from './columns/_columns'
 import {User} from '../../../../../@services/api/dtos/UserManagementModel'
 import {UsersListLoading} from '../components/loading/UsersListLoading'
 import {UsersListPagination} from '../components/pagination/UsersListPagination'
-import {KTCardBody} from '../../../../../../app/_zeus/helpers'
+import {KTCardBody} from '@zeus/app/generalcomponents/helpers';
 
 const UsersTable = () => {
   const users = useQueryResponseData()

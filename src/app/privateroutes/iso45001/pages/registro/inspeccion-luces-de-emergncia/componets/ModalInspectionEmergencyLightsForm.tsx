@@ -1,9 +1,8 @@
 import { ReactNode, useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { appStateService } from "../../../../../../services/appState.service";
 import { dateInput } from "../../../../../../generalcomponents/utils/dateformat/dateFormat";
 import { backyService } from "@zeus/app/@services/api";
-import { EmergencyLightsResponse } from "@zeus/app/@services/api/dtos/EmergencyLightsModel";
+import { EmergencyLightsResponse } from "@zeus/models/apimodels/EmergencyLightsModel";
 
 interface MyComponentProps {
 	idEmployee: string;
@@ -227,7 +226,7 @@ export const ModalInspectionEmergencyLightsForm: React.FC<MyComponentProps> = ({
 	}
 
 	function closeModal() {
-		appStateService.setActiveModalSubject();
+		//appStateService.setActiveModalSubject();
 	}
 
 	return (

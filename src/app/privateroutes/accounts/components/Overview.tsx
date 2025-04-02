@@ -1,12 +1,12 @@
 import {Link} from 'react-router-dom'
-import {KTIcon} from '../../../../app/_zeus/helpers'
+import {KTIcon} from '../../../generalcomponents/helpers'
 import {
   ChartsWidget1,
   ListsWidget5,
   TablesWidget1,
   TablesWidget5,
-} from '../../../../app/_zeus/partials/widgets'
-import { Content } from '../../../../app/_zeus/layout/components/content'
+} from '../../../generalcomponents/partials/widgets'
+import { Content } from '../../../generalcomponents/layouts/content'
 
 export function Overview() {
   return (

@@ -2,7 +2,7 @@
 
 import clsx from 'clsx'
 import { useState, useEffect } from 'react'
-import { AccidentsResponse, RegistersResponse } from '../../../../@services/api/dtos/AccidentModel'
+import { AccidentsResponse, RegistersResponse } from '../../../../../models/apimodels/AccidentModel'
 
 interface AccidentRegistersModalProps {
     reporteSeleccionado: AccidentsResponse | null

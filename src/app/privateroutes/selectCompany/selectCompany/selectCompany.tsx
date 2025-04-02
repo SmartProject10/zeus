@@ -1,6 +1,6 @@
-import { CompanyCard } from '@zeus/app/@components/companyCard'
+import { CompanyCard } from '@zeus/app/generalcomponents/components/companyCard'
 import { backyService } from '@zeus/app/@services/api'
-import { KTIcon } from '@zeus/app/_zeus/helpers'
+import { KTIcon } from '@zeus/app/generalcomponents/helpers'
 import { useEffect, useState } from 'react'
 import './selectCompany.scss'
 import { useEmployee } from '@zeus/app/EmployeeContext'

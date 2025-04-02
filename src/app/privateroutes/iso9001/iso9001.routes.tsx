@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import { Dashboard } from './pages/dashboard'
-import { PageTitle } from "@zeus/app/generalcomponents/layoutprovider/LayoutProvider";
+import { PageTitle } from "@zeus/app/generalcomponents/layouts/layoutprovider/LayoutProvider";
 import { PageLink } from '@zeus/models/layoutprovider/model';
 import { ControlDocumentos } from './pages/controlDocumentos/ControlDocumentos'
 

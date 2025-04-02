@@ -1,6 +1,6 @@
 
 import { useState, FC } from 'react'
-import { KTIcon, toAbsoluteUrl } from '../../../../../../app/_zeus/helpers'
+import { KTIcon, toAbsoluteUrl } from '../../../../../generalcomponents/helpers'
 import { connectedAccounts, IConnectedAccounts } from '../SettingsModel'
 
 const ConnectedAccounts: FC = () => {

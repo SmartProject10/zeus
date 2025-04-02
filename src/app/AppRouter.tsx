@@ -2,33 +2,39 @@ import '@formatjs/intl-relativetimeformat/polyfill';
 import '@formatjs/intl-relativetimeformat/locale-data/en';
 import '@formatjs/intl-relativetimeformat/locale-data/es';
 
+//react imports
 import { createContext,useContext, SetStateAction, Dispatch, lazy, Suspense, useEffect, useState, ReactNode, PropsWithChildren, FC } from 'react';
 import { createBrowserRouter, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 
+//layouts imports
+import { ThemeModeProvider } from './generalcomponents/partials/layout/theme-mode/ThemeModeProvider.tsx';
+
+//contexts imports
 import { useEmployee, useLang } from './EmployeeContext.tsx';
-import { ThemeModeProvider } from './_zeus/partials/index.ts';
-import { HeaderWrapper } from './_zeus/layout/components/header/HeaderWrapper';
-import { RightToolbar } from './_zeus/partials/layout/RightToolbar';
-import { ScrollTop } from './_zeus/layout/components/scroll-top';
-import { FooterWrapper } from './_zeus/layout/components/footer';
-import { Sidebar } from './_zeus/layout/components/sidebar';
-import { ActivityDrawer, DrawerMessenger, InviteUsers, UpgradePlan } from './_zeus/partials';
-import { Content } from './_zeus/layout/components/content';
+
+//
+import { HeaderWrapper } from './generalcomponents/layouts/header/HeaderWrapper.tsx';
+import { RightToolbar } from './generalcomponents/partials/layout/RightToolbar.tsx';
+import { ScrollTop } from './generalcomponents/layouts/scroll-top/index.ts';
+import { FooterWrapper } from './generalcomponents/layouts/footer/index.ts';
+import { Sidebar } from './generalcomponents/layouts/sidebar/index.ts';
+import { ActivityDrawer, DrawerMessenger, InviteUsers, UpgradePlan } from './generalcomponents/partials/index.ts';
+import { Content } from './generalcomponents/layouts/content/index.ts';
 import TopBarProgress from 'react-topbar-progress-indicator';
-import { getCSSVariableValue } from './_zeus/assets/ts/_utils/DomHelpers.ts';
+import { getCSSVariableValue } from './generalcomponents/assets/ts/_utils/DomHelpers.ts';
 
-import { MenuComponent } from './_zeus/assets/ts/components/MenuComponent.ts';
-import { DrawerComponent } from './_zeus/assets/ts/components/_DrawerComponent.ts';
-import { ScrollComponent } from './_zeus/assets/ts/components/_ScrollComponent.ts';
-import { ScrollTopComponent } from './_zeus/assets/ts/components/_ScrollTopComponent.ts';
-import { StickyComponent } from './_zeus/assets/ts/components/_StickyComponent.ts';
-import { ToggleComponent } from './_zeus/assets/ts/components/_ToggleComponent.ts';
-import { SwapperComponent } from './_zeus/assets/ts/components/_SwapperComponent.ts';
+import { MenuComponent } from './generalcomponents/assets/ts/components/MenuComponent.ts';
+import { DrawerComponent } from './generalcomponents/assets/ts/components/_DrawerComponent.ts';
+import { ScrollComponent } from './generalcomponents/assets/ts/components/_ScrollComponent.ts';
+import { ScrollTopComponent } from './generalcomponents/assets/ts/components/_ScrollTopComponent.ts';
+import { StickyComponent } from './generalcomponents/assets/ts/components/_StickyComponent.ts';
+import { ToggleComponent } from './generalcomponents/assets/ts/components/_ToggleComponent.ts';
+import { SwapperComponent } from './generalcomponents/assets/ts/components/_SwapperComponent.ts';
 
-import { ThemeModeComponent } from './_zeus/assets/ts/layout/ThemeMode.ts';
+import { ThemeModeComponent } from './generalcomponents/assets/ts/layout/ThemeMode.ts';
 
-import { LayoutProvider,PageDataProvider,useLayout } from './generalcomponents/layoutprovider/LayoutProvider.tsx';
+import { LayoutProvider,PageDataProvider,useLayout } from './generalcomponents/layouts/layoutprovider/LayoutProvider.tsx';
 
 import { Tab } from 'bootstrap';
 import Swal from 'sweetalert2';

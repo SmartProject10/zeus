@@ -1,5 +1,5 @@
 import {useQueryClient, useMutation} from 'react-query'
-import {QUERIES} from '../../../../../../../app/_zeus/helpers'
+import { QUERIES } from '@zeus/app/generalcomponents/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
 import { backyService } from '@zeus/app/@services/api'

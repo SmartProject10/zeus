@@ -1,6 +1,6 @@
-import { KTCard, KTCardBody } from '@zeus/app/_zeus/helpers';
-import { Content } from '@zeus/app/_zeus/layout/components/content';
-import { ToolbarWrapper } from '@zeus/app/_zeus/layout/components/toolbar';
+import { KTCard, KTCardBody } from '@zeus/app/generalcomponents/helpers';
+import { Content } from '@zeus/app/generalcomponents/layouts/content';
+import { ToolbarWrapper } from '@zeus/app/generalcomponents/layouts/toolbar';
 import { useEffect, useState } from 'react';
 // import { AccidentsResponse, RegistersResponse } from './core/_models';
 import Swal from 'sweetalert2';

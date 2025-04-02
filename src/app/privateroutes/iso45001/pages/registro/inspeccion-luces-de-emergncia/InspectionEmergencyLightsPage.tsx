@@ -1,4 +1,4 @@
-import { PageTitle } from "@zeus/app/generalcomponents/layoutprovider/LayoutProvider";
+import { PageTitle } from "@zeus/app/generalcomponents/layouts/layoutprovider/LayoutProvider";
 import { PageLink } from "@zeus/models/layoutprovider/model";
 import { InspectionEmergencyLightsWrapper } from "./componets/InspectionEmergencyLightsWrapper";
 // import { CalendarWrapper } from "../..app/modules/human-resources/tools/calendar/Calendar";

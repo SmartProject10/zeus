@@ -1,9 +1,9 @@
 
 import {FC} from 'react'
-import {KTIcon, toAbsoluteUrl} from '../../../../../app/_zeus/helpers'
-import {ChatInner, Dropdown1} from '../../../../../app/_zeus/partials'
-import { ToolbarWrapper } from '../../../../../app/_zeus/layout/components/toolbar'
-import { Content } from '../../../../../app/_zeus/layout/components/content'
+import { KTIcon,toAbsoluteUrl } from '@zeus/app/generalcomponents/helpers'
+import {ChatInner, Dropdown1} from '@zeus/app/generalcomponents/partials'
+import { ToolbarWrapper } from '@zeus/app/generalcomponents/layouts/toolbar'
+import { Content } from '@zeus/app/generalcomponents/layouts/content'
 
 const Group: FC = () => {
   return (

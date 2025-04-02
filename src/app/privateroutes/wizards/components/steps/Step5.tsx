@@ -1,5 +1,5 @@
 import {FC} from 'react'
-import {KTIcon} from '../../../../../app/_zeus/helpers'
+import {KTIcon} from '../../../../generalcomponents/helpers'
 import {Link} from 'react-router-dom'
 
 const Step5: FC = () => {

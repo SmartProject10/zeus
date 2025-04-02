@@ -1,4 +1,4 @@
-import {KTIcon} from '../../../../../../../app/_zeus/helpers'
+import { KTIcon } from '@zeus/app/generalcomponents/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {UsersListFilter} from './UsersListFilter'
 

@@ -4,12 +4,12 @@
 // import { CalendarButton } from "./components/buttons/CalendarButton";
 // import { CalendarHeader } from "./components/header/CalendarHeader";
 // import { CalendarTable } from "./components/table/CalendarTable";
-import { Content } from "@zeus/app/_zeus/layout/components/content";
+import { Content } from "@zeus/app/generalcomponents/layouts/content";
 import { EmergencyLightsButton } from "./EmergencyLightsButton";
 import { EmergencylightsTable } from "./EmergencyLightsTable";
-import { KTCard } from "@zeus/app/_zeus/helpers";
+import { KTCard } from "@zeus/app/generalcomponents/helpers";
 import { EmergencyLightsHeader } from "./EmergencyLightsHeader";
-import { ToolbarWrapper } from "@zeus/app/_zeus/layout/components/toolbar";
+import { ToolbarWrapper } from "@zeus/app/generalcomponents/layouts/toolbar";
 
 export const EmergencyLightsWrapper = () => (
 	<Content>

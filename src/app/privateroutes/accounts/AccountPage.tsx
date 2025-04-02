@@ -1,6 +1,6 @@
 import React from 'react'
 import {Navigate, Route, Routes, Outlet} from 'react-router-dom'
-import { PageTitle } from '@zeus/app/generalcomponents/layoutprovider/LayoutProvider'
+import { PageTitle } from '@zeus/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
 import { PageLink } from '@zeus/models/layoutprovider/model'
 import {Overview} from './components/Overview'
 import {Settings} from './components/settings/Settings'

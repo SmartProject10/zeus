@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useState } from 'react'
-import { KTCard, KTCardBody } from '@zeus/app/_zeus/helpers'
+import { KTCard, KTCardBody } from '@zeus/app/generalcomponents/helpers'
 import AsistenciaModal from './AsistenciaModal' // Importar tu componente modal
 
 function AsistenciaTable({ dataSource, handleSeeData }: any) {

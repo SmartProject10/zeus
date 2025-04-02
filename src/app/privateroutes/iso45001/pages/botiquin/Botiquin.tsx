@@ -1,10 +1,10 @@
-import { Content } from '@zeus/app/_zeus/layout/components/content'
-import { ToolbarWrapper } from '@zeus/app/_zeus/layout/components/toolbar'
+import { Content } from '@zeus/app/generalcomponents/layouts/content'
+import { ToolbarWrapper } from '@zeus/app/generalcomponents/layouts/toolbar'
 import { useEffect, useState } from 'react'
 import BotiquinTable from './BotiquinTable'
 import BotiquinModal from './BotiquinModal'
 import BotiquinButton from './BotiquinButton'
-import { BotiquinResponse } from '../../../../@services/api/dtos/BotiquinModel'
+import { BotiquinResponse } from '../../../../../models/apimodels/BotiquinModel'
 import Swal from 'sweetalert2'
 
 export function Botiquin(): JSX.Element {

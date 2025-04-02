@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { PageTitle } from '@zeus/app/generalcomponents/layoutprovider/LayoutProvider'
+import { PageTitle } from '@zeus/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
 import { PageLink } from '@zeus/models/layoutprovider/model'
 import { CalendarWrapper } from './tools/calendar/Calendar'
 

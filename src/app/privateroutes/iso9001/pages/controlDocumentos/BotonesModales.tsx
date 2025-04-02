@@ -1,4 +1,4 @@
-import { KTCard, KTCardBody } from '@zeus/app/_zeus/helpers'
+import { KTCard, KTCardBody } from '@zeus/app/generalcomponents/helpers'
 import React, { useState } from 'react'
 
 const BotonesModales = ({ handleOpenModal }: any) => {

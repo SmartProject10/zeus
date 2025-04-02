@@ -4,12 +4,12 @@ import {Step2} from './steps/Step2'
 import {Step3} from './steps/Step3'
 import {Step4} from './steps/Step4'
 import {Step5} from './steps/Step5'
-import {KTIcon} from '../../../../app/_zeus/helpers'
-import {StepperComponent} from '../../../../app/_zeus/assets/ts/components'
+import {KTIcon} from '../../../generalcomponents/helpers'
+import {StepperComponent} from '../../../generalcomponents/assets/ts/components'
 import {Form, Formik, FormikValues} from 'formik'
 import {createAccountSchemas, ICreateAccount, inits} from './CreateAccountWizardHelper'
-import { ToolbarWrapper } from '../../../../app/_zeus/layout/components/toolbar'
-import { Content } from '../../../../app/_zeus/layout/components/content'
+import { ToolbarWrapper } from '../../../generalcomponents/layouts/toolbar'
+import { Content } from '../../../generalcomponents/layouts/content'
 
 const Horizontal: FC = () => {
   const stepperRef = useRef<HTMLDivElement | null>(null)

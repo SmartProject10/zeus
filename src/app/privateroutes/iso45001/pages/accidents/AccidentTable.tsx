@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { KTCard, KTCardBody } from '@zeus/app/_zeus/helpers'
-import { AccidentsResponse } from '../../../../@services/api/dtos/AccidentModel'
+import { KTCard, KTCardBody } from '@zeus/app/generalcomponents/helpers'
+import { AccidentsResponse } from '../../../../../models/apimodels/AccidentModel'
 import { useState, useEffect } from 'react'
 //import { BASE_URL } from '../../../../../@services/api/requests/accident.requests'
 

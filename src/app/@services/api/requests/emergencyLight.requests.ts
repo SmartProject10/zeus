@@ -1,4 +1,4 @@
-import { EmergencyLightsRequest } from '../dtos/EmergencyLightsModel'
+import { EmergencyLightsRequest } from '../../../../models/apimodels/EmergencyLightsModel'
 import { IService, SConstructor } from '../types/apiService.types'
 
 export const EmergencyLightRequests = <TClass extends SConstructor<IService>>(Base: TClass) => {

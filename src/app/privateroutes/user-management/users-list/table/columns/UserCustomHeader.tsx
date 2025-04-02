@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import {FC, PropsWithChildren, useMemo} from 'react'
 import {HeaderProps} from 'react-table'
-import {initialQueryState} from '../../../../../../../app/_zeus/helpers'
+import {initialQueryState} from '@zeus/app/generalcomponents/helpers';
 import {useQueryRequest} from '../../core/QueryRequestProvider'
 import {User} from '../../../../../../@services/api/dtos/UserManagementModel'
 

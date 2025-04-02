@@ -1,11 +1,11 @@
 
 import { FC } from 'react'
-import { KTIcon, toAbsoluteUrl } from '../../../app/_zeus/helpers'
+import { KTIcon, toAbsoluteUrl } from '../../generalcomponents/helpers'
 import { Link } from 'react-router-dom'
-import { Dropdown1 } from '../../../app/_zeus/partials'
+import { Dropdown1 } from '../../generalcomponents/partials'
 import { useLocation } from 'react-router'
-import { ToolbarWrapper } from '../../../app/_zeus/layout/components/toolbar'
-import { Content } from '../../../app/_zeus/layout/components/content'
+import { ToolbarWrapper } from '../../generalcomponents/layouts/toolbar'
+import { Content } from '../../generalcomponents/layouts/content'
 
 const AccountHeader: FC = () => {
   const location = useLocation()

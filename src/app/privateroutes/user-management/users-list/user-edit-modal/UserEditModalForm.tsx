@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
-import { isNotEmpty, toAbsoluteUrl } from '../../../../../../app/_zeus/helpers'
+import { isNotEmpty, toAbsoluteUrl } from '@zeus/app/generalcomponents/helpers';
 import { initialUser, User } from '../../../../../@services/api/dtos/UserManagementModel'
 import clsx from 'clsx'
 import { useListView } from '../core/ListViewProvider'

@@ -7,7 +7,7 @@ import {
   PaginationState,
   QUERIES,
   stringifyRequestQuery,
-} from '../../../../../../app/_zeus/helpers'
+} from '@zeus/app/generalcomponents/helpers';
 import { backyService } from '@zeus/app/@services/api'
 import {User} from '../../../../../@services/api/dtos/UserManagementModel'
 import {useQueryRequest} from './QueryRequestProvider'

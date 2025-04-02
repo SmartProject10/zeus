@@ -3,7 +3,7 @@ import { InspeccionesInternasSeguridad } from './pages/inspeccionesInternasSegur
 import { CompromisosAltaGenerencia } from './pages/compromisosAltaGerencia'
 import Iso45001Cards from './pages/iso45001/Iso45001Cards'
 import { Botiquin } from './pages/botiquin/Botiquin'
-import { PageTitle } from '@zeus/app/generalcomponents/layoutprovider/LayoutProvider'
+import { PageTitle } from '@zeus/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
 import { PageLink } from '@zeus/models/layoutprovider/model'
 import { Kit } from './pages/kit/Kit'
 import { EPPS } from './pages/epps/delivery'

@@ -1,6 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
-import { appStateService } from '../../../../../../services/appState.service'
 import { dateInput } from '../../../../../../generalcomponents/utils/dateformat/dateFormat'
 import { backyService } from '@zeus/app/@services/api'
 import { Employee } from '@zeus/models/apimodels/Employee'
@@ -331,7 +330,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
     }
 
     function closeModal(){
-        appStateService.setActiveModalSubject()
+        //appStateService.setActiveModalSubject()
     }
 
     return (

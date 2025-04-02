@@ -13,9 +13,9 @@ import {
   TablesWidget11,
   TablesWidget12,
   TablesWidget13,
-} from '../../../../app/_zeus/partials/widgets'
-import { ToolbarWrapper } from '../../../../app/_zeus/layout/components/toolbar'
-import { Content } from '../../../../app/_zeus/layout/components/content'
+} from '../../../generalcomponents/partials/widgets'
+import { ToolbarWrapper } from '../../../generalcomponents/layouts/toolbar'
+import { Content } from '../../../generalcomponents/layouts/content'
 
 export const Tables: FC = () => {
   return (

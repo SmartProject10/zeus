@@ -1,6 +1,6 @@
 
 import {useState, FC} from 'react'
-import {KTIcon} from '../../../../../../app/_zeus/helpers'
+import {KTIcon} from '../../../../../generalcomponents/helpers'
 import {deactivateAccount, IDeactivateAccount} from '../SettingsModel'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'

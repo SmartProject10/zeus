@@ -2,7 +2,7 @@
 import clsx from 'clsx'
 import { useQueryResponseLoading, useQueryResponsePagination } from '../../core/QueryResponseProvider'
 import { useQueryRequest } from '../../core/QueryRequestProvider'
-import { PaginationState } from '../../../../../../../app/_zeus/helpers'
+import { PaginationState } from '@zeus/app/generalcomponents/helpers'
 import { useMemo } from 'react'
 
 const mappedLabel = (label: string): string => {

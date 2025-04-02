@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
-import { AccidentsResponse } from '../../../../@services/api/dtos/AccidentModel';
+import { AccidentsResponse } from '../../../../../models/apimodels/AccidentModel';
 
 const initialValues: AccidentsResponse = {
     _id: '',

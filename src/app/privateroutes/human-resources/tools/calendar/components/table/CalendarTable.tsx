@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
-import { KTCardBody } from '@zeus/app/_zeus/helpers'
-import { appStateService } from '../../../../../../services/appState.service'
+import { KTCardBody } from '@zeus/app/generalcomponents/helpers'
 import { dayMonthYear } from '@zeus/app/generalcomponents/utils/dateformat/dateFormat'
 import { Employee } from '@zeus/models/apimodels/Employee'
 import ModalTrabajador from './ModalTrabajador'
@@ -112,13 +111,13 @@ const CalendarTable = () => {
     //  setFilteredEmployees(employees)
     //})
 
-    const activeModalSubj = appStateService.getActiveModalSubject().subscribe((state: boolean) => {
-      setActiveModal(state)
-    })
+    // const activeModalSubj = appStateService.getActiveModalSubject().subscribe((state: boolean) => {
+    //   setActiveModal(state)
+    // })
 
     return () => {
       //employeesSubj.unsubscribe()
-      activeModalSubj.unsubscribe()
+      //activeModalSubj.unsubscribe()
     }
 
   }, [])
@@ -147,7 +146,7 @@ const CalendarTable = () => {
 
   function showModalEmployee(id: string) {
     setIdEmployee(id)
-    appStateService.setActiveModalSubject()
+    //appStateService.setActiveModalSubject()
   }
 
   async function applyFilters() {

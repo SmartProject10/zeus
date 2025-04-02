@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { KTCardBody } from "../../../../../../../app/_zeus/helpers";
-import { appStateService } from "../../../../../../services/appState.service";
-import { EmergencyLightsRequest } from "@zeus/app/@services/api/dtos/EmergencyLightsModel";
+import { KTCardBody } from "../../../../../../generalcomponents/helpers";
+import { EmergencyLightsRequest } from "@zeus/models/apimodels/EmergencyLightsModel";
 import { backyService } from "@zeus/app/@services/api";
 
 export interface EmergencyLightsForm {
@@ -106,7 +105,7 @@ export const InspectionEmergencyLightsButton = () => {
 			const resp = await backyService.emergencyLights.register(newEmployee);
 
 			if (resp.status == 201) {
-				appStateService.setEmployeeSubject(resp.data);
+				//appStateService.setEmployeeSubject(resp.data);
 
 				const Toast = Swal.mixin({
 					toast: true,

@@ -4,7 +4,7 @@ import {ConnectedAccounts} from './cards/ConnectedAccounts'
 import {EmailPreferences} from './cards/EmailPreferences'
 import {Notifications} from './cards/Notifications'
 import {DeactivateAccount} from './cards/DeactivateAccount'
-import { Content } from '../../../../../app/_zeus/layout/components/content'
+import { Content } from '../../../../generalcomponents/layouts/content'
 
 export function Settings() {
   return (

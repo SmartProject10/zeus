@@ -1,4 +1,4 @@
-import {KTCardBody} from '../../../../../../app/_zeus/helpers'
+import {KTCardBody} from '../../../../../generalcomponents/helpers'
 
 const LibraryContent = () => {
     return (

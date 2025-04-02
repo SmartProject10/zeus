@@ -1,7 +1,7 @@
 
 import {useEffect} from 'react'
 import {Outlet, Link} from 'react-router-dom'
-import {toAbsoluteUrl} from '../../../app/_zeus/helpers'
+import {toAbsoluteUrl} from '../../generalcomponents/helpers'
 import {useIntl} from 'react-intl'
 
 const AuthLayout = () => {

@@ -4,8 +4,8 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import clsx from 'clsx'
 import { Link } from 'react-router-dom'
-import { toAbsoluteUrl } from '../../../../app/_zeus/helpers'
-import { PasswordMeterComponent } from '../../../../app/_zeus/assets/ts/components'
+import { toAbsoluteUrl } from '../../../generalcomponents/helpers'
+import { PasswordMeterComponent } from '../../../generalcomponents/assets/ts/components'
 import { useEmployee } from '@zeus/app/EmployeeContext'
 import { useNavigate } from 'react-router-dom';
 

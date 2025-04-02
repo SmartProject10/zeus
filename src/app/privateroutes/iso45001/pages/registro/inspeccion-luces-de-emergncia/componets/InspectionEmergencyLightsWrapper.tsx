@@ -1,9 +1,9 @@
-import { Content } from "@zeus/app/_zeus/layout/components/content";
+import { Content } from "@zeus/app/generalcomponents/layouts/content";
 import { InspectionEmergencyLightsButton } from "./InspectionEmergencyLightsButton";
 import { InspectionEmergencylightsTable } from "./InspectionEmergencyLightsTable";
-import { KTCard } from "@zeus/app/_zeus/helpers";
+import { KTCard } from "@zeus/app/generalcomponents/helpers";
 import { InspectionEmergencyLightsHeader } from "./InspectionEmergencyLightsHeader";
-import { ToolbarWrapper } from "@zeus/app/_zeus/layout/components/toolbar";
+import { ToolbarWrapper } from "@zeus/app/generalcomponents/layouts/toolbar";
 
 export const InspectionEmergencyLightsWrapper = () => (
 	<Content>

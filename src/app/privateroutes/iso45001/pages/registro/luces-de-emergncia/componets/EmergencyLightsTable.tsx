@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { KTCardBody } from "../../../../../../../app/_zeus/helpers";
-import { appStateService } from "../../../../../../services/appState.service";
+import { KTCardBody } from "../../../../../../generalcomponents/helpers";
 import { dayMonthYear } from "../../../../../../generalcomponents/utils/dateformat/dateFormat";
 
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
-import { EmergencyLightsResponse } from "@zeus/app/@services/api/dtos/EmergencyLightsModel";
+import { EmergencyLightsResponse } from "@zeus/models/apimodels/EmergencyLightsModel";
 import { Employee } from "@zeus/models/apimodels/Employee";
 import { ModalEmergencyLightsForm } from "./ModalEmergencyLightsForm";
 import { backyService } from "@zeus/app/@services/api";
@@ -71,15 +70,15 @@ export const EmergencylightsTable = () => {
 		// 		setFilteredEmployees(employees);
 		// 	});
 
-		const activeModalSubj = appStateService
-			.getActiveModalSubject()
-			.subscribe((state: boolean) => {
-				setActiveModal(state);
-			});
+		// const activeModalSubj = appStateService
+		// 	.getActiveModalSubject()
+		// 	.subscribe((state: boolean) => {
+		// 		setActiveModal(state);
+		// 	});
 
 		return () => {
 			//employeesSubj.unsubscribe();
-			activeModalSubj.unsubscribe();
+			//activeModalSubj.unsubscribe();
 		};
 	}, []);
 
@@ -109,7 +108,7 @@ export const EmergencylightsTable = () => {
 
 	function showModalEmployee(id: string) {
 		setIdEmployee(id);
-		appStateService.setActiveModalSubject();
+		//appStateService.setActiveModalSubject();
 	}
 
 	async function applyFilters() {

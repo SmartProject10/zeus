@@ -1,8 +1,8 @@
 
 import {FC} from 'react'
-import {Card1} from '../../../../../app/_zeus/partials/content/cards/Card1'
-import { ToolbarWrapper } from '../../../../../app/_zeus/layout/components/toolbar'
-import { Content } from '../../../../../app/_zeus/layout/components/content'
+import { Card1 } from '@zeus/app/generalcomponents/partials/content/cards/Card1'
+import { ToolbarWrapper } from '@zeus/app/generalcomponents/layouts/toolbar'
+import { Content } from '@zeus/app/generalcomponents/layouts/content'
 
 const Drawer: FC = () => {
   return (

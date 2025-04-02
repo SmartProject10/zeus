@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 
-import { Navbar } from '@zeus/app/@components/navbar'
-import { Content } from '@zeus/app/_zeus/layout/components/content'
+import { Navbar } from '@zeus/app/generalcomponents/components/navbar'
+import { Content } from '@zeus/app/generalcomponents/layouts/content'
 
 export function SelectCompanyLayout(): JSX.Element {
 	return (

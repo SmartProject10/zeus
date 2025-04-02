@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { initialQueryState, KTIcon, useDebounce } from '../../../../../../../app/_zeus/helpers'
+import { initialQueryState, KTIcon, useDebounce } from '@zeus/app/generalcomponents/helpers'
 import { useQueryRequest } from '../../core/QueryRequestProvider'
 
 const UsersListSearchComponent = () => {

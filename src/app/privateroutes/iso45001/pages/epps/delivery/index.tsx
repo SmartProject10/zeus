@@ -1,6 +1,6 @@
 import { useEffect, useId, useState } from 'react'
 
-import { Content } from '@zeus/app/_zeus/layout/components/content'
+import { Content } from '@zeus/app/generalcomponents/layouts/content'
 import { Modal } from './modal'
 import { Table } from './table'
 import { PersonalProtectiveEquipment } from './types'

@@ -1,4 +1,4 @@
-import { KTIcon } from "@zeus/app/_zeus/helpers"
+import { KTIcon } from "@zeus/app/generalcomponents/helpers"
 
 export function BundleSection () {
 	return (

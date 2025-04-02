@@ -4,12 +4,12 @@ import { EmployeeProvider } from './EmployeeContext.js';
 import router from './AppRouter.js';
 import { RouterProvider } from 'react-router-dom';
 
-import './_zeus/assets/sass/style.react.scss';
-import './_zeus/assets/fonticon/fonticon.css';
-import './_zeus/assets/keenicons/duotone/style.css';
-import './_zeus/assets/keenicons/outline/style.css';
-import './_zeus/assets/keenicons/solid/style.css';
-import './_zeus/assets/sass/style.scss';
+import './generalcomponents/assets/sass/style.react.scss';
+import './generalcomponents/assets/fonticon/fonticon.css';
+import './generalcomponents/assets/keenicons/duotone/style.css';
+import './generalcomponents/assets/keenicons/outline/style.css';
+import './generalcomponents/assets/keenicons/solid/style.css';
+import './generalcomponents/assets/sass/style.scss';
 
 Chart.register(...registerables);
 

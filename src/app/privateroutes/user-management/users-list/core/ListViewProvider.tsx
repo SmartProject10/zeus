@@ -7,7 +7,7 @@ import {
   initialListView,
   ListViewContextProps,
   groupingOnSelectAll,
-} from '../../../../../../app/_zeus/helpers'
+} from '@zeus/app/generalcomponents/helpers';
 import { useQueryResponse, useQueryResponseData } from './QueryResponseProvider'
 
 interface WithChildren {

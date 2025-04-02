@@ -4,9 +4,9 @@ import {QueryResponseProvider} from './core/QueryResponseProvider'
 import {UsersListHeader} from './components/header/UsersListHeader'
 import {UsersTable} from './table/UsersTable'
 import {UserEditModal} from './user-edit-modal/UserEditModal'
-import {KTCard} from '../../../../../app/_zeus/helpers'
-import { ToolbarWrapper } from '../../../../../app/_zeus/layout/components/toolbar'
-import { Content } from '../../../../../app/_zeus/layout/components/content'
+import {KTCard} from '@zeus/app/generalcomponents/helpers'
+import { ToolbarWrapper } from '@zeus/app/generalcomponents/layouts/toolbar'
+import { Content } from 'antd/es/layout/layout'
 
 const UsersList = () => {
   const {itemIdForUpdate} = useListView()

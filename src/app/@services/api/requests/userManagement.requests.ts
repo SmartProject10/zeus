@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
-import { ID, Response } from '../../../app/_zeus/helpers'
-import { User, UsersQueryResponse } from '../dtos/UserManagementModel'
+import { ID,Response } from '@zeus/app/generalcomponents/helpers'
+import { User, UsersQueryResponse } from '../../../../models/apimodels/UserManagementModel'
 import { IService, SConstructor } from '../types/apiService.types'
 import axios from 'axios' // Para axios.all
 

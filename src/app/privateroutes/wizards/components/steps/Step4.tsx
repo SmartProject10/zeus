@@ -1,5 +1,5 @@
 import {FC} from 'react'
-import {KTIcon, toAbsoluteUrl} from '../../../../../app/_zeus/helpers'
+import {KTIcon, toAbsoluteUrl} from '../../../../generalcomponents/helpers'
 import {ErrorMessage, Field} from 'formik'
 
 const Step4: FC = () => {

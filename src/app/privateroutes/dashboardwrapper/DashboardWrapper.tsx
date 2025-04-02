@@ -1,14 +1,14 @@
 import { FC } from 'react'
-import { toAbsoluteUrl } from '../../../app/_zeus/helpers'
-import { Content } from '../../../app/_zeus/layout/components/content'
-import { ToolbarWrapper } from '../../../app/_zeus/layout/components/toolbar'
-import { PageTitle } from '@zeus/app/generalcomponents/layoutprovider/LayoutProvider'
+import { toAbsoluteUrl } from '../../generalcomponents/helpers'
+import { Content } from '../../generalcomponents/layouts/content'
+import { ToolbarWrapper } from '../../generalcomponents/layouts/toolbar'
+import { PageTitle } from '@zeus/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
 import {
   CardsWidget17,
   CardsWidget20,
   CardsWidget7,
   ListsWidget26,
-} from '../../../app/_zeus/partials/widgets'
+} from '../../generalcomponents/partials/widgets'
 
 const DashboardPage: FC = () => (
   <>

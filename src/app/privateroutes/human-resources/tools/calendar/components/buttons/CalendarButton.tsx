@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import Swal from 'sweetalert2'
-import { KTCardBody } from '../../../../../../../app/_zeus/helpers'
-import { appStateService } from '../../../../../../services/appState.service'
+import { KTCardBody } from '../../../../../../generalcomponents/helpers'
 import { Employee } from '@zeus/models/apimodels/Employee'
 import { backyService } from '@zeus/app/@services/api'
 

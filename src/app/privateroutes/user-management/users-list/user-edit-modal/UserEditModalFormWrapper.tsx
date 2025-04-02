@@ -1,6 +1,6 @@
 import {useQuery} from 'react-query'
 import {UserEditModalForm} from './UserEditModalForm'
-import {isNotEmpty, QUERIES} from '../../../../../../app/_zeus/helpers'
+import {isNotEmpty, QUERIES} from '@zeus/app/generalcomponents/helpers';
 import {useListView} from '../core/ListViewProvider'
 import { backyService } from '@zeus/app/@services/api'
 
