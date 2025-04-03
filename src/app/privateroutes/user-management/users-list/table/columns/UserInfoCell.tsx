@@ -1,8 +1,8 @@
 
 import clsx from 'clsx'
 import {FC} from 'react'
-import {toAbsoluteUrl} from '@zeus/app/generalcomponents/helpers';
-import { User } from '@zeus/models/apimodels/UserManagementModel';
+import {toAbsoluteUrl} from 'src/app/generalcomponents/helpers';
+import { User } from 'src/models/apimodels/UserManagementModel';
 
 type Props = {
   user: User

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import icons from '../icons-config/icons'
-import { getLayoutFromLocalStorage } from '@zeus/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
+import { getLayoutFromLocalStorage } from 'src/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
 
 type Props = {
   className?: string

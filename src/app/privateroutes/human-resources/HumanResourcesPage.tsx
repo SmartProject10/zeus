@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { PageTitle } from '@zeus/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
-import { PageLink } from '@zeus/models/layoutprovider/model'
+import { PageTitle } from 'src/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
+import { PageLink } from 'src/models/layoutprovider/model'
 import { CalendarWrapper } from './tools/calendar/Calendar'
 
 const humanResourceBreadcrumbs: Array<PageLink> = [

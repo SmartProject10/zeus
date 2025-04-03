@@ -1,7 +1,7 @@
 
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { useEmployee } from '@zeus/app/EmployeeContext'
+import { useEmployee } from 'src/app/EmployeeContext'
 import { Languages } from './Languages'
 import { toAbsoluteUrl } from '../../../helpers'
 

@@ -1,6 +1,6 @@
 import { useId } from 'react'
 
-import { Content } from '@zeus/app/generalcomponents/layouts/content'
+import { Content } from 'src/app/generalcomponents/layouts/content'
 import { Modal } from './modal'
 
 export const DatabasePage = (): JSX.Element => {

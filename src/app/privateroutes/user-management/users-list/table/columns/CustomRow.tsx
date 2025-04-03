@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { FC } from 'react'
 import { Row } from 'react-table'
-import { User } from '@zeus/models/apimodels/UserManagementModel'
+import { User } from 'src/models/apimodels/UserManagementModel'
 
 type Props = {
   row: Row<User>

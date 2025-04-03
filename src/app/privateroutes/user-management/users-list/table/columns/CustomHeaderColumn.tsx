@@ -1,6 +1,6 @@
 import {FC} from 'react'
 import {ColumnInstance} from 'react-table'
-import { User } from '@zeus/models/apimodels/UserManagementModel'
+import { User } from 'src/models/apimodels/UserManagementModel'
 
 type Props = {
   column: ColumnInstance<User>

@@ -1,8 +1,8 @@
-import { CompanyCard } from '@zeus/app/generalcomponents/components/companyCard'
-import { KTIcon } from '@zeus/app/generalcomponents/helpers'
+import { CompanyCard } from 'src/app/generalcomponents/components/companyCard'
+import { KTIcon } from 'src/app/generalcomponents/helpers'
 import { useEffect, useState } from 'react'
 import './selectCompany.scss'
-import { useEmployee } from '@zeus/app/EmployeeContext'
+import { useEmployee } from 'src/app/EmployeeContext'
 
 export function SelectCompany(): JSX.Element{
 	const { employee } = useEmployee()

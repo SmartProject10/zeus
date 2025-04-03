@@ -1,5 +1,5 @@
-import { Content } from '@zeus/app/generalcomponents/layouts/content';
-import { ToolbarWrapper } from '@zeus/app/generalcomponents/layouts/toolbar';
+import { Content } from 'src/app/generalcomponents/layouts/content';
+import { ToolbarWrapper } from 'src/app/generalcomponents/layouts/toolbar';
 import { useEffect, useState } from 'react';
 import AccidentReportingModal from './AccidentReportingModal';
 import { AccidentsResponse, RegistersResponse } from '../../../../../models/apimodels/AccidentModel';

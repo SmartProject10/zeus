@@ -3,7 +3,7 @@ import {
   QueryState,
   QueryRequestContextProps,
   initialQueryRequest,
-} from '@zeus/app/generalcomponents/helpers';
+} from 'src/app/generalcomponents/helpers';
 
 interface WithChildren {
   children: ReactNode;

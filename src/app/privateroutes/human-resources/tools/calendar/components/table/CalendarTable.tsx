@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
-import { KTCardBody } from '@zeus/app/generalcomponents/helpers'
-import { dayMonthYear } from '@zeus/app/generalcomponents/utils/dateformat/dateFormat'
-import { Employee } from '@zeus/models/apimodels/Employee'
+import { KTCardBody } from 'src/app/generalcomponents/helpers'
+import { dayMonthYear } from 'src/app/generalcomponents/utils/dateformat/dateFormat'
+import { Employee } from 'src/models/apimodels/Employee'
 import ModalTrabajador from './ModalTrabajador'
 
 import { saveAs } from 'file-saver'

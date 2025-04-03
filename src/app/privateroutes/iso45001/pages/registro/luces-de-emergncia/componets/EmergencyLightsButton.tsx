@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { KTCardBody } from "../../../../../../generalcomponents/helpers";
-import { EmergencyLightsRequest } from "@zeus/models/apimodels/EmergencyLightsModel";
+import { EmergencyLightsRequest } from "src/models/apimodels/EmergencyLightsModel";
 
 export interface EmergencyLightsForm {
 	numero: string;

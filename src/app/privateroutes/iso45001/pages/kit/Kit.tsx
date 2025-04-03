@@ -1,5 +1,5 @@
-import { Content } from '@zeus/app/generalcomponents/layouts/content'
-import { ToolbarWrapper } from '@zeus/app/generalcomponents/layouts/toolbar'
+import { Content } from 'src/app/generalcomponents/layouts/content'
+import { ToolbarWrapper } from 'src/app/generalcomponents/layouts/toolbar'
 import { useEffect, useState } from 'react'
 import { KitResponse } from '../../../../../models/apimodels/KitModel'
 import KitButton from './KitButton'

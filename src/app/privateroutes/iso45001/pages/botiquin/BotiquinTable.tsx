@@ -1,4 +1,4 @@
-import { KTCard, KTCardBody } from '@zeus/app/generalcomponents/helpers'
+import { KTCard, KTCardBody } from 'src/app/generalcomponents/helpers'
 import { saveAs } from 'file-saver'
 import * as XLSX from 'xlsx'
 import { useState } from 'react'

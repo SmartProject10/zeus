@@ -1,4 +1,4 @@
-import { ID,Response } from "@zeus/app/generalcomponents/helpers"
+import { ID,Response } from "src/app/generalcomponents/helpers"
 export type User = {
   id?: ID
   name?: string

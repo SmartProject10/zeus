@@ -1,6 +1,6 @@
 import {FC} from 'react'
 import {Link} from 'react-router-dom'
-import { toAbsoluteUrl } from '@zeus/app/generalcomponents/helpers'
+import { toAbsoluteUrl } from 'src/app/generalcomponents/helpers'
 
 const Error500: FC = () => {
   return (

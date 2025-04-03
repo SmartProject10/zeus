@@ -7,8 +7,8 @@ import {
   PaginationState,
   QUERIES,
   stringifyRequestQuery,
-} from '@zeus/app/generalcomponents/helpers';
-import { User } from '@zeus/models/apimodels/UserManagementModel';
+} from 'src/app/generalcomponents/helpers';
+import { User } from 'src/models/apimodels/UserManagementModel';
 import {useQueryRequest} from './QueryRequestProvider'
 
 interface WithChildren {

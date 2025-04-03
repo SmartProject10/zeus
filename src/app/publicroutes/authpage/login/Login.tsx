@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import clsx from 'clsx';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { useEmployee } from '@zeus/app/EmployeeContext';
+import { useEmployee } from 'src/app/EmployeeContext';
 import { useIntl } from 'react-intl';
 
 const loginSchema = Yup.object().shape({

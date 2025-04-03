@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import './index.scss'
 
-import { Navbar as NavbarItems } from '@zeus/app/generalcomponents/layouts/header/Navbar'
-import { useLayout } from '@zeus/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
+import { Navbar as NavbarItems } from 'src/app/generalcomponents/layouts/header/Navbar'
+import { useLayout } from 'src/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
 
 export function Navbar(): JSX.Element {
 	const { config, classes } = useLayout()

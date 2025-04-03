@@ -1,9 +1,9 @@
 
 import {FC} from 'react'
-import { KTIcon,toAbsoluteUrl } from '@zeus/app/generalcomponents/helpers'
-import { ChatInner,Dropdown1 } from '@zeus/app/generalcomponents/partials'
-import { ToolbarWrapper } from '@zeus/app/generalcomponents/layouts/toolbar'
-import { Content } from '@zeus/app/generalcomponents/layouts/content'
+import { KTIcon,toAbsoluteUrl } from 'src/app/generalcomponents/helpers'
+import { ChatInner,Dropdown1 } from 'src/app/generalcomponents/partials'
+import { ToolbarWrapper } from 'src/app/generalcomponents/layouts/toolbar'
+import { Content } from 'src/app/generalcomponents/layouts/content'
 
 const Private: FC = () => {
   return (

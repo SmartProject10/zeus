@@ -1,9 +1,9 @@
 import clsx from 'clsx'
 import {FC, PropsWithChildren, useMemo} from 'react'
 import {HeaderProps} from 'react-table'
-import {initialQueryState} from '@zeus/app/generalcomponents/helpers';
+import {initialQueryState} from 'src/app/generalcomponents/helpers';
 import {useQueryRequest} from '../../core/QueryRequestProvider'
-import { User } from '@zeus/models/apimodels/UserManagementModel';
+import { User } from 'src/models/apimodels/UserManagementModel';
 
 type Props = {
   className?: string

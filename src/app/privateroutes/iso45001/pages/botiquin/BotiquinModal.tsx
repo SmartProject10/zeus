@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
-import { dateInput } from '@zeus/app/generalcomponents/utils/dateformat/dateFormat'
+import { dateInput } from 'src/app/generalcomponents/utils/dateformat/dateFormat'
 import Swal from 'sweetalert2'
 import clsx from 'clsx'
 import { useState, useEffect } from 'react'

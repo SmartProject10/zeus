@@ -1,5 +1,5 @@
-import { Content } from '@zeus/app/generalcomponents/layouts/content'
-import { ToolbarWrapper } from '@zeus/app/generalcomponents/layouts/toolbar'
+import { Content } from 'src/app/generalcomponents/layouts/content'
+import { ToolbarWrapper } from 'src/app/generalcomponents/layouts/toolbar'
 import AsistenciaTable from './AsistenciaTable'
 
 export function Asistencia(): JSX.Element {

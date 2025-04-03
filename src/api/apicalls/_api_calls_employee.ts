@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import { AxiosError } from 'axios';
 import _api from "../_api";
-import { EmployeeDataRegister,EmployeeDataLogin } from "@zeus/models/models";
+import { EmployeeDataRegister,EmployeeDataLogin } from "src/models/models";
 
 const _api_calls_employee = {
 

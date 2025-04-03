@@ -1,8 +1,8 @@
 
 import { FC, useEffect } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
-import { MenuComponent } from '@zeus/app/generalcomponents/assets/ts/components';
-import { ID, KTIcon, QUERIES } from '@zeus/app/generalcomponents/helpers';
+import { MenuComponent } from 'src/app/generalcomponents/assets/ts/components';
+import { ID, KTIcon, QUERIES } from 'src/app/generalcomponents/helpers';
 import { useListView } from '../../core/ListViewProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
 

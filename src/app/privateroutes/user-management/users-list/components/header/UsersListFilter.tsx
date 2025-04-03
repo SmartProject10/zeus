@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
-import { MenuComponent } from '@zeus/app/generalcomponents/assets/ts/components'
-import { initialQueryState, KTIcon } from '@zeus/app/generalcomponents/helpers'
+import { MenuComponent } from 'src/app/generalcomponents/assets/ts/components'
+import { initialQueryState, KTIcon } from 'src/app/generalcomponents/helpers'
 import {useQueryRequest} from '../../core/QueryRequestProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
 

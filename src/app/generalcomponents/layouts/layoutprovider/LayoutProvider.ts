@@ -1,4 +1,4 @@
-import { ILayout,ILayoutCSSClasses,ILayoutHTMLAttributes,ILayoutCSSVariables } from "@zeus/models/layoutprovider/model";
+import { ILayout,ILayoutCSSClasses,ILayoutHTMLAttributes,ILayoutCSSVariables } from "src/models/layoutprovider/model";
 
 const LAYOUT_CONFIG_KEY = import.meta.env.VITE_APP_BASE_LAYOUT_CONFIG_KEY || 'LayoutConfig';
 

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import SVG from 'react-inlinesvg'
-import { toAbsoluteUrl } from '@zeus/app/generalcomponents/helpers'
+import { toAbsoluteUrl } from 'src/app/generalcomponents/helpers'
 
 const MenuTestPage: FC = () => {
   return (

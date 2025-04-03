@@ -23,7 +23,7 @@
     /* Paths */
     "baseUrl": ".",
     "paths": {
-      "@zeus/*": ["src/*"]
+      
     }
   },
   "include": ["src"],

@@ -3,9 +3,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import Swal from 'sweetalert2';
 
-import _api_calls_employee from '@zeus/api/apicalls/_api_calls_employee';
-import { Employee } from '@zeus/models/apimodels/Employee';
-import { EmployeeDataRegister,EmployeeDataLogin } from '@zeus/models/models';
+import _api_calls_employee from 'src/api/apicalls/_api_calls_employee';
+import { Employee } from 'src/models/apimodels/Employee';
+import { EmployeeDataRegister,EmployeeDataLogin } from 'src/models/models';
 
 interface WithChildren {
   children: ReactNode;

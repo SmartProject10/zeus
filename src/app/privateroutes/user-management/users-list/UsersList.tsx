@@ -4,8 +4,8 @@ import {QueryResponseProvider} from './core/QueryResponseProvider'
 import {UsersListHeader} from './components/header/UsersListHeader'
 import {UsersTable} from './table/UsersTable'
 import {UserEditModal} from './user-edit-modal/UserEditModal'
-import {KTCard} from '@zeus/app/generalcomponents/helpers'
-import { ToolbarWrapper } from '@zeus/app/generalcomponents/layouts/toolbar'
+import {KTCard} from 'src/app/generalcomponents/helpers'
+import { ToolbarWrapper } from 'src/app/generalcomponents/layouts/toolbar'
 import { Content } from 'antd/es/layout/layout'
 
 const UsersList = () => {

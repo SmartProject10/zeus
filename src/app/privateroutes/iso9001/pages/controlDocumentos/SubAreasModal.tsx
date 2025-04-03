@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AreasResponse, SubAreasResponse } from './core/_models';
 import Swal from 'sweetalert2';
-//import { BASE_URL } from '@zeus/@services/api/requests/accident.requests';
+//import { BASE_URL } from 'src/@services/api/requests/accident.requests';
 
 interface SubAreasModalProps {
     saveSubArea: (subarea: SubAreasResponse[]) => void; // Pasar arreglo completo

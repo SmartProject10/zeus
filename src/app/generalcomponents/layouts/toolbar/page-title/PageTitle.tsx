@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import {Link} from 'react-router-dom'
-import { useLayout,usePageData } from '@zeus/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
+import { useLayout,usePageData } from 'src/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
 
 const PageTitle = () => {
   const {pageTitle, pageDescription, pageBreadcrumbs} = usePageData()

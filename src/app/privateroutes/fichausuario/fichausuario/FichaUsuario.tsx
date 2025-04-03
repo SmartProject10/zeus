@@ -1,4 +1,4 @@
-import { KTIcon } from '@zeus/app/generalcomponents/helpers'
+import { KTIcon } from 'src/app/generalcomponents/helpers'
 import './FichaUsuario.scss'
 
 import { CourseHistory } from './coursehistory/course-history'

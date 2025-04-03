@@ -1,4 +1,4 @@
-import { KTIcon } from "@zeus/app/generalcomponents/helpers"
+import { KTIcon } from "src/app/generalcomponents/helpers"
 
 function Pagination () {
 	return (
