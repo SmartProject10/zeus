@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { KTIcon, toAbsoluteUrl } from "../../helpers";
 import { useLayout } from "@zeus/app/generalcomponents/layouts/layoutprovider/LayoutProvider";
-import { LayoutSetup } from "@zeus/classes/layoutprovider/classes";
+import { LayoutSetup } from "@zeus/app/generalcomponents/layouts/layoutprovider/LayoutProvider";
 import { Header } from "./Header";
 import { Navbar } from "./Navbar";
 
