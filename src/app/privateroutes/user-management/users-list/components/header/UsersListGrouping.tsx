@@ -2,21 +2,21 @@ import {useQueryClient, useMutation} from 'react-query'
 import { QUERIES } from '@zeus/app/generalcomponents/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
-import { backyService } from '@zeus/app/@services/api'
 
 const UsersListGrouping = () => {
   const {selected, clearSelected} = useListView()
   const queryClient = useQueryClient()
   const {query} = useQueryResponse()
 
-  const deleteSelectedItems = useMutation(() => backyService.userManagementRequests.deleteSelected(selected), {
-    // 💡 response of the mutation is passed to onSuccess
-    onSuccess: () => {
-      // ✅ update detail view directly
-      queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
-      clearSelected()
-    },
-  })
+  //suplantar por la llamada a la api que "updatea" los user seleccionados (usuarios empleados) por medio de sus "ids"
+  // const deleteSelectedItems = useMutation(() => backyService.userManagementRequests.deleteSelected(selected), {
+  //   // 💡 response of the mutation is passed to onSuccess
+  //   onSuccess: () => {
+  //     // ✅ update detail view directly
+  //     queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
+  //     clearSelected()
+  //   },
+  // })
 
   return (
     <div
@@ -30,7 +30,7 @@ className="me-2">{selected.length}</span> Selected
       <button
         type="button"
         className="btn btn-danger"
-        onClick={async () => await deleteSelectedItems.mutateAsync()}
+        //onClick={async () => await deleteSelectedItems.mutateAsync()}
       >
         Delete Selected
       </button>

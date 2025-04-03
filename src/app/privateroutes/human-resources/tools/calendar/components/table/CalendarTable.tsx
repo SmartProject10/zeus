@@ -4,7 +4,6 @@ import { KTCardBody } from '@zeus/app/generalcomponents/helpers'
 import { dayMonthYear } from '@zeus/app/generalcomponents/utils/dateformat/dateFormat'
 import { Employee } from '@zeus/models/apimodels/Employee'
 import ModalTrabajador from './ModalTrabajador'
-import { backyService } from '@zeus/app/@services/api'
 
 import { saveAs } from 'file-saver'
 import * as XLSX from 'xlsx'
@@ -90,6 +89,8 @@ const CalendarTable = () => {
       // try {
       //   //const response = await get();
       //   const filters = `?limit=${limitPerPage}`
+
+          //actualizar con la api de "employee"
       //   const response = await backyService.employee.getFiltered(filters)
 
       //   if (response.status == 200) {
@@ -154,6 +155,8 @@ const CalendarTable = () => {
     const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
 
     // try {
+
+         //actualizar con la api de "employee"
     //   const response = await backyService.employee.getFiltered(filters)
     //   console.log(response)
 
@@ -175,7 +178,7 @@ const CalendarTable = () => {
     const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
 
     // try {
-
+         //actualizar con la api de "employee"
     //   const response: any = await backyService.employee.getFiltered(filters)
 
     //   if (response.status == 200) {
@@ -240,6 +243,7 @@ const CalendarTable = () => {
       //           sizeShoe: Employee.sizeShoe,
       //         }
 
+                //actualizar con la api de "employee"
       //         const response = await backyService.employee.put(Employee._id, request)
 
       //         if (response.status == 200) {
@@ -305,6 +309,7 @@ const CalendarTable = () => {
       //           sizeShoe: Employee.sizeShoe,
       //         }
 
+                 //actualizar con la api de "employee"
       //         const response = await backyService.employee.put(Employee._id, request)
 
       //         if (response.status == 200) {
@@ -351,6 +356,7 @@ const CalendarTable = () => {
       const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
       // try {
 
+           //actualizar con la api de "employee"
       //   const response: any = await backyService.employee.getFiltered(filters)
 
       //   if (response.status == 200) {
@@ -370,6 +376,7 @@ const CalendarTable = () => {
       
       // try {
 
+            //actualizar con la api de "employee"
       //   const response: any = await backyService.employee.getFiltered(filters)
 
       //   if (response.status == 200) {

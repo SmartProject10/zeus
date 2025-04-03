@@ -8,8 +8,7 @@ import {
   QUERIES,
   stringifyRequestQuery,
 } from '@zeus/app/generalcomponents/helpers';
-import { backyService } from '@zeus/app/@services/api'
-import {User} from '../../../../../@services/api/dtos/UserManagementModel'
+import { User } from '@zeus/models/apimodels/UserManagementModel';
 import {useQueryRequest} from './QueryRequestProvider'
 
 interface WithChildren {
@@ -35,7 +34,8 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
   } = useQuery(
     `${QUERIES.USERS_LIST}-${query}`,
     () => {
-      return backyService.userManagementRequests.getAll(query)
+      //suplantar por la llamada a la api que "agarra todos los users empleados por ids" (usuario empleado)
+      //return backyService.userManagementRequests.getAll(query)
     },
     { cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false },
   )

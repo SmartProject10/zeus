@@ -1,9 +1,6 @@
-//import {  } from '../dtos/...'
-import { IService, SConstructor } from '../types/apiService.types'
 
-export const AccidentsRequests = <TClass extends SConstructor<IService>>(Base: TClass) => {
-    return class extends Base {
-        accidentsRequests = {
+const _api_calls_accident = {
+
             // put: (id: string, emergencyLight: EmergencyLightsRequest) => {
             //     return this.http.put(`/api/emergencyLight/${id}`, emergencyLight);
             // },
@@ -16,6 +13,7 @@ export const AccidentsRequests = <TClass extends SConstructor<IService>>(Base: T
             // register: (request: EmergencyLightsRequest) => {
             //     return this.http.post(`/api/emergencyLight`, request);
             // },
-        }
-    }
+
 }
+
+export default _api_calls_accident;

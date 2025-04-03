@@ -3,8 +3,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import Swal from 'sweetalert2';
 
-import { backyService } from './@services/api';
+import _api_calls_employee from '@zeus/api/apicalls/_api_calls_employee';
 import { Employee } from '@zeus/models/apimodels/Employee';
+import { EmployeeDataRegister,EmployeeDataLogin } from '@zeus/models/models';
 
 interface WithChildren {
   children: ReactNode;
@@ -14,8 +15,8 @@ interface EmployeeContextType {
   isLoading: boolean;
   isAuth: boolean;
   employee: Employee;
-  register: (data: DataRegistration) => Promise<boolean>;
-  login: (data: DataLogin) => Promise<boolean>;
+  register: (data: EmployeeDataRegister) => Promise<boolean>;
+  login: (data: EmployeeDataLogin) => Promise<boolean>;
   logout: () => Promise<void>;
   getEmployee: () => Promise<void>;
 }
@@ -73,26 +74,14 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-interface DataLogin {
-  email: string;
-  password: string;
-}
-
-interface DataRegistration {
-  email: string;
-  name: string;
-  lastname: string;
-  password: string;
-}
-
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [employee, setEmployee] = useState<Employee>({} as Employee);
   const [isAuth, setIsAuth] = useState<boolean>(false);
 
-  const register = async (data: DataRegistration): Promise<boolean> => {
+  const register = async (data: EmployeeDataRegister): Promise<boolean> => {
     try {
-      const response = await backyService.employee.register(data);
+      const response = await _api_calls_employee._register(data);
       const employee: Employee = response.data;
       setEmployee(employee);
       setIsAuth(true);
@@ -112,9 +101,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const login = async (data: DataLogin): Promise<boolean> => {
+  const login = async (data: EmployeeDataLogin): Promise<boolean> => {
     try {
-      const response = await backyService.employee.login(data);
+      const response = await _api_calls_employee._login(data);
       const employee: Employee = response.data;
       setEmployee(employee);
       setIsAuth(true);
@@ -135,7 +124,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async (): Promise<void> => {
     try {
-      await backyService.employee.logout();
+      await _api_calls_employee._logout();
       setEmployee({} as Employee);
       setIsAuth(false);
       window.location.href = '/';
@@ -146,7 +135,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const getEmployee = async (): Promise<void> => {
     try {
-      const response = await backyService.employee.get();
+      const response = await _api_calls_employee._getProfile();
       if (response.status === 200) {
         const employee: Employee = response.data;
         setEmployee(employee);

@@ -8,7 +8,6 @@ import * as XLSX from "xlsx";
 import { EmergencyLightsResponse } from "@zeus/models/apimodels/EmergencyLightsModel";
 import { Employee } from "@zeus/models/apimodels/Employee";
 import { ModalEmergencyLightsForm } from "./ModalEmergencyLightsForm";
-import { backyService } from "@zeus/app/@services/api";
 
 interface EmployeeForm {
 	numero: string;
@@ -49,6 +48,8 @@ export const EmergencylightsTable = () => {
 			// try {
 			// 	//const response = await get();
 			// 	const filters = `?limit=${limitPerPage}`;
+
+				//actualizar con la api de "employee"
 			// 	const response = await backyService.employee.getFiltered(filters);
 
 			// 	if (response.status == 200) {
@@ -116,6 +117,8 @@ export const EmergencylightsTable = () => {
 		const filters = `?numero=${formData.numero}&sede=${formData.sede}&area=${formData.area}&ubicacionEspecifica=${formData.ubicacionEspecifica}&codigo=${formData.codigo}&marca=${formData.marca}&fechaIngresoEmpresaInicial=${formData.fechaIngresoEmpresaInicial}&fechaIngresoEmpresaFinal=${formData.fechaIngresoEmpresaFinal}&limit=${limitPerPage}`;
 
 		// try {
+
+			//actualizar con la api de "employee"
 		// 	const response = await backyService.employee.getFiltered(filters);
 		// 	console.log(response);
 
@@ -134,6 +137,8 @@ export const EmergencylightsTable = () => {
 		const filters = `?numero=${formData.numero}&sede=${formData.sede}&area=${formData.area}&ubicacionEspecifica=${formData.ubicacionEspecifica}&codigo=${formData.codigo}&marca=${formData.marca}&fechaIngresoEmpresaInicial=${formData.fechaIngresoEmpresaInicial}&fechaIngresoEmpresaFinal=${formData.fechaIngresoEmpresaFinal}&page=${page}&limit=${limitPerPage}`;
 
 		// try {
+
+			//actualizar con la api de "employee"
 		// 	const response: any = await backyService.employee.getFiltered(filters);
 
 		// 	if (response.status == 200) {
@@ -160,6 +165,8 @@ export const EmergencylightsTable = () => {
 			}&limit=${limitPerPage}`;
 
 			// try {
+
+				//actualizar con la api de "employee"
 			// 	const response: any = await backyService.employee.getFiltered(filters);
 
 			// 	if (response.status == 200) {
@@ -183,6 +190,8 @@ export const EmergencylightsTable = () => {
 			}&limit=${limitPerPage}`;
 
 			// try {
+
+				//actualizar con la api de "employee"
 			// 	const response: any = await backyService.employee.getFiltered(filters);
 
 			// 	if (response.status == 200) {

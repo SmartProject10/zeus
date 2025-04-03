@@ -8,7 +8,6 @@ import * as XLSX from "xlsx";
 import { EmergencyLightsResponse } from "@zeus/models/apimodels/EmergencyLightsModel";
 import { Employee } from "@zeus/models/apimodels/Employee";
 import { ModalInspectionEmergencyLightsForm } from "./ModalInspectionEmergencyLightsForm";
-import { backyService } from "@zeus/app/@services/api";
 
 interface EmployeeForm {
 	fechaInspeccion: string;
@@ -57,6 +56,8 @@ export const InspectionEmergencylightsTable = () => {
 			// try {
 			// 	//const response = await get();
 			// 	const filters = `?limit=${limitPerPage}`;
+
+				//actualizar con la api de "employee"
 			// 	const response = await backyService.employee.getFiltered(filters);
 
 			// 	if (response.status == 200) {
@@ -124,6 +125,8 @@ export const InspectionEmergencylightsTable = () => {
 		const filters = `?fechaInspeccion=${formData.fechaInspeccion}&area=${formData.area}&sede=${formData.sede}&enumerado=${formData.enumerado}&ubicacionAdecuada=${formData.ubicacionAdecuada}&enSuLugar=${formData.enSuLugar}&libreDeObstaculos=${formData.libreDeObstaculos}&conectadoTomacorriente=${formData.conectadoTomacorriente}&enciendeSwitchPrueba=${formData.enciendeSwitchPrueba}&buenaIluminacion=${formData.buenaIluminacion}&buenaEstado=${formData.buenaEstado}&encendidoQuinceMin=${formData.encendidoQuinceMin}&limit=${limitPerPage}`;
 
 		// try {
+
+			//actualizar con la api de "employee"
 		// 	const response = await backyService.employee.getFiltered(filters);
 		// 	console.log(response);
 
@@ -142,6 +145,8 @@ export const InspectionEmergencylightsTable = () => {
 		const filters = `?fechaInspeccion=${formData.fechaInspeccion}&area=${formData.area}&sede=${formData.sede}&enumerado=${formData.enumerado}&ubicacionAdecuada=${formData.ubicacionAdecuada}&enSuLugar=${formData.enSuLugar}&libreDeObstaculos=${formData.libreDeObstaculos}&conectadoTomacorriente=${formData.conectadoTomacorriente}&enciendeSwitchPrueba=${formData.enciendeSwitchPrueba}&buenaIluminacion=${formData.buenaIluminacion}&buenaEstado=${formData.buenaEstado}&encendidoQuinceMin=${formData.encendidoQuinceMin}&limit=${limitPerPage}`;
 
 		// try {
+
+			//actualizar con la api de "employee"
 		// 	const response: any = await backyService.employee.getFiltered(filters);
 
 		// 	if (response.status == 200) {
@@ -160,6 +165,8 @@ export const InspectionEmergencylightsTable = () => {
 			const filters = `?fechaInspeccion=${formData.fechaInspeccion}&area=${formData.area}&sede=${formData.sede}&enumerado=${formData.enumerado}&ubicacionAdecuada=${formData.ubicacionAdecuada}&enSuLugar=${formData.enSuLugar}&libreDeObstaculos=${formData.libreDeObstaculos}&conectadoTomacorriente=${formData.conectadoTomacorriente}&enciendeSwitchPrueba=${formData.enciendeSwitchPrueba}&buenaIluminacion=${formData.buenaIluminacion}&buenaEstado=${formData.buenaEstado}&encendidoQuinceMin=${formData.encendidoQuinceMin}&limit=${limitPerPage}`;
 
 			// try {
+
+				//actualizar con la api de "employee"
 			// 	const response: any = await backyService.employee.getFiltered(filters);
 
 			// 	if (response.status == 200) {
@@ -175,6 +182,8 @@ export const InspectionEmergencylightsTable = () => {
 			const filters = `?fechaInspeccion=${formData.fechaInspeccion}&area=${formData.area}&sede=${formData.sede}&enumerado=${formData.enumerado}&ubicacionAdecuada=${formData.ubicacionAdecuada}&enSuLugar=${formData.enSuLugar}&libreDeObstaculos=${formData.libreDeObstaculos}&conectadoTomacorriente=${formData.conectadoTomacorriente}&enciendeSwitchPrueba=${formData.enciendeSwitchPrueba}&buenaIluminacion=${formData.buenaIluminacion}&buenaEstado=${formData.buenaEstado}&encendidoQuinceMin=${formData.encendidoQuinceMin}&limit=${limitPerPage}`;
 
 			// try {
+
+				//actualizar con la api de "employee"
 			// 	const response: any = await backyService.employee.getFiltered(filters);
 
 			// 	if (response.status == 200) {

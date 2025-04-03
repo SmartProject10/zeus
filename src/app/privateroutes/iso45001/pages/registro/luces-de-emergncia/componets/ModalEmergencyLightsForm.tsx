@@ -2,7 +2,6 @@ import { ReactNode, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { dateInput } from "../../../../../../generalcomponents/utils/dateformat/dateFormat";
 import { EmergencyLightsResponse,EmergencyLightsRequest } from "@zeus/models/apimodels/EmergencyLightsModel";
-import { backyService } from "@zeus/app/@services/api";
 
 interface MyComponentProps {
 	idEmployee: string;
@@ -37,21 +36,22 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 	useEffect(() => {
 		const initEmployee = async () => {
 			try {
-				const response = await backyService.emergencyLights.getById(idEmployee);
+				//actualizarlo con el endpoint correspondiente de "emergencyLights"
+				//const response = await backyService.emergencyLights.getById(idEmployee);
 
-				if (response.status == 200) {
-					const Employee: EmergencyLightsResponse = response.data;
+			// 	if (response.status == 200) {
+			// 		const Employee: EmergencyLightsResponse = response.data;
 
-					setForm({
-						numero: Employee.area,
-						sede: Employee.sede,
-						area: Employee.area,
-						ubicacionEspecifica: Employee.ubicacionEspecifica,
-						codigo: Employee.codigo,
-						marca: Employee.marca,
-						fechaIngresoEmpresa: dateInput(Employee.fechaIngresoEmpresa),
-					});
-				}
+			// 		setForm({
+			// 			numero: Employee.area,
+			// 			sede: Employee.sede,
+			// 			area: Employee.area,
+			// 			ubicacionEspecifica: Employee.ubicacionEspecifica,
+			// 			codigo: Employee.codigo,
+			// 			marca: Employee.marca,
+			// 			fechaIngresoEmpresa: dateInput(Employee.fechaIngresoEmpresa),
+			// 		});
+			// 	}
 			} catch (error: any) {
 				console.error(error);
 			}
@@ -80,29 +80,30 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 			if (result.isConfirmed) {
 				try {
 					const deleteEmployee = async () => {
-						const response = await backyService.emergencyLights.delete(id);
+						//actualizarlo con el endpoint correspondiente de "emergencyLights"
+						//const response = await backyService.emergencyLights.delete(id);
 
-						if (response.status == 200) {
-							// nesesario agregar estado global para estas entidades (luces de emergencia)
-							// appStateService.deleteEmployeeSubject(id);
-							// appStateService.setActiveModalSubject();
+						// if (response.status == 200) {
+						// 	// nesesario agregar estado global para estas entidades (luces de emergencia)
+						// 	// appStateService.deleteEmployeeSubject(id);
+						// 	// appStateService.setActiveModalSubject();
 
-							const Toast = Swal.mixin({
-								toast: true,
-								position: "top-end",
-								showConfirmButton: false,
-								timer: 3000,
-								timerProgressBar: true,
-								didOpen: (toast) => {
-									toast.onmouseenter = Swal.stopTimer;
-									toast.onmouseleave = Swal.resumeTimer;
-								},
-							});
-							Toast.fire({
-								icon: "success",
-								title: "luz de emergencia eliminada correctamente",
-							});
-						}
+						// 	const Toast = Swal.mixin({
+						// 		toast: true,
+						// 		position: "top-end",
+						// 		showConfirmButton: false,
+						// 		timer: 3000,
+						// 		timerProgressBar: true,
+						// 		didOpen: (toast) => {
+						// 			toast.onmouseenter = Swal.stopTimer;
+						// 			toast.onmouseleave = Swal.resumeTimer;
+						// 		},
+						// 	});
+						// 	Toast.fire({
+						// 		icon: "success",
+						// 		title: "luz de emergencia eliminada correctamente",
+						// 	});
+						// }
 					};
 
 					deleteEmployee();
@@ -165,29 +166,30 @@ export const ModalEmergencyLightsForm: React.FC<MyComponentProps> = ({
 							fechaIngresoEmpresa: form.fechaIngresoEmpresa,
 						};
 
-						const response = await backyService.emergencyLights.put(id, request);
+						//actualizarlo con el endpoint correspondiente de "emergencyLights"
+						//const response = await backyService.emergencyLights.put(id, request);
 
-						if (response.status == 200) {
-							// nesesario agregar estado global para estas entidades (luces de emergencia)
-							// appStateService.putEmployeeSubject(id, request);
-							// appStateService.setActiveModalSubject();
+						// if (response.status == 200) {
+						// 	// nesesario agregar estado global para estas entidades (luces de emergencia)
+						// 	// appStateService.putEmployeeSubject(id, request);
+						// 	// appStateService.setActiveModalSubject();
 
-							const Toast = Swal.mixin({
-								toast: true,
-								position: "top-end",
-								showConfirmButton: false,
-								timer: 3000,
-								timerProgressBar: true,
-								didOpen: (toast) => {
-									toast.onmouseenter = Swal.stopTimer;
-									toast.onmouseleave = Swal.resumeTimer;
-								},
-							});
-							Toast.fire({
-								icon: "success",
-								title: "Luz de emergencia editada correctamente",
-							});
-						}
+						// 	const Toast = Swal.mixin({
+						// 		toast: true,
+						// 		position: "top-end",
+						// 		showConfirmButton: false,
+						// 		timer: 3000,
+						// 		timerProgressBar: true,
+						// 		didOpen: (toast) => {
+						// 			toast.onmouseenter = Swal.stopTimer;
+						// 			toast.onmouseleave = Swal.resumeTimer;
+						// 		},
+						// 	});
+						// 	Toast.fire({
+						// 		icon: "success",
+						// 		title: "Luz de emergencia editada correctamente",
+						// 	});
+						// }
 					};
 
 					editEmployee();

@@ -3,7 +3,6 @@ import * as Yup from 'yup'
 import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { backyService } from '@zeus/app/@services/api'
 
 const initialValues = {
   email: 'admin@demo.com',
@@ -27,6 +26,8 @@ export function ForgotPassword() {
       setLoading(true)
       setHasErrors(undefined)
       setTimeout(() => {
+
+        //actualizar con la api de "employee"
         // backyService.auth.resetPassword(values.email)
         //   .then(() => {
         //     setHasErrors(false)

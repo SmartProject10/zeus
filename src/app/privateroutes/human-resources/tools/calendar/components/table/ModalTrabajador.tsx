@@ -1,7 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
-import { dateInput } from '../../../../../../generalcomponents/utils/dateformat/dateFormat'
-import { backyService } from '@zeus/app/@services/api'
 import { Employee } from '@zeus/models/apimodels/Employee'
 
 interface MyComponentProps {
@@ -87,6 +85,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
         const initEmployee = async () => {
 
             // try {
+                   //actualizar con la api de "employee"
             //     const response = await backyService.employee.getById(idEmployee)
 
             //     if (response.status == 200) {
@@ -156,7 +155,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
 
                 // try {
                 //     const deleteEmployee = async () => {
-
+                           //actualizar con la api de "employee"
                 //         const response = await backyService.employee.delete(id)
 
                 //         if(response.status == 200){
@@ -291,7 +290,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
                 //             sizePolo: form.sizePolo,
                 //             sizeShoe: form.sizeShoe,
                 //         }
-
+                           //actualizar con la api de "employee"
                 //         const response = await backyService.employee.put(id, request)
 
                 //         if(response.status == 200){

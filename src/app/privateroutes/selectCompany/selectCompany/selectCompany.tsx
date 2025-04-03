@@ -1,5 +1,4 @@
 import { CompanyCard } from '@zeus/app/generalcomponents/components/companyCard'
-import { backyService } from '@zeus/app/@services/api'
 import { KTIcon } from '@zeus/app/generalcomponents/helpers'
 import { useEffect, useState } from 'react'
 import './selectCompany.scss'
@@ -10,9 +9,11 @@ export function SelectCompany(): JSX.Element{
 	const [companies, setCompanies] = useState<Array<{ id: string; companyName: string; details: string }>>([])
 
 	useEffect(() => {
-		backyService.companies.getCompanies().then((response) => {
-			setCompanies(response.data)
-		})
+
+		//actualizarlo con la api de "company"
+		// backyService.companies.getCompanies().then((response) => {
+		// 	setCompanies(response.data)
+		// })
 	}, [])
 
 	return (

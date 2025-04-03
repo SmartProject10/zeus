@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { KTCardBody } from "../../../../../../generalcomponents/helpers";
-import { backyService } from "@zeus/app/@services/api";
 import { EmergencyLightsRequest } from "@zeus/models/apimodels/EmergencyLightsModel";
 
 export interface EmergencyLightsForm {
@@ -102,34 +101,35 @@ export const EmergencyLightsButton = () => {
 		};
 
 		try {
-			const resp = await backyService.emergencyLights.register(newEmployee);
+			//actualizarlo con el endpoint correspondiente de "emergencyLights"
+			//const resp = await backyService.emergencyLights.register(newEmployee);
 
-			if (resp.status == 201) {
-				//appStateService.setEmployeeSubject(resp.data);
+			// if (resp.status == 201) {
+			// 	//appStateService.setEmployeeSubject(resp.data);
 
-				const Toast = Swal.mixin({
-					toast: true,
-					position: "top-end",
-					showConfirmButton: false,
-					timer: 3000,
-					timerProgressBar: true,
-					didOpen: (toast) => {
-						toast.onmouseenter = Swal.stopTimer;
-						toast.onmouseleave = Swal.resumeTimer;
-					},
-				});
-				Toast.fire({
-					icon: "success",
-					title: "Trabajador creado correctamente",
-				});
+			// 	const Toast = Swal.mixin({
+			// 		toast: true,
+			// 		position: "top-end",
+			// 		showConfirmButton: false,
+			// 		timer: 3000,
+			// 		timerProgressBar: true,
+			// 		didOpen: (toast) => {
+			// 			toast.onmouseenter = Swal.stopTimer;
+			// 			toast.onmouseleave = Swal.resumeTimer;
+			// 		},
+			// 	});
+			// 	Toast.fire({
+			// 		icon: "success",
+			// 		title: "Trabajador creado correctamente",
+			// 	});
 
-				const closeButton = document.getElementById("closeButton");
-				if (closeButton) {
-					closeButton.click();
-				}
-			} else {
-				console.log(resp);
-			}
+			// 	const closeButton = document.getElementById("closeButton");
+			// 	if (closeButton) {
+			// 		closeButton.click();
+			// 	}
+			// } else {
+			// 	console.log(resp);
+			// }
 		} catch (error) {
 			console.error("Error en la solicitud:", error);
 		}

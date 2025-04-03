@@ -2,7 +2,6 @@ import { useState } from 'react'
 import Swal from 'sweetalert2'
 import { KTCardBody } from '../../../../../../generalcomponents/helpers'
 import { Employee } from '@zeus/models/apimodels/Employee'
-import { backyService } from '@zeus/app/@services/api'
 
 export interface EmployeeForm {
     area: string
@@ -160,6 +159,7 @@ const CalendarButton = () => {
 
         try {
 
+            //actualizar con la api de employee
             //const resp = await backyService.employee.register(newEmployee)
 
             // if (resp.status == 201) {

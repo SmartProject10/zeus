@@ -2,12 +2,11 @@ import { FC, useState } from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { isNotEmpty, toAbsoluteUrl } from '@zeus/app/generalcomponents/helpers';
-import { initialUser, User } from '../../../../../@services/api/dtos/UserManagementModel'
+import { initialUser,User } from '@zeus/models/apimodels/UserManagementModel';
 import clsx from 'clsx'
 import { useListView } from '../core/ListViewProvider'
 import { UsersListLoading } from '../components/loading/UsersListLoading'
 import { useQueryResponse } from '../core/QueryResponseProvider'
-import { backyService } from '@zeus/app/@services/api'
 
 type Props = {
   isUserLoading: boolean
@@ -56,9 +55,11 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
       setSubmitting(true)
       try {
         if (isNotEmpty(values.id)) {
-          await backyService.userManagementRequests.update(values)
+          //suplantar por la llamada a la api que "updatea" al user (usuario empleado)
+          //await backyService.userManagementRequests.update(values)
         } else {
-          await backyService.userManagementRequests.create(values)
+          //suplantar por la llamada a la api que "crea" al user (usuario empleado)
+          //await backyService.userManagementRequests.create(values)
         }
       } catch (ex) {
         console.error(ex)

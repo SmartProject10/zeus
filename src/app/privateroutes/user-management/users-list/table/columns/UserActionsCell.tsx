@@ -5,7 +5,6 @@ import { MenuComponent } from '@zeus/app/generalcomponents/assets/ts/components'
 import { ID, KTIcon, QUERIES } from '@zeus/app/generalcomponents/helpers';
 import { useListView } from '../../core/ListViewProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
-import { backyService } from '@zeus/app/@services/api'
 
 type Props = {
   id: ID
@@ -24,13 +23,14 @@ const UserActionsCell: FC<Props> = ({ id }) => {
     setItemIdForUpdate(id)
   }
 
-  const deleteItem = useMutation(() => backyService.userManagementRequests.delete(id), {
-    // 💡 response of the mutation is passed to onSuccess
-    onSuccess: () => {
-      // ✅ update detail view directly
-      queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
-    },
-  })
+  //suplantar por la llamada a la api que "elimina" al user (usuario empleado)
+  // const deleteItem = useMutation(() => backyService.userManagementRequests.delete(id), {
+  //   // 💡 response of the mutation is passed to onSuccess
+  //   onSuccess: () => {
+  //     // ✅ update detail view directly
+  //     queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
+  //   },
+  // })
 
   return (
     <>
@@ -68,7 +68,7 @@ const UserActionsCell: FC<Props> = ({ id }) => {
           <a
             className="menu-link px-3"
             data-kt-users-table-filter="delete_row"
-            onClick={async () => await deleteItem.mutateAsync()}
+            //onClick={async () => await deleteItem.mutateAsync()}
           >
             Delete
           </a>
