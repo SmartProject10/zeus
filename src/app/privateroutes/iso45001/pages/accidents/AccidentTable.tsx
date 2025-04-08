@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { KTCard, KTCardBody } from 'src/app/generalcomponents/helpers'
+import { KTCard,KTCardBody } from '../../../../generalcomponents/helpers'
 import { AccidentsResponse } from '../../../../../models/apimodels/AccidentModel'
 import { useState, useEffect } from 'react'
 //import { BASE_URL } from '../../../../../@services/api/requests/accident.requests'

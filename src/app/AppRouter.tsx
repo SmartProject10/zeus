@@ -244,8 +244,12 @@ const router = createBrowserRouter([
                 </I18nProvider>
             </Suspense>
         ),
+
+
+        
         children: [
             // Rutas Públicas
+            { index: true, element: <Navigate to="/auth" /> },
             { path: 'auth/*', element: <AuthPage /> },
             { path: 'logout', element:<Logout /> },
             { path: 'error/*', element: <ErrorsPage /> },
@@ -259,7 +263,6 @@ const router = createBrowserRouter([
                     </ProtectedRoutes>
                 ),
                 children: [
-                    { index: true, element: <Navigate to="/select-company" /> },
                     { path: 'select-company/*', element: <SelectCompanyRoutes /> },
                     { path: 'home/*', element: <HomeRoutes /> },
                     { path: 'dashboard', element: <DashboardWrapper /> },
