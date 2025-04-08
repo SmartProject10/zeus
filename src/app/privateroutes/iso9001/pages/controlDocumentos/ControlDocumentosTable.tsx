@@ -1,4 +1,4 @@
-import { KTCard, KTCardBody } from 'src/app/generalcomponents/helpers';
+import { KTCard,KTCardBody } from '../../../../generalcomponents/helpers'
 import { ControlDocsResponse } from './core/_models';
 
 const ControlDocumentosTable = ({ dataSource, handleOpenModal, handleDeleteData }: any) => {

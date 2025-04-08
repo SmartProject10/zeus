@@ -1,8 +1,8 @@
 import { FC, useState } from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
-import { isNotEmpty, toAbsoluteUrl } from 'src/app/generalcomponents/helpers';
-import { initialUser,User } from 'src/models/apimodels/UserManagementModel';
+import { toAbsoluteUrl,isNotEmpty } from '../../../../generalcomponents/helpers';
+import { User,initialUser } from '../../../../../models/apimodels/UserManagementModel';
 import clsx from 'clsx'
 import { useListView } from '../core/ListViewProvider'
 import { UsersListLoading } from '../components/loading/UsersListLoading'

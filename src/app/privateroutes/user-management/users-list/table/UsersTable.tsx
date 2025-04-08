@@ -4,10 +4,10 @@ import {CustomHeaderColumn} from './columns/CustomHeaderColumn'
 import {CustomRow} from './columns/CustomRow'
 import {useQueryResponseData, useQueryResponseLoading} from '../core/QueryResponseProvider'
 import {usersColumns} from './columns/_columns'
-import { User } from 'src/models/apimodels/UserManagementModel'
+import { User } from '../../../../../models/apimodels/UserManagementModel';
 import {UsersListLoading} from '../components/loading/UsersListLoading'
 import {UsersListPagination} from '../components/pagination/UsersListPagination'
-import {KTCardBody} from 'src/app/generalcomponents/helpers';
+import { KTCardBody } from '../../../../generalcomponents/helpers'
 
 const UsersTable = () => {
   const users = useQueryResponseData()

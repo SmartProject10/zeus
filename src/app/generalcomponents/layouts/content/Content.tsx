@@ -1,7 +1,7 @@
 import {useEffect,ReactNode} from 'react'
 import {useLocation} from 'react-router'
 import clsx from 'clsx'
-import {useLayout} from '../../core'
+import { useLayout } from '../layoutprovider/LayoutProvider.tsx'
 import {DrawerComponent} from '../../assets/ts/components'
 
 interface WithChildren {

@@ -1,5 +1,5 @@
-import { Content } from 'src/app/generalcomponents/layouts/content'
-import { ToolbarWrapper } from 'src/app/generalcomponents/layouts/toolbar'
+import { Content } from '../../../../generalcomponents/layouts/content';
+import { ToolbarWrapper } from '../../../../generalcomponents/layouts/toolbar';
 import { useEffect, useState } from 'react'
 import BotiquinTable from './BotiquinTable'
 import BotiquinModal from './BotiquinModal'

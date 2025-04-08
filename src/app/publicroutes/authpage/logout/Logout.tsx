@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Navigate, Routes } from 'react-router-dom'
-import { useEmployee } from 'src/app/EmployeeContext'
+import { useEmployee } from '../../../EmployeeContext';
 
 export function Logout() {
   const { logout } = useEmployee()

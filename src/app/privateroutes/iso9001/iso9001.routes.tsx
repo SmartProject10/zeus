@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { Dashboard } from './pages/dashboard'
-import { PageTitle } from "src/app/generalcomponents/layouts/layoutprovider/LayoutProvider";
-import { PageLink } from 'src/models/layoutprovider/model';
+import { PageTitle } from '../../generalcomponents/layouts/layoutprovider/LayoutProvider.tsx';
+import { PageLink } from '../../../models/layoutprovider/model';
 import { ControlDocumentos } from './pages/controlDocumentos/ControlDocumentos'
 
 export function ISO9001Routes(): JSX.Element {

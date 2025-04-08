@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {FC,createContext,useContext,useState,useEffect,ReactNode} from 'react';
-import {ILayout,LayoutType,ToolbarType,PageDataContextModel,PageLink,LayoutContextModel} from 'src/models/layoutprovider/model';
-import { DefaultConfig,getEmptyCssClasses,getEmptyHTMLAttributes,getEmptyCSSVariables,LayoutSetup,setLayoutIntoLocalStorage } from 'src/app/generalcomponents/layouts/layoutprovider/LayoutProvider';
+import { ILayout,LayoutType,ToolbarType,PageDataContextModel,PageLink,LayoutContextModel } from '../../../../models/layoutprovider/model';
+import { DefaultConfig,getEmptyCssClasses,getEmptyHTMLAttributes,getEmptyCSSVariables,LayoutSetup,setLayoutIntoLocalStorage } from './LayoutProvider';
 
 interface WithChildren {
   children: ReactNode;

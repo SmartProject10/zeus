@@ -1,4 +1,5 @@
-import { ID,Response } from "src/app/generalcomponents/helpers"
+import { ID,Response } from "../../app/generalcomponents/helpers"
+
 export type User = {
   id?: ID
   name?: string

@@ -1,6 +1,6 @@
-import { KTCard, KTCardBody } from 'src/app/generalcomponents/helpers';
-import { Content } from 'src/app/generalcomponents/layouts/content';
-import { ToolbarWrapper } from 'src/app/generalcomponents/layouts/toolbar';
+import { KTCard,KTCardBody } from '../../../../generalcomponents/helpers'
+import { Content } from '../../../../generalcomponents/layouts/content';
+import { ToolbarWrapper } from '../../../../generalcomponents/layouts/toolbar';
 import { useEffect, useState } from 'react';
 // import { AccidentsResponse, RegistersResponse } from './core/_models';
 import Swal from 'sweetalert2';

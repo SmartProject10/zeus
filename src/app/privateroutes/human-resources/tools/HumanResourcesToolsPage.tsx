@@ -1,6 +1,6 @@
 import { Route, Routes, Outlet, Navigate } from 'react-router-dom'
-import { PageTitle } from 'src/app/generalcomponents/layouts/layoutprovider/LayoutProvider.tsx'
-import { PageLink } from 'src/models/layoutprovider/model.ts'
+import { PageTitle } from '../../../generalcomponents/layouts/layoutprovider/LayoutProvider.tsx'
+import { PageLink } from '../../../../models/layoutprovider/model.ts'
 import { CalendarWrapper } from './calendar/Calendar.tsx'
 import { ClockWrapper } from './clock/Clock.tsx'
 import { LibraryWrapper } from './library/library.tsx'

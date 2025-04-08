@@ -1,6 +1,6 @@
 import {Navigate, Route, Routes, Outlet} from 'react-router-dom'
-import {PageTitle} from 'src/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
-import { PageLink } from 'src/models/layoutprovider/model'
+import { PageTitle } from '../../generalcomponents/layouts/layoutprovider/LayoutProvider.tsx'
+import { PageLink } from '../../../models/layoutprovider/model'
 import {Private} from './components/Private'
 import {Group} from './components/Group'
 import {Drawer} from './components/Drawer'

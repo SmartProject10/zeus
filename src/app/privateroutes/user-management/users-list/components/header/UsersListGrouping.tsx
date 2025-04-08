@@ -1,5 +1,5 @@
 import {useQueryClient, useMutation} from 'react-query'
-import { QUERIES } from 'src/app/generalcomponents/helpers'
+import { QUERIES } from '../../../../../generalcomponents/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
 

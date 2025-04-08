@@ -1,4 +1,4 @@
-import { TitleBar } from 'src/app/generalcomponents/components/titleBar'
+import { TitleBar } from "../../../generalcomponents/components/titleBar"
 
 export function CompromisosAltaGenerencia(): JSX.Element {
     return (

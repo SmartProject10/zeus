@@ -1,4 +1,4 @@
-import { KTIcon } from 'src/app/generalcomponents/helpers'
+import { KTIcon } from '../../../../../generalcomponents/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {UsersListFilter} from './UsersListFilter'
 

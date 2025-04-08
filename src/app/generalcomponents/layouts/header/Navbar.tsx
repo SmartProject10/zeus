@@ -4,7 +4,7 @@ import {
   HeaderUserMenu,
   ThemeModeSwitcher
 } from "../../partials";
-import { useLayout } from "../../core";
+import { useLayout } from "../layoutprovider/LayoutProvider.tsx";
 import { NavbarItemModules } from "./navbarItems/itemModules";
 import { useLocation } from "react-router-dom";
 import { useEffect, useRef } from "react";

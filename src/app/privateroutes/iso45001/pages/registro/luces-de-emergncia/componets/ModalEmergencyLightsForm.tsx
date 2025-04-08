@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { dateInput } from "../../../../../../generalcomponents/utils/dateformat/dateFormat";
-import { EmergencyLightsResponse,EmergencyLightsRequest } from "src/models/apimodels/EmergencyLightsModel";
+import { EmergencyLightsRequest,EmergencyLightsResponse } from "../../../../../../../models/apimodels/EmergencyLightsModel";
 
 interface MyComponentProps {
 	idEmployee: string;

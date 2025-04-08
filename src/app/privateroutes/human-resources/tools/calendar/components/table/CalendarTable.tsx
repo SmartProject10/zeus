@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
-import { KTCardBody } from 'src/app/generalcomponents/helpers'
-import { dayMonthYear } from 'src/app/generalcomponents/utils/dateformat/dateFormat'
-import { Employee } from 'src/models/apimodels/Employee'
+import { KTCardBody } from '../../../../../../generalcomponents/helpers'
+import { dayMonthYear } from '../../../../../../generalcomponents/utils/dateformat/dateFormat'
+import { Employee } from '../../../../../../../models/apimodels/Employee'
 import ModalTrabajador from './ModalTrabajador'
-
 import { saveAs } from 'file-saver'
 import * as XLSX from 'xlsx'
 

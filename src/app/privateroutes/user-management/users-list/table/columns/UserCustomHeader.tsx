@@ -1,9 +1,9 @@
 import clsx from 'clsx'
 import {FC, PropsWithChildren, useMemo} from 'react'
 import {HeaderProps} from 'react-table'
-import {initialQueryState} from 'src/app/generalcomponents/helpers';
+import {initialQueryState} from '../../../../../generalcomponents/helpers';
 import {useQueryRequest} from '../../core/QueryRequestProvider'
-import { User } from 'src/models/apimodels/UserManagementModel';
+import { User } from '../../../../../../models/apimodels/UserManagementModel';
 
 type Props = {
   className?: string

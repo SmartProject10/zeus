@@ -1,9 +1,9 @@
-import { Content } from "src/app/generalcomponents/layouts/content";
+import { Content } from "../../../../../../generalcomponents/layouts/content";
 import { InspectionEmergencyLightsButton } from "./InspectionEmergencyLightsButton";
 import { InspectionEmergencylightsTable } from "./InspectionEmergencyLightsTable";
-import { KTCard } from "src/app/generalcomponents/helpers";
+import { KTCard } from "../../../../../../generalcomponents/helpers";
 import { InspectionEmergencyLightsHeader } from "./InspectionEmergencyLightsHeader";
-import { ToolbarWrapper } from "src/app/generalcomponents/layouts/toolbar";
+import { ToolbarWrapper } from "../../../../../../generalcomponents/layouts/toolbar";
 
 export const InspectionEmergencyLightsWrapper = () => (
 	<Content>

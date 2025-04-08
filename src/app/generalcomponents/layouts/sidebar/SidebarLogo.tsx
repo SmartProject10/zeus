@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom'
 import clsx from 'clsx'
 import {KTIcon, toAbsoluteUrl} from '../../helpers'
-import {useLayout} from '../../core'
+import { useLayout } from '../layoutprovider/LayoutProvider.tsx'
 import {MutableRefObject, useEffect, useRef} from 'react'
 import {ToggleComponent} from '../../assets/ts/components'
 

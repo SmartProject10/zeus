@@ -1,4 +1,4 @@
-import { KTIcon } from "src/app/generalcomponents/helpers"
+import { KTIcon } from "../../../../../generalcomponents/helpers"
 
 export function BundleSection () {
 	return (

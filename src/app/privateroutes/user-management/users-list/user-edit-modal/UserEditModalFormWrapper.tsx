@@ -1,6 +1,6 @@
 import {useQuery} from 'react-query'
 import {UserEditModalForm} from './UserEditModalForm'
-import {isNotEmpty, QUERIES} from 'src/app/generalcomponents/helpers';
+import {isNotEmpty, QUERIES} from '../../../../generalcomponents/helpers';
 import {useListView} from '../core/ListViewProvider'
 
 const UserEditModalFormWrapper = () => {

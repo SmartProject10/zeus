@@ -2,7 +2,7 @@ import React,{ReactNode} from 'react'
 import clsx from 'clsx'
 import {useLocation} from 'react-router'
 import {checkIsActive, KTIcon, KTIconsNames} from '../../../../helpers'
-import {useLayout} from '../../../../core'
+import { useLayout } from '../../../layoutprovider/LayoutProvider.tsx'
 
 interface WithChildren {
   children: ReactNode;

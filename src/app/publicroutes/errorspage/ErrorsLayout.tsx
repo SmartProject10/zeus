@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import {Outlet} from 'react-router-dom'
-import { useThemeMode } from 'src/app/generalcomponents/partials'
-import { toAbsoluteUrl } from 'src/app/generalcomponents/helpers'
+import { useThemeMode } from '../../generalcomponents/partials'
+import { toAbsoluteUrl } from '../../generalcomponents/helpers'
 
 const BODY_CLASSES = ['bgi-size-cover', 'bgi-position-center', 'bgi-no-repeat']
 const ErrorsLayout = () => {

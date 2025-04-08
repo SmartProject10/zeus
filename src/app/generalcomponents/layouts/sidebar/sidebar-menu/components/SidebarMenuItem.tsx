@@ -3,10 +3,10 @@ import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router'
 import { checkIsActive, KTIcon, KTIconsNames } from '../../../../helpers'
-import { useLayout } from '../../../../core'
+import { useLayout } from '../../../layoutprovider/LayoutProvider.tsx'
 
 interface WithChildren {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 type Props = {

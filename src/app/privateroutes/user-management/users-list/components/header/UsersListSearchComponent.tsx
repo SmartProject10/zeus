@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { initialQueryState, KTIcon, useDebounce } from 'src/app/generalcomponents/helpers'
+import { initialQueryState,KTIcon,useDebounce } from '../../../../../generalcomponents/helpers'
 import { useQueryRequest } from '../../core/QueryRequestProvider'
 
 const UsersListSearchComponent = () => {

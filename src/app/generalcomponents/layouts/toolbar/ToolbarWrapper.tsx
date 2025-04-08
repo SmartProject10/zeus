@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { ToolbarType, useLayout } from "../../core";
+import { ToolbarType } from "../../../../models/layoutprovider/model";
+import { useLayout } from "../layoutprovider/LayoutProvider.tsx";
 import { Toolbar } from "./Toolbar";
 import { PageTitleWrapper } from "./page-title";
 

@@ -1,7 +1,7 @@
 import {FC, PropsWithChildren} from 'react'
 import {HeaderProps} from 'react-table'
 import {useListView} from '../../core/ListViewProvider'
-import { User } from 'src/models/apimodels/UserManagementModel'
+import { User } from '../../../../../../models/apimodels/UserManagementModel';
 
 type Props = {
   tableProps: PropsWithChildren<HeaderProps<User>>

@@ -1,4 +1,4 @@
-import { useLayout } from "../layout/core";
+import { useLayout } from "../layouts/layoutprovider/LayoutProvider.tsx";
 import { ThemeModeComponent } from "../assets/ts/layout";
 
 export const toAbsoluteUrl = (pathname: string) =>

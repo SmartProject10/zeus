@@ -1,4 +1,4 @@
-import { KTIcon } from "src/app/generalcomponents/helpers"
+import { KTIcon } from "../../../helpers"
 import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 

@@ -1,4 +1,4 @@
-import { useLayout } from 'src/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
+import { useLayout } from '../../layoutprovider/LayoutProvider.tsx'
 import {PageTitle} from './PageTitle'
 
 const PageTitleWrapper = () => {

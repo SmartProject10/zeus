@@ -7,7 +7,8 @@ import {
   initialListView,
   ListViewContextProps,
   groupingOnSelectAll,
-} from 'src/app/generalcomponents/helpers';
+} from '../../../../generalcomponents/helpers';
+
 import { useQueryResponse, useQueryResponseData } from './QueryResponseProvider'
 
 interface WithChildren {

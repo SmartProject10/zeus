@@ -1,4 +1,4 @@
-import { KTIcon } from 'src/app/generalcomponents/helpers'
+import { KTIcon } from '../../helpers'
 import { memo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './index.scss'

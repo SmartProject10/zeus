@@ -1,4 +1,4 @@
-import { LayoutSetup } from "src/app/generalcomponents/layouts/layoutprovider/LayoutProvider"
+import { LayoutSetup } from "../../app/generalcomponents/layouts/layoutprovider/LayoutProvider"
 
 export type LayoutType = 'dark-sidebar' | 'light-sidebar' | 'dark-header' | 'light-header'
 

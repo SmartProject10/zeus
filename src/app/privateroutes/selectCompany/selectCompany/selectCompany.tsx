@@ -1,8 +1,8 @@
-import { CompanyCard } from 'src/app/generalcomponents/components/companyCard'
-import { KTIcon } from 'src/app/generalcomponents/helpers'
+import { CompanyCard } from '../../../generalcomponents/components/companyCard'
+import { KTIcon } from '../../../generalcomponents/helpers'
 import { useEffect, useState } from 'react'
 import './selectCompany.scss'
-import { useEmployee } from 'src/app/EmployeeContext'
+import { useEmployee } from '../../../EmployeeContext'
 
 export function SelectCompany(): JSX.Element{
 	const { employee } = useEmployee()

@@ -1,5 +1,6 @@
 import {useEffect} from 'react'
-import {ILayout, useLayout} from '../../core'
+import { useLayout } from '../layoutprovider/LayoutProvider.tsx'
+import { ILayout } from '../../../../models/layoutprovider/model.ts'
 
 const Footer = () => {
   const {config} = useLayout()

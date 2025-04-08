@@ -1,6 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 import {useEffect} from 'react'
-import {ILayout, useLayout} from '../../core'
+import { useLayout } from '../layoutprovider/LayoutProvider.tsx'
+import { ILayout } from '../../../../models/layoutprovider/model.ts'
 import {
   ToolbarAccounting,
   ToolbarClassic,

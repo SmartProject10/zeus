@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
-import { ILayout, useLayout } from '../../core';
+import { useLayout } from '../layoutprovider/LayoutProvider.tsx';
+import { ILayout } from '../../../../models/layoutprovider/model.ts';
 import { SidebarMenu } from './sidebar-menu/SidebarMenu';
 import { SidebarFooter } from './SidebarFooter';
 import { SidebarLogo } from './SidebarLogo';

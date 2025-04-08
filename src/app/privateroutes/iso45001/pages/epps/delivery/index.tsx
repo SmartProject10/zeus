@@ -1,6 +1,6 @@
 import { useEffect, useId, useState } from 'react'
 
-import { Content } from 'src/app/generalcomponents/layouts/content'
+import { Content } from '../../../../../generalcomponents/layouts/content'
 import { Modal } from './modal'
 import { Table } from './table'
 import { PersonalProtectiveEquipment } from './types'

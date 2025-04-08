@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { TitleBar } from 'src/app/generalcomponents/components/titleBar'
+import { TitleBar } from '../../../generalcomponents/components/titleBar'
 import { useNavigate } from 'react-router-dom'
 
 export function InspeccionesInternasSeguridad(): JSX.Element {

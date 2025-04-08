@@ -1,6 +1,6 @@
 import {Route, Routes, Outlet, Navigate} from 'react-router-dom'
-import { PageTitle } from "src/app/generalcomponents/layouts/layoutprovider/LayoutProvider";
-import { PageLink } from 'src/models/layoutprovider/model';
+import { PageTitle } from '../../generalcomponents/layouts/layoutprovider/LayoutProvider.tsx';
+import { PageLink } from '../../../models/layoutprovider/model';
 import {Vertical} from './components/Vertical'
 import {Horizontal} from './components/Horizontal'
 

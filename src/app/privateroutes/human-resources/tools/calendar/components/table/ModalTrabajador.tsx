@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
-import { Employee } from 'src/models/apimodels/Employee'
+import { Employee } from '../../../../../../../models/apimodels/Employee'
 
 interface MyComponentProps {
     idEmployee: string

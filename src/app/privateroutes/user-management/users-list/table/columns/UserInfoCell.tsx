@@ -1,8 +1,8 @@
 
 import clsx from 'clsx'
 import {FC} from 'react'
-import {toAbsoluteUrl} from 'src/app/generalcomponents/helpers';
-import { User } from 'src/models/apimodels/UserManagementModel';
+import { toAbsoluteUrl } from '../../../../../generalcomponents/helpers';
+import { User } from '../../../../../../models/apimodels/UserManagementModel';
 
 type Props = {
   user: User

@@ -5,8 +5,8 @@ import { dayMonthYear } from "../../../../../../generalcomponents/utils/dateform
 
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
-import { EmergencyLightsResponse } from "src/models/apimodels/EmergencyLightsModel";
-import { Employee } from "src/models/apimodels/Employee";
+import { EmergencyLightsResponse } from "../../../../../../../models/apimodels/EmergencyLightsModel";
+import { Employee } from "../../../../../../../models/apimodels/Employee";
 import { ModalInspectionEmergencyLightsForm } from "./ModalInspectionEmergencyLightsForm";
 
 interface EmployeeForm {

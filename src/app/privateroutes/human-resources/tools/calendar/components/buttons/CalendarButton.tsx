@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 import { KTCardBody } from '../../../../../../generalcomponents/helpers'
-import { Employee } from 'src/models/apimodels/Employee'
+import { Employee } from '../../../../../../../models/apimodels/Employee'
 
 export interface EmployeeForm {
     area: string

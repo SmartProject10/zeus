@@ -1,4 +1,4 @@
-import { KTCard, KTCardBody } from 'src/app/generalcomponents/helpers'
+import { KTCard,KTCardBody } from '../../../../generalcomponents/helpers'
 import React, { useState } from 'react'
 
 const BotonesModales = ({ handleOpenModal }: any) => {

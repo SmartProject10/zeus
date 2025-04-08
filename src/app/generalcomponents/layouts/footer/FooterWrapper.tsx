@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import {useLayout} from '../../core'
+import { useLayout } from '../layoutprovider/LayoutProvider.tsx'
 import {Footer} from './Footer'
 
 const FooterWrapper = () => {

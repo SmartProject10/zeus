@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import './index.scss'
 
-import { Navbar as NavbarItems } from 'src/app/generalcomponents/layouts/header/Navbar'
-import { useLayout } from 'src/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
+import { Navbar as NavbarItems } from '../../layouts/header/Navbar'
+import { useLayout } from '../../layouts/layoutprovider/LayoutProvider.tsx'
 
 export function Navbar(): JSX.Element {
 	const { config, classes } = useLayout()

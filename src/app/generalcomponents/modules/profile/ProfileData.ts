@@ -1,4 +1,4 @@
-import { PageLink } from "src/models/layoutprovider/model"
+import { PageLink } from "../../../../models/layoutprovider/model"
 
 export const profileSubmenu: Array<PageLink> = [
   {

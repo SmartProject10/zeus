@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { toAbsoluteUrl } from '../../generalcomponents/helpers'
 import { Content } from '../../generalcomponents/layouts/content'
 import { ToolbarWrapper } from '../../generalcomponents/layouts/toolbar'
-import { PageTitle } from 'src/app/generalcomponents/layouts/layoutprovider/LayoutProvider'
+import { PageTitle } from '../../generalcomponents/layouts/layoutprovider/LayoutProvider.tsx'
 import {
   CardsWidget17,
   CardsWidget20,

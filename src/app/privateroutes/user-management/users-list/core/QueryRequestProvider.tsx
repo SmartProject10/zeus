@@ -3,7 +3,7 @@ import {
   QueryState,
   QueryRequestContextProps,
   initialQueryRequest,
-} from 'src/app/generalcomponents/helpers';
+} from '../../../../generalcomponents/helpers';
 
 interface WithChildren {
   children: ReactNode;
