@@ -1,7 +1,6 @@
 import React, { FC, createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import Swal from 'sweetalert2';
 
 import _api_calls_employee from '../api/apicalls/_api_calls_employee';
 import { Employee } from '../models/apimodels/Employee';
@@ -80,71 +79,40 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuth, setIsAuth] = useState<boolean>(false);
 
   const register = async (data: EmployeeDataRegister): Promise<boolean> => {
-    try {
-      const response = await _api_calls_employee._register(data);
+    const response = await _api_calls_employee._register(data);
+    if(response){
       const employee: Employee = response.data;
       setEmployee(employee);
       setIsAuth(true);
-      await Swal.fire({
-        icon: 'success',
-        text: 'Se registraron correctamente los datos en el email ingresado',
-      });
       return true;
-    } catch (error: any) {
-      const errorMessage =
-        'Error al registrar los datos en dicho correo o el correo no se encuentra registrado en nuestra base de datos';
-      await Swal.fire({
-        icon: 'error',
-        text: errorMessage,
-      });
-      return false;
     }
+    return false;
   };
 
   const login = async (data: EmployeeDataLogin): Promise<boolean> => {
-    try {
-      const response = await _api_calls_employee._login(data);
+    const response = await _api_calls_employee._login(data);
+    if(response){
       const employee: Employee = response.data;
       setEmployee(employee);
       setIsAuth(true);
-      await Swal.fire({
-        icon: 'success',
-        text: 'Inicio de sesión exitoso',
-      });
       return true;
-    } catch (error: any) {
-      const errorMessage = 'Error en el inicio de sesión. Verifique los datos ingresados.';
-      await Swal.fire({
-        icon: 'error',
-        text: errorMessage,
-      });
-      return false;
     }
+    return false;
   };
 
   const logout = async (): Promise<void> => {
-    try {
-      await _api_calls_employee._logout();
-      setEmployee({} as Employee);
-      setIsAuth(false);
-      window.location.href = '/';
-    } catch (error) {
-      console.error(error);
-    }
+    await _api_calls_employee._logout();
+    setEmployee({} as Employee);
+    setIsAuth(false);
+    window.location.href = '/';
   };
 
   const getEmployee = async (): Promise<void> => {
-    try {
-      const response = await _api_calls_employee._getProfile();
-      if (response.status === 200) {
-        const employee: Employee = response.data;
-        setEmployee(employee);
-        setIsAuth(true);
-      }
-    } catch (error: any) {
-      console.error('Error fetching employee:', error.message);
-    } finally {
-      setIsLoading(false);
+    const response = await _api_calls_employee._getProfile(setIsLoading);
+    if (response.status === 200) {
+      const employee: Employee = response.data;
+      setEmployee(employee);
+      setIsAuth(true);
     }
   };
 
@@ -182,7 +150,7 @@ const EmployeeProvider: FC<WithChildren> = ({ children }) => {
   );
 };
 
-const useEmployee = () => {
+const useEmployee = () : EmployeeContextType => {
   const context = useContext(EmployeeContext);
   if (!context) {
     throw new Error("EmployeeContext must be used within the context of EmployeeProvider");

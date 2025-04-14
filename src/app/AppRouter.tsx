@@ -11,7 +11,9 @@ import { IntlProvider } from 'react-intl';
 import { ThemeModeProvider } from './generalcomponents/partials/layout/theme-mode/ThemeModeProvider.tsx';
 
 //contexts imports
-import { useEmployee, useLang } from './EmployeeContext.tsx';
+import { useLang } from './EmployeeContext.tsx';
+
+import { MenuComponent } from './generalcomponents/assets/ts/components/MenuComponent.ts';
 
 //
 import { HeaderWrapper } from './generalcomponents/layouts/header/HeaderWrapper.tsx';
@@ -24,20 +26,8 @@ import { Content } from './generalcomponents/layouts/content/index.ts';
 import TopBarProgress from 'react-topbar-progress-indicator';
 import { getCSSVariableValue } from './generalcomponents/assets/ts/_utils/DomHelpers.ts';
 
-import { MenuComponent } from './generalcomponents/assets/ts/components/MenuComponent.ts';
-import { DrawerComponent } from './generalcomponents/assets/ts/components/_DrawerComponent.ts';
-import { ScrollComponent } from './generalcomponents/assets/ts/components/_ScrollComponent.ts';
-import { ScrollTopComponent } from './generalcomponents/assets/ts/components/_ScrollTopComponent.ts';
-import { StickyComponent } from './generalcomponents/assets/ts/components/_StickyComponent.ts';
-import { ToggleComponent } from './generalcomponents/assets/ts/components/_ToggleComponent.ts';
-import { SwapperComponent } from './generalcomponents/assets/ts/components/_SwapperComponent.ts';
+import { LayoutProvider,PageDataProvider } from './generalcomponents/layouts/layoutprovider/LayoutProvider.tsx';
 
-import { ThemeModeComponent } from './generalcomponents/assets/ts/layout/ThemeMode.ts';
-
-import { LayoutProvider,PageDataProvider,useLayout } from './generalcomponents/layouts/layoutprovider/LayoutProvider.tsx';
-
-import { Tab } from 'bootstrap';
-import Swal from 'sweetalert2';
 import enMessages from '../app/generalcomponents/utils/messages/en.json'
 import esMessages from '../app/generalcomponents/utils/messages/es.json'
 
@@ -47,6 +37,7 @@ import { Logout } from './publicroutes/authpage/logout/Logout.tsx';
 import { ErrorsPage } from './publicroutes/errorspage/ErrorsPage.tsx';
 
 //RUTAS PRIVADAS
+import PrivateRoutes from './privateroutes/PrivateRoutes.tsx';
 import { SelectCompanyRoutes } from './privateroutes/selectCompany/selecCompany.routes.tsx';
 import { HomeRoutes } from './privateroutes/home/home.routes.tsx';
 import { DashboardWrapper } from './privateroutes/dashboardwrapper/DashboardWrapper.tsx';
@@ -64,38 +55,6 @@ const UsersPage = lazy(() => import('./privateroutes/user-management/UsersPage.t
 interface WithChildren {
     children: ReactNode;
 }
-
-const ProtectedRoutes: React.FC<WithChildren> = ({ children }) => {
-    const location = useLocation();
-    const { isAuth, isLoading } = useEmployee();
-    const [alertShown, setAlertShown] = useState(false);
-
-    useEffect(() => {
-        if (!isAuth && !alertShown) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Necesitas iniciar sesión para acceder a este sitio.',
-            });
-            setAlertShown(true);
-        }
-    }, [isAuth, alertShown]);
-
-    if (isLoading) {
-        return <div>Cargando...</div>;
-    }
-
-    if (!isAuth) {
-        return <Navigate to="/auth" state={{ from: location }} replace />;
-    }
-
-    return (
-        <>
-            {children}
-            <MasterInit />
-        </>
-    );
-};
 
 const MasterLayout = () => {
     const location = useLocation();
@@ -151,35 +110,6 @@ const SuspensedView: React.FC<PropsWithChildren> = ({ children }) => {
     return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>;
 };
 
-function MasterInit() {
-    const { config } = useLayout();
-    const [initialized, setInitialized] = useState(false);
-    const pluginsInitialization = () => {
-        ThemeModeComponent.init();
-        setTimeout(() => {
-            ToggleComponent.bootstrap();
-            ScrollTopComponent.bootstrap();
-            DrawerComponent.bootstrap();
-            StickyComponent.bootstrap();
-            MenuComponent.bootstrap();
-            ScrollComponent.bootstrap();
-            SwapperComponent.bootstrap();
-            document.querySelectorAll('[data-bs-toggle="tab"]').forEach((tab) => {
-                Tab.getOrCreateInstance(tab);
-            });
-        }, 500);
-    };
-
-    useEffect(() => {
-        if (!initialized) {
-            setInitialized(true);
-            pluginsInitialization();
-        }
-    }, [config, initialized]);
-
-    return <></>;
-}
-
 const allMessages = {
     en: enMessages,
     es: esMessages,
@@ -231,6 +161,7 @@ const LayoutSplashScreen: FC<{visible?: boolean}> = ({visible = true}) => {
 //
 
 const router = createBrowserRouter([
+
     {
         path: '/',
         element: (
@@ -245,8 +176,6 @@ const router = createBrowserRouter([
             </Suspense>
         ),
 
-
-        
         children: [
             // Rutas Públicas
             { index: true, element: <Navigate to="/auth" /> },
@@ -258,9 +187,9 @@ const router = createBrowserRouter([
             // Rutas Privadas
             {
                 element: (
-                    <ProtectedRoutes>
+                    <PrivateRoutes>
                         <MasterLayout />
-                    </ProtectedRoutes>
+                    </PrivateRoutes>
                 ),
                 children: [
                     { path: 'select-company/*', element: <SelectCompanyRoutes /> },
@@ -281,6 +210,7 @@ const router = createBrowserRouter([
             },
         ],
     },
-]);
+
+])
 
 export default router;

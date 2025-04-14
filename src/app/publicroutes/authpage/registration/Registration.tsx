@@ -8,6 +8,9 @@ import { toAbsoluteUrl } from '../../../generalcomponents/helpers'
 import { PasswordMeterComponent } from '../../../generalcomponents/assets/ts/components'
 import { useEmployee } from '../../../EmployeeContext';
 import { useNavigate } from 'react-router-dom';
+import _api_calls_employee from '../../../../api/apicalls/_api_calls_employee'
+import { Employee } from '../../../../models/apimodels/Employee'
+import Swal from 'sweetalert2'
 
 const initialValues = {
 	email: '',
@@ -33,14 +36,17 @@ const registrationSchema = Yup.object().shape({
 		.max(50, 'Máximo 50 caracteres')
 		.required('El apellido es obligatorio'),
 	password: Yup.string()
-		.min(3, 'Mínimo 3 caracteres')
-		.max(50, 'Máximo 50 caracteres')
+		.min(8, 'Mínimo 8 caracteres')
+		.matches(/[a-zA-Z]/, 'Debe contener al menos una letra')
+		.matches(/[0-9]/, 'Debe contener al menos un número')
+		.matches(/[^a-zA-Z0-9\s]/, 'Debe contener al menos un símbolo')
 		.required('La contraseña es obligatoria'),
 	// changepassword: Yup.string()
-	// 	.min(3, 'Mínimo 3 caracteres')
-	// 	.max(50, 'Máximo 50 caracteres')
-	// 	.required('La confirmación de contraseña es obligatoria')
-	// 	.oneOf([Yup.ref('password')], 'Las contraseñas no coinciden'),
+	// 	.min(8, 'Mínimo 8 caracteres')
+	// 	.matches(/[a-zA-Z]/, 'Debe contener al menos una letra')
+	// 	.matches(/[0-9]/, 'Debe contener al menos un número')
+	// 	.matches(/[^a-zA-Z0-9\s]/, 'Debe contener al menos un símbolo')
+	// 	.required('La contraseña es obligatoria'),
 	acceptTerms: Yup.bool().required('Debes aceptar los términos y condiciones'),
 });
 
@@ -57,16 +63,46 @@ export function Registration() {
 		onSubmit: async (values, { setStatus, setSubmitting }) => {
 			setLoading(true)
 			try {
-				const registroExitoso = await register(
-					{ 
-						email: values.email, 
-						name: values.name, 
-						lastname: values.lastname, 
-						password: values.password, 
+				const employee:Employee | null = await _api_calls_employee._getEmployeeByEmail(values.email);
+				
+				//procedemos a verificar que el mail esté en la base de datos (que se debió de haber agregado desde la página de empresa)
+				if(employee === null){
+					await Swal.fire({
+								icon: 'error',
+								text: "El email no se encuentra registrado como empleado de alguna empresa",
+								confirmButtonText: "Entendido",
+							  });
+				}else{
+					//procedemos a verificar si previamente ya había registrado sus datos
+					if(employee.password){
+						Swal.fire({
+							icon: 'error',
+							text: "El mail ya se encuentra registrado",
+							confirmButtonText: "Entendido",
+						  });
+					}else{
+						//procedemos a registrar entonces su "nombre","apellido" y la "contraseña"
+						const registroExitoso = await register(
+							{ 
+								email: values.email, 
+								name: values.name, 
+								lastname: values.lastname, 
+								password: values.password, 
+							}
+						);
+						if (registroExitoso) {
+							await Swal.fire({
+								icon: 'success',
+								text: "Registro exitoso",
+							})
+							navigate('/select-company');
+						}else{
+							await Swal.fire({
+								icon: 'warning',
+								text: "Hubo un error y no se pudo realizar el registro",
+							})
+						}
 					}
-				);
-				if (registroExitoso) {
-					//navigate('/company/acquisitions');  // Redirige después de un registro exitoso
 				}
 			} 
 			finally {
@@ -311,10 +347,6 @@ export function Registration() {
 							className="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
 					</div>
 					{/* end::Meter */}
-				</div>
-				<div
-					className="text-muted">
-					Use 8 or more characters with a mix of letters, numbers & symbols.
 				</div>
 			</div>
 			{/* end::Form group */}

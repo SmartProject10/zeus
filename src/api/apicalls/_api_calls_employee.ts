@@ -8,40 +8,20 @@ const _api_calls_employee = {
     async _register(dataRegister: EmployeeDataRegister) {
         try {
           const { data } = await _api.post('/employee/register', dataRegister);
-          await Swal.fire({
-            icon: 'success',
-            text: "Registro exitoso",
-          });
           return data;
         } catch (error) {
-          console.error("Error al intentar registrarse:", error);
-          const axiosError = error as AxiosError;
-          await Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: axiosError.message || `Error al intentar registrarse`,
-            confirmButtonText: "Entendido",
-          });
+          console.error((((error as AxiosError).response?.data as object) as any).message || `Error al intentar registrarse`)
+          return null;
         }
     },
 
     async _login(dataLogin: EmployeeDataLogin) {
         try {
           const { data } = await _api.post('/employee/login', dataLogin);
-          await Swal.fire({
-            icon: 'success',
-            text: "Inicio de sesión exitoso",
-          })
           return data;
         } catch (error) {
-          console.error("Error al intentar registrarse:", error);
-          const axiosError = error as AxiosError;
-          await Swal.fire({
-            icon: 'error',
-            title: "Error",
-            text: axiosError.message || "Error en el inicio de sesión. Verifique los datos ingresados.",
-            confirmButtonText: "Entendido",
-          });
+          console.error((((error as AxiosError).response?.data as object) as any).message || `Error al intentar iniciar sesión`)
+          return null;
         }
     },
 
@@ -49,23 +29,39 @@ const _api_calls_employee = {
         try {
           await _api.post('/employee/logout');
         } catch (error) {
-          console.error("Error al cerrar sesión:", error);
+          console.error((((error as AxiosError).response?.data as object) as any).message || `Error al intentar cerrar la sesión`)
           await Swal.fire({
             icon: "error",
             title: "Error",
             text: `Error al cerrar sesión`,
             confirmButtonText: "Entendido",
           });
+          return null;
         }
     },
 
-    async _getProfile() {
+    async _getProfile(setIsLoading:(value: React.SetStateAction<boolean>) => void) {
         try {
           const { data } = await _api.get('/employee/profile');
           return data;
-        } catch (error) {
+        } 
+        catch (error) {
           console.error("Error al intentar obtener el perfil del usuario:", error);
         }
+        finally{
+          setIsLoading(false);
+        }
+    },
+
+    async _getEmployeeByEmail(email:string) {
+      try {
+        const { data } = await _api.get(`/employee/getCompanyEmployeeByEmail/${encodeURIComponent(email)}`);
+        return data;
+      } 
+      catch (error) {
+        console.error((((error as AxiosError).response?.data as object) as any).message || `Error al intentar obtener el empleado con dicho email`);
+        return null;
+      }
     },
 
 }

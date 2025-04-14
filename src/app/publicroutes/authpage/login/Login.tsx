@@ -5,6 +5,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useEmployee } from '../../../EmployeeContext';
 import { useIntl } from 'react-intl';
+import { Employee } from '../../../../models/apimodels/Employee';
+import _api_calls_employee from '../../../../api/apicalls/_api_calls_employee';
+import Swal from 'sweetalert2';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -34,15 +37,45 @@ export function Login() {
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       setLoading(true);
       try {
-        const inicioDeSesionExitoso = await login(
-          {
-            email: values.email,
-            password: values.password,
+
+				const employee:Employee | null = await _api_calls_employee._getEmployeeByEmail(values.email);
+
+        //procedemos a verificar que el mail esté en la base de datos (que se debió de haber agregado desde la página de empresa)
+        if(employee === null){
+          await Swal.fire({
+                icon: 'error',
+                text: "El email no se encuentra registrado como empleado de alguna empresa",
+                confirmButtonText: "Entendido",
+                });
+        }else{
+          //procedemos a verificar que previamente el empleado ya se haya registrado
+          if(employee.password === null){
+            Swal.fire({
+              icon: 'error',
+              text: "El email no se encuentra registrado",
+              confirmButtonText: "Entendido",
+          })}else{
+              const inicioDeSesionExitoso = await login(
+                {
+                  email: values.email,
+                  password: values.password,
+                }
+              );
+              if (inicioDeSesionExitoso) {
+                await Swal.fire({
+                  icon: 'success',
+                  text: "Inicio de sesión exitoso",
+                })
+                navigate('/select-company');
+              }else{
+                await Swal.fire({
+                  icon: 'warning',
+                  text: "La contraseña ingresada es incorrecta",
+                })
+              }
           }
-        );
-        if (inicioDeSesionExitoso) {
-          // navigate('/company/acquisitions');  // Redirige después de un inicio de sesión exitoso
-        } 
+        }
+
       } finally {
         setSubmitting(false);
         setLoading(false);
