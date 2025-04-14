@@ -162,6 +162,7 @@ const LayoutSplashScreen: FC<{visible?: boolean}> = ({visible = true}) => {
 
 const router = createBrowserRouter([
 
+    //Rutas públicas
     {
         path: '/',
         element: (
@@ -175,42 +176,48 @@ const router = createBrowserRouter([
                 </I18nProvider>
             </Suspense>
         ),
-
         children: [
-            // Rutas Públicas
-            { index: true, element: <Navigate to="/auth" /> },
+            { index: true, element: <Navigate to="/auth" /> }, // Redirigir la raíz a la página de autenticación por defecto
             { path: 'auth/*', element: <AuthPage /> },
             { path: 'logout', element:<Logout /> },
             { path: 'error/*', element: <ErrorsPage /> },
-            { path: '*', element: <Navigate to="/auth" /> },
-
-            // Rutas Privadas
-            {
-                element: (
-                    <PrivateRoutes>
-                        <MasterLayout />
-                    </PrivateRoutes>
-                ),
-                children: [
-                    { path: 'select-company/*', element: <SelectCompanyRoutes /> },
-                    { path: 'home/*', element: <HomeRoutes /> },
-                    { path: 'dashboard', element: <DashboardWrapper /> },
-                    { path: 'menu-test', element: <MenuTestPage /> },
-                    { path: 'ficha-usuario/*', element: <FichaUsuarioRoutes /> },
-                    { path: 'iso9001/*', element: <ISO9001Routes /> },
-                    { path: 'iso45001/*', element: <ISO45001Routes /> },
-                    { path: "sgrrhh/*", element: <HumanResourcesPage /> },
-                    { path: "crafted/pages/wizards/*", element: <WizardsPage /> },
-                    { path: "crafted/widgets/*", element: <WidgetsPage /> },
-                    { path: "crafted/account/*", element: <AccountPage /> },
-                    { path: "apps/chat/*", element: <ChatPage /> },
-                    { path: "apps/user-management/*", element: <UsersPage /> },
-                    { path: "/*", element: <Navigate to="/error/404" /> },
-                ],
-            },
-        ],
+            { path: '*', element: <Navigate to="/error/404" /> }, // Manejar rutas públicas no encontradas
+        ]
     },
 
-])
+    //Rutas privadas
+    {
+        path: '/',
+        element: (
+            <Suspense fallback={<LayoutSplashScreen />}>
+                <I18nProvider>
+                    <LayoutProvider>
+                        <ThemeModeProvider>
+                            <PrivateRoutes>
+                                <MasterLayout />
+                            </PrivateRoutes>
+                        </ThemeModeProvider>
+                    </LayoutProvider>
+                </I18nProvider>
+            </Suspense>
+        ),
+        children: [
+            { path: 'select-company/*', element: <SelectCompanyRoutes /> },
+            { path: 'home/*', element: <HomeRoutes /> },
+            { path: 'dashboard', element: <DashboardWrapper /> },
+            { path: 'menu-test', element: <MenuTestPage /> },
+            { path: 'ficha-usuario/*', element: <FichaUsuarioRoutes /> },
+            { path: 'iso9001/*', element: <ISO9001Routes /> },
+            { path: 'iso45001/*', element: <ISO45001Routes /> },
+            { path: "sgrrhh/*", element: <HumanResourcesPage /> },
+            { path: "crafted/pages/wizards/*", element: <WizardsPage /> },
+            { path: "crafted/widgets/*", element: <WidgetsPage /> },
+            { path: "crafted/account/*", element: <AccountPage /> },
+            { path: "apps/chat/*", element: <ChatPage /> },
+            { path: "apps/user-management/*", element: <UsersPage /> },
+            { path: "*", element: <Navigate to="/error/404" /> }, // Manejar rutas privadas no encontradas
+        ],
+    },
+]);
 
 export default router;
