@@ -78,10 +78,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [employee, setEmployee] = useState<Employee>({} as Employee);
   const [isAuth, setIsAuth] = useState<boolean>(false);
 
-  const register = async (data: EmployeeDataRegister): Promise<boolean> => {
-    const response = await _api_calls_employee._register(data);
-    if(response){
-      const employee: Employee = response.data;
+  const register = async (dataRegister: EmployeeDataRegister): Promise<boolean> => {
+    const data = await _api_calls_employee._register(dataRegister);
+    if(data){
       setEmployee(employee);
       setIsAuth(true);
       return true;
@@ -89,10 +88,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return false;
   };
 
-  const login = async (data: EmployeeDataLogin): Promise<boolean> => {
-    const response = await _api_calls_employee._login(data);
-    if(response){
-      const employee: Employee = response.data;
+  const login = async (dataLogin: EmployeeDataLogin): Promise<boolean> => {
+    const data = await _api_calls_employee._login(dataLogin);
+    if(data){
       setEmployee(employee);
       setIsAuth(true);
       return true;
@@ -108,12 +106,12 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const getEmployee = async (): Promise<void> => {
-    const response = await _api_calls_employee._getProfile(setIsLoading);
-    if (response.status === 200) {
-      const employee: Employee = response.data;
+    const data = await _api_calls_employee._getProfile();
+    if (data) {
       setEmployee(employee);
       setIsAuth(true);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {

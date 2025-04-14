@@ -40,16 +40,13 @@ const _api_calls_employee = {
         }
     },
 
-    async _getProfile(setIsLoading:(value: React.SetStateAction<boolean>) => void) {
+    async _getProfile() {
         try {
           const { data } = await _api.get('/employee/profile');
           return data;
         } 
         catch (error) {
-          console.error("Error al intentar obtener el perfil del usuario:", error);
-        }
-        finally{
-          setIsLoading(false);
+          console.error((((error as AxiosError).response?.data as object) as any).message || `Error al intentar obtener el perfil del usuario`);
         }
     },
 
