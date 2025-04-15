@@ -10,9 +10,8 @@ import { SwapperComponent } from '../generalcomponents/assets/ts/components'
 import { Tab } from "bootstrap";
 
 import { ReactNode,useState,useEffect } from "react";
-import { Navigate,useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useEmployee } from "../EmployeeContext";
-import Swal from "sweetalert2";
 
 //MasterInit
 function MasterInit() {
@@ -51,22 +50,14 @@ interface WithChildren {
 
 //PrivateRoutes
 const PrivateRoutes: React.FC<WithChildren> = ({ children }) => {
-    const location = useLocation();
     const { isAuth, isLoading } = useEmployee();
-
-    console.log(isAuth ? "Autorizado" : "No Autorizado")
 
     if (isLoading) {
         return <div>Cargando...</div>;
     }
 
     if (!isAuth) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Necesitas iniciar sesión para acceder a este sitio.',
-        });
-        return <Navigate to="/auth" state={{ from: location }} replace />;
+        return <Navigate to="/auth"/>;
     }
 
     return (

@@ -34,7 +34,6 @@ import esMessages from '../app/generalcomponents/utils/messages/es.json'
 //RUTAS PUBLICAS
 import { AuthPage } from './publicroutes/authpage/AuthPage.tsx';
 import { Logout } from './publicroutes/authpage/logout/Logout.tsx';
-import { ErrorsPage } from './publicroutes/errorspage/ErrorsPage.tsx';
 
 //RUTAS PRIVADAS
 import PrivateRoutes from './privateroutes/PrivateRoutes.tsx';
@@ -177,11 +176,9 @@ const router = createBrowserRouter([
             </Suspense>
         ),
         children: [
-            { index: true, element: <Navigate to="/auth" /> }, // Redirigir la raíz a la página de autenticación por defecto
+            { index: true, element: <Navigate to="/auth" /> },
             { path: 'auth/*', element: <AuthPage /> },
-            { path: 'logout', element:<Logout /> },
-            { path: 'error/*', element: <ErrorsPage /> },
-            { path: '*', element: <Navigate to="/error/404" /> }, // Manejar rutas públicas no encontradas
+            { path: "*", element: <Navigate to="/auth" /> },
         ]
     },
 
@@ -215,7 +212,7 @@ const router = createBrowserRouter([
             { path: "crafted/account/*", element: <AccountPage /> },
             { path: "apps/chat/*", element: <ChatPage /> },
             { path: "apps/user-management/*", element: <UsersPage /> },
-            { path: "*", element: <Navigate to="/error/404" /> }, // Manejar rutas privadas no encontradas
+            { path: 'logout', element:<Logout /> },
         ],
     },
 ]);
