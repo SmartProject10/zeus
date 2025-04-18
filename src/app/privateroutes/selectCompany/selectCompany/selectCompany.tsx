@@ -3,17 +3,21 @@ import { KTIcon } from '../../../generalcomponents/helpers'
 import { useEffect, useState } from 'react'
 import './selectCompany.scss'
 import { useEmployee } from '../../../EmployeeContext'
+import _api_calls_employeeCompanyRegistry from '../../../../api/apicalls/_api_calls_employeeCompanyRegistry'
+import { Company } from '../../../../models/apimodels/Company'
 
 export function SelectCompany(): JSX.Element{
 	const { employee } = useEmployee()
-	const [companies, setCompanies] = useState<Array<{ id: string; companyName: string; details: string }>>([])
+	const [employeeCompanies, setEmployeeCompanies] = useState<Array<Company>>([])
 
 	useEffect(() => {
-
-		//actualizarlo con la api de "company"
-		// backyService.companies.getCompanies().then((response) => {
-		// 	setCompanies(response.data)
-		// })
+		//Obtenemos todos las compañías en las cuales trabaja el empleado logueado y las agregamos a "employeeCompanies"
+		(async ()=>{
+			const _employeeCompanies = await _api_calls_employeeCompanyRegistry.getCompaniesOfEmployee(employee.email);
+			if(_employeeCompanies){
+				setEmployeeCompanies(_employeeCompanies);
+			}
+		})();
 	}, [])
 
 	return (
@@ -38,12 +42,11 @@ export function SelectCompany(): JSX.Element{
 
 				<div
 					className="company-grid">
-					{companies.map((company, index) => (
+					{employeeCompanies.map((employeeCompanie, index) => (
 						<CompanyCard
 							key={index}
-							companyName={company.companyName}
-							companyDetails={company.details}
-							companyId={company.id} />
+							ruc={employeeCompanie.ruc}
+							socialReason={employeeCompanie.socialReason} />
 					))}
 				</div>
 			</div>

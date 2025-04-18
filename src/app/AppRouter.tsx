@@ -3,39 +3,27 @@ import '@formatjs/intl-relativetimeformat/locale-data/en';
 import '@formatjs/intl-relativetimeformat/locale-data/es';
 
 //react imports
-import { createContext,useContext, SetStateAction, Dispatch, lazy, Suspense, useEffect, useState, ReactNode, PropsWithChildren, FC } from 'react';
-import { createBrowserRouter, Navigate, Outlet, useLocation } from 'react-router-dom';
+import { createContext,useContext, SetStateAction, Dispatch, lazy, Suspense, useEffect, ReactNode, FC } from 'react';
+import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 
 //layouts imports
 import { ThemeModeProvider } from './generalcomponents/partials/layout/theme-mode/ThemeModeProvider.tsx';
+import MasterLayout from './generalcomponents/layouts/masterlayout/MasterLayout.tsx';
 
 //contexts imports
 import { useLang } from './EmployeeContext.tsx';
 
-import { MenuComponent } from './generalcomponents/assets/ts/components/MenuComponent.ts';
-
-//
-import { HeaderWrapper } from './generalcomponents/layouts/header/HeaderWrapper.tsx';
-import { RightToolbar } from './generalcomponents/partials/layout/RightToolbar.tsx';
-import { ScrollTop } from './generalcomponents/layouts/scroll-top/index.ts';
-import { FooterWrapper } from './generalcomponents/layouts/footer/index.ts';
-import { Sidebar } from './generalcomponents/layouts/sidebar/index.ts';
-import { ActivityDrawer, DrawerMessenger, InviteUsers, UpgradePlan } from './generalcomponents/partials/index.ts';
-import { Content } from './generalcomponents/layouts/content/index.ts';
-import TopBarProgress from 'react-topbar-progress-indicator';
-import { getCSSVariableValue } from './generalcomponents/assets/ts/_utils/DomHelpers.ts';
-
-import { LayoutProvider,PageDataProvider } from './generalcomponents/layouts/layoutprovider/LayoutProvider.tsx';
+import { LayoutProvider } from './generalcomponents/layouts/layoutprovider/LayoutProvider.tsx';
 
 import enMessages from '../app/generalcomponents/utils/messages/en.json'
 import esMessages from '../app/generalcomponents/utils/messages/es.json'
 
-//RUTAS PUBLICAS
+//rutas públicas
 import { AuthPage } from './publicroutes/authpage/AuthPage.tsx';
 import { Logout } from './publicroutes/authpage/logout/Logout.tsx';
 
-//RUTAS PRIVADAS
+//rutas privadas
 import PrivateRoutes from './privateroutes/PrivateRoutes.tsx';
 import { SelectCompanyRoutes } from './privateroutes/selectCompany/selecCompany.routes.tsx';
 import { HomeRoutes } from './privateroutes/home/home.routes.tsx';
@@ -54,60 +42,6 @@ const UsersPage = lazy(() => import('./privateroutes/user-management/UsersPage.t
 interface WithChildren {
     children: ReactNode;
 }
-
-const MasterLayout = () => {
-    const location = useLocation();
-    useEffect(() => {
-        const reInitMenu = () => {
-            setTimeout(() => {
-              MenuComponent.reinitialization()
-            }, 500)
-        }
-        reInitMenu();
-    }, [location.key]);
-
-    return (
-        <PageDataProvider>
-            <div className='d-flex flex-column flex-root app-root' id='kt_app_root'>
-                <div className='app-page flex-column flex-column-fluid' id='kt_app_page'>
-                    <HeaderWrapper />
-                    <div className='app-wrapper flex-column flex-row-fluid' id='kt_app_wrapper'>
-                        <Sidebar />
-                        <div className='app-main flex-column flex-row-fluid' id='kt_app_main'>
-                            <div className='d-flex flex-column flex-column-fluid'>
-                                <Content>
-                                    <SuspensedView>
-                                        <Outlet />
-                                    </SuspensedView>
-                                </Content>
-                            </div>
-                            <FooterWrapper />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <ActivityDrawer />
-            <RightToolbar />
-            <DrawerMessenger />
-            <InviteUsers />
-            <UpgradePlan />
-            <ScrollTop />
-        </PageDataProvider>
-    );
-};
-
-const SuspensedView: React.FC<PropsWithChildren> = ({ children }) => {
-    const baseColor = getCSSVariableValue('--bs-primary');
-    TopBarProgress.config({
-        barColors: {
-            '0': baseColor,
-        },
-        barThickness: 1,
-        shadowBlur: 5,
-    });
-    return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>;
-};
 
 const allMessages = {
     en: enMessages,
@@ -157,7 +91,7 @@ const LayoutSplashScreen: FC<{visible?: boolean}> = ({visible = true}) => {
     return null
 }
 
-//
+// Router
 
 const router = createBrowserRouter([
 

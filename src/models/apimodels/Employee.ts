@@ -32,7 +32,6 @@ export interface Employee {
 	sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
 	sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
 	sizeShoe: 36 | 38 | 40 | 42 | 44;
-	companyIds: string[];
 	createdAt?: Date | string;
 	updatedAt?: Date | string;
 }

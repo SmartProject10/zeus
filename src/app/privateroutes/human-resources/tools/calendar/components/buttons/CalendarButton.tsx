@@ -154,7 +154,6 @@ const CalendarButton = () => {
             sizePants: 26,
             sizePolo: 'XS',
             sizeShoe: 36,
-            companyIds: [],
         }
 
         try {

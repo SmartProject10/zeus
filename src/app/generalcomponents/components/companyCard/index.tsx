@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import './index.scss'
 
 interface CompanyCardProps {
-    companyName: string
-    companyDetails: string
-    companyId: string
+    ruc: string | null;
+    socialReason: string | null;
 }
 
 export const CompanyCard = memo(
@@ -16,7 +15,7 @@ export const CompanyCard = memo(
             navigate('/home')
         }
 
-        const { companyName, companyDetails, companyId } = props
+        const { ruc, socialReason } = props
 
         return (
             <div className="company-card d-flex flex-column w-100">
@@ -29,8 +28,8 @@ export const CompanyCard = memo(
                     loading="lazy" />
                 </div>
 
-                <p className="name fw-bold fs-5 mb-0 mt-4">{companyName}</p>
-                <p className="details fs-7">{companyDetails}</p>
+                <p className="name fw-bold fs-5 mb-0 mt-4">{ruc}</p>
+                <p className="details fs-7">{socialReason}</p>
 
                 <button className="btn btn-info btn-sm w-100 position-relative" onClick={handlePress}>
                     Ingresar
@@ -43,8 +42,8 @@ export const CompanyCard = memo(
         )
     },
     (prevProps, nextProps) =>
-        prevProps.companyName === nextProps.companyName &&
-        prevProps.companyDetails === nextProps.companyDetails,
+        prevProps.ruc === nextProps.ruc &&
+        prevProps.socialReason === nextProps.socialReason,
 )
 
 CompanyCard.displayName = 'CompanyCard'

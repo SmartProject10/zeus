@@ -47,7 +47,7 @@ export const Navbar = () => {
       </div>
 
       {/*Mostramos el ícono de la lista solo si el usuario ya eligió una compañia */}
-      {(!window.location.pathname.startsWith("/select-company")) && (
+      {(!location.pathname.startsWith("/select-company")) && (
         <div className={clsx("app-navbar-item", itemClass)}>
           <NavbarItemModules toggleBtnClass={clsx("btn-active-light-primary btn-custom")} />
         </div>

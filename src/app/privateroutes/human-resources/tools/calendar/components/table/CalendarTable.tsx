@@ -211,7 +211,6 @@ const CalendarTable = () => {
       //           _id:Employee._id,
       //           name: Employee.name,
       //           password:null,
-      //           companyIds:[],
       //           lastname: Employee.lastname,
       //           email: Employee.email,
       //           dni: Employee.dni,

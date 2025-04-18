@@ -39,7 +39,6 @@ export interface EmployeeForm {
 	sizePants: 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44;
 	sizePolo: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
 	sizeShoe: 36 | 38 | 40 | 42 | 44;
-	companyIds: string[];
 }
 
 // eslint-disable-next-line react/prop-types, @typescript-eslint/no-unused-vars
@@ -77,7 +76,6 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
         sizePants: 26,
         sizePolo: 'XS',
         sizeShoe: 36,
-        companyIds: [],
     })
 
     useEffect(() => {

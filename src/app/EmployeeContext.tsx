@@ -81,7 +81,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const register = async (dataRegister: EmployeeDataRegister): Promise<boolean> => {
     const data = await _api_calls_employee._register(dataRegister);
     if(data){
-      setEmployee(employee);
+      setEmployee(data);
       setIsAuth(true);
       return true;
     }
@@ -91,7 +91,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (dataLogin: EmployeeDataLogin): Promise<boolean> => {
     const data = await _api_calls_employee._login(dataLogin);
     if(data){
-      setEmployee(employee);
+      setEmployee(data);
       setIsAuth(true);
       return true;
     }
@@ -108,7 +108,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const getEmployee = async (): Promise<void> => {
     const data = await _api_calls_employee._getProfile();
     if (data) {
-      setEmployee(employee);
+      setEmployee(data);
       setIsAuth(true);
     }
     setIsLoading(false);
