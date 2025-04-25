@@ -12,7 +12,6 @@ export interface CompanyDataLogin {
 export interface EmployeeDataRegister { 
     email: string, 
     name: string, 
-    lastname: string, 
     password: string, 
 }
 

@@ -15,7 +15,6 @@ import Swal from 'sweetalert2'
 const initialValues = {
 	email: '',
 	name: '',
-	lastname: '',
 	password: '',
 	// changepassword: '',
 	acceptTerms: false,
@@ -31,10 +30,6 @@ const registrationSchema = Yup.object().shape({
 		.min(3, 'Mínimo 3 caracteres')
 		.max(50, 'Máximo 50 caracteres')
 		.required('El nombre es obligatorio'),
-	lastname: Yup.string()
-		.min(3, 'Mínimo 3 caracteres')
-		.max(50, 'Máximo 50 caracteres')
-		.required('El apellido es obligatorio'),
 	password: Yup.string()
 		.min(8, 'Mínimo 8 caracteres')
 		.matches(/[a-zA-Z]/, 'Debe contener al menos una letra')
@@ -86,7 +81,6 @@ export function Registration() {
 							{ 
 								email: values.email, 
 								name: values.name, 
-								lastname: values.lastname, 
 								password: values.password, 
 							}
 						);
@@ -263,38 +257,6 @@ export function Registration() {
 				)}
 			</div>
 			{/* end::Form group */}
-			<div
-				className="fv-row mb-8">
-				{/* begin::Form group Lastname */}
-				<label
-					className="form-label fw-bolder text-gray-900 fs-6">Last name</label>
-				<input
-					placeholder="Last name"
-					type="text"
-					autoComplete="off"
-					{...formik.getFieldProps('lastname')}
-					className={clsx(
-						'form-control bg-transparent',
-						{
-							'is-invalid': formik.touched.lastname && formik.errors.lastname,
-						},
-						{
-							'is-valid': formik.touched.lastname && !formik.errors.lastname,
-						},
-					)}
-				/>
-				{formik.touched.lastname && formik.errors.lastname && (
-					<div
-						className="fv-plugins-message-container">
-						<div
-							className="fv-help-block">
-							<span
-								role="alert">{formik.errors.lastname}</span>
-						</div>
-					</div>
-				)}
-				{/* end::Form group */}
-			</div>
 
 			{/* begin::Form group Password */}
 			<div

@@ -7,13 +7,6 @@ const data = [
 		name: 'name',
 	},
 	{
-		title: 'Apellidos',
-		type: 'text',
-		value: 'Chavez Cruz',
-		disabled: true,
-		name: 'lastname',
-	},
-	{
 		title: 'Fecha de nacimiento',
 		type: 'date',
 		value: '01/01/1990',

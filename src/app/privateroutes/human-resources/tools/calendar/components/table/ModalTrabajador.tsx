@@ -10,7 +10,6 @@ interface MyComponentProps {
 export interface EmployeeForm {
     _id: string;
 	name: string | null;
-	lastname: string | null;
 	email: string;
 	password: string | null;
 	dni: string;
@@ -47,7 +46,6 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
     const [form, setForm] = useState<EmployeeForm>({
         _id: '',
         name: null,
-        lastname: null,
         email: '',
         password: null,
         dni: '',
@@ -92,7 +90,6 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
 
             //         setForm({
             //             name: Employee.name,
-            //             lastname: Employee.lastname,
             //             email: Employee.email,
             //             dni: Employee.dni,
             //             mothers_lastname: Employee.mothers_lastname,
@@ -120,6 +117,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
             //             sizePants: Employee.sizePants,
             //             sizePolo: Employee.sizePolo,
             //             sizeShoe: Employee.sizeShoe,
+            //             companyId: Employee.companyId,
             //         })
             //     }
             // } catch (error: any) {
@@ -196,7 +194,6 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
 
         if (
             !form.name?.trim() || 
-            !form.lastname?.trim() || 
             !form.email.trim() || 
             !form.dni.trim() || 
             !form.mothers_lastname.trim() || 
@@ -259,7 +256,6 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
 
                 //         const request: Employee = {
                 //             name: form.name,
-                //             lastname: form.lastname,
                 //             email: form.email,
                 //             dni: form.dni,
                 //             mothers_lastname: form.mothers_lastname,
@@ -287,6 +283,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
                 //             sizePants: form.sizePants,
                 //             sizePolo: form.sizePolo,
                 //             sizeShoe: form.sizeShoe,
+                //             companyId: Employee.companyId,
                 //         }
                            //actualizar con la api de "employee"
                 //         const response = await backyService.employee.put(id, request)
@@ -382,29 +379,6 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee, children }) =
                                                 value={form.name || ""}
                                                 onChange={handleChange}
                                                 placeholder="Nombre"
-                                                className="form-control input-sm" />
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className="row g-3 align-items-start justify-content-evenly mt-2">
-                                        <div
-                                            className="col-6">
-                                            <label
-                                                htmlFor="modal_trabajador_inputApellido"
-                                                className="col-form-label">
-                                                Apellido
-                                            </label>
-                                        </div>
-                                        <div
-                                            className="col-6">
-                                            <input
-                                                type="text"
-                                                id="modal_trabajador_inputApellido"
-                                                name="apellido"
-                                                value={form.lastname || ""}
-                                                onChange={handleChange}
-                                                placeholder="Apellido"
                                                 className="form-control input-sm" />
                                         </div>
                                     </div>

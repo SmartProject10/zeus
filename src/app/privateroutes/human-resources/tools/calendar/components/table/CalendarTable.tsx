@@ -9,7 +9,6 @@ import * as XLSX from 'xlsx'
 
 interface EmployeeForm {
     name?: string | null;
-    lastname?: string | null;
     email: string;
     dni: string;
     mothers_lastname: string;
@@ -50,7 +49,6 @@ const CalendarTable = () => {
   const [idEmployee, setIdEmployee] = useState('')
   const [formData, setFormData] = useState<EmployeeForm>({
         name: null,
-        lastname: null,
         email: '',
         dni: '',
         mothers_lastname: '',
@@ -151,7 +149,7 @@ const CalendarTable = () => {
 
   async function applyFilters() {
     // eslint-disable-next-line max-len
-    const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
+    const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
 
     // try {
 
@@ -174,7 +172,7 @@ const CalendarTable = () => {
   async function selectPageNavigate(page: number) {
 
     // eslint-disable-next-line max-len
-    const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
+    const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
 
     // try {
          //actualizar con la api de "employee"
@@ -211,7 +209,6 @@ const CalendarTable = () => {
       //           _id:Employee._id,
       //           name: Employee.name,
       //           password:null,
-      //           lastname: Employee.lastname,
       //           email: Employee.email,
       //           dni: Employee.dni,
       //           mothers_lastname: Employee.mothers_lastname,
@@ -239,6 +236,7 @@ const CalendarTable = () => {
       //           sizePants: Employee.sizePants,
       //           sizePolo: Employee.sizePolo,
       //           sizeShoe: Employee.sizeShoe,
+      //           companyId: Employee.companyId,
       //         }
 
                 //actualizar con la api de "employee"
@@ -277,7 +275,6 @@ const CalendarTable = () => {
 
       //         const request: Employee = {
       //           name: Employee.name,
-      //           lastname: Employee.lastname,
       //           email: Employee.email,
       //           dni: Employee.dni,
       //           mothers_lastname: Employee.mothers_lastname,
@@ -305,6 +302,7 @@ const CalendarTable = () => {
       //           sizePants: Employee.sizePants,
       //           sizePolo: Employee.sizePolo,
       //           sizeShoe: Employee.sizeShoe,
+      //           companyId: Employee.companyId,
       //         }
 
                  //actualizar con la api de "employee"
@@ -351,7 +349,7 @@ const CalendarTable = () => {
     if (action == 'next') {
 
       // eslint-disable-next-line max-len
-      const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
+      const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
       // try {
 
            //actualizar con la api de "employee"
@@ -370,7 +368,7 @@ const CalendarTable = () => {
     } else if (action == 'previous') {
 
       // eslint-disable-next-line max-len
-      const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&lastname=${formData.lastname ? formData.lastname.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
+      const filters = `?name=${formData.name ? formData.name.replace(' ', '%20') : ''}&email=${formData.email.replace(' ', '%20')}&dni=${formData.dni.replace(' ', '%20')}&mothers_lastname=${formData.mothers_lastname ? formData.mothers_lastname.replace(' ', '%20') : ''}&fathers_lastname=${formData.fathers_lastname ? formData.fathers_lastname.replace(' ', '%20') : ''}&birthDate=${formData.birthDate}&companyAreaId=${formData.companyAreaId}&charge=${formData.charge}&entryDate=${formData.entryDate}&contractTerminationDate=${formData.contractTerminationDate ? formData.contractTerminationDate : ''}&areaEntryDate=${formData.areaEntryDate}&province=${formData.province ? formData.province.replace(' ', '%20') : ''}&city=${formData.city ? formData.city.replace(' ', '%20') : ''}&address=${formData.address ? formData.address.replace(' ', '%20') : ''}&district=${formData.district ? formData.district.replace(' ', '%20') : ''}&corporateEmail=${formData.corporateEmail.replace(' ', '%20')}&nationalityId=${formData.nationalityId}&gender=${formData.gender}&civilStatus=${formData.civilStatus}&personalPhone=${formData.personalPhone.replace(' ', '%20')}&status=${formData.status}&employeeSiteId=${formData.employeeSiteId}&rolId=${formData.rolId}&sizePants=${formData.sizePants}&sizePolo=${formData.sizePolo}&sizeShoe=${formData.sizeShoe}&facialRecognition=${formData.facialRecognition ? formData.facialRecognition : ''}&digitalSignature=${formData.digitalSignature ? formData.digitalSignature : ''}&limit=${limitPerPage}`;
       
       // try {
 

@@ -125,7 +125,6 @@ const CalendarButton = () => {
         const newEmployee: Employee = {
             _id: "",
             name: form.nombres,
-            lastname: "",
             email: form.correoPersonal,
             password:null,
             dni: form.dni,
@@ -154,6 +153,7 @@ const CalendarButton = () => {
             sizePants: 26,
             sizePolo: 'XS',
             sizeShoe: 36,
+            companyId: null, //acá se tendrái que poner el id de la compañia
         }
 
         try {
