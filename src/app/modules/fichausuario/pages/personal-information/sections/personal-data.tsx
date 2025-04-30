@@ -2,6 +2,13 @@ import { useState } from "react";
 
 const data = [
 	{
+		title: "DNI",
+		type: "text",
+		value: "12345678",
+		disabled: true,
+		name: "dni",
+	},
+	{
 		title: "Nombres",
 		type: "text",
 		value: "Jhunior",
@@ -9,25 +16,32 @@ const data = [
 		name: "name",
 	},
 	{
-		title: "Apellidos",
+		title: "Apellido Paterno",
 		type: "text",
 		value: "Chavez Cruz",
 		disabled: true,
-		name: "lastname",
+		name: "apellidoPaterno",
 	},
 	{
-		title: "Fecha de nacimiento",
+		title: "Apellido Materno",
+		type: "text",
+		value: "Chavez Cruz",
+		disabled: true,
+		name: "apellidoMaterno",
+	},
+	{
+		title: "Fecha de Nacimiento",
 		type: "date",
 		value: "01/01/1990",
 		disabled: true,
 		name: "birthdate",
 	},
 	{
-		title: "Sexo",
+		title: "Género",
 		type: "select",
 		value: "Masculino",
 		disabled: true,
-		name: "sex",
+		name: "genero",
 	},
 	{
 		title: "Correo personal",
@@ -37,63 +51,40 @@ const data = [
 		name: "email",
 	},
 	{
-		title: "Dirección del domicilio",
+		title: "Dirección",
 		type: "text",
 		value: "Calle 123, 123 123",
 		disabled: true,
-		name: "address",
+		name: "direccion",
 	},
 	{
-		title: "Ciudad",
-		type: "text",
-		value: "Ciudad de México",
-		disabled: true,
-		name: "city",
-	},
-	{
-		title: "Estado",
+		title: "Distrito",
 		type: "text",
 		value: "Estado de México",
 		disabled: true,
-		name: "state",
+		name: "distrito",
 	},
 	{
 		title: "Telefono personal",
 		type: "tel",
 		value: "+52 (123) 4567-8910",
 		disabled: true,
-		name: "phone",
+		name: "indicativoTel",
 	},
 	{
-		title: "Telefono de casa",
+		title: "Telefono Laboral",
 		type: "tel",
 		value: "+52 (123) 4567-8910",
 		disabled: true,
-		name: "phonehome",
-	},
-	{
-		title: "Telefono del trabajo",
-		type: "tel",
-		value: "+52 (123) 4567-8910",
-		disabled: true,
-		name: "phonework",
+		name: "indicativoTelLaboral",
 	},
 ];
 
 export function PersonalDataSection() {
-	const [isEditable, setIsEditable] = useState(false);
-
-	const handleEditToggle = () => {
-		setIsEditable(!isEditable);
-	};
-
 	return (
 		<div className="card mb-8" id="personal-data">
 			<div className="card-header">
 				<h2 className="card-title">Datos personales</h2>
-				<button className="btn btn-secondary ml-4" onClick={handleEditToggle}>
-					{isEditable ? "Cancelar edición" : "Editar"}
-				</button>
 			</div>
 			<div className="card-body">
 				<div className="card-content">
@@ -109,21 +100,12 @@ export function PersonalDataSection() {
 										type={item.type}
 										className="form-control"
 										placeholder={item.value}
-										disabled={!isEditable}
+										disabled={true}
 										defaultValue={item.value}
 									/>
 								</div>
 							</div>
 						))}
-						<div className="d-flex justify-content-end mt-8">
-							<button
-								className="btn btn-primary"
-								type="submit"
-								disabled={!isEditable}
-							>
-								Guardar cambios
-							</button>
-						</div>
 					</form>
 				</div>
 			</div>

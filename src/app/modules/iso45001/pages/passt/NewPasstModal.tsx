@@ -96,7 +96,7 @@ function NewPasstModal({ setNewData }: any) {
 	}
 
 	const [tableData, setTableData] = useState<TableDataItem[]>([]);
-	const [actividad, setActividad] = useState("");
+	const [actividad, setActividad] = useState<string | string[]>("");
 	const [responsable, setResponsable] = useState("");
 	const [areaDestinada, setAreaDestinada] = useState<string[]>([]);
 	const [fechaVerificacion, setFechaVerificacion] = useState(
@@ -244,7 +244,7 @@ function NewPasstModal({ setNewData }: any) {
 				aria-labelledby="staticBackdropLabel"
 				aria-hidden="true"
 			>
-				<div className="modal-dialog modal-dialog-scrollable modal-lg">
+				<div className="modal-dialog modal-dialog-scrollable modal-xl">
 					<form onSubmit={handleSubmit} className="modal-content">
 						<div className="modal-header">
 							<h1 className="modal-title" id="staticBackdropLabel">
@@ -620,10 +620,24 @@ function NewPasstModal({ setNewData }: any) {
 												required
 											>
 												<option value="">Seleccione una herramienta</option>
-												<option value="matriz">Matriz</option>
-												<option value="plan">Plan</option>
-												<option value="programa">Programa</option>
-												<option value="procedimiento">Procedimiento</option>
+												<option value="">SELECCIONE UNA HERRAMIENTA</option>
+												<option value="liderazgo">LIDERAZGO</option>
+												<option value="comite-seguridad">COMITÉ DE SEGURIDAD</option>
+												<option value="mejora-continua">MEJORA CONTINUA</option>
+												<option value="inspecciones-areas-trabajo">INSPECCIONES (AREAS DE TRABAJO)</option>
+												<option value="inspecciones-vehiculos-equipos">INSPECCIONES (VEHÍCULOS Y EQUIPOS)</option>
+												<option value="inspecciones-sistema-electrico">INSPECCIONES DE SISTEMA ELÉCTRICO Y EQUIPOS</option>
+												<option value="inspecciones-herramientas-epps">INSPECCIONES (HERRAMIENTAS Y EPPS)</option>
+												<option value="inspecciones-elementos-emergencia">INSPECCIONES (ELEMENTOS DE EMERGENCIA)</option>
+												<option value="monitoreos">MONITOREOS</option>
+												<option value="capacitacion">CAPACITACIÓN</option>
+												<option value="investigacion-accidentes">INVESTIGACIÓN DE ACCIDENTES E INCIDENTES</option>
+												<option value="requisitos-legales">REQUISITOS LEGALES</option>
+												<option value="auditorias-sgsst">AUDITORÍAS DEL SGSST</option>
+												<option value="gestion-contratistas">GESTIÓN DE CONTRATISTAS</option>
+												<option value="plan-emergencia">PLAN DE EMERGENCIA</option>
+												<option value="iperc-gestion-riesgos">IPERC Y GESTIÓN DE RIESGOS</option>
+												<option value="procedimientos-trabajo">PROCEDIMIENTOS DE TRABAJO</option>
 											</select>
 										</div>
 										<div className="col-sm-6">
@@ -631,47 +645,204 @@ function NewPasstModal({ setNewData }: any) {
 												htmlFor="actividad"
 												className="required form-label"
 											>
-												Actividad
+												Actividad(es)
 											</label>
-											<select
-												className="form-select"
-												id="actividad"
-												value={actividad}
-												onChange={(e) => {
-													if (e.target.value === "otro") {
-														const nuevaActividad = prompt(
-															"Escriba la nueva actividad:"
+											<div className="position-relative">
+												<select
+													className="form-select form-select-solid"
+													id="actividad"
+													multiple
+													size={8}
+													value={Array.isArray(actividad) ? actividad : actividad ? [actividad] : []}
+													onChange={(e) => {
+														const selectedOptions = Array.from(
+															e.target.selectedOptions,
+															(option) => option.value
 														);
-														if (nuevaActividad) {
-															setTableData((prev) => [
-																...prev,
-																{ actividad: nuevaActividad },
-															]);
-															setActividad(nuevaActividad);
+
+														// Handle the "otro" option if it exists in the selection
+														if (selectedOptions.includes("otro")) {
+															const nuevaActividad = prompt("Escriba la nueva actividad:");
+															if (nuevaActividad) {
+																setTableData((prev) => [
+																	...prev,
+																	{ actividad: nuevaActividad },
+																]);
+																// Replace "otro" with the new custom activity
+																const updatedSelection = selectedOptions.filter(opt => opt !== "otro");
+																updatedSelection.push(nuevaActividad);
+																setActividad(updatedSelection);
+															} else {
+																// If prompt was cancelled, remove "otro" from selection
+																setActividad(selectedOptions.filter(opt => opt !== "otro"));
+															}
+														} else {
+															setActividad(selectedOptions);
 														}
-													} else {
-														setActividad(e.target.value);
-													}
-												}}
-												disabled={!tableData[0]?.herramientaGestion}
-												required
-											>
-												<option value="">Seleccione una actividad</option>
-												<option value="otro">Otro</option>
-												<option value="actividad1">Actividad 1</option>
-												<option value="actividad2">Actividad 2</option>
-												<option value="actividad3">Actividad 3</option>
-												{tableData
-													.filter((item) => item.actividad)
-													.map((item, index) => (
-														<option key={index} value={item.actividad}>
-															{item.actividad}
-														</option>
-													))}
-											</select>
-											{!actividad && (
+													}}
+													disabled={!tableData[0]?.herramientaGestion}
+													required
+													style={{ maxHeight: '200px' }}
+												>
+													<option value="otro" className="fw-bold bg-light">➕ Agregar nueva actividad</option>
+
+													<optgroup label="📋 LIDERAZGO Y POLÍTICAS">
+														<option value="revisar-politicas-seguridad">Revisar las políticas en materia de Seguridad</option>
+														<option value="difundir-politica-alcohol-drogas">Difundir la política de Alcohol y drogas</option>
+														<option value="difundir-politica-tolerancia-cero">Difundir la política de Tolerancia cero</option>
+														<option value="publicar-politicas-frentes-trabajo">Publicar las Políticas en los frentes de trabajo</option>
+														<option value="implementar-programa-liderazgo">Implementar el Programa de Liderazgo visible</option>
+													</optgroup>
+
+													<optgroup label="👥 COMITÉ DE SEGURIDAD">
+														<option value="conformacion-comite-sst-2022">Conformación del Comité SST Periodo 2022</option>
+														<option value="elecciones-comite-sst-2023">Realizar elecciones del Comité SST Periodo 2023</option>
+														<option value="reuniones-ordinarias-comite">Realizar Reuniones ordinarias del Comité SST</option>
+														<option value="inspeccion-mensual-comite">Realizar Inspección mensual por el Comité de Seguridad</option>
+														<option value="capacitar-miembros-comite">Capacitar a los miembros del Comité de Seguridad</option>
+														<option value="reportes-trimestrales-comite">Realizar Reportes trimestrales del Comité</option>
+														<option value="informe-anual-comite">Realizar Informe Anual de Actividades del Comité</option>
+													</optgroup>
+
+													<optgroup label="🔍 INSPECCIONES - ÁREAS DE TRABAJO">
+														<option value="inspeccion-frentes-trabajo">Inspecciones de frentes de trabajo</option>
+														<option value="inspeccion-talleres">Inspección de talleres</option>
+														<option value="inspeccion-campamentos">Inspección de campamentos</option>
+														<option value="inspeccion-polvorin">Inspección de polvorín de explosivos</option>
+														<option value="inspeccion-almacenes">Inspección de almacenes</option>
+														<option value="inspeccion-oficinas">Inspección de oficinas</option>
+													</optgroup>
+
+													<optgroup label="🚗 INSPECCIONES - VEHÍCULOS Y EQUIPOS">
+														<option value="inspeccion-vehiculos-equipos">Inspección General de Vehículos y equipos</option>
+														<option value="inspeccion-gruas">Inspección de grúas</option>
+														<option value="inspeccion-cisterna-combustible">Inspección de cisterna de combustible</option>
+													</optgroup>
+
+													<optgroup label="⚡ INSPECCIONES - SISTEMAS ELÉCTRICOS">
+														<option value="inspeccion-grupo-electrogeno">Grupo eléctrogeno / Generador eléctrico</option>
+														<option value="inspeccion-luminarias">Luminarias / Torres de iluminación</option>
+														<option value="inspeccion-tableros-electricos">Inspección de tableros Eléctricos</option>
+													</optgroup>
+
+													<optgroup label="🛠️ INSPECCIONES - HERRAMIENTAS Y EPPS">
+														<option value="inspeccion-herramientas">Inspección de Herramientas Manuales y eléctricas</option>
+														<option value="inspeccion-escaleras">Inspección de Escaleras Pórtatiles</option>
+														<option value="inspeccion-bombas-sumergibles">Inspección de Bombas sumergibles</option>
+														<option value="inspeccion-andamios">Inspección de andamios</option>
+														<option value="inspeccion-epps">Inspección de EPPs</option>
+														<option value="inspeccion-arnes">Inspección de arnés y línea de vida</option>
+														<option value="inspeccion-sistema-izaje">Inspección de Sistema de Izaje</option>
+													</optgroup>
+
+													<optgroup label="🧯 INSPECCIONES - ELEMENTOS DE EMERGENCIA">
+														<option value="inspeccion-extintores">Inspección de Extintores</option>
+														<option value="inspeccion-sistemas-incendios">Inspección de Sistemas contra incendios</option>
+													</optgroup>
+
+													<optgroup label="📊 MONITOREOS">
+														<option value="monitoreo-velocidad-vehiculos">Monitoreo de velocidad de vehículos</option>
+														<option value="monitoreo-iluminacion">Monitoreo de Control de Iluminación</option>
+														<option value="monitoreo-gases">Monitoreo de Control de Gases</option>
+														<option value="monitoreo-gases-vehiculos">Monitoreo de Gases de vehículos y equipos</option>
+														<option value="monitoreo-velocidad-viento">Monitoreo de velocidad de viento en labores subterráneas</option>
+													</optgroup>
+
+													<optgroup label="📚 CAPACITACIÓN">
+														<option value="elaborar-programa-capacitacion">Elaborar programa de Capacitación por puesto</option>
+														<option value="cumplir-programa-capacitacion">Cumplir con el programa de Capacitación</option>
+														<option value="charlas-integrales">Desarrollar las charlas integrales</option>
+														<option value="campanas-sensibilizacion">Realizar campañas de sensibilización</option>
+													</optgroup>
+
+													<optgroup label="🚨 OTRAS ACTIVIDADES">
+														<option value="acciones-correctivas-incidentes">Acciones correctivas de incidentes</option>
+														<option value="acciones-correctivas-accidentes">Acciones correctivas de accidentes</option>
+														<option value="difundir-lecciones-aprendidas">Difundir Lecciones aprendidas</option>
+														<option value="identificacion-requisitos-legales">Identificación de Requisitos legales</option>
+														<option value="evaluacion-requisitos-legales">Evaluación de requisitos legales</option>
+														<option value="auditoria-interna-seguridad">Realizar auditoría interna</option>
+														<option value="actualizar-plan-emergencias">Actualizar Plan de Emergencias</option>
+														<option value="actualizar-pets">Actualizar los PETS</option>
+													</optgroup>
+
+													{tableData
+														.filter(item => item.actividad &&
+															!document.getElementById('actividad')?.querySelector(`option[value="${item.actividad}"]`))
+														.map((item, index) => (
+															<option key={`custom-${index}`} value={item.actividad}>
+																{item.actividad}
+															</option>
+														))}
+												</select>
+
+												<div className="position-absolute top-0 end-0 mt-1 me-2">
+													<span className="badge bg-primary" title="Total opciones seleccionadas">
+														{Array.isArray(actividad) ? actividad.length : (actividad ? 1 : 0)}
+													</span>
+												</div>
+											</div>
+
+											{(!actividad || (Array.isArray(actividad) && actividad.length === 0)) && (
 												<div className="text-danger small">
-													<span role="alert">Actividad es requerido</span>
+													<span role="alert">Debe seleccionar al menos una actividad</span>
+												</div>
+											)}
+
+											<div className="form-text mt-1 d-flex justify-content-between align-items-center">
+												<span>
+													<i className="fas fa-keyboard me-1"></i>
+													Ctrl/Cmd + clic para selección múltiple
+												</span>
+
+												<div>
+													<button
+														type="button"
+														className="btn btn-sm btn-light-primary me-1"
+														disabled={!tableData[0]?.herramientaGestion}
+														onClick={() => {
+															// Filter options based on herramienta seleccionada
+															const filteredActivities = Array.from(
+																document.querySelectorAll('#actividad option')
+															)
+																.filter(opt => {
+																	// Check if parentElement is an optgroup and use its label attribute
+																	const optgroup = opt.parentElement as HTMLOptGroupElement;
+																	return optgroup && optgroup.tagName === 'OPTGROUP' &&
+																		optgroup.getAttribute('label')?.toLowerCase().includes(tableData[0]?.herramientaGestion?.toLowerCase() || '');
+																})
+																.map(opt => (opt as HTMLOptionElement).value);
+
+															setActividad(filteredActivities);
+														}}
+													>
+														<i className="fas fa-filter"></i> Filtrar
+													</button>
+
+													<button
+														type="button"
+														className="btn btn-sm btn-light-danger"
+														onClick={() => setActividad([])}
+													>
+														<i className="fas fa-times"></i> Limpiar
+													</button>
+												</div>
+											</div>
+
+											{Array.isArray(actividad) && actividad.length > 0 && (
+												<div className="selected-activities mt-2 border-top pt-2">
+													<div className="text-muted fs-7 mb-1">Actividades seleccionadas:</div>
+													<div className="d-flex flex-wrap gap-1">
+														{actividad.map((act, i) => (
+															<span key={i} className="badge bg-light-primary text-primary">
+																{act}
+																<i
+																	className="fas fa-times ms-1 cursor-pointer"
+																	onClick={() => setActividad(actividad.filter(a => a !== act))}
+																></i>
+															</span>
+														))}
+													</div>
 												</div>
 											)}
 										</div>
@@ -874,10 +1045,10 @@ function NewPasstModal({ setNewData }: any) {
 																	{area === "area1"
 																		? "Área 1"
 																		: area === "area2"
-																		? "Área 2"
-																		: area === "area3"
-																		? "Área 3"
-																		: "Área 4"}
+																			? "Área 2"
+																			: area === "area3"
+																				? "Área 3"
+																				: "Área 4"}
 																</label>
 															</div>
 														</div>
@@ -963,12 +1134,12 @@ function NewPasstModal({ setNewData }: any) {
 											</div>
 											{(!tableData[0]?.fechasEjecucion ||
 												tableData[0]?.fechasEjecucion.length === 0) && (
-												<div className="text-danger small">
-													<span role="alert">
-														Debe seleccionar al menos un mes
-													</span>
-												</div>
-											)}
+													<div className="text-danger small">
+														<span role="alert">
+															Debe seleccionar al menos un mes
+														</span>
+													</div>
+												)}
 										</div>
 										<div className="col-sm-6">
 											<label
@@ -1026,7 +1197,7 @@ function NewPasstModal({ setNewData }: any) {
 											</thead>
 											<tbody>
 												{tableData.filter((data) => data.actividad).length >
-												0 ? (
+													0 ? (
 													<>
 														{tableData
 															.filter((data) => data.actividad)
@@ -1091,7 +1262,7 @@ function NewPasstModal({ setNewData }: any) {
 							<button
 								type="submit"
 								className="btn btn-success"
-								// disabled={isSubmitting || !isValid}
+							// disabled={isSubmitting || !isValid}
 							>
 								Guardar
 							</button>
@@ -1393,11 +1564,24 @@ function NewPasstModal({ setNewData }: any) {
 												}}
 												required
 											>
-												<option value="">Seleccione una herramienta</option>
-												<option value="matriz">Matriz</option>
-												<option value="plan">Plan</option>
-												<option value="programa">Programa</option>
-												<option value="procedimiento">Procedimiento</option>
+												<option value="">SELECCIONE UNA HERRAMIENTA</option>
+												<option value="liderazgo">LIDERAZGO</option>
+												<option value="comite-seguridad">COMITÉ DE SEGURIDAD</option>
+												<option value="mejora-continua">MEJORA CONTINUA</option>
+												<option value="inspecciones-areas-trabajo">INSPECCIONES (AREAS DE TRABAJO)</option>
+												<option value="inspecciones-vehiculos-equipos">INSPECCIONES (VEHÍCULOS Y EQUIPOS)</option>
+												<option value="inspecciones-sistema-electrico">INSPECCIONES DE SISTEMA ELÉCTRICO Y EQUIPOS</option>
+												<option value="inspecciones-herramientas-epps">INSPECCIONES (HERRAMIENTAS Y EPPS)</option>
+												<option value="inspecciones-elementos-emergencia">INSPECCIONES (ELEMENTOS DE EMERGENCIA)</option>
+												<option value="monitoreos">MONITOREOS</option>
+												<option value="capacitacion">CAPACITACIÓN</option>
+												<option value="investigacion-accidentes">INVESTIGACIÓN DE ACCIDENTES E INCIDENTES</option>
+												<option value="requisitos-legales">REQUISITOS LEGALES</option>
+												<option value="auditorias-sgsst">AUDITORÍAS DEL SGSST</option>
+												<option value="gestion-contratistas">GESTIÓN DE CONTRATISTAS</option>
+												<option value="plan-emergencia">PLAN DE EMERGENCIA</option>
+												<option value="iperc-gestion-riesgos">IPERC Y GESTIÓN DE RIESGOS</option>
+												<option value="procedimientos-trabajo">PROCEDIMIENTOS DE TRABAJO</option>
 											</select>
 										</div>
 										<div className="col-sm-6">
@@ -1405,24 +1589,204 @@ function NewPasstModal({ setNewData }: any) {
 												htmlFor="actividad"
 												className="required form-label"
 											>
-												Actividad
+												Actividad(es)
 											</label>
-											<select
-												className="form-select"
-												id="actividad"
-												value={actividad}
-												onChange={(e) => setActividad(e.target.value)}
-												disabled={!tableData[0]?.herramientaGestion}
-												required
-											>
-												<option value="">Seleccione una actividad</option>
-												<option value="actividad1">Actividad 1</option>
-												<option value="actividad2">Actividad 2</option>
-												<option value="actividad3">Actividad 3</option>
-											</select>
-											{!actividad && (
+											<div className="position-relative">
+												<select
+													className="form-select form-select-solid"
+													id="actividad"
+													multiple
+													size={8}
+													value={Array.isArray(actividad) ? actividad : actividad ? [actividad] : []}
+													onChange={(e) => {
+														const selectedOptions = Array.from(
+															e.target.selectedOptions,
+															(option) => option.value
+														);
+
+														// Handle the "otro" option if it exists in the selection
+														if (selectedOptions.includes("otro")) {
+															const nuevaActividad = prompt("Escriba la nueva actividad:");
+															if (nuevaActividad) {
+																setTableData((prev) => [
+																	...prev,
+																	{ actividad: nuevaActividad },
+																]);
+																// Replace "otro" with the new custom activity
+																const updatedSelection = selectedOptions.filter(opt => opt !== "otro");
+																updatedSelection.push(nuevaActividad);
+																setActividad(updatedSelection);
+															} else {
+																// If prompt was cancelled, remove "otro" from selection
+																setActividad(selectedOptions.filter(opt => opt !== "otro"));
+															}
+														} else {
+															setActividad(selectedOptions);
+														}
+													}}
+													disabled={!tableData[0]?.herramientaGestion}
+													required
+													style={{ maxHeight: '200px' }}
+												>
+													<option value="otro" className="fw-bold bg-light">➕ Agregar nueva actividad</option>
+
+													<optgroup label="📋 LIDERAZGO Y POLÍTICAS">
+														<option value="revisar-politicas-seguridad">Revisar las políticas en materia de Seguridad</option>
+														<option value="difundir-politica-alcohol-drogas">Difundir la política de Alcohol y drogas</option>
+														<option value="difundir-politica-tolerancia-cero">Difundir la política de Tolerancia cero</option>
+														<option value="publicar-politicas-frentes-trabajo">Publicar las Políticas en los frentes de trabajo</option>
+														<option value="implementar-programa-liderazgo">Implementar el Programa de Liderazgo visible</option>
+													</optgroup>
+
+													<optgroup label="👥 COMITÉ DE SEGURIDAD">
+														<option value="conformacion-comite-sst-2022">Conformación del Comité SST Periodo 2022</option>
+														<option value="elecciones-comite-sst-2023">Realizar elecciones del Comité SST Periodo 2023</option>
+														<option value="reuniones-ordinarias-comite">Realizar Reuniones ordinarias del Comité SST</option>
+														<option value="inspeccion-mensual-comite">Realizar Inspección mensual por el Comité de Seguridad</option>
+														<option value="capacitar-miembros-comite">Capacitar a los miembros del Comité de Seguridad</option>
+														<option value="reportes-trimestrales-comite">Realizar Reportes trimestrales del Comité</option>
+														<option value="informe-anual-comite">Realizar Informe Anual de Actividades del Comité</option>
+													</optgroup>
+
+													<optgroup label="🔍 INSPECCIONES - ÁREAS DE TRABAJO">
+														<option value="inspeccion-frentes-trabajo">Inspecciones de frentes de trabajo</option>
+														<option value="inspeccion-talleres">Inspección de talleres</option>
+														<option value="inspeccion-campamentos">Inspección de campamentos</option>
+														<option value="inspeccion-polvorin">Inspección de polvorín de explosivos</option>
+														<option value="inspeccion-almacenes">Inspección de almacenes</option>
+														<option value="inspeccion-oficinas">Inspección de oficinas</option>
+													</optgroup>
+
+													<optgroup label="🚗 INSPECCIONES - VEHÍCULOS Y EQUIPOS">
+														<option value="inspeccion-vehiculos-equipos">Inspección General de Vehículos y equipos</option>
+														<option value="inspeccion-gruas">Inspección de grúas</option>
+														<option value="inspeccion-cisterna-combustible">Inspección de cisterna de combustible</option>
+													</optgroup>
+
+													<optgroup label="⚡ INSPECCIONES - SISTEMAS ELÉCTRICOS">
+														<option value="inspeccion-grupo-electrogeno">Grupo eléctrogeno / Generador eléctrico</option>
+														<option value="inspeccion-luminarias">Luminarias / Torres de iluminación</option>
+														<option value="inspeccion-tableros-electricos">Inspección de tableros Eléctricos</option>
+													</optgroup>
+
+													<optgroup label="🛠️ INSPECCIONES - HERRAMIENTAS Y EPPS">
+														<option value="inspeccion-herramientas">Inspección de Herramientas Manuales y eléctricas</option>
+														<option value="inspeccion-escaleras">Inspección de Escaleras Pórtatiles</option>
+														<option value="inspeccion-bombas-sumergibles">Inspección de Bombas sumergibles</option>
+														<option value="inspeccion-andamios">Inspección de andamios</option>
+														<option value="inspeccion-epps">Inspección de EPPs</option>
+														<option value="inspeccion-arnes">Inspección de arnés y línea de vida</option>
+														<option value="inspeccion-sistema-izaje">Inspección de Sistema de Izaje</option>
+													</optgroup>
+
+													<optgroup label="🧯 INSPECCIONES - ELEMENTOS DE EMERGENCIA">
+														<option value="inspeccion-extintores">Inspección de Extintores</option>
+														<option value="inspeccion-sistemas-incendios">Inspección de Sistemas contra incendios</option>
+													</optgroup>
+
+													<optgroup label="📊 MONITOREOS">
+														<option value="monitoreo-velocidad-vehiculos">Monitoreo de velocidad de vehículos</option>
+														<option value="monitoreo-iluminacion">Monitoreo de Control de Iluminación</option>
+														<option value="monitoreo-gases">Monitoreo de Control de Gases</option>
+														<option value="monitoreo-gases-vehiculos">Monitoreo de Gases de vehículos y equipos</option>
+														<option value="monitoreo-velocidad-viento">Monitoreo de velocidad de viento en labores subterráneas</option>
+													</optgroup>
+
+													<optgroup label="📚 CAPACITACIÓN">
+														<option value="elaborar-programa-capacitacion">Elaborar programa de Capacitación por puesto</option>
+														<option value="cumplir-programa-capacitacion">Cumplir con el programa de Capacitación</option>
+														<option value="charlas-integrales">Desarrollar las charlas integrales</option>
+														<option value="campanas-sensibilizacion">Realizar campañas de sensibilización</option>
+													</optgroup>
+
+													<optgroup label="🚨 OTRAS ACTIVIDADES">
+														<option value="acciones-correctivas-incidentes">Acciones correctivas de incidentes</option>
+														<option value="acciones-correctivas-accidentes">Acciones correctivas de accidentes</option>
+														<option value="difundir-lecciones-aprendidas">Difundir Lecciones aprendidas</option>
+														<option value="identificacion-requisitos-legales">Identificación de Requisitos legales</option>
+														<option value="evaluacion-requisitos-legales">Evaluación de requisitos legales</option>
+														<option value="auditoria-interna-seguridad">Realizar auditoría interna</option>
+														<option value="actualizar-plan-emergencias">Actualizar Plan de Emergencias</option>
+														<option value="actualizar-pets">Actualizar los PETS</option>
+													</optgroup>
+
+													{tableData
+														.filter(item => item.actividad &&
+															!document.getElementById('actividad')?.querySelector(`option[value="${item.actividad}"]`))
+														.map((item, index) => (
+															<option key={`custom-${index}`} value={item.actividad}>
+																{item.actividad}
+															</option>
+														))}
+												</select>
+
+												<div className="position-absolute top-0 end-0 mt-1 me-2">
+													<span className="badge bg-primary" title="Total opciones seleccionadas">
+														{Array.isArray(actividad) ? actividad.length : (actividad ? 1 : 0)}
+													</span>
+												</div>
+											</div>
+
+											{(!actividad || (Array.isArray(actividad) && actividad.length === 0)) && (
 												<div className="text-danger small">
-													<span role="alert">Actividad es requerido</span>
+													<span role="alert">Debe seleccionar al menos una actividad</span>
+												</div>
+											)}
+
+											<div className="form-text mt-1 d-flex justify-content-between align-items-center">
+												<span>
+													<i className="fas fa-keyboard me-1"></i>
+													Ctrl/Cmd + clic para selección múltiple
+												</span>
+
+												<div>
+													<button
+														type="button"
+														className="btn btn-sm btn-light-primary me-1"
+														disabled={!tableData[0]?.herramientaGestion}
+														onClick={() => {
+															// Filter options based on herramienta seleccionada
+															const filteredActivities = Array.from(
+																document.querySelectorAll('#actividad option')
+															)
+																.filter(opt => {
+																	// Check if parentElement is an optgroup and use its label attribute
+																	const optgroup = opt.parentElement as HTMLOptGroupElement;
+																	return optgroup && optgroup.tagName === 'OPTGROUP' &&
+																		optgroup.getAttribute('label')?.toLowerCase().includes(tableData[0]?.herramientaGestion?.toLowerCase() || '');
+																})
+																.map(opt => (opt as HTMLOptionElement).value);
+
+															setActividad(filteredActivities);
+														}}
+													>
+														<i className="fas fa-filter"></i> Filtrar
+													</button>
+
+													<button
+														type="button"
+														className="btn btn-sm btn-light-danger"
+														onClick={() => setActividad([])}
+													>
+														<i className="fas fa-times"></i> Limpiar
+													</button>
+												</div>
+											</div>
+
+											{Array.isArray(actividad) && actividad.length > 0 && (
+												<div className="selected-activities mt-2 border-top pt-2">
+													<div className="text-muted fs-7 mb-1">Actividades seleccionadas:</div>
+													<div className="d-flex flex-wrap gap-1">
+														{actividad.map((act, i) => (
+															<span key={i} className="badge bg-light-primary text-primary">
+																{act}
+																<i
+																	className="fas fa-times ms-1 cursor-pointer"
+																	onClick={() => setActividad(actividad.filter(a => a !== act))}
+																></i>
+															</span>
+														))}
+													</div>
 												</div>
 											)}
 										</div>
@@ -1617,12 +1981,12 @@ function NewPasstModal({ setNewData }: any) {
 											</select>
 											{(!tableData[0]?.areaDestinada ||
 												tableData[0]?.areaDestinada.length === 0) && (
-												<div className="text-danger small">
-													<span role="alert">
-														Debe seleccionar al menos una opción
-													</span>
-												</div>
-											)}
+													<div className="text-danger small">
+														<span role="alert">
+															Debe seleccionar al menos una opción
+														</span>
+													</div>
+												)}
 										</div>
 										<div className="col-12">
 											<label
@@ -1695,12 +2059,12 @@ function NewPasstModal({ setNewData }: any) {
 											</div>
 											{(!tableData[0]?.fechasEjecucion ||
 												tableData[0]?.fechasEjecucion.length === 0) && (
-												<div className="text-danger small">
-													<span role="alert">
-														Debe seleccionar al menos un mes
-													</span>
-												</div>
-											)}
+													<div className="text-danger small">
+														<span role="alert">
+															Debe seleccionar al menos un mes
+														</span>
+													</div>
+												)}
 										</div>
 										<div className="col-sm-12">
 											<label
@@ -1756,7 +2120,7 @@ function NewPasstModal({ setNewData }: any) {
 											</thead>
 											<tbody>
 												{tableData.filter((data) => data.actividad).length >
-												0 ? (
+													0 ? (
 													<>
 														{tableData
 															.filter((data) => data.actividad)

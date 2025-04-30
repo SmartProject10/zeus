@@ -6,35 +6,21 @@ const data = [
 		type: "text",
 		value: "12345678",
 		disabled: true,
-		name: "code",
+		name: "codigoTrabajador",
 	},
 	{
-		title: "Puesto del trabajador",
-		type: "text",
-		value: "Jefe de departamento",
-		disabled: true,
-		name: "position",
-	},
-	{
-		title: "Area del trabajador",
+		title: "Área ",
 		type: "text",
 		value: "Departamento de la empresa",
 		disabled: true,
 		name: "area",
 	},
 	{
-		title: "Gerencia",
+		title: "Cargo",
 		type: "text",
 		value: "Jefe de departamento",
 		disabled: true,
-		name: "manager",
-	},
-	{
-		title: "Servicio",
-		type: "text",
-		value: "Jefe de departamento",
-		disabled: true,
-		name: "service",
+		name: "cargo",
 	},
 	{
 		title: "Empresa",
@@ -51,28 +37,78 @@ const data = [
 		name: "reason",
 	},
 	{
-		title: "Lugar de trabajo",
+		title: "Sede de trabajo",
 		type: "text",
 		value: "Jefe de departamento",
 		disabled: true,
-		name: "place",
+		name: "sedeTrabajo",
 	},
 	{
-		title: "Fecha de ingreso",
+		title: "Tipo de contrato",
+		type: "text",
+		value: "Indefinido",
+		disabled: true,
+		name: "tipoContrato",
+	},
+	{
+		title: "Fecha de ingreso a la empresa",
 		type: "date",
 		value: "01/01/1990",
 		disabled: true,
-		name: "startdate",
+		name: "fechaIngresoEmpresa",
+	},
+	{
+		title: "Fecha de ingeso Área",
+		type: "date",
+		value: "01/01/1990",
+		disabled: true,
+		name: "fechaIngresoArea",
+	},
+	{
+		title: "Fecha de fin de contrato",
+		type: "date",
+		value: "01/01/1990",
+		disabled: true,
+		name: "fechaFinContrato",
+	},
+	{
+		title: "Tipo de rol",
+		type: "text",
+		value: "Administrativo",
+		disabled: true,
+		name: "rollSistemaDigitalizado",
+	},
+	{
+		title: "Brevete",
+		type: "text",
+		value: "A-I",
+		disabled: true,
+		name: "brevete",
+	},
+	{
+		title: "Talla de camisa",
+		type: "text",
+		value: "M",
+		disabled: true,
+		name: "tallaCamisa",
+	},
+	{
+		title: "Talla de pantalón",
+		type: "text",
+		value: "32",
+		disabled: true,
+		name: "tallaPantalon",
+	},
+	{
+		title: "Talla de zapatos",
+		type: "text",
+		value: "42",
+		disabled: true,
+		name: "tallaZapatos",
 	},
 ];
 
 export function EmploymentDataSection() {
-	const [isEditing, setIsEditing] = useState(false);
-
-	const handleEdit = () => {
-		setIsEditing(!isEditing);
-	};
-
 	return (
 		<div className="card mb-8" id="employment-data">
 			<div className="card-header">
@@ -92,23 +128,11 @@ export function EmploymentDataSection() {
 										type={item.type}
 										className="form-control"
 										placeholder={item.value}
-										disabled={!isEditing}
+										disabled={true}
 									/>
 								</div>
 							</div>
 						))}
-						<div className="d-flex justify-content-end mt-8">
-							<button
-								type="button"
-								className="btn btn-secondary me-2"
-								onClick={handleEdit}
-							>
-								{isEditing ? "Cancelar" : "Editar"}
-							</button>
-							{isEditing && (
-								<button className="btn btn-primary">Guardar cambios</button>
-							)}
-						</div>
 					</form>
 				</div>
 			</div>
