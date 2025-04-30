@@ -1377,6 +1377,7 @@ const CalendarButton = ({ onAddOrUpdateEmployee }: { onAddOrUpdateEmployee: (emp
                                                                         value={form.rollSistemaDigitalizado}
                                                                         onChange={handleChange}
                                                                         aria-label="rol select"
+                                                                        disabled={!form.area}
                                                                         required
                                                                     >
                                                                         <option>Seleccione</option>

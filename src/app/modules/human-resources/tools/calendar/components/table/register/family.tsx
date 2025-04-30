@@ -37,6 +37,32 @@ function FamilyDataTable({ data, onEdit, onDelete, rowSelection }: any) {
             key: "sex",
         },
         {
+            title: "Documento",
+            dataIndex: "document",
+            key: "document",
+            render: (text: string, record: any) => (
+                record.document ? (
+                    <Button
+                        type="link"
+                        onClick={() => {
+                            // Open the PDF in a new tab or display in viewer
+                            if (record.documentUrl) {
+                                window.open(record.documentUrl, '_blank');
+                            } else {
+                                // If it's a file object
+                                const url = URL.createObjectURL(record.document);
+                                window.open(url, '_blank');
+                            }
+                        }}
+                    >
+                        <KTIcon iconName="document" iconType="duotone" /> Ver PDF
+                    </Button>
+                ) : (
+                    <span>No disponible</span>
+                )
+            ),
+        },
+        {
             title: "Acciones",
             key: "actions",
             render: (_: any, item: any) => (
@@ -255,7 +281,29 @@ export function FamilyDataSection() {
                             <Select.Option value="Femenino">Femenino</Select.Option>
                         </Select>
                     </div>
-
+                    <div className="form-group">
+                        <label htmlFor="document" className="form-label">
+                            Documento PDF
+                        </label>
+                        <Input
+                            id="document"
+                            name="document"
+                            type="file"
+                            accept=".pdf"
+                            className="form-control"
+                            style={{ width: "100%" }}
+                            onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file && file.type !== 'application/pdf') {
+                                    alert('Por favor seleccione un archivo PDF');
+                                    e.target.value = '';
+                                }
+                            }}
+                        />
+                        <div className="form-text text-muted">
+                            Suba un documento PDF relacionado (opcional)
+                        </div>
+                    </div>
                     <div
                         className="modal-footer"
                         style={{
