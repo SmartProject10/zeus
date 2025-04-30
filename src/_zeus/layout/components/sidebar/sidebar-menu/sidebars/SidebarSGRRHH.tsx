@@ -1,13 +1,72 @@
+import { useIntl } from "react-intl";
 import { SidebarMenuItem } from "../components/SidebarMenuItem";
+import { SidebarMenuItemWithSub } from "../components/SidebarMenuItemWithSub";
+import { SidebarSubtitle } from "../components/SidebarSubtitle";
 
-export function SidebarSGRRHH(): JSX.Element {
-    return (
-        <>
-            <SidebarMenuItem to="/human-resources/main" icon="star" title="Registro Empresa" fontIcon="" />
+export const SidebarSGRRHH = () => {
+	const intl = useIntl();
 
-            <SidebarMenuItem to="/human-resources/main" icon="star" title="Registro Subempresa" fontIcon="" />
+	return (
+		<>
+			<SidebarMenuItemWithSub
+				to=""
+				icon="trello"
+				title="Empresa"
+				fontIcon=""
+			>
+				<SidebarSubtitle label="Registro" />
+				<SidebarMenuItem
+					to="/human-resources/tools/calendar/register-table"
+					icon="home"
+					title="Empresa"
+					fontIcon=""
+				/>
+				<SidebarMenuItem
+					to="/human-resources/tools/calendar/register-sede"
+					icon="office-bag"
+					title="Sede"
+					fontIcon=""
+				/>
+				<SidebarMenuItem
+					to="/human-resources/tools/calendar/register-area"
+					icon="archive"
+					title="Área"
+					fontIcon=""
+				/>
+				<SidebarMenuItem
+					to="/human-resources/tools/calendar/calendar-table"
+					icon="people"
+					title="Trabajador"
+					fontIcon=""
+				/>
+			</SidebarMenuItemWithSub>
 
-            <SidebarMenuItem to="/human-resources/main" icon="star" title="Registro Trabajadores" fontIcon="" />
-        </>
-    );
-}
+			<SidebarMenuItemWithSub
+				to="/human-resources/main"
+				icon="wallet"
+				title="Sub - Empresa"
+				fontIcon=""
+			>
+				<SidebarSubtitle label="Registro" />
+				<SidebarMenuItem
+					to="/human-resources/tools/calendar/register-sub-em"
+					icon="home"
+					title="Sub-Empresa"
+					fontIcon=""
+				/>
+				{/*<SidebarMenuItem
+					to="/human-resources/tools/calendar/register-sub-sede"
+					icon="office-bag"
+					title="Sub-Sede"
+					fontIcon=""
+				/>*/}
+				<SidebarMenuItem
+					to="/human-resources/tools/calendar/register-sub-worker"
+					icon="people"
+					title="Sub-Trabajador"
+					fontIcon=""
+				/>
+			</SidebarMenuItemWithSub >
+		</>
+	);
+};

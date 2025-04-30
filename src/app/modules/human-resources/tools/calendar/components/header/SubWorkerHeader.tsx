@@ -1,4 +1,4 @@
-const CalendarHeader = () => {
+const SubWorkerHeader = () => {
     return (
         <div
             className="card-header border-0 pt-6">
@@ -6,7 +6,7 @@ const CalendarHeader = () => {
             <div
                 className="card-toolbar">
                 {/* begin::Group actions */}
-                <p>Empresa Registrada</p>
+                <p>Sub Trabajadores disponibles</p>
                 {/* end::Group actions */}
             </div>
             {/* end::Card toolbar */}
@@ -14,4 +14,4 @@ const CalendarHeader = () => {
     )
 }
 
-export { CalendarHeader }
+export { SubWorkerHeader }

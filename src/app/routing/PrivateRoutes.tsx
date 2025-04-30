@@ -14,6 +14,7 @@ const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
 const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
 const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
 const HumanResourcesPage = lazy(() => import('../modules/human-resources/HumanResourcesPage'))
+const HumanResourcesToolsPage = lazy(() => import('../modules/human-resources/tools/HumanResourcesToolsPage'))
 
 export const PrivateRoutes = () => {
 	const RedirectTo = () => <Navigate to="/select-company" />
@@ -33,6 +34,7 @@ export const PrivateRoutes = () => {
 				<Route path="iso9001/*" element={<ISO9001Routes />} />
 				<Route path="iso45001/*" element={<ISO45001Routes />} />
 				<Route path="sgrrhh/*" element={<HumanResourcesPage />} />
+				<Route path="human-resources/tools/*" element={<HumanResourcesToolsPage />} />
 
 				{/* Lazy Modules */}
 				<Route path="crafted/pages/wizards/*" element={<WizardsPage />} />

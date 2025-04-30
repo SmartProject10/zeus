@@ -50,7 +50,7 @@ export interface EmployeeForm {
 }
 
 // eslint-disable-next-line react/prop-types, @typescript-eslint/no-unused-vars
-const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee }) => {
+const ModalSubWorker: React.FC<MyComponentProps> = ({ idEmployee }) => {
     const [form, setForm] = useState<EmployeeForm>({
         area: '',
         cargo: '',
@@ -429,13 +429,7 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee }) => {
                                                             { value: 'Area 2', label: 'Area 2' }
                                                         ]
                                                     },
-                                                    {
-                                                        title: 'Cargo', name: 'cargo', type: 'select', value: form.cargo, disabled: !editMode || !form.area, options: [
-                                                            { value: '', label: 'Seleccione' },
-                                                            { value: 'Gerente', label: 'Gerente' },
-                                                            { value: 'Jefe', label: 'Jefe' }
-                                                        ]
-                                                    },
+                                                    { title: 'Cargo', name: 'cargo', type: 'text', value: form.cargo, disabled: !editMode },
                                                     {
                                                         title: 'Código de trabajador',
                                                         name: 'codigoTrabajador',
@@ -443,46 +437,8 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee }) => {
                                                         value: form.codigoTrabajador,
                                                         disabled: !editMode,
                                                     },
-                                                    {
-                                                        title: 'Tipo de contrato',
-                                                        name: 'tipoContrato',
-                                                        type: 'select',
-                                                        value: form.tipoContrato,
-                                                        disabled: !editMode,
-                                                        options: [
-                                                            { value: '', label: 'Seleccione' },
-                                                            { value: 'Indefinido', label: 'Indefinido' },
-                                                            { value: 'Temporal', label: 'Sujeto a modalidad' },
-                                                            { value: 'Parcial', label: 'Tiempo Parcial' },
-                                                            { value: 'Teletrabajo', label: 'Teletrabajo' },
-                                                        ],
-                                                        onChange: (e: any) => {
-                                                            handleChange(e);
-                                                            if (e.target.value === 'Indefinido') {
-                                                                setForm({ ...form, fechaFinContrato: '', tipoContrato: e.target.value });
-                                                                const fechaFinContratoInput = document.getElementById('fechaFinContratoInput') as HTMLInputElement;
-                                                                if (fechaFinContratoInput) {
-                                                                    fechaFinContratoInput.disabled = true;
-                                                                }
-                                                            } else {
-                                                                const fechaFinContratoInput = document.getElementById('fechaFinContratoInput') as HTMLInputElement;
-                                                                if (fechaFinContratoInput) {
-                                                                    fechaFinContratoInput.disabled = false;
-                                                                }
-                                                                setForm({ ...form, tipoContrato: e.target.value });
-                                                            }
-                                                        }
-                                                    },
                                                     { title: 'Fecha de ingreso a la empresa', name: 'fechaIngresoEmpresa', type: 'date', value: form.fechaIngresoEmpresa, disabled: !editMode },
                                                     { title: 'Fecha de ingreso al área', name: 'fechaIngresoArea', type: 'date', value: form.fechaIngresoArea, disabled: !editMode },
-                                                    {
-                                                        title: 'Fecha de fin de contrato',
-                                                        name: 'fechaFinContrato',
-                                                        type: 'date',
-                                                        value: form.fechaFinContrato,
-                                                        disabled: !editMode || form.tipoContrato === 'Indefinido',
-                                                        id: 'fechaFinContratoInput'
-                                                    },
                                                     { title: 'Dirección', name: 'direccion', type: 'text', value: form.direccion, disabled: !editMode },
                                                     {
                                                         title: 'Distrito', name: 'distrito', type: 'select', value: form.distrito, disabled: !editMode, options: [
@@ -534,15 +490,6 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee }) => {
                                                             { value: '', label: 'Seleccione' },
                                                             { value: 'Sede 1', label: 'Sede 1' },
                                                             { value: 'Sede 2', label: 'Sede 2' }
-                                                        ]
-                                                    },
-                                                    {
-                                                        title: 'Tipo de rol', name: 'rollSistemaDigitalizado', type: 'select', value: form.rollSistemaDigitalizado, disabled: !editMode, options: [
-                                                            { value: '', label: 'Seleccione' },
-                                                            { value: 'Jefe', label: 'Jefe' },
-                                                            { value: 'Asistente', label: 'Asistente' },
-                                                            { value: 'Supervisor', label: 'Supervisor' },
-                                                            { value: 'Colaborador', label: 'Colaborador' }
                                                         ]
                                                     },
                                                     {
@@ -715,21 +662,6 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee }) => {
                                                         <div className="col-lg-8 col-md-9 col-sm-12">
                                                             {field.type === 'custom' && field.customComponent ? (
                                                                 field.customComponent
-                                                            ) : field.type === 'select' ? (
-                                                                <select
-                                                                    name={field.name}
-                                                                    className="form-select"
-                                                                    value={field.value as string}
-                                                                    onChange={field.onChange || handleChange}
-                                                                    disabled={field.disabled}
-                                                                    id={field.name === 'fechaFinContrato' ? 'fechaFinContratoInput' : undefined}
-                                                                >
-                                                                    {field.options?.map(option => (
-                                                                        <option key={option.value} value={option.value}>
-                                                                            {option.label}
-                                                                        </option>
-                                                                    ))}
-                                                                </select>
                                                             ) : field.type === 'phone' ? (
                                                                 <div className="row">
                                                                     <div className="col-5">
@@ -740,14 +672,24 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee }) => {
                                                                             onChange={handleChange}
                                                                         >
                                                                             <option value="">Seleccione</option>
-                                                                            <option value="1">Estados Unidos (+1)</option>
-                                                                            <option value="51">Perú (+51)</option>
+                                                                            <option value="54">Argentina (+54)</option>
+                                                                            <option value="591">Bolivia (+591)</option>
+                                                                            <option value="55">Brasil (+55)</option>
+                                                                            <option value="56">Chile (+56)</option>
+                                                                            <option value="57">Colombia (+57)</option>
+                                                                            <option value="506">Costa Rica (+506)</option>
+                                                                            <option value="593">Ecuador (+593)</option>
+                                                                            <option value="503">El Salvador (+503)</option>
+                                                                            <option value="502">Guatemala (+502)</option>
+                                                                            <option value="504">Honduras (+504)</option>
                                                                             <option value="52">México (+52)</option>
-                                                                            <option value="44">Reino Unido (+44)</option>
-                                                                            <option value="91">India (+91)</option>
-                                                                            <option value="81">Japón (+81)</option>
-                                                                            <option value="49">Alemania (+49)</option>
-                                                                            <option value="33">Francia (+33)</option>
+                                                                            <option value="505">Nicaragua (+505)</option>
+                                                                            <option value="507">Panamá (+507)</option>
+                                                                            <option value="595">Paraguay (+595)</option>
+                                                                            <option value="51">Perú (+51)</option>
+                                                                            <option value="1">Puerto Rico (+1)</option>
+                                                                            <option value="598">Uruguay (+598)</option>
+                                                                            <option value="58">Venezuela (+58)</option>
                                                                         </select>
                                                                     </div>
                                                                     <div className="col-7">
@@ -844,4 +786,4 @@ const ModalTrabajador: React.FC<MyComponentProps> = ({ idEmployee }) => {
     );
     // };
 }
-export default ModalTrabajador
+export default ModalSubWorker
