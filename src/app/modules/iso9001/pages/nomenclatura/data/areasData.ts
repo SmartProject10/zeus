@@ -1,3 +1,4 @@
+// Las áreas ingresadas son las mismas que deben cargar en las sub áreas
 export const areas = [
     'Contabilidad',
     'Almacen',

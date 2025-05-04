@@ -18,13 +18,15 @@ interface DocumentControlForm {
     subidoPor: string;
 }
 
+// se exportan los tipos de documento que fueron ingresados en el modal de tipo-documento
 interface TipoDocumentoForm {
     tipo: string;
 }
-
+// se exportan los tipos de documento que fueron ingresados en el modal de corporativo
 interface CorporativoForm {
     nombre: string;
 }
+// se exportan los tipos de documento que fueron ingresados en el modal de proyecto
 
 interface ProyectoForm {
     nombre: string;
@@ -575,7 +577,15 @@ const ControlPage = () => {
                                                                 borderColor: '#d1d3e0',
                                                                 boxShadow: 'none',
                                                                 '&:hover': { borderColor: '#b5b5c3' }
-                                                            })
+                                                            }),
+                                                            singleValue: (base, { data }) => ({
+                                                                ...base,
+                                                                fontFamily: data.value,
+                                                            }),
+                                                            option: (base, { data }) => ({
+                                                                ...base,
+                                                                fontFamily: data.value,
+                                                            }),
                                                         }}
                                                     />
                                                 </div>
