@@ -11,7 +11,7 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 			<SidebarMenuItem
 				to="/iso45001"
 				icon="graph-3"
-				title="ISO 45001"
+				title="ISO 45001 - Perú"
 				fontIcon="bi-layers"
 				handleReloadMenu={props.handleReloadMenu}
 			/>

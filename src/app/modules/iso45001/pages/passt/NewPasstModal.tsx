@@ -695,8 +695,8 @@ function NewPasstModal({ setNewData }: any) {
 													</optgroup>
 
 													<optgroup label="👥 COMITÉ DE SEGURIDAD">
-														<option value="conformacion-comite-sst-2022">Conformación del Comité SST Periodo 2022</option>
-														<option value="elecciones-comite-sst-2023">Realizar elecciones del Comité SST Periodo 2023</option>
+														<option value="conformacion-comite-sst-2022">Conformación del Comité SST del Periodo</option>
+														<option value="elecciones-comite-sst-2023">Realizar elecciones del Comité SST del siguiente Periodo</option>
 														<option value="reuniones-ordinarias-comite">Realizar Reuniones ordinarias del Comité SST</option>
 														<option value="inspeccion-mensual-comite">Realizar Inspección mensual por el Comité de Seguridad</option>
 														<option value="capacitar-miembros-comite">Capacitar a los miembros del Comité de Seguridad</option>
@@ -1639,8 +1639,8 @@ function NewPasstModal({ setNewData }: any) {
 													</optgroup>
 
 													<optgroup label="👥 COMITÉ DE SEGURIDAD">
-														<option value="conformacion-comite-sst-2022">Conformación del Comité SST Periodo 2022</option>
-														<option value="elecciones-comite-sst-2023">Realizar elecciones del Comité SST Periodo 2023</option>
+														<option value="revisar-politicas-seguridad">Revisar las políticas en materia de Seguridad</option>
+														<option value="difundir-politica-alcohol-drogas">Difundir la política de Alcohol y drogas</option>
 														<option value="reuniones-ordinarias-comite">Realizar Reuniones ordinarias del Comité SST</option>
 														<option value="inspeccion-mensual-comite">Realizar Inspección mensual por el Comité de Seguridad</option>
 														<option value="capacitar-miembros-comite">Capacitar a los miembros del Comité de Seguridad</option>
