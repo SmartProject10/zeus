@@ -529,195 +529,7 @@ const ControlPage = () => {
                                                     Configuración de Formato
                                                 </h5>
                                             </div>
-                                            <div className="card-body p-4">
-                                                {orientacion === 'horizontal' || orientacion === 'ambas' ? (
-                                                    <div className="mb-4 p-4 border rounded bg-light-warning">
-                                                        <h6 className="fw-bold mb-3 d-flex align-items-center">
-                                                            <i className="bi bi-layout-sidebar me-2"></i>
-                                                            Formato Horizontal
-                                                        </h6>
-                                                        <div className="row g-4">
-                                                            <div className="col-md-4">
-                                                                <div className="card h-100 border-0 shadow-sm">
-                                                                    <div className="card-header bg-light d-flex align-items-center justify-content-center py-3">
-                                                                        <h6 className="mb-0 fs-5 fw-semibold text-center"><strong>Encabezado</strong></h6>
-                                                                    </div>
-                                                                    <div className="card-body">
-                                                                        <select
-                                                                            className="form-select mb-3"
-                                                                            value={encabezado}
-                                                                            onChange={(e) => setEncabezado(e.target.value)}
-                                                                        >
-                                                                            <option value="">Seleccione</option>
-                                                                            <option value="primera">Primera cara</option>
-                                                                            <option value="todas">Todas las caras</option>
-                                                                        </select>
-                                                                        <div className="text-center">
-                                                                            <button
-                                                                                type="button"
-                                                                                className="btn btn-primary btn-sm px-4"
-                                                                                onClick={() => window.location.href = '/iso9001/document/draw'}
-                                                                                disabled={!encabezado}
-                                                                            >
-                                                                                <i className="bi bi-pencil me-1"></i> Dibujar
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-4">
-                                                                <div className="card h-100 border-0 shadow-sm">
-                                                                    <div className="card-header bg-light d-flex align-items-center justify-content-center py-3">
-                                                                        <h6 className="mb-0 fs-5 fw-semibold text-center"><strong>Cuerpo de página</strong></h6>
-                                                                    </div>
-                                                                    <div className="card-body">
-                                                                        <select
-                                                                            className="form-select mb-3"
-                                                                            value={cuerpoPagena}
-                                                                            onChange={(e) => setCuerpoPagina(e.target.value)}
-                                                                        >
-                                                                            <option value="">Seleccione</option>
-                                                                            <option value="primera">Primera cara</option>
-                                                                        </select>
-                                                                        <div className="text-center">
-                                                                            <button
-                                                                                type="button"
-                                                                                className="btn btn-primary btn-sm px-4"
-                                                                                onClick={() => window.location.href = '/iso9001/document/draw'}
-                                                                                disabled={!cuerpoPagena}
-                                                                            >
-                                                                                <i className="bi bi-pencil me-1"></i> Dibujar
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-4">
-                                                                <div className="card h-100 border-0 shadow-sm">
-                                                                    <div className="card-header bg-light d-flex align-items-center justify-content-center py-3">
-                                                                        <h6 className="mb-0 fs-5 fw-semibold text-center"><strong>Pie de página</strong></h6>
-                                                                    </div>
-                                                                    <div className="card-body">
-                                                                        <select
-                                                                            className="form-select mb-3"
-                                                                            value={piePagina}
-                                                                            onChange={(e) => setPiePagina(e.target.value)}
-                                                                        >
-                                                                            <option value="">Seleccione</option>
-                                                                            <option value="primera">Primera cara</option>
-                                                                            <option value="todas">Todas las caras</option>
-                                                                        </select>
-                                                                        <div className="text-center">
-                                                                            <button
-                                                                                type="button"
-                                                                                className="btn btn-primary btn-sm px-4"
-                                                                                onClick={() => window.location.href = '/iso9001/document/draw'}
-                                                                                disabled={!piePagina}
-                                                                            >
-                                                                                <i className="bi bi-pencil me-1"></i> Dibujar
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ) : null}
 
-                                                {orientacion === 'vertical' || orientacion === 'ambas' ? (
-                                                    <div className="mb-4 p-4 border rounded bg-light-info">
-                                                        <h6 className="fw-bold mb-3 d-flex align-items-center">
-                                                            <i className="bi bi-layout-text-window me-2"></i>
-                                                            Formato Vertical
-                                                        </h6>
-                                                        <div className="row g-4">
-                                                            <div className="col-md-4">
-                                                                <div className="card h-100 border-0 shadow-sm">
-                                                                    <div className="card-header bg-light d-flex align-items-center justify-content-center py-3">
-                                                                        <h6 className="mb-0 fs-5 fw-semibold text-center"><strong>Encabezado</strong></h6>
-                                                                    </div>
-                                                                    <div className="card-body">
-                                                                        <select
-                                                                            className="form-select mb-3"
-                                                                            value={encabezado}
-                                                                            onChange={(e) => setEncabezado(e.target.value)}
-                                                                        >
-                                                                            <option value="">Seleccione</option>
-                                                                            <option value="primera">Primera cara</option>
-                                                                            <option value="todas">Todas las caras</option>
-                                                                        </select>
-                                                                        <div className="text-center">
-                                                                            <button
-                                                                                type="button"
-                                                                                className="btn btn-primary btn-sm px-4"
-                                                                                onClick={() => window.location.href = '/iso9001/document/draw'}
-                                                                                disabled={!encabezado}
-                                                                            >
-                                                                                <i className="bi bi-pencil me-1"></i> Dibujar
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-4">
-                                                                <div className="card h-100 border-0 shadow-sm">
-                                                                    <div className="card-header bg-light d-flex align-items-center justify-content-center py-3">
-                                                                        <h6 className="mb-0 fs-5 fw-semibold text-center"><strong>Cuerpo de página</strong></h6>
-                                                                    </div>
-                                                                    <div className="card-body">
-                                                                        <select
-                                                                            className="form-select mb-3"
-                                                                            value={cuerpoPagena}
-                                                                            onChange={(e) => setCuerpoPagina(e.target.value)}
-                                                                        >
-                                                                            <option value="">Seleccione</option>
-                                                                            <option value="primera">Primera cara</option>
-                                                                        </select>
-                                                                        <div className="text-center">
-                                                                            <button
-                                                                                type="button"
-                                                                                className="btn btn-primary btn-sm px-4"
-                                                                                onClick={() => window.location.href = '/iso9001/document/draw'}
-                                                                                disabled={!cuerpoPagena}
-                                                                            >
-                                                                                <i className="bi bi-pencil me-1"></i> Dibujar
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-4">
-                                                                <div className="card h-100 border-0 shadow-sm">
-                                                                    <div className="card-header bg-light d-flex align-items-center justify-content-center py-3">
-                                                                        <h6 className="mb-0 fs-5 fw-semibold text-center"><strong>Pie de página</strong></h6>
-                                                                    </div>
-                                                                    <div className="card-body">
-                                                                        <select
-                                                                            className="form-select mb-3"
-                                                                            value={piePagina}
-                                                                            onChange={(e) => setPiePagina(e.target.value)}
-                                                                        >
-                                                                            <option value="">Seleccione</option>
-                                                                            <option value="primera">Primera cara</option>
-                                                                            <option value="todas">Todas las caras</option>
-                                                                        </select>
-                                                                        <div className="text-center">
-                                                                            <button
-                                                                                type="button"
-                                                                                className="btn btn-primary btn-sm px-4"
-                                                                                onClick={() => window.location.href = '/iso9001/document/draw'}
-                                                                                disabled={!piePagina}
-                                                                            >
-                                                                                <i className="bi bi-pencil me-1"></i> Dibujar
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ) : null}
-                                            </div>
                                         </div>
                                     )}
 
@@ -769,103 +581,66 @@ const ControlPage = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="mt-4">
-                                                <label className="form-label fw-bold mb-2">Documentación</label>
-                                                <div className="btn-group w-100 mb-4" role="group">
-                                                    <input
-                                                        type="radio"
-                                                        className="btn-check"
-                                                        name="documentacion"
-                                                        id="docCorporativo"
-                                                        checked={documentacion === 'corporativo'}
-                                                        onChange={() => setDocumentacion('corporativo')}
-                                                    />
-                                                    <label className="btn btn-outline-primary py-3" htmlFor="docCorporativo">
-                                                        <i className="bi bi-building me-2"></i>
-                                                        Corporativo
-                                                    </label>
-
-                                                    <input
-                                                        type="radio"
-                                                        className="btn-check"
-                                                        name="documentacion"
-                                                        id="docProyecto"
-                                                        checked={documentacion === 'proyecto'}
-                                                        onChange={() => setDocumentacion('proyecto')}
-                                                    />
-                                                    <label className="btn btn-outline-primary py-3" htmlFor="docProyecto">
-                                                        <i className="bi bi-clipboard-data me-2"></i>
-                                                        Proyectos
-                                                    </label>
+                                            <div className="row g-4 mt-4">
+                                                <div className="col-12">
+                                                    <h5 className="fw-bold mb-3">Documentación</h5>
                                                 </div>
-
-                                                {documentacion === 'corporativo' && (
-                                                    <div className="mb-4 p-4 border rounded bg-light">
-                                                        <label className="form-label mb-2 fw-semibold">
-                                                            <i className="bi bi-building me-2 text-primary"></i>
-                                                            Seleccione Corporativos
-                                                        </label>
-                                                        <Select
-                                                            isMulti
-                                                            options={corporativos}
-                                                            value={selectedCorporativos}
-                                                            onChange={(newValue) => setSelectedCorporativos([...newValue])}
-                                                            placeholder="Seleccione uno o varios corporativos"
-                                                            className="mb-2"
-                                                            styles={{
-                                                                control: (base) => ({
-                                                                    ...base,
-                                                                    borderColor: '#d1d3e0',
-                                                                    boxShadow: 'none',
-                                                                    '&:hover': { borderColor: '#b5b5c3' }
-                                                                }),
-                                                                multiValue: (base) => ({
-                                                                    ...base,
-                                                                    backgroundColor: '#e1f0ff',
-                                                                    borderRadius: '4px'
-                                                                }),
-                                                                multiValueLabel: (base) => ({
-                                                                    ...base,
-                                                                    color: '#3699ff'
-                                                                })
-                                                            }}
-                                                        />
-                                                    </div>
-                                                )}
-
-                                                {documentacion === 'proyecto' && (
-                                                    <div className="mb-4 p-4 border rounded bg-light">
-                                                        <label className="form-label mb-2 fw-semibold">
-                                                            <i className="bi bi-clipboard-data me-2 text-primary"></i>
-                                                            Seleccione Proyectos
-                                                        </label>
-                                                        <Select
-                                                            isMulti
-                                                            options={proyectos}
-                                                            value={selectedProyectos}
-                                                            onChange={(newValue) => setSelectedProyectos([...newValue])}
-                                                            placeholder="Seleccione uno o varios proyectos"
-                                                            className="mb-2"
-                                                            styles={{
-                                                                control: (base) => ({
-                                                                    ...base,
-                                                                    borderColor: '#d1d3e0',
-                                                                    boxShadow: 'none',
-                                                                    '&:hover': { borderColor: '#b5b5c3' }
-                                                                }),
-                                                                multiValue: (base) => ({
-                                                                    ...base,
-                                                                    backgroundColor: '#e1f0ff',
-                                                                    borderRadius: '4px'
-                                                                }),
-                                                                multiValueLabel: (base) => ({
-                                                                    ...base,
-                                                                    color: '#3699ff'
-                                                                })
-                                                            }}
-                                                        />
-                                                    </div>
-                                                )}
+                                                <div className="col-md-6">
+                                                    <label className="form-label fw-bold mb-2">Corporativo</label>
+                                                    <Select
+                                                        isMulti
+                                                        options={corporativos}
+                                                        value={selectedCorporativos}
+                                                        onChange={(newValue) => setSelectedCorporativos([...newValue])}
+                                                        placeholder="Seleccione uno o varios corporativos"
+                                                        className="mb-2"
+                                                        styles={{
+                                                            control: (base) => ({
+                                                                ...base,
+                                                                borderColor: '#d1d3e0',
+                                                                boxShadow: 'none',
+                                                                '&:hover': { borderColor: '#b5b5c3' },
+                                                            }),
+                                                            multiValue: (base) => ({
+                                                                ...base,
+                                                                backgroundColor: '#e1f0ff',
+                                                                borderRadius: '4px',
+                                                            }),
+                                                            multiValueLabel: (base) => ({
+                                                                ...base,
+                                                                color: '#3699ff',
+                                                            }),
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <label className="form-label fw-bold mb-2">Proyecto</label>
+                                                    <Select
+                                                        isMulti
+                                                        options={proyectos}
+                                                        value={selectedProyectos}
+                                                        onChange={(newValue) => setSelectedProyectos([...newValue])}
+                                                        placeholder="Seleccione uno o varios proyectos"
+                                                        className="mb-2"
+                                                        styles={{
+                                                            control: (base) => ({
+                                                                ...base,
+                                                                borderColor: '#d1d3e0',
+                                                                boxShadow: 'none',
+                                                                '&:hover': { borderColor: '#b5b5c3' },
+                                                            }),
+                                                            multiValue: (base) => ({
+                                                                ...base,
+                                                                backgroundColor: '#e1f0ff',
+                                                                borderRadius: '4px',
+                                                            }),
+                                                            multiValueLabel: (base) => ({
+                                                                ...base,
+                                                                color: '#3699ff',
+                                                            }),
+                                                        }}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -942,6 +717,195 @@ const ControlPage = () => {
                                                 </div>
                                             )}
                                         </div>
+                                    </div>
+                                    <div className="card-body p-4">
+                                        {orientacion === 'horizontal' || orientacion === 'ambas' ? (
+                                            <div className="mb-4 p-4 border rounded bg-light-warning">
+                                                <h6 className="fw-bold mb-3 d-flex align-items-center">
+                                                    <i className="bi bi-layout-sidebar me-2"></i>
+                                                    Formato Horizontal
+                                                </h6>
+                                                <div className="row g-4">
+                                                    <div className="col-md-4">
+                                                        <div className="card h-100 border-0 shadow-sm">
+                                                            <div className="card-header bg-light d-flex align-items-center justify-content-center py-3">
+                                                                <h6 className="mb-0 fs-5 fw-semibold text-center"><strong>Encabezado</strong></h6>
+                                                            </div>
+                                                            <div className="card-body">
+                                                                <select
+                                                                    className="form-select mb-3"
+                                                                    value={encabezado}
+                                                                    onChange={(e) => setEncabezado(e.target.value)}
+                                                                >
+                                                                    <option value="">Seleccione</option>
+                                                                    <option value="primera">Primera cara</option>
+                                                                    <option value="todas">Todas las caras</option>
+                                                                </select>
+                                                                <div className="text-center">
+                                                                    <button
+                                                                        type="button"
+                                                                        className="btn btn-primary btn-sm px-4"
+                                                                        onClick={() => window.location.href = '/iso9001/document/draw'}
+                                                                        disabled={!encabezado}
+                                                                    >
+                                                                        <i className="bi bi-pencil me-1"></i> Dibujar
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <div className="card h-100 border-0 shadow-sm">
+                                                            <div className="card-header bg-light d-flex align-items-center justify-content-center py-3">
+                                                                <h6 className="mb-0 fs-5 fw-semibold text-center"><strong>Cuerpo de página</strong></h6>
+                                                            </div>
+                                                            <div className="card-body">
+                                                                <select
+                                                                    className="form-select mb-3"
+                                                                    value={cuerpoPagena}
+                                                                    onChange={(e) => setCuerpoPagina(e.target.value)}
+                                                                >
+                                                                    <option value="">Seleccione</option>
+                                                                    <option value="primera">Primera cara</option>
+                                                                </select>
+                                                                <div className="text-center">
+                                                                    <button
+                                                                        type="button"
+                                                                        className="btn btn-primary btn-sm px-4"
+                                                                        onClick={() => window.location.href = '/iso9001/document/draw'}
+                                                                        disabled={!cuerpoPagena}
+                                                                    >
+                                                                        <i className="bi bi-pencil me-1"></i> Dibujar
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <div className="card h-100 border-0 shadow-sm">
+                                                            <div className="card-header bg-light d-flex align-items-center justify-content-center py-3">
+                                                                <h6 className="mb-0 fs-5 fw-semibold text-center"><strong>Pie de página</strong></h6>
+                                                            </div>
+                                                            <div className="card-body">
+                                                                <select
+                                                                    className="form-select mb-3"
+                                                                    value={piePagina}
+                                                                    onChange={(e) => setPiePagina(e.target.value)}
+                                                                >
+                                                                    <option value="">Seleccione</option>
+                                                                    <option value="primera">Primera cara</option>
+                                                                    <option value="todas">Todas las caras</option>
+                                                                </select>
+                                                                <div className="text-center">
+                                                                    <button
+                                                                        type="button"
+                                                                        className="btn btn-primary btn-sm px-4"
+                                                                        onClick={() => window.location.href = '/iso9001/document/draw'}
+                                                                        disabled={!piePagina}
+                                                                    >
+                                                                        <i className="bi bi-pencil me-1"></i> Dibujar
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ) : null}
+
+                                        {orientacion === 'vertical' || orientacion === 'ambas' ? (
+                                            <div className="mb-4 p-4 border rounded bg-light-info">
+                                                <h6 className="fw-bold mb-3 d-flex align-items-center">
+                                                    <i className="bi bi-layout-text-window me-2"></i>
+                                                    Formato Vertical
+                                                </h6>
+                                                <div className="row g-4">
+                                                    <div className="col-md-4">
+                                                        <div className="card h-100 border-0 shadow-sm">
+                                                            <div className="card-header bg-light d-flex align-items-center justify-content-center py-3">
+                                                                <h6 className="mb-0 fs-5 fw-semibold text-center"><strong>Encabezado</strong></h6>
+                                                            </div>
+                                                            <div className="card-body">
+                                                                <select
+                                                                    className="form-select mb-3"
+                                                                    value={encabezado}
+                                                                    onChange={(e) => setEncabezado(e.target.value)}
+                                                                >
+                                                                    <option value="">Seleccione</option>
+                                                                    <option value="primera">Primera cara</option>
+                                                                    <option value="todas">Todas las caras</option>
+                                                                </select>
+                                                                <div className="text-center">
+                                                                    <button
+                                                                        type="button"
+                                                                        className="btn btn-primary btn-sm px-4"
+                                                                        onClick={() => window.location.href = '/iso9001/document/draw'}
+                                                                        disabled={!encabezado}
+                                                                    >
+                                                                        <i className="bi bi-pencil me-1"></i> Dibujar
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <div className="card h-100 border-0 shadow-sm">
+                                                            <div className="card-header bg-light d-flex align-items-center justify-content-center py-3">
+                                                                <h6 className="mb-0 fs-5 fw-semibold text-center"><strong>Cuerpo de página</strong></h6>
+                                                            </div>
+                                                            <div className="card-body">
+                                                                <select
+                                                                    className="form-select mb-3"
+                                                                    value={cuerpoPagena}
+                                                                    onChange={(e) => setCuerpoPagina(e.target.value)}
+                                                                >
+                                                                    <option value="">Seleccione</option>
+                                                                    <option value="primera">Primera cara</option>
+                                                                </select>
+                                                                <div className="text-center">
+                                                                    <button
+                                                                        type="button"
+                                                                        className="btn btn-primary btn-sm px-4"
+                                                                        onClick={() => window.location.href = '/iso9001/document/draw'}
+                                                                        disabled={!cuerpoPagena}
+                                                                    >
+                                                                        <i className="bi bi-pencil me-1"></i> Dibujar
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <div className="card h-100 border-0 shadow-sm">
+                                                            <div className="card-header bg-light d-flex align-items-center justify-content-center py-3">
+                                                                <h6 className="mb-0 fs-5 fw-semibold text-center"><strong>Pie de página</strong></h6>
+                                                            </div>
+                                                            <div className="card-body">
+                                                                <select
+                                                                    className="form-select mb-3"
+                                                                    value={piePagina}
+                                                                    onChange={(e) => setPiePagina(e.target.value)}
+                                                                >
+                                                                    <option value="">Seleccione</option>
+                                                                    <option value="primera">Primera cara</option>
+                                                                    <option value="todas">Todas las caras</option>
+                                                                </select>
+                                                                <div className="text-center">
+                                                                    <button
+                                                                        type="button"
+                                                                        className="btn btn-primary btn-sm px-4"
+                                                                        onClick={() => window.location.href = '/iso9001/document/draw'}
+                                                                        disabled={!piePagina}
+                                                                    >
+                                                                        <i className="bi bi-pencil me-1"></i> Dibujar
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ) : null}
                                     </div>
                                 </form>
                             </div>
