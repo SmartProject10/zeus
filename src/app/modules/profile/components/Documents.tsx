@@ -1,6 +1,6 @@
-import {KTIcon} from '../../../../_zeus/helpers'
-import { Content } from '../../../../_zeus/layout/components/content'
-import {Card4} from '../../../../_zeus/partials/content/cards/Card4'
+import {KTIcon} from '../../../../app/_zeus/helpers'
+import { Content } from '../../../../app/_zeus/layout/components/content'
+import {Card4} from '../../../../app/_zeus/partials/content/cards/Card4'
 
 export function Documents() {
   return (

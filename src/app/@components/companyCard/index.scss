@@ -1,0 +1,26 @@
+.company-card {
+    max-width: 200px;
+
+    .card {
+        border-radius: 50px;
+        border       : 1px solid #000;
+    }
+
+    img {
+        aspect-ratio   : 1/1;
+        object-fit     : cover;
+        /* Recorta la imagen sin deformarla */
+        object-position: center;
+    }
+
+    .name, .details {
+        text-overflow: ellipsis;
+        overflow     : hidden;
+        white-space  : nowrap;
+    }
+
+    button {
+        max-width: 150px;
+        margin   : 0 auto;
+    }
+}
