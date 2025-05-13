@@ -1,70 +1,114 @@
+import { useState } from "react";
+
 const data = [
 	{
-		title: 'Codigo del trabajador',
-		type: 'text',
-		value: '12345678',
+		title: "Codigo del trabajador",
+		type: "text",
+		value: "12345678",
 		disabled: true,
-		name: 'code',
+		name: "codigoTrabajador",
 	},
 	{
-		title: 'Puesto del trabajador',
-		type: 'text',
-		value: 'Jefe de departamento',
+		title: "Área ",
+		type: "text",
+		value: "Departamento de la empresa",
 		disabled: true,
-		name: 'position',
+		name: "area",
 	},
 	{
-		title: 'Area del trabajador',
-		type: 'text',
-		value: 'Departamento de la empresa',
+		title: "Cargo",
+		type: "text",
+		value: "Jefe de departamento",
 		disabled: true,
-		name: 'area',
+		name: "cargo",
 	},
 	{
-		title: 'Gerencia',
-		type: 'text',
-		value: 'Jefe de departamento',
+		title: "Empresa",
+		type: "text",
+		value: "Jefe de departamento",
 		disabled: true,
-		name: 'manager',
+		name: "company",
 	},
 	{
-		title: 'Servicio',
-		type: 'text',
-		value: 'Jefe de departamento',
+		title: "Razón social",
+		type: "text",
+		value: "Jefe de departamento",
 		disabled: true,
-		name: 'service',
+		name: "reason",
 	},
 	{
-		title: 'Empresa',
-		type: 'text',
-		value: 'Jefe de departamento',
+		title: "Sede de trabajo",
+		type: "text",
+		value: "Jefe de departamento",
 		disabled: true,
-		name: 'company',
+		name: "sedeTrabajo",
 	},
 	{
-		title: 'Razón social',
-		type: 'text',
-		value: 'Jefe de departamento',
+		title: "Tipo de contrato",
+		type: "text",
+		value: "Indefinido",
 		disabled: true,
-		name: 'reason',
+		name: "tipoContrato",
 	},
 	{
-		title: 'Lugar de trabajo',
-		type: 'text',
-		value: 'Jefe de departamento',
+		title: "Fecha de ingreso a la empresa",
+		type: "date",
+		value: "01/01/1990",
 		disabled: true,
-		name: 'place',
+		name: "fechaIngresoEmpresa",
 	},
 	{
-		title: 'Fecha de ingreso',
-		type: 'date',
-		value: '01/01/1990',
+		title: "Fecha de ingeso Área",
+		type: "date",
+		value: "01/01/1990",
 		disabled: true,
-		name: 'startdate',
+		name: "fechaIngresoArea",
 	},
-]
+	{
+		title: "Fecha de fin de contrato",
+		type: "date",
+		value: "01/01/1990",
+		disabled: true,
+		name: "fechaFinContrato",
+	},
+	{
+		title: "Tipo de rol",
+		type: "text",
+		value: "Administrativo",
+		disabled: true,
+		name: "rollSistemaDigitalizado",
+	},
+	{
+		title: "Brevete",
+		type: "text",
+		value: "A-I",
+		disabled: true,
+		name: "brevete",
+	},
+	{
+		title: "Talla de camisa",
+		type: "text",
+		value: "M",
+		disabled: true,
+		name: "tallaCamisa",
+	},
+	{
+		title: "Talla de pantalón",
+		type: "text",
+		value: "32",
+		disabled: true,
+		name: "tallaPantalon",
+	},
+	{
+		title: "Talla de zapatos",
+		type: "text",
+		value: "42",
+		disabled: true,
+		name: "tallaZapatos",
+	},
+];
 
-export function EmploymentDataSection () {
+export function EmploymentDataSection() {
 	return (
 		<div className="card mb-8" id="employment-data">
 			<div className="card-header">
@@ -73,30 +117,25 @@ export function EmploymentDataSection () {
 			<div className="card-body">
 				<div className="card-content">
 					<form action="">
-						{
-							data.map((item) => (
-								<div className="form-group row my-4" key={item.name}>
-									<label className="col-form-label col-lg-4 col-sm-12">
-										{item.title}
-									</label>
-									<div className="col-lg-8 col-md-9 col-sm-12">
-										<input 
-											name={item.name} 
-											type={item.type} 
-											className="form-control" 
-											placeholder={item.value} 
-											disabled={item.disabled} 
-										/>
-									</div>
+						{data.map((item) => (
+							<div className="form-group row my-4" key={item.name}>
+								<label className="col-form-label col-lg-4 col-sm-12">
+									{item.title}
+								</label>
+								<div className="col-lg-8 col-md-9 col-sm-12">
+									<input
+										name={item.name}
+										type={item.type}
+										className="form-control"
+										placeholder={item.value}
+										disabled={true}
+									/>
 								</div>
-							))
-						}
-						<div className="d-flex justify-content-end mt-8">
-							<button className="btn btn-primary">Guardar cambios</button>
-						</div>
+							</div>
+						))}
 					</form>
 				</div>
 			</div>
 		</div>
-	)
+	);
 }

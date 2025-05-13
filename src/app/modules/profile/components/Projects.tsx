@@ -1,5 +1,5 @@
-import { Content } from '../../../../app/_zeus/layout/components/content'
-import { Card2 } from '../../../../app/_zeus/partials/content/cards/Card2'
+import { Content } from '../../../../_zeus/layout/components/content'
+import { Card2 } from '../../../../_zeus/partials/content/cards/Card2'
 import { IconUserModel } from '../ProfileModels'
 
 export function Projects() {

@@ -1,4 +1,4 @@
-import { KTIcon } from "@zeus/app/_zeus/helpers"
+import { KTIcon } from '@zeus/_zeus/helpers'
 import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 

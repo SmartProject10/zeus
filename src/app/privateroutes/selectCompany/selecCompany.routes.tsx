@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { SelectCompanyLayout } from './selectCompany.layout'
 
 // Pages
-import { SelectCompany } from './selectCompany/selectCompany'
+import { SelectCompany } from './pages/selectCompany/selectCompany'
 
 export function SelectCompanyRoutes(): JSX.Element {
 	return (

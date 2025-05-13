@@ -1,0 +1,257 @@
+// Variables
+$primary-color: #4a6cf7;
+$secondary-color: #2a293e;
+$accent-color: #ff6b6b;
+$light-color: #f8f9fa;
+$dark-color: #343a40;
+$gray-light: #e9ecef;
+$gray-medium: #ced4da;
+$success-color: #28a745;
+$warning-color: #ffc107;
+$font-family: 'Inter', sans-serif;
+
+// Course Detail Container
+.course-detail-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem; // Reduced gap to avoid interference
+    max-width: 100%; // Adjusted to ensure it doesn't exceed the container
+    margin: 1.5rem auto; // Reduced margin for better spacing
+    padding: 0.5rem; // Reduced padding to minimize overlap
+    font-family: $font-family;
+
+    @media (max-width: 768px) {
+        flex-direction: column-reverse;
+        gap: 1rem; // Adjusted gap for smaller screens
+    }
+}
+
+// Course Content
+.course-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+// Course Header
+.course-header {
+    padding: 1.5rem;
+    background-color: $light-color;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    
+    .course-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: $secondary-color;
+        margin-bottom: 0.5rem;
+    }
+    
+    .course-instructor {
+        font-size: 1rem;
+        color: $primary-color;
+        margin-bottom: 1rem;
+        font-weight: 500;
+    }
+    
+    .course-description {
+        color: $dark-color;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+    
+    .course-meta {
+        display: flex;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: $dark-color;
+            
+            i {
+                color: $primary-color;
+            }
+        }
+    }
+    
+    .start-course-btn {
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        
+        &:hover {
+            background-color: darken($primary-color, 10%);
+            transform: translateY(-2px);
+        }
+    }
+}
+
+// Course Content Section
+.course-content-section {
+    flex-grow: 1;
+    width: 100%;
+    padding: 1rem; // Reduced padding for narrower spacing
+    background-color: $light-color;
+    border-radius: 8px; // Reduced border radius for a tighter look
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); // Adjusted shadow for less spread
+    
+    .section-title {
+        font-size: 1.2rem; // Slightly smaller font size
+        font-weight: 600;
+        color: $secondary-color;
+        margin-bottom: 1rem; // Reduced margin
+        padding-bottom: 0.3rem; // Reduced padding
+        border-bottom: 1px solid $gray-light; // Thinner border
+    }
+    
+    @media (max-width: 768px) {
+        border-radius: 0;
+    }
+}
+
+
+// Lessons List
+.lessons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    .lesson-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: white;
+        transition: all 0.2s ease;
+        border: 1px solid $gray-light;
+        
+        &:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        &.active {
+            border-left: 4px solid $primary-color;
+            background-color: rgba($primary-color, 0.05);
+        }
+        
+        .lesson-info {
+            .lesson-title {
+                font-size: 1rem;
+                font-weight: 500;
+                margin-bottom: 0.3rem;
+            }
+            
+            .lesson-duration {
+                font-size: 0.85rem;
+                color: $dark-color;
+                opacity: 0.7;
+            }
+        }
+        
+        .lesson-status {
+            .status {
+                padding: 0.3rem 0.8rem;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: 500;
+                
+                &.completed {
+                    background-color: rgba($success-color, 0.15);
+                    color: $success-color;
+                }
+                
+                &.in-progress {
+                    background-color: rgba($warning-color, 0.15);
+                    color: darken($warning-color, 15%);
+                }
+            }
+            
+            .start-lesson-btn {
+                background-color: $light-color;
+                color: $primary-color;
+                border: 1px solid $primary-color;
+                padding: 0.3rem 0.8rem;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                
+                &:hover {
+                    background-color: $primary-color;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+// Bitácora Container
+.bitacora-container {
+    padding: 1.5rem;
+    background-color: $light-color;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    .bitacora-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $secondary-color;
+        margin-bottom: 1rem;
+    }
+
+    .bitacora-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+
+        th {
+            background-color: $gray-light;
+            color: $dark-color;
+            font-weight: 600;
+            padding: 0.8rem;
+            border-bottom: 2px solid $gray-medium;
+        }
+
+        td {
+            padding: 0.8rem;
+            border-bottom: 1px solid $gray-light;
+            color: $dark-color;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba($gray-light, 0.5);
+        }
+
+        tr:hover {
+            background-color: rgba($primary-color, 0.1);
+        }
+    }
+}
+
+
+// Error State
+.course-not-found {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    font-size: 1.5rem;
+    color: $accent-color;
+    font-weight: 500;
+    text-align: center;
+    background-color: rgba($accent-color, 0.05);
+    border-radius: 12px;
+    margin: 2rem;
+}
