@@ -1,7 +1,7 @@
 export default {
     'src/**/*.{ts,tsx}': (fileNames) => {
         return [
-            'yarn typecheck',
+            'npm run typecheck',
             `eslint -c .eslintrc --quiet ${fileNames.join(' ')}`,
         ]
     },

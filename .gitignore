@@ -2,10 +2,7 @@
 logs
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 .DS_Store
-package-lock.json
 
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
@@ -34,6 +31,4 @@ typings/
 # Output of 'npm pack'
 *.tgz
 
-# Yarn Integrity file
-.yarn-integrity
-yarn.lock
+
