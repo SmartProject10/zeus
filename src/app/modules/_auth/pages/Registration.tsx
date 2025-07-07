@@ -66,7 +66,14 @@ export function Registration() {
 				console.log(auth.data.message)
 				console.log(values)
 			} catch (error) {
-				setStatus('The registration details is incorrect.')
+				if (error.response.data.message != undefined) {
+					console.error(error.response.data.message)
+					setStatus('The registration details is incorrect. Error Details: ' + error.response.data.message)
+				}
+				else {
+					console.error(error)
+					setStatus('The registration details is incorrect. Error Details: ' + error.message)
+				}
 
 				saveAuth(undefined)
 				setSubmitting(false)

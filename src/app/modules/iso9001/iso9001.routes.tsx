@@ -1,37 +1,22 @@
 import { Route, Routes } from 'react-router-dom'
 import { Dashboard } from './pages/dashboard'
-import { PageLink, PageTitle } from '@zeus/_zeus/layout/core'
-import { ControlDocumentos } from './pages/controlDocumentos/ControlDocumentos'
+import { TipoDocumento } from './pages/nomenclatura/tipo-documento'
+import { Proyectos } from './pages/nomenclatura/proyectos'
+import { Corporativo } from './pages/nomenclatura/corporativo'
+import { Areas } from './pages/nomenclatura/areas'
+import { SubAreas } from './pages/nomenclatura/sub-areas'
+import ControlPage from './pages/document/control'
 
 export function ISO9001Routes(): JSX.Element {
-
-    const registrosBreadcrumbs: Array<PageLink> = [
-        {
-            title: 'Control de documentos',
-            path: '/iso9001',
-            isSeparator: false,
-            isActive: false,
-        },
-        {
-            title: '',
-            path: '',
-            isSeparator: true,
-            isActive: false,
-        },
-    ]
-
     return (
         <Routes>
-            <Route index element={<Dashboard />} />
-            <Route
-                path="control-documentos"
-                element={
-                    <>
-                        <PageTitle breadcrumbs={registrosBreadcrumbs}>Control de documentos</PageTitle>
-                        <ControlDocumentos />
-                    </>
-                }
-            />
+            <Route path="/pages/nomenclatura/tipo-documentos" element={<TipoDocumento />} />
+            <Route path="/pages/nomenclatura/proyectos" element={<Proyectos />} />
+            <Route path="/pages/nomenclatura/corporativo" element={<Corporativo />} />
+            <Route path="/pages/nomenclatura/areas" element={<Areas />} />
+            <Route path="/pages/nomenclatura/sub-areas" element={<SubAreas />} />
+            <Route path="/pages/document/control" element={<ControlPage />} />
+            <Route path="*" element={<Dashboard />} />
         </Routes>
     )
 }

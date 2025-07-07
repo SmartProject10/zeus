@@ -1,78 +1,70 @@
-import { useState } from "react";
-
 const data = [
 	{
-		title: "Codigo del trabajador",
-		type: "text",
-		value: "12345678",
+		title: 'Codigo del trabajador',
+		type: 'text',
+		value: '12345678',
 		disabled: true,
-		name: "code",
+		name: 'code',
 	},
 	{
-		title: "Puesto del trabajador",
-		type: "text",
-		value: "Jefe de departamento",
+		title: 'Puesto del trabajador',
+		type: 'text',
+		value: 'Jefe de departamento',
 		disabled: true,
-		name: "position",
+		name: 'position',
 	},
 	{
-		title: "Area del trabajador",
-		type: "text",
-		value: "Departamento de la empresa",
+		title: 'Area del trabajador',
+		type: 'text',
+		value: 'Departamento de la empresa',
 		disabled: true,
-		name: "area",
+		name: 'area',
 	},
 	{
-		title: "Gerencia",
-		type: "text",
-		value: "Jefe de departamento",
+		title: 'Gerencia',
+		type: 'text',
+		value: 'Jefe de departamento',
 		disabled: true,
-		name: "manager",
+		name: 'manager',
 	},
 	{
-		title: "Servicio",
-		type: "text",
-		value: "Jefe de departamento",
+		title: 'Servicio',
+		type: 'text',
+		value: 'Jefe de departamento',
 		disabled: true,
-		name: "service",
+		name: 'service',
 	},
 	{
-		title: "Empresa",
-		type: "text",
-		value: "Jefe de departamento",
+		title: 'Empresa',
+		type: 'text',
+		value: 'Jefe de departamento',
 		disabled: true,
-		name: "company",
+		name: 'company',
 	},
 	{
-		title: "Razón social",
-		type: "text",
-		value: "Jefe de departamento",
+		title: 'Razón social',
+		type: 'text',
+		value: 'Jefe de departamento',
 		disabled: true,
-		name: "reason",
+		name: 'reason',
 	},
 	{
-		title: "Lugar de trabajo",
-		type: "text",
-		value: "Jefe de departamento",
+		title: 'Lugar de trabajo',
+		type: 'text',
+		value: 'Jefe de departamento',
 		disabled: true,
-		name: "place",
+		name: 'place',
 	},
 	{
-		title: "Fecha de ingreso",
-		type: "date",
-		value: "01/01/1990",
+		title: 'Fecha de ingreso',
+		type: 'date',
+		value: '01/01/1990',
 		disabled: true,
-		name: "startdate",
+		name: 'startdate',
 	},
-];
+]
 
-export function EmploymentDataSection() {
-	const [isEditing, setIsEditing] = useState(false);
-
-	const handleEdit = () => {
-		setIsEditing(!isEditing);
-	};
-
+export function EmploymentDataSection () {
 	return (
 		<div className="card mb-8" id="employment-data">
 			<div className="card-header">
@@ -81,37 +73,30 @@ export function EmploymentDataSection() {
 			<div className="card-body">
 				<div className="card-content">
 					<form action="">
-						{data.map((item) => (
-							<div className="form-group row my-4" key={item.name}>
-								<label className="col-form-label col-lg-4 col-sm-12">
-									{item.title}
-								</label>
-								<div className="col-lg-8 col-md-9 col-sm-12">
-									<input
-										name={item.name}
-										type={item.type}
-										className="form-control"
-										placeholder={item.value}
-										disabled={!isEditing}
-									/>
+						{
+							data.map((item) => (
+								<div className="form-group row my-4" key={item.name}>
+									<label className="col-form-label col-lg-4 col-sm-12">
+										{item.title}
+									</label>
+									<div className="col-lg-8 col-md-9 col-sm-12">
+										<input 
+											name={item.name} 
+											type={item.type} 
+											className="form-control" 
+											placeholder={item.value} 
+											disabled={item.disabled} 
+										/>
+									</div>
 								</div>
-							</div>
-						))}
+							))
+						}
 						<div className="d-flex justify-content-end mt-8">
-							<button
-								type="button"
-								className="btn btn-secondary me-2"
-								onClick={handleEdit}
-							>
-								{isEditing ? "Cancelar" : "Editar"}
-							</button>
-							{isEditing && (
-								<button className="btn btn-primary">Guardar cambios</button>
-							)}
+							<button className="btn btn-primary">Guardar cambios</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-	);
+	)
 }

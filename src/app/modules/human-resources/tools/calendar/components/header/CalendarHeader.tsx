@@ -1,12 +1,12 @@
 const CalendarHeader = () => {
     return (
         <div
-className="card-header border-0 pt-6">
+            className="card-header border-0 pt-6">
             {/* begin::Card toolbar */}
             <div
-className="card-toolbar">
+                className="card-toolbar">
                 {/* begin::Group actions */}
-                <p>Trabajadores disponibles</p>
+                <p>Empresa Registrada</p>
                 {/* end::Group actions */}
             </div>
             {/* end::Card toolbar */}
@@ -14,4 +14,4 @@ className="card-toolbar">
     )
 }
 
-export {CalendarHeader}
+export { CalendarHeader }

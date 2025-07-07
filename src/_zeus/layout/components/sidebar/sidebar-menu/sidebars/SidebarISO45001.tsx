@@ -1,9 +1,7 @@
 import { SidebarMenuItem } from "../components/SidebarMenuItem";
 import { SidebarMenuItemWithSub } from "../components/SidebarMenuItemWithSub";
 
-interface SidebarIso45001Props {
-	handleReloadMenu: any;
-}
+interface SidebarIso45001Props { handleReloadMenu: any }
 
 export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 	return (
@@ -31,20 +29,12 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 				/>
 			</SidebarMenuItemWithSub>
 
-			<SidebarMenuItemWithSub to="" title="PASST" fontIcon="" icon="people">
-				<SidebarMenuItem
-					to="/iso45001/passt"
-					icon="note"
-					title="Nuevo PASST"
-					fontIcon="bi-layers"
-				/>
-				<SidebarMenuItem
-					to="/iso45001/base-de-datos-passt"
-					icon="note"
-					title="Siguiente PASST"
-					fontIcon="bi-layers"
-				/>
-			</SidebarMenuItemWithSub>
+			<SidebarMenuItemWithSub
+				to=""
+				title="PASST"
+				fontIcon=""
+				icon="people"
+			></SidebarMenuItemWithSub>
 
 			<SidebarMenuItemWithSub
 				to=""
@@ -59,13 +49,7 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 				fontIcon="bi-archive"
 				icon="people"
 			>
-				<SidebarMenuItem
-					to="/iso45001/registro-bd"
-					icon="graph-3"
-					title="Registro/Base de datos"
-					fontIcon="bi-layers"
-				/>
-				{/* <SidebarMenuItemWithSub
+				<SidebarMenuItemWithSub
 					to="/crafted/pages"
 					title="Luces de emergencia"
 					fontIcon="bi-archive"
@@ -83,84 +67,91 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 						title="Inspección luces de emergencia"
 						fontIcon="bi-layers"
 					/>
-				</SidebarMenuItemWithSub> */}
+				</SidebarMenuItemWithSub>
 
-				{/*<SidebarMenuItem
+				<SidebarMenuItem
 					to="/iso45001/kit"
 					icon="graph-3"
 					title="Kit antiderrames"
 					fontIcon="bi-layers"
-				/>*/}
+				/>
 
-				{/*<SidebarMenuItem
+				<SidebarMenuItem
 					to="/iso45001/botiquin"
 					icon="graph-3"
 					title="Botiquin"
 					fontIcon="bi-layers"
-				/>*/}
+				/>
 
-				{/*<SidebarMenuItem
+				<SidebarMenuItem
 					to=""
 					icon="graph-3"
 					title="Examenes medicos ocupacionales"
 					fontIcon="bi-layers"
-				/>*/}
+				/>
 
 				<SidebarMenuItem
 					to="/iso45001/inspecciones-internas-seguridad"
 					icon="graph-3"
-					title="Inspecciones"
+					title="Inspecciones internas de seguridad"
 					fontIcon="bi-layers"
 				/>
 
-				{/*<SidebarMenuItem
-					to="/iso45001/accidentes-enfermedades-trabajo"
+				<SidebarMenuItem
+					to=""
 					icon="graph-3"
 					title="Accidentes/Enfermedades de trabajo"
 					fontIcon="bi-layers"
-				/>*/}
+				/>
 
-				{/*<SidebarMenuItem
+				<SidebarMenuItem
 					to=""
 					icon="graph-3"
 					title="Monitoreos ocupacionales"
 					fontIcon="bi-layers"
-				/>*/}
+				/>
 
-				{/*<SidebarMenuItem
+				<SidebarMenuItem
+					to="/iso45001/asistencia"
+					icon="graph-3"
+					title="Asistencia"
+					fontIcon="bi-layers"
+				/>
+
+				<SidebarMenuItem
 					to=""
 					icon="graph-3"
 					title="Inducciones"
 					fontIcon="bi-layers"
-				/>*/}
+				/>
 
-				{/*<SidebarMenuItem
+				<SidebarMenuItem
 					to=""
 					icon="graph-3"
 					title="Capacitaciones"
 					fontIcon="bi-layers"
-				/>*/}
+				/>
 
-				{/*<SidebarMenuItem
+				<SidebarMenuItem
 					to=""
 					icon="graph-3"
 					title="Simulacros"
 					fontIcon="bi-layers"
-				/>*/}
+				/>
 
-				{/*<SidebarMenuItem
+				<SidebarMenuItem
 					to=""
 					icon="graph-3"
 					title="Auditorias"
 					fontIcon="bi-layers"
-				/>*/}
+				/>
 
-				{/*<SidebarMenuItem
+				<SidebarMenuItem
 					to="/iso45001/compromisos-alta-generencia"
 					icon="graph-3"
 					title="Compromisos de alta generencia"
 					fontIcon="bi-layers"
-				/>*/}
+				/>
 			</SidebarMenuItemWithSub>
 
 			<SidebarMenuItem
@@ -195,13 +186,13 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 				icon="people"
 			>
 				<SidebarMenuItem
-					to="/iso45001/riesgos"
+					to=""
 					icon="graph-3"
 					title="Factor de Riesgo"
 					fontIcon="bi-layers"
 				/>
 				<SidebarMenuItem
-					to="/iso45001/medidas"
+					to=""
 					icon="graph-3"
 					title="Medidas"
 					fontIcon="bi-layers"
@@ -238,92 +229,7 @@ export function SidebarISO45001(props: SidebarIso45001Props): JSX.Element {
 					/>
 				</SidebarMenuItemWithSub>
 			</SidebarMenuItemWithSub>
-			<SidebarMenuItemWithSub
-				to=""
-				icon="graph-3"
-				title="Accidentes"
-				fontIcon="bi-layers"
-			>
-				<SidebarMenuItem
-					to="/iso45001/accidentes"
-					icon="graph-3"
-					title="Investigaciones de accidente/incidente"
-					fontIcon="bi-layers"
-				/>
-				<SidebarMenuItem
-					to=""
-					icon="graph-3"
-					title="Notificaciones de accidente/incidente"
-					fontIcon="bi-layers"
-				/>
-				<SidebarMenuItem
-					to=""
-					icon="graph-3"
-					title="Partes de accidente Delta/Conta"
-					fontIcon="bi-layers"
-				/>
-				<SidebarMenuItem
-					to=""
-					icon="graph-3"
-					title="Cuadro de tipo de accidentes"
-					fontIcon="bi-layers"
-				/>
-				<SidebarMenuItem
-					to=""
-					icon="graph-3"
-					title="Cuadro de incidentes"
-					fontIcon="bi-layers"
-				/>
-			</SidebarMenuItemWithSub>
-			<SidebarMenuItemWithSub
-				to=""
-				icon="graph-3"
-				title="Formación e Información"
-				fontIcon="bi-layers"
-			>
-				<SidebarMenuItem
-					to="/iso45001/formacion"
-					icon="graph-3"
-					title="Gestion de formaciones"
-					fontIcon="bi-layers"
-				/>
-				<SidebarMenuItem
-					to="/iso45001/informacion"
-					icon="graph-3"
-					title="Convocatorias de formación"
-					fontIcon="bi-layers"
-				/>
-				<SidebarMenuItem
-					to="/iso45001/fichas-riesgo-empleado"
-					icon="graph-3"
-					title="Fichas de Riesgo por Empleado"
-					fontIcon="bi-layers"
-				/>
-				<SidebarMenuItem
-					to="/iso45001/planes-acogida"
-					icon="graph-3"
-					title="Planes de Acogida"
-					fontIcon="bi-layers"
-				/>
-				<SidebarMenuItem
-					to="/iso45001/adjuntos"
-					icon="graph-3"
-					title="Adjuntos"
-					fontIcon="bi-layers"
-				/>
-				<SidebarMenuItem
-					to="/iso45001/cuadro-formaciones"
-					icon="graph-3"
-					title="Cuadro de Formaciones"
-					fontIcon="bi-layers"
-				/>
-				<SidebarMenuItem
-					to="/iso45001/analisis-dinamico-formaciones"
-					icon="graph-3"
-					title="Análisis Dinámico de Formaciones"
-					fontIcon="bi-layers"
-				/>
-			</SidebarMenuItemWithSub>
+
 			<SidebarMenuItemWithSub
 				to=""
 				icon="graph-3"
