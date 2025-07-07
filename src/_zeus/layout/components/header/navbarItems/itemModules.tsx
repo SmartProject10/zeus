@@ -17,8 +17,8 @@ export const NavbarItemModules = ({
 }: Props) => {
 
 	const MODULES = [
-		{ module: '⁠9001-20152', url: '/iso9001' },
-		{ module: '45001-20183', url: '/iso45001' },
+		{ module: '⁠9001-2015', url: '/iso9001' },
+		{ module: '45001-2018', url: '/iso45001' },
 		{ module: '14001-2018', url: '#' },
 		{ module: '27001-2022', url: '#' },
 		{ module: '19601-2017', url: '#' },
